@@ -26,7 +26,7 @@ export const TechsInput = ({
     onChangeTechs
 }) => {
     return(
-        <select>
+        <select onChange={onChangeTechs}>
 
         </select>
     )
@@ -47,5 +47,20 @@ export const RegionInput = ({
                 value="오프라인만 가능"
             >오프라인만 가능</option>
         </select>
+    )
+}
+
+export const TechInput = ({
+    tech,
+    onChangeTech
+}) => {
+    return(
+        <input 
+            type="text"
+            name="tech"
+            value={tech}
+            onChange={onChangeTech}
+            placeholder="예) Java, React, Python"
+        />
     )
 }
