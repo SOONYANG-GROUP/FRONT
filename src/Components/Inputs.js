@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 export const TitleInput = ({title, onChangeTitle}) => {
     return(
         <input
@@ -62,5 +64,39 @@ export const TechInput = ({
             onChange={onChangeTech}
             placeholder="예) Java, React, Python"
         />
+    )
+}
+
+export const RoadmapPartInput = ({
+    roadmapTitle,
+    roadmapDescription,
+    onClickRoadmap,
+    onChangeRoadmapTitle,
+    onChangeRoadmapDescription
+}) => {
+    return(
+        <div>
+            <div>
+                <input 
+                    type="text"
+                    name="title"
+                    value={roadmapTitle}
+                    onChange={onChangeRoadmapTitle}
+                />
+            </div>
+            <div>
+                <textarea
+                    name="description"
+                    value={roadmapDescription}
+                    onChange={onChangeRoadmapDescription}
+                >
+                </textarea>
+            </div>
+            <div>
+                <button onClick={onClickRoadmap}>
+                    roadmap 추가하기
+                </button>
+            </div>
+        </div>
     )
 }

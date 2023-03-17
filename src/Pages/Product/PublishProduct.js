@@ -11,16 +11,16 @@ const PublishProduct = () => {
     const [ imagesUrl, setImagesUrl ] = useState([]);
     const [ projectLink, setProjectLink ] = useState("");
     
-    const onChangeName = () => {
-
+    const onChangeName = (e) => {
+        setName(e.target.value);
     }
 
-    const onChangeDescription = () => {
-
+    const onChangeDescription = (e) => {
+        setDescription(e.target.value);
     }
 
-    const onChangeProjectLink = () => {
-
+    const onChangeProjectLink = (e) => {
+        setProjectLink(e.target.value);
     }
 
     if(isLoading)
