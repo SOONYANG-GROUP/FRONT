@@ -26,10 +26,10 @@ const BuildProject = () => {
     const [ detailSelectedElement, setDetailSelectedElement] = useState("웹 프론트");
     const [ errorStatus, setErrorStatus ] = useState(false);
     const [ errorMessage, setErrorMessage ] = useState("");
-
+    
+    let _id = 0;
     let [ totalNumberOfRecruits, setTotalNumberRecruits ] = useState(0);
     
-
     useEffect(() => {
         setIsLoading(false);
     }, []);
@@ -53,10 +53,12 @@ const BuildProject = () => {
         if(result < 5)
         {
             let element = {
+                _id,
                 selectedElement,
                 detailSelectedElement,
                 theNumberOfRecruit: parseInt(theNumberOfRecruit)
             };
+            _id += 1;
             setTotalNumberRecruits(result);
             recruits.push(element);
         }
@@ -64,6 +66,24 @@ const BuildProject = () => {
         {
             setErrorStatus(true);
             setErrorStatus("4명 초과입니다. 원활한 진행을 위해 4명 이하로 팀을 구성하세요.")
+        }
+        await setAddingRecruits(false);
+    }
+
+    const onDeleteRecruit = async (e) => {
+        e.preventDefault();
+        await setAddingRecruits(true);
+        recruits.forEach(element => {
+            if(element._id == parseInt(e.target.value))
+            {
+                recruits.splice(recruits.indexOf(parseInt(e.target.value)));
+            }
+        });
+        setTotalNumberRecruits(totalNumberOfRecruits - 1);
+        if(totalNumberOfRecruits < 5)
+        {
+            setErrorStatus(false);
+            setErrorMessage("");
         }
         await setAddingRecruits(false);
     }
@@ -80,6 +100,13 @@ const BuildProject = () => {
         await setAddingTech(false);
     }
 
+    const onDeleteTech = async (e) => {
+        e.preventDefault();
+        await setAddingTech(true);
+        techs.splice(techs.indexOf(e.target.value), 1)
+        await setAddingTech(false);
+    }
+
     const onSubmit = async (e) => {
         e.preventDefault();
         await setBuilding(true);
@@ -87,8 +114,6 @@ const BuildProject = () => {
         
         
     }
-
-    console.log(techs)
 
     if(isLoading)
     {
@@ -125,9 +150,16 @@ const BuildProject = () => {
                                 recruits.map((recruit, index) => {
                                     return(
                                         <div key={index}>
+                                            <div>
                                             {recruit.selectedElement}
                                             {recruit.detailSelectedElement}
                                             {recruit.theNumberOfRecruit}    
+                                            </div>
+                                            <div>
+                                                <button value={recruit._id} onClick={onDeleteRecruit}>
+                                                    요소 삭제
+                                                </button>
+                                            </div>
                                         </div>
                                     )
                                 })
@@ -167,9 +199,18 @@ const BuildProject = () => {
                         {addingTech ? (<></>) : (
                             techs.map((techElement, index) => {
                                 return(
-                                    <p key={index}>
-                                        {techElement}
-                                    </p>
+                                    <div>
+                                        <div>
+                                            <p key={index}>
+                                                {techElement}
+                                            </p>
+                                        </div>
+                                        <div>
+                                            <button value={techElement} onClick={onDeleteTech}>
+                                                요소 삭제
+                                            </button>
+                                        </div>
+                                    </div>
                                 )
                             })
                         )}
