@@ -9,6 +9,7 @@
                 "웹 서버 개발자",
                 "AI 빅데이터 개발자"
             ],
+            "completedRecruitment": 2,
             "remainingTime": 10
         },
         {
@@ -18,6 +19,7 @@
                 "임베디드 SW 개발자",
                 "보안 개발자"
             ],
+            "completedRecruitment": 2,
             "remainingTime": 10
         },
         {
@@ -26,6 +28,7 @@
                 "크로스 플랫폼 개발자",
                 "게임 서버 개발자"
             ],
+            "completedRecruitment": 1,
             "remainingTime": 10
         },
         {
@@ -34,6 +37,7 @@
                 "웹 프론트엔드 개발자",
                 "웹 서버 개발자"
             ],
+            "completedRecruitment": 1,
             "remainingTime": 10
         },
         {
@@ -42,6 +46,7 @@
                 "게임 서버 개발자",
                 "화이트 해커"
             ],
+            "completedRecruitment": 1,
             "remainingTime": 10
         },
         {
@@ -49,6 +54,7 @@
             "fields": [
                 "웹 퍼블리셔"
             ],
+            "completedRecruitment": 0,
             "remainingTime": 10
         }
     ]
