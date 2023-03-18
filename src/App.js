@@ -15,6 +15,8 @@ import Champion from "./Pages/Champion/Champion";
 import Dashboard from "./Pages/Admin/Dashboard";
 import CreateSkill from "./Pages/Admin/CreateSkill";
 import CreateChampion from "./Pages/Admin/CreateChampion";
+import Summoners from "./Pages/Summoner/Summoners";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   return (
@@ -22,10 +24,11 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/summoners" element={<Summoners />} />
         <Route path="/test" element={<Test />} />
 
         <Route path="/create/battle" element={<CreateBattle />} />
-        
+
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/create/skill" element={<CreateSkill />} />
         <Route path="/admin/create/champion" element={<CreateChampion />} />
@@ -35,6 +38,7 @@ function App() {
         <Route path="/battles" element={<Battles />} />
         <Route path="/battle/:id" element={<Battle />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
