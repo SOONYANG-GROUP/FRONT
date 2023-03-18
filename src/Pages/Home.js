@@ -6,6 +6,29 @@ const Home = () => {
 
   return (
     <>
+      <div>
+      <div id="carouselExampleInterval" className="carousel slide" data-bs-ride="carousel">
+        <div className="carousel-inner">
+          <div className="carousel-item active" data-bs-interval="10000">
+            <img src="https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202212/12/xportsnews/20221212171007199rvca.jpg" className="d-block w-100" alt="..." />
+          </div>
+          <div className="carousel-item" data-bs-interval="2000">
+            <img src="https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202212/12/xportsnews/20221212171007199rvca.jpg" className="d-block w-100" alt="..." />
+          </div>
+          <div className="carousel-item">
+            <img src="https://img1.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202212/12/xportsnews/20221212171007199rvca.jpg" className="d-block w-100" alt="..." />
+          </div>
+        </div>
+        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Next</span>
+        </button>
+      </div>
+      </div>
       <Container>
         <Title>프로젝트 추천합니다</Title>
         <Title>개발자를 위한 로드맵</Title>
