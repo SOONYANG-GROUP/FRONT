@@ -5,8 +5,37 @@
             "roadmap": "웹 프론트엔드 개발자",
             "field": "",
             "averageSalary": 1000,
-            "skills": [],
-            "iconClassName": ""
+            "skills": [
+                {
+                    "name": "C++",
+                    "references": [
+                        "https://www.naver.com",
+                        "https://www.google.com"
+                    ]
+                },
+                {
+                    "name": "C",
+                    "references": [
+                        "https://www.naver.com",
+                        "https://www.google.com"
+                    ]
+                },
+                {
+                    "name": "컴퓨터 구조",
+                    "references": [
+                        "https://www.naver.com",
+                        "https://www.google.com"
+                    ]
+                },
+                {
+                    "name": "운영체제",
+                    "references": [
+                        "https://www.naver.com",
+                        "https://www.google.com"
+                    ]
+                }
+            ],
+            "iconClassName": "fa-solid fa-paint-roller fa-2xl"
         },
         {
             "_id": 2,
@@ -14,7 +43,7 @@
             "field": "",
             "averageSalary": 1000,
             "skills": [],
-            "iconClassName": ""
+            "iconClassName": "fa-brands fa-bitcoin fa-2xl"
         },
         {
             "_id": 3,
@@ -22,7 +51,7 @@
             "field": "",
             "averageSalary": 1000,
             "skills": [],
-            "iconClassName": ""
+            "iconClassName": "fa-sharp fa-solid fa-server fa-2xl"
         },
         {
             "_id": 4,
@@ -30,7 +59,7 @@
             "field": "",
             "averageSalary": 1000,
             "skills": [],
-            "iconClassName": ""
+            "iconClassName": "fa-brands fa-hackerrank fa-2xl"
         }
     ]
 }
