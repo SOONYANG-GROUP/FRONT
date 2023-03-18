@@ -14,9 +14,6 @@ const Home = () => {
       <Container>
         <Title>소환사를 찾고 있습니다.</Title>
         <ProjectList />
-<<<<<<< HEAD
-
-=======
         <Title>챔피온이 되기 위한 로드맵</Title>
         <RoadmapList />
         <Container className="row">
@@ -29,7 +26,6 @@ const Home = () => {
             <AnnouncementList />
           </div>
         </Container>
->>>>>>> ab65a36010227de19eeb6fbee2c2a640ed758d03
       </Container>
     </>
   );
