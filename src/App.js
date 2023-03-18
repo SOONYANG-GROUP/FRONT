@@ -6,6 +6,7 @@ import CreateBattle from "./Pages/Battle/CreateBattle";
 import Header from "./Components/Header/Header";
 import Test from "./Test";
 
+import Champions from "./Pages/Champion/Champions";
 
 import Dashboard from "./Pages/Admin/Dashboard";
 import CreateSkill from "./Pages/Admin/CreateSkill";
@@ -24,6 +25,7 @@ function App() {
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/create/skill" element={<CreateSkill />} />
         <Route path="/admin/create/champion" element={<CreateChampion />} />
+        <Route path="/champions" element={<Champions />} />
       </Routes>
     </Router>
   );
