@@ -1,0 +1,22 @@
+{
+    "champions": [
+        {
+            "name": "",
+            "description": "",
+            "skills": [],
+            "imageUrl": "../Images"
+        },
+        {
+            "name": "",
+            "description": "",
+            "skills": [],
+            "imageUrl": ""
+        },
+        {
+            "name": "",
+            "description": "",
+            "skills": [],
+            "imageUrl": ""
+        }
+    ]
+}
