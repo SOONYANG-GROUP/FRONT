@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { NameInput } from "../../Components/Inputs/Input";
+import { StudyTip } from "../../Components/Inputs/Textarea";
+import ReferenceList from "../../Components/List/ReferenceList";
+
 import Loading from "../Loading";
 
 const CreateSkill = () => {
     const [ isLoading, setIsLoading ] = useState();
     const [ creating, setCreating ] = useState(false);
+    const [ addingReference, setAddingReference] = useState(false);
     
     const [ name, setName ] = useState("");
     const [ studyTip, setStudyTip ] = useState("");
@@ -42,8 +46,18 @@ const CreateSkill = () => {
                             onChangeName={onChangeName}
                         />
                     </div>
-                    
-
+                    <div>
+                        <StudyTip 
+                            studyTip={studyTip}
+                            onChangeStudyTip={onChangeStudyTip}
+                        />
+                    </div>
+                    <div>
+                        <ReferenceList 
+                            addingReference={addingReference}
+                            references={references}
+                        />
+                    </div>
                 </div>
             )
         }

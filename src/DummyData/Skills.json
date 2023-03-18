@@ -1,0 +1,28 @@
+{
+    "skills": [
+        {
+            "name": "C++",
+            "studyTip": "",
+            "references": [
+                {
+                    "referenceLink": "https://www.naver.com"
+                },
+                {
+                    "referenceLink": "http://www.google.com"
+                }
+            ]
+        },
+        {
+            "name": "C",
+            "studyTip": "",
+            "references": [
+                {
+                    "referenceLink": "https://www.tesla.com/"
+                },
+                {
+                    "referenceLink": "https://www.tesla.com/"
+                }
+            ]
+        }
+    ]
+}

@@ -8,31 +8,19 @@
             "skills": [
                 {
                     "name": "C++",
-                    "references": [
-                        "https://www.naver.com",
-                        "https://www.google.com"
-                    ]
+                    "skillUrl": "http://www.naver.com"
                 },
                 {
                     "name": "C",
-                    "references": [
-                        "https://www.naver.com",
-                        "https://www.google.com"
-                    ]
+                    "skillUrl": "http://www.google.com"
                 },
                 {
                     "name": "컴퓨터 구조",
-                    "references": [
-                        "https://www.naver.com",
-                        "https://www.google.com"
-                    ]
+                    "skillUrl": "http://www.daum.net"
                 },
                 {
                     "name": "운영체제",
-                    "references": [
-                        "https://www.naver.com",
-                        "https://www.google.com"
-                    ]
+                    "skillUrl": "https://www.spacex.com/"
                 }
             ],
             "iconClassName": "fa-solid fa-paint-roller fa-2xl"

@@ -12,6 +12,20 @@ export const DescriptionInput = ({
     )
 }
 
+export const StudyTip = ({
+    studyTip,
+    onChangeStudyTip
+}) => {
+    return(
+        <textarea
+            name="studyTip"
+            value={studyTip}
+            onChange={onChangeStudyTip}
+        >
+        </textarea>
+    )
+}
+
 export const CommentInput = ({
     comment,
     onChangeComment
