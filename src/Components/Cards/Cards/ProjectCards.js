@@ -5,7 +5,7 @@ const ProjectCard = ({
 }) => {
     return(
         <div className="col-lg-4 mb-5 mb-lg-0 mt-3">
-            <a className="card lift h-100 text-secondary" href="#!" style={{textDecoration: "none"}}>
+            <a className="card lift h-100 text-secondary shadow-sm p-3 bg-body-tertiary rounded" href="#!" style={{textDecoration: "none"}}>
                 <div className="card-body">
                     <h3 className="text-primary mb-0 text-dark">{project.title}</h3>
                     <div className="small text-gray-800 fw-500 mt-3">{project.fields[0]} 외 {project.fields.length - 1}명 모집 중</div>
