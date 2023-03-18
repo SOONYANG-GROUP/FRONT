@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 
-const ChampionListElement = ({
+const FieldListElement = ({
     index,
-    champion,
-    onDeleteChampion
+    field,
+    onDeleteField
 }) => {
     return(
         <div key={index}>
             <p>
-                {champion.championField}
+                {field.field}
             </p>
             <p>
-                {champion.champion}
+                {field.detailField}
             </p>
             <div>
-                <button value={index} onClick={onDeleteChampion}>
+                <button value={index} onClick={onDeleteField}>
                     삭제
                 </button>
             </div>
@@ -22,23 +22,23 @@ const ChampionListElement = ({
     )
 }
 
-const ChampionList = ({
-    champions,
-    totalChampionsNumber,
-    setTotalChampionsNumber
+const FieldList = ({
+    fields,
+    totalFieldsNumber,
+    setTotalFieldsNumber
 }) => {
     
     const [ deleting, setDeleting ] = useState(false);
     
-    const onDeleteChampion = async (e) => {
+    const onDeleteField = async (e) => {
         e.preventDefault();
         await setDeleting(true);
-        champions.splice(parseInt(e.target.value), 1);
-        setTotalChampionsNumber(totalChampionsNumber - 1);
+        fields.splice(parseInt(e.target.value), 1);
+        setTotalFieldsNumber(totalFieldsNumber - 1);
         await setDeleting(false);
     }
 
-    if(champions.length == 0)
+    if(fields.length == 0)
     {
         return(<></>)
     }
@@ -51,13 +51,13 @@ const ChampionList = ({
         else
         {
             return(
-                champions.map((champion, index) => {
+                fields.map((fieldEle, index) => {
                     return(
-                        <ChampionListElement 
-                            champion={champion}
+                        <FieldListElement 
+                            field={fieldEle}
                             key={index}
                             index={index}
-                            onDeleteChampion={onDeleteChampion}
+                            onDeleteField={onDeleteField}
                         />
                     )
                 })
@@ -66,4 +66,4 @@ const ChampionList = ({
     }
 }
 
-export default ChampionList;
+export default FieldList;

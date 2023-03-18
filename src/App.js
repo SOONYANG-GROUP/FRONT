@@ -2,43 +2,27 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Home from "./Pages/Home";
-import CreateBattle from "./Pages/Battle/CreateBattle";
-import Header from "./Components/Header/Header";
-import Test from "./Test";
 
-import Battles from "./Pages/Battle/Battles";
-import Champions from "./Pages/Champion/Champions";
+import CreateProject from "./Pages/Project/CreateProject";
+import Projects from "./Pages/Project/Projects";
+import Project from "./Pages/Project/Project";
 
-import Battle from "./Pages/Battle/Battle";
-import Champion from "./Pages/Champion/Champion";
-
-import Dashboard from "./Pages/Admin/Dashboard";
-import CreateSkill from "./Pages/Admin/CreateSkill";
-import CreateChampion from "./Pages/Admin/CreateChampion";
-import Summoners from "./Pages/Summoner/Summoners";
-import Footer from "./Components/Footer/Footer";
+import CreateRoadmap from "./Pages/Roadmap/CreateRoadmap";
+import Roadmaps from "./Pages/Roadmap/Roadmaps";
+import Roadmap from "./Pages/Roadmap/Roadmap";
 
 function App() {
   return (
     <Router>
-      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/summoners" element={<Summoners />} />
-        <Route path="/test" element={<Test />} />
-
-        <Route path="/create/battle" element={<CreateBattle />} />
-
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/create/skill" element={<CreateSkill />} />
-        <Route path="/admin/create/champion" element={<CreateChampion />} />
-
-        <Route path="/champions" element={<Champions />} />
-        <Route path="/champion/:id" element={<Champion />} />
-        <Route path="/battles" element={<Battles />} />
-        <Route path="/battle/:id" element={<Battle />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/project/:id" element={<Project/>} />
+        <Route path="/create/project" element={<CreateProject/>} />
+        <Route path="/roadmaps" element={<Roadmaps/>} />
+        <Route path="/roadmap/:id" element={<Roadmap/>} />
+        <Route path="/create/roadmap" element={<CreateRoadmap/>} />
       </Routes>
-      <Footer />
     </Router>
   );
 }

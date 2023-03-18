@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { DateTimeInput, TitleInput } from "../../Components/Inputs/Input";
-import { ChampionSelectTag } from "../../Components/Inputs/Select";
+import { TitleInput } from "../../Components/Inputs/Input";
+import { FieldSelectTag } from "../../Components/Inputs/Select";
 import { DescriptionInput } from "../../Components/Inputs/Textarea";
-import ChampionList from "../../Components/List/ChampionList";
+import FieldList from "../../Components/List/FieldList";
 import Loading from "../Loading";
 
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const CreateBattle = () => {
+const CreateProject = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ creating, setCreating ] = useState(false);
-    const [ addingChampion, setAddingChampion ] = useState(false);
+    const [ addingField, setAddingField ] = useState(false);
 
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ startDate, setStartDate ] = useState(new Date());
-    const [ champions, setChampions ] = useState([]);
+    const [ fields, setFields ] = useState([]);
 
-    let [ totalChampionsNumber, setTotalChampionsNumber ] = useState(0); 
+    let [ totalFieldsNumber, setTotalFieldsNumber ] = useState(0); 
 
     useEffect(() => {
         setIsLoading(false);
@@ -32,6 +32,7 @@ const CreateBattle = () => {
     const onChangeDescription = (e) => {
         setDescription(e.target.value);
     }
+
 
     if(isLoading || creating)
     {
@@ -60,18 +61,18 @@ const CreateBattle = () => {
                     />
                 </div>
                 <div>
-                    <ChampionList 
-                        champions={champions}
-                        totalChampionsNumber={totalChampionsNumber}
-                        setTotalChampionsNumber={setTotalChampionsNumber}
+                    <FieldList
+                        fields={fields}
+                        totalFieldsNumber={totalFieldsNumber}
+                        setTotalFieldsNumber={setTotalFieldsNumber}
                     />
                 </div>
                 <div>
-                    <ChampionSelectTag 
-                        setAddingChampion={setAddingChampion}
-                        champions={champions}
-                        totalChampionsNumber={totalChampionsNumber}
-                        setTotalChampionsNumber={setTotalChampionsNumber}
+                    <FieldSelectTag 
+                        setAddingField={setAddingField}
+                        fields={fields}
+                        totalFieldsNumber={totalFieldsNumber}
+                        setTotalFieldsNumber={setTotalFieldsNumber}
                     />
                 </div>
             </>
@@ -79,4 +80,4 @@ const CreateBattle = () => {
     }
 }
 
-export default CreateBattle;
+export default CreateProject;

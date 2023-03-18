@@ -1,0 +1,27 @@
+{
+    "project": {
+        "title": "",
+        "description": "",
+        "startDate": "",
+        "endDate": "",
+        "remainingTime": 14,
+        "fields": [
+            {
+                "field": "웹 프론트엔드 개발자",
+                "limit": 3
+            },
+            {
+                "field": "게임 서버 개발자",
+                "limit": 2
+            }
+        ],
+        "comments": [
+
+        ],
+        "todoList": [
+
+        ],
+        "discordURL": "",
+        "openKakaoURL": ""
+    }
+}

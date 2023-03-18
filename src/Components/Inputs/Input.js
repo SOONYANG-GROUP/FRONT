@@ -15,31 +15,16 @@ export const TitleInput = ({
     )
 }
 
-export const SkillNameInput = ({
-    skillName,
-    onChangeSkillName
+export const NameInput = ({
+    name,
+    onChangeName
 }) => {
     return(
         <input 
             type="text"
-            value={skillName}
-            onChange={onChangeSkillName}
-            placeholder="스킬 이름 입력"
-        />
-    )
-}
-
-export const ChampionNameInput = ({
-    championName,
-    onChangeChampionName
-}) => {
-    return(
-        <input 
-            type="text"
-            name="championName"
-            value={championName}
-            onChange={onChangeChampionName}
-            placeholder="챔피언 이름"
+            value={name}
+            onChange={onChangeName}
+            placeholder="이름 입력"
         />
     )
 }

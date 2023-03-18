@@ -1,57 +1,57 @@
 import { useState } from "react"
 import { 
-    ChampionFieldLists, 
+    FieldLists, 
     FrontendFieldLists,
     BackendFieldLists,
     SecurityFieldLists
 } from "../Constants/Lists";
 
-export const ChampionSelectTag = ({
-    totalChampionsNumber,
-    setAddingChampion,
-    setTotalChampionsNumber,
-    champions
+export const FieldSelectTag = ({
+    totalFieldsNumber,
+    setAddingField,
+    setTotalFieldsNumber,
+    fields
 }) => {
-    const [ championField, setChampionField ] = useState(ChampionFieldLists[0]);
-    const [ champion, setChampion ] = useState(FrontendFieldLists[0]);
+    const [ field, setField ] = useState(FieldLists[0]);
+    const [ detailField, setDetailField ] = useState(FrontendFieldLists[0]);
 
-    const onChangeChampionField = (e) => {
-        setChampionField(e.target.value);
+    const onChangeField = (e) => {
+        setField(e.target.value);
     }
 
-    const onChangeChampion = (e) => {
-        setChampion(e.target.value);
+    const onChangeDetailField = (e) => {
+        setDetailField(e.target.value);
     }
 
-    const onAddChampion = async (e) => {
+    const onAddField = async (e) => {
         e.preventDefault();
-        await setAddingChampion(true);
-        champions.push({
-            championField,
-            champion
+        await setAddingField(true);
+        fields.push({
+            field,
+            detailField
         });
-        await setTotalChampionsNumber(totalChampionsNumber + 1);
-        await setAddingChampion(false);
+        await setTotalFieldsNumber(totalFieldsNumber + 1);
+        await setAddingField(false);
     }
 
 
     return(
         <div>
             <div>
-                <ChampionFieldSelect 
-                    onChangeChampionField={onChangeChampionField}
-                    totalChampionsNumber={totalChampionsNumber}
+                <FieldSelect 
+                    onChangeField={onChangeField}
+                    totalFieldsNumber={totalFieldsNumber}
                 />
             </div>
             <div>
-                <ChampionSelect
-                    championField={championField}
-                    onChangeChampion={onChangeChampion}
-                    totalChampionsNumber={totalChampionsNumber}
+                <DetailFieldSelect
+                    detailField={detailField}
+                    onChangeDetailField={onChangeDetailField}
+                    totalFieldsNumber={totalFieldsNumber}
                 />
             </div>
             <div>
-                <button onClick={onAddChampion} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
+                <button onClick={onAddField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
                     <p>
                         +
                     </p>
@@ -61,16 +61,16 @@ export const ChampionSelectTag = ({
     )
 }
 
-const ChampionFieldSelect = ({
-    onChangeChampionField,
-    totalChampionsNumber
+const FieldSelect = ({
+    onChangeField,
+    totalFieldsNumber
 }) => {
     return(
-        <select onChange={onChangeChampionField} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
-            {ChampionFieldLists.map((ChampionFieldEle, index) => {
+        <select onChange={onChangeField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
+            {FieldLists.map((FieldListEle, index) => {
                 return(
-                    <option value={ChampionFieldEle} key={index}>
-                        {ChampionFieldEle}
+                    <option value={FieldListEle} key={index}>
+                        {FieldListEle}
                     </option>
                 )
             })}        
@@ -78,15 +78,15 @@ const ChampionFieldSelect = ({
     )
 }
 
-const ChampionSelect = ({
-    championField,
-    onChangeChampion,
-    totalChampionsNumber
+const DetailFieldSelect = ({
+    detailField,
+    onChangeDetailField,
+    totalFieldsNumber
 }) => {
-    if(championField == ChampionFieldLists[0])
+    if(detailField == FieldLists[0])
     {
         return(
-            <select onChange={onChangeChampion} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
+            <select onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
                 {FrontendFieldLists.map((FrontendFieldEle, index) => {
                 return(
                     <option value={FrontendFieldEle} key={index}>
@@ -98,10 +98,10 @@ const ChampionSelect = ({
 
         )
     }
-    else if(championField == ChampionFieldLists[1])
+    else if(detailField == FieldLists[1])
     {
         return(
-            <select onChange={onChangeChampion} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
+            <select onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
                 {BackendFieldLists.map((BackendFieldEle, index) => {
                     return(
                         <option value={BackendFieldEle} key={index}>
@@ -112,10 +112,10 @@ const ChampionSelect = ({
             </select>
         )
     }
-    else if(championField == ChampionFieldLists[1])
+    else if(detailField == FieldLists[1])
     {
         return(
-            <select onChange={onChangeChampion} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
+            <select onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
                 {SecurityFieldLists.map((securityEle, index) => {
                     return(
                         <option value={securityEle} key={index}>

@@ -1,0 +1,36 @@
+{
+    "roadmaps": [
+        {
+            "_id": 1,
+            "roadmap": "웹 프론트엔드 개발자",
+            "field": "",
+            "averageSalary": 1000,
+            "skills": [],
+            "iconClassName": ""
+        },
+        {
+            "_id": 2,
+            "roadmap": "블록체인 개발자",
+            "field": "",
+            "averageSalary": 1000,
+            "skills": [],
+            "iconClassName": ""
+        },
+        {
+            "_id": 3,
+            "roadmap": "게임 서버 개발자",
+            "field": "",
+            "averageSalary": 1000,
+            "skills": [],
+            "iconClassName": ""
+        },
+        {
+            "_id": 4,
+            "roadmap": "화이트 해커",
+            "field": "",
+            "averageSalary": 1000,
+            "skills": [],
+            "iconClassName": ""
+        }
+    ]
+}

@@ -1,39 +1,39 @@
 import React, { useState } from "react";
-import { ChampionNameInput } from "../../Components/Inputs/Input";
+import { NameInput } from "../../Components/Inputs/Input";
 import { DescriptionInput } from "../../Components/Inputs/Textarea";
 import SkillsList from "../../Components/List/SkillsList";
 import { SkillModal, SkillModalBtn } from "../../Components/Modal/SkillModal";
 
-const CreateChampion = () => {
+const CreateRoadmap = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ addingSkills, setAddingSkills ] = useState(false);
 
-    const [ championName, setChampionName ] = useState("");
-    const [ championDescription, setChampionDescription] = useState("");
+    const [ name, setName ] = useState("");
+    const [ description, setDescription] = useState("");
     const [ skills, setSkills ] = useState([]);
     
 
-    const onChangeChampionName = (e) => {
-        setChampionName(e.target.value);
+    const onChangeName = (e) => {
+        setName(e.target.value);
     }
 
-    const onChangeChampionDescription = (e) => {
-        setChampionDescription(e.target.value);
+    const onChangeDescription = (e) => {
+        setDescription(e.target.value);
     }
 
     return(
         <>
             <div>
                 <div>
-                    <ChampionNameInput 
-                        championName={championName}
-                        onChangeChampionName={onChangeChampionName}
+                    <NameInput
+                        name={name}
+                        onChangeName={onChangeName}
                     />
                 </div>
                 <div>
                     <DescriptionInput 
-                        description={championDescription}
-                        onChangeDescription={onChangeChampionDescription}
+                        description={description}
+                        onChangeDescription={onChangeDescription}
                     />
                 </div>
                 <div>
@@ -51,7 +51,7 @@ const CreateChampion = () => {
                 </div>
                 <div>
                     <button>
-                        Create Champion
+                        Create Roadmap
                     </button>
                 </div>
             </div>
@@ -60,4 +60,4 @@ const CreateChampion = () => {
     )
 }
 
-export default CreateChampion;
+export default CreateRoadmap;

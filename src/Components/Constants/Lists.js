@@ -1,11 +1,5 @@
-export const FieldLists = [
-    "CS 분야",
-    "프론트 엔드",
-    "백 엔드",
-    "해킹 및 보안"
-]
 
-export const ChampionFieldLists = [
+export const FieldLists = [
     "프론트 엔드",
     "백 엔드",
     "해킹 및 보안"

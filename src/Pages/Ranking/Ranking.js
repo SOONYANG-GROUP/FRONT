@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Loading from "../Loading";
 
-const Battles = () => {
+const Ranking = () => {
     const [ isLoading, setIsLoading ] = useState(true);
-    const [ battles, setBattles ] = useState([]);
-    
+    const [ users, setUsers ] = useState([]);
+
     useEffect(() => {
-        setIsLoading(false);
+        
     }, []);
 
     if(isLoading)
     {
-        return(
-            <Loading />
-        )
+        return(<Loading />)
     }
     else
     {
         return(
             <></>
-        );
+        )
     }
 }
 
-export default Battles;
+export default Ranking;
