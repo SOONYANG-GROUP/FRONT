@@ -1,3 +1,5 @@
+import DatePicker from "react-datepicker";
+
 export const TitleInput = ({
     title,
     onChangeTitle
@@ -14,14 +16,3 @@ export const TitleInput = ({
 }
 
 
-
-export const DateTimeInput = ({
-    dateTime,
-    
-}) => {
-    return(
-        <input 
-            type="date"
-        />
-    )
-}

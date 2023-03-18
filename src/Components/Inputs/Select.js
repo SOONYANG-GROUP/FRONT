@@ -29,53 +29,43 @@ export const ChampionSelectTag = ({
             championField,
             champion
         });
-        setTotalChampionsNumber(totalChampionsNumber + 1);
+        await setTotalChampionsNumber(totalChampionsNumber + 1);
         await setAddingChampion(false);
     }
 
-    const onDeleteChampion = async (e) => {
-        e.preventDefault();
-        await setAddingChampion(true);
-        
-        await setAddingChampion(false);
-    }
 
-    if(totalChampionsNumber > 4 || totalChampionsNumber < 0)
-    {
-        return(<></>)
-    }
-    else
-    {
-        return(
+    return(
+        <div>
             <div>
-                <div>
-                    <ChampionFieldSelect 
-                        onChangeChampionField={onChangeChampionField}
-                    />
-                </div>
-                <div>
-                    <ChampionSelect
-                        championField={championField}
-                        onChangeChampion={onChangeChampion}
-                    />
-                </div>
-                <div>
-                    <button onClick={onAddChampion}>
-                        <p>
-                            +
-                        </p>
-                    </button>
-                </div>
+                <ChampionFieldSelect 
+                    onChangeChampionField={onChangeChampionField}
+                    totalChampionsNumber={totalChampionsNumber}
+                />
             </div>
-        )
-    }
+            <div>
+                <ChampionSelect
+                    championField={championField}
+                    onChangeChampion={onChangeChampion}
+                    totalChampionsNumber={totalChampionsNumber}
+                />
+            </div>
+            <div>
+                <button onClick={onAddChampion} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
+                    <p>
+                        +
+                    </p>
+                </button>
+            </div>
+        </div>
+    )
 }
 
 const ChampionFieldSelect = ({
-    onChangeChampionField
+    onChangeChampionField,
+    totalChampionsNumber
 }) => {
     return(
-        <select onChange={onChangeChampionField}>
+        <select onChange={onChangeChampionField} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
             {ChampionFieldLists.map((ChampionFieldEle, index) => {
                 return(
                     <option value={ChampionFieldEle} key={index}>
@@ -89,12 +79,13 @@ const ChampionFieldSelect = ({
 
 const ChampionSelect = ({
     championField,
-    onChangeChampion
+    onChangeChampion,
+    totalChampionsNumber
 }) => {
     if(championField == ChampionFieldLists[0])
     {
         return(
-            <select onChange={onChangeChampion}>
+            <select onChange={onChangeChampion} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
                 {FrontendFieldLists.map((FrontendFieldEle, index) => {
                 return(
                     <option value={FrontendFieldEle} key={index}>
@@ -109,7 +100,7 @@ const ChampionSelect = ({
     else if(championField == ChampionFieldLists[1])
     {
         return(
-            <select onChange={onChangeChampion}>
+            <select onChange={onChangeChampion} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
                 {BackendFieldLists.map((BackendFieldEle, index) => {
                     return(
                         <option value={BackendFieldEle} key={index}>
