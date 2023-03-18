@@ -1,0 +1,68 @@
+{
+    "champions": [
+        {
+            "_id": 0,
+            "name": "AI 개발자",
+            "description": "",
+            "field": "백 엔드",
+            "skills": [],
+            "imageUrl": "../Images/AIDeveloper.png"
+        },
+        {
+            "_id": 1,
+            "name": "안드로이드 개발자",
+            "description": "",
+            "field": "프론트 엔드",
+            "skills": [],
+            "imageUrl": "../Images/AndroidDeveloper.png"
+        },
+        {
+            "_id": 2,
+            "name": "블록 체인 개발자",
+            "description": "",
+            "field": "백 엔드",
+            "skills": [],
+            "imageUrl": "../Images/BlockChain.png"
+        },
+        {
+            "_id": 3,
+            "name": "아이폰 앱 개발자",
+            "description": "",
+            "field": "프론트 엔드",
+            "skills": [],
+            "imageUrl": "../Images/IOSDeveloper.png"
+        },
+        {
+            "_id": 4,
+            "name": "웹 프론트엔드 개발자",
+            "description": "",
+            "field": "프론트 엔드",
+            "skills": [],
+            "imageUrl": "../Images/WebFrontend.png"
+        },
+        {
+            "_id": 5,
+            "name": "웹 퍼블리셔",
+            "description": "",
+            "field": "프론트 엔드",
+            "skills": [],
+            "imageUrl": "../Images/WebPublisher.png"
+        },
+        {
+            "_id": 6,
+            "name": "웹 서버 개발자",
+            "description": "",
+            "field": "백 엔드",
+            "skills": [],
+            "imageUrl": "../Images/WebServer.png"
+        },
+        {
+            "_id": 7,
+            "name": "보안 개발자",
+            "description": "",
+            "field": "해킹 및 보안",
+            "skills": [],
+            "imageUrl": "../Images/CyberSecurity"
+        }
+    ]
+}
