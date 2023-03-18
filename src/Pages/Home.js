@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import AnnouncementList from "../Components/Announcement/AnnouncementList";
 import ProjectList from "../Components/ProjecetList/ProjectList";
+import RoadmapList from "../Components/Roadmap/RoadmapList";
+import SummonerRanking from "../Components/SummonerRanking/SummonerRankingList";
 
 const Home = () => {
   const [projects, setProjects] = useState([]);
@@ -11,6 +14,18 @@ const Home = () => {
       <Container>
         <Title>소환사를 찾고 있습니다.</Title>
         <ProjectList />
+        <Title>챔피온이 되기 위한 로드맵</Title>
+        <RoadmapList />
+        <Container className="row">
+          <div className="col-md-6 ">
+            <Title>이 달의 Summoner Ranking</Title>
+            <SummonerRanking />
+          </div>
+          <div className="col-md-6">
+            <Title>공지사항 및 업데이트 사항</Title>
+            <AnnouncementList />
+          </div>
+        </Container>
       </Container>
     </>
   );

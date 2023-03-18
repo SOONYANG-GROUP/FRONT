@@ -1,7 +1,6 @@
-import styled from "styled-components";
-import ProjectsElement from "./ProjectsElement";
+import RoadmapElement from "./RoadmapElement";
 
-const ProjectList = () => {
+const RoadmapList = () => {
   return (
     <div
       id="carouselExampleIndicators"
@@ -34,39 +33,39 @@ const ProjectList = () => {
         <div class="carousel-item active">
           <div class="row">
             <div class="col">
-              <ProjectsElement />
+              <RoadmapElement />
             </div>
             <div class="col">
-              <ProjectsElement />
+              <RoadmapElement />
             </div>
             <div class="col">
-              <ProjectsElement />
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="row">
-            <div class="col">
-              <ProjectsElement />
-            </div>
-            <div class="col">
-              <ProjectsElement />
-            </div>
-            <div class="col">
-              <ProjectsElement />
+              <RoadmapElement />
             </div>
           </div>
         </div>
         <div class="carousel-item">
           <div class="row">
             <div class="col">
-              <ProjectsElement />
+              <RoadmapElement />
             </div>
             <div class="col">
-              <ProjectsElement />
+              <RoadmapElement />
             </div>
             <div class="col">
-              <ProjectsElement />
+              <RoadmapElement />
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row">
+            <div class="col">
+              <RoadmapElement />
+            </div>
+            <div class="col">
+              <RoadmapElement />
+            </div>
+            <div class="col">
+              <RoadmapElement />
             </div>
           </div>
         </div>
@@ -75,4 +74,4 @@ const ProjectList = () => {
   );
 };
 
-export default ProjectList;
+export default RoadmapList;
