@@ -2,7 +2,8 @@ import { useState } from "react"
 import { 
     ChampionFieldLists, 
     FrontendFieldLists,
-    BackendFieldLists
+    BackendFieldLists,
+    SecurityFieldLists
 } from "../Constants/Lists";
 
 export const ChampionSelectTag = ({
@@ -105,6 +106,20 @@ const ChampionSelect = ({
                     return(
                         <option value={BackendFieldEle} key={index}>
                             {BackendFieldEle}
+                        </option>
+                    )
+                })}
+            </select>
+        )
+    }
+    else if(championField == ChampionFieldLists[1])
+    {
+        return(
+            <select onChange={onChangeChampion} disabled={totalChampionsNumber > 4 || totalChampionsNumber < 0}>
+                {SecurityFieldLists.map((securityEle, index) => {
+                    return(
+                        <option value={securityEle} key={index}>
+                            {securityEle}
                         </option>
                     )
                 })}

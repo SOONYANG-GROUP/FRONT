@@ -18,7 +18,6 @@ const CreateBattle = () => {
     const [ description, setDescription ] = useState("");
     const [ startDate, setStartDate ] = useState(new Date());
     const [ champions, setChampions ] = useState([]);
-    const [ dateTime, setDateTime ] = useState("");
 
     let [ totalChampionsNumber, setTotalChampionsNumber ] = useState(0); 
 
@@ -36,7 +35,7 @@ const CreateBattle = () => {
 
     if(isLoading || creating)
     {
-        return(isLoading ? (<></>) : (<></>))
+        return(isLoading ? (<Loading />) : (<></>))
     }
     else
     {

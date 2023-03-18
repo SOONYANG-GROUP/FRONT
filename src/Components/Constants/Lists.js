@@ -1,12 +1,14 @@
 export const FieldLists = [
     "CS 분야",
     "프론트 엔드",
-    "백 엔드"
+    "백 엔드",
+    "해킹 및 보안"
 ]
 
 export const ChampionFieldLists = [
     "프론트 엔드",
-    "백 엔드"
+    "백 엔드",
+    "해킹 및 보안"
 ]
 
 export const CSFieldLists = [
@@ -21,7 +23,7 @@ export const FrontendFieldLists = [
     "IOS 개발자",
     "안드로이드 개발자",
     "웹 프론트엔드 개발자",
-    "웹 퍼블리셔 개발자",
+    "웹 퍼블리셔",
     "크로스 플랫폼 개발자",
     "임베디드 SW 개발자"
 ]
@@ -32,4 +34,9 @@ export const BackendFieldLists = [
     "AI 개발자",
     "빅 데이터 개발자",
     "게임 서버 개발자"
+]
+
+export const SecurityFieldLists = [
+    "보안 개발자",
+    "화이트 해커"
 ]
