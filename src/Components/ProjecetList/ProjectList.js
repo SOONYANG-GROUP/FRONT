@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ProjectsElement from "./ProjectsElement";
 
 const ProjectList = () => {
   return (
@@ -31,25 +32,43 @@ const ProjectList = () => {
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img
-            src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt60f687c95425f73f/5db05fbd2dc72966da746704/RiotX_ChampionList_ezreal.jpg?quality=90&width=250"
-            class="d-block w-100"
-            alt="..."
-          />
+          <div class="row">
+            <div class="col">
+              <ProjectsElement />
+            </div>
+            <div class="col">
+              <ProjectsElement />
+            </div>
+            <div class="col">
+              <ProjectsElement />
+            </div>
+          </div>
         </div>
         <div class="carousel-item">
-          <img
-            src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt5cc3e3a189961d90/5db05ffbadc8656c7d24e7fc/RiotX_ChampionList_quinn.jpg?quality=90&width=250"
-            class="d-block w-100"
-            alt="..."
-          />
+          <div class="row">
+            <div class="col">
+              <ProjectsElement />
+            </div>
+            <div class="col">
+              <ProjectsElement />
+            </div>
+            <div class="col">
+              <ProjectsElement />
+            </div>
+          </div>
         </div>
         <div class="carousel-item">
-          <img
-            src="https://images.contentstack.io/v3/assets/blt731acb42bb3d1659/blt2c7675893b5c76bc/61b1ed442d06ff39b6c6336b/RiotX_ChampionList_kayle_v4.jpg?quality=90&width=250"
-            class="d-block w-100"
-            alt="..."
-          />
+          <div class="row">
+            <div class="col">
+              <ProjectsElement />
+            </div>
+            <div class="col">
+              <ProjectsElement />
+            </div>
+            <div class="col">
+              <ProjectsElement />
+            </div>
+          </div>
         </div>
       </div>
       <button
@@ -75,5 +94,3 @@ const ProjectList = () => {
 };
 
 export default ProjectList;
-
-styled.img``;
