@@ -71,3 +71,22 @@ export const ReferenceInput = ({
         </div>
     )
 }
+
+export const RoadmapInput = ({
+    curriculums
+}) => {
+    const [ title, setTitle ] = useState("");
+    const [ description, setDescription ] = useState("");
+    const [ references, setReferences ] = useState([]);
+    
+    const onChangeTitle = () => {
+
+    }
+
+    const onChangeDescription = () => {
+
+    }
+
+    
+
+}

@@ -1,23 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { NameInput, ReferenceInput } from "../../Components/Inputs/Input";
-import { DescriptionInput } from "../../Components/Inputs/Textarea";
-import ReferenceList from "../../Components/List/ReferenceList";
+import React, { useState } from "react";
+import { NameInput } from "../../Components/Inputs/Input";
 import Loading from "../Loading";
 
 const CreateSkill = () => {
-    const [ isLoading, setIsLoading ] = useState(false);
-    const [ addingReference, setAddingReference ] = useState(false);
-
-    const [ name, setName ] = useState("");
-    const [ references, setReferences ] = useState([]);
+    const [ isLoading, setIsLoading ] = useState();
+    const [ creating, setCreating ] = useState(false);
     
-
-    useEffect(() => {
-        setIsLoading(false);
-    }, []);
+    const [ name, setName ] = useState("");
+    const [ studyTip, setStudyTip ] = useState("");
+    const [ references, setReferences ] = useState([]);
 
     const onChangeName = (e) => {
         setName(e.target.value);
+    }
+
+    const onChangeStudyTip = (e) => {
+        setStudyTip(e.target.value);
     }
 
     if(isLoading)
@@ -26,33 +24,29 @@ const CreateSkill = () => {
     }
     else
     {
-        return(
-            <div>
+        if(creating)
+        {
+            return(
                 <div>
-                    <NameInput 
-                        name={name}
-                        onChangeName={onChangeName}
-                    />
+                    Creating...
                 </div>
+            )
+        }
+        else
+        {
+            return(
                 <div>
-                    <ReferenceList 
-                        references={references}
-                        addingReference={addingReference}
-                    />
+                    <div>
+                        <NameInput 
+                            name={name}
+                            onChangeName={onChangeName}
+                        />
+                    </div>
+                    
+
                 </div>
-                <div>
-                    <ReferenceInput 
-                        references={references}
-                        setAddingReference={setAddingReference}
-                    />
-                </div>
-                <div>
-                    <button>
-                        Create Skill
-                    </button>
-                </div>
-            </div>
-        )
+            )
+        }
     }
 }
 

@@ -11,3 +11,17 @@ export const DescriptionInput = ({
         </textarea>
     )
 }
+
+export const CommentInput = ({
+    comment,
+    onChangeComment
+}) => {
+    return(
+        <textarea
+            name="comment"
+            value={comment}
+            onChange={onChangeComment}
+        >
+        </textarea>
+    )
+}

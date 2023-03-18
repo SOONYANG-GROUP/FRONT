@@ -37,12 +37,6 @@ const Projects = () => {
                             <p class="fs-5">
                                 이론과 실전을 겸비한 뛰어난 개발자가 되기 위해 프로젝트에 신청하세요
                             </p>
-                            <p>또는 열정있는 미래의 개발자들에게 기회를 주세요</p>
-                            <p>
-                                <a className="btn btn-primary" href="/create/roadmap" role="button">
-                                    사이드 프로젝트 계획하기
-                                </a>
-                            </p>
                         </div>
                     </div>
                 </div>

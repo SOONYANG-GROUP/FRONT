@@ -1,0 +1,41 @@
+{
+    "profiles": [
+        {
+            "name": "오융택",
+            "imageUrl": "https://image.ytn.co.kr/general/jpg/2021/0508/202105080800316285_img_02.jpg",
+            "logs": [
+                {
+                    "title": "스킬 추가",
+                    "field": "스킬",
+                    "description": "{시간}: {스킬 이름} 추가"
+                },
+                {
+                    "title": "스킬 수정",
+                    "field": "스킬",
+                    "description": "{시간}: {스킬 이름} 수정"
+                },
+                {
+                    "title": "프로젝트 시작",
+                    "description": "{시간}: {팀원 규모}명으로 {프로젝트 이름} 시작"
+                },
+                {
+                    "title": "프로젝트 지원",
+                    "description": "{시간}: {프로젝트 이름} 프로젝트 {field명}으로 지원"
+                }
+            ],
+            "publsihedProducts": [
+                {
+                    "name": "협업 툴",
+                    "description": "협성대를 위한 협업 툴을 제작",
+                    "iconImg": ""
+                }
+            ],
+            "involvedProjects": [
+                {
+                    "title": "개발자 채용 사이트 이력서 한번에 관리",
+                    "field": "웹 퍼블리셔"
+                }
+            ]
+        }
+    ]
+}

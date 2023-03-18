@@ -22,6 +22,7 @@ const Roadmap = () => {
         return RoadmapDummyData.roadmaps[id];
     }
 
+    console.log(roadmap)
     return(
         <div>
 
