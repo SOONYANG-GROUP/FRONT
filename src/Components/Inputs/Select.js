@@ -33,6 +33,13 @@ export const ChampionSelectTag = ({
         await setAddingChampion(false);
     }
 
+    const onDeleteChampion = async (e) => {
+        e.preventDefault();
+        await setAddingChampion(true);
+        
+        await setAddingChampion(false);
+    }
+
     if(totalChampionsNumber > 4 || totalChampionsNumber < 0)
     {
         return(<></>)
