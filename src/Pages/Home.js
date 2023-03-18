@@ -11,6 +11,7 @@ const Home = () => {
       <Container>
         <Title>소환사를 찾고 있습니다.</Title>
         <ProjectList />
+
       </Container>
     </>
   );

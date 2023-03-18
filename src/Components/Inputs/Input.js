@@ -29,6 +29,23 @@ export const SkillNameInput = ({
     )
 }
 
+export const ChampionNameInput = ({
+    championName,
+    onChangeChampionName
+}) => {
+    return(
+        <input 
+            type="text"
+            name="championName"
+            value={championName}
+            onChange={onChangeChampionName}
+            placeholder="챔피언 이름"
+        />
+    )
+}
+
+
+
 export const ReferenceInput = ({
     references,
     setAddingReference
