@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import CreateBattle from "./Pages/Battle/CreateBattle";
 import Header from "./Components/Header/Header";
+import Test from "./Test";
 
 
 import Dashboard from "./Pages/Admin/Dashboard";
@@ -16,6 +17,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/test" element={<Test />} />
 
         <Route path="/create/battle" element={<CreateBattle />} />
         
