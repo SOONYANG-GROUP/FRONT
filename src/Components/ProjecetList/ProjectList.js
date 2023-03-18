@@ -1,72 +1,79 @@
-import styled from "styled-components";
-import ProjectsElement from "./ProjectsElement";
+import ProjectElement from "./ProjectsElement";
 
 const ProjectList = () => {
   return (
-    <div
-      id="carouselExampleIndicators"
-      class="carousel slide"
-      data-bs-ride="true"
-    >
-      <div class="carousel-indicators">
+    <div id="Project" className="carousel slide" data-bs-ride="true">
+      <div className="carousel-indicators   ">
         <button
           type="button"
-          data-bs-target="#carouselExampleIndicators"
+          data-bs-target="#Project"
           data-bs-slide-to="0"
-          class="active"
+          className="active"
           aria-current="true"
           aria-label="Slide 1"
+          style={{ backgroundColor: "gray" }}
         ></button>
         <button
           type="button"
-          data-bs-target="#carouselExampleIndicators"
+          data-bs-target="#Project"
           data-bs-slide-to="1"
           aria-label="Slide 2"
+          style={{ backgroundColor: "gray" }}
         ></button>
         <button
           type="button"
-          data-bs-target="#carouselExampleIndicators"
+          data-bs-target="#Project"
           data-bs-slide-to="2"
           aria-label="Slide 3"
+          style={{ backgroundColor: "gray" }}
         ></button>
       </div>
-      <div class="carousel-inner" style={{ marginBottom: "40px" }}>
-        <div class="carousel-item active">
-          <div class="row">
-            <div class="col">
-              <ProjectsElement />
+      <div className="carousel-inner" style={{ marginBottom: "100px" }}>
+        <div className="carousel-item active">
+          <div
+            className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 "
+            style={{ marginBottom: "50px" }}
+          >
+            <div className="col">
+              <ProjectElement />
             </div>
-            <div class="col">
-              <ProjectsElement />
+            <div className="col">
+              <ProjectElement />
             </div>
-            <div class="col">
-              <ProjectsElement />
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <div class="row">
-            <div class="col">
-              <ProjectsElement />
-            </div>
-            <div class="col">
-              <ProjectsElement />
-            </div>
-            <div class="col">
-              <ProjectsElement />
+            <div className="col">
+              <ProjectElement />
             </div>
           </div>
         </div>
-        <div class="carousel-item">
-          <div class="row">
-            <div class="col">
-              <ProjectsElement />
+        <div className="carousel-item">
+          <div
+            className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 "
+            style={{ marginBottom: "50px" }}
+          >
+            <div className="col">
+              <ProjectElement />
             </div>
-            <div class="col">
-              <ProjectsElement />
+            <div className="col">
+              <ProjectElement />
             </div>
-            <div class="col">
-              <ProjectsElement />
+            <div className="col">
+              <ProjectElement />
+            </div>
+          </div>
+        </div>
+        <div className="carousel-item">
+          <div
+            className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 "
+            style={{ marginBottom: "50px" }}
+          >
+            <div className="col">
+              <ProjectElement />
+            </div>
+            <div className="col">
+              <ProjectElement />
+            </div>
+            <div className="col">
+              <ProjectElement />
             </div>
           </div>
         </div>
