@@ -12,15 +12,13 @@ const Home = () => {
     <>
       <RepresentativeImage></RepresentativeImage>
       <Container>
-        <Title>소환사를 찾고 있습니다.</Title>
+        <Title>프로젝트 추천합니다</Title>
         <ProjectList />
-<<<<<<< HEAD
-=======
-        <Title>챔피온이 되기 위한 로드맵</Title>
+        <Title>개발자를 위한 로드맵</Title>
         <RoadmapList />
         <Container className="row">
           <div className="col-md-6 ">
-            <Title>이 달의 Summoner Ranking</Title>
+            <Title>이 달의 플레이어 Ranking</Title>
             <SummonerRanking />
           </div>
           <div className="col-md-6">
@@ -28,7 +26,6 @@ const Home = () => {
             <AnnouncementList />
           </div>
         </Container>
->>>>>>> b8d032125d0d6751ffdebcecdb3df189e0980ff6
       </Container>
     </>
   );

@@ -32,6 +32,7 @@ const CreateChampion = () => {
             <div>
                 
             </div>
+            
         </div>
     )
 }
