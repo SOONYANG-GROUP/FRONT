@@ -43,10 +43,17 @@ const CreateProject = () => {
         return(
             <>
                 <div>
-                    <TitleInput 
-                        title={title}
-                        onChangeTitle={onChangeTitle}
-                    />
+                    <div>
+                        <label>
+                            사이드 프로젝트 제목
+                        </label>
+                    </div>
+                    <div>
+                        <TitleInput 
+                            title={title}
+                            onChangeTitle={onChangeTitle}
+                        />
+                    </div>
                 </div>
                 <div>
                     <DescriptionInput 

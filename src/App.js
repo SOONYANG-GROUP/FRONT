@@ -26,6 +26,7 @@ function App() {
         <Route path="/roadmaps" element={<Roadmaps/>} />
         <Route path="/roadmap/:id" element={<Roadmap/>} />
         <Route path="/create/roadmap" element={<CreateRoadmap/>} />
+        <Route path="/create/skill" element={<CreateSkill/>} />
         <Route path="/profile/:id" element={<Profile />} />
       </Routes>
     </Router>

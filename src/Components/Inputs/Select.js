@@ -45,7 +45,7 @@ export const FieldSelectTag = ({
             </div>
             <div>
                 <DetailFieldSelect
-                    detailField={detailField}
+                    field={field}
                     onChangeDetailField={onChangeDetailField}
                     totalFieldsNumber={totalFieldsNumber}
                 />
@@ -79,11 +79,12 @@ const FieldSelect = ({
 }
 
 const DetailFieldSelect = ({
-    detailField,
+    field,
     onChangeDetailField,
     totalFieldsNumber
 }) => {
-    if(detailField == FieldLists[0])
+    
+    if(field == FieldLists[0])
     {
         return(
             <select onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
@@ -98,7 +99,7 @@ const DetailFieldSelect = ({
 
         )
     }
-    else if(detailField == FieldLists[1])
+    else if(field == FieldLists[1])
     {
         return(
             <select onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
@@ -112,7 +113,7 @@ const DetailFieldSelect = ({
             </select>
         )
     }
-    else if(detailField == FieldLists[1])
+    else if(field == FieldLists[2])
     {
         return(
             <select onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>

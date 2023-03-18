@@ -11,6 +11,7 @@ export const TitleInput = ({
             value={title}
             onChange={onChangeTitle}
             placeholder="제목을 입력하세요"
+            autoFocus
         />
     )
 }
