@@ -5,6 +5,10 @@ import { DescriptionInput } from "../../Components/Inputs/Textarea";
 import ChampionList from "../../Components/List/ChampionList";
 import Loading from "../Loading";
 
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 const CreateBattle = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ creating, setCreating ] = useState(false);
@@ -12,8 +16,9 @@ const CreateBattle = () => {
 
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
-    const [ startTime, setStartTime ] = useState("");
+    const [ startDate, setStartDate ] = useState(new Date());
     const [ champions, setChampions ] = useState([]);
+    const [ dateTime, setDateTime ] = useState("");
 
     let [ totalChampionsNumber, setTotalChampionsNumber ] = useState(0); 
 
@@ -27,10 +32,6 @@ const CreateBattle = () => {
 
     const onChangeDescription = (e) => {
         setDescription(e.target.value);
-    }
-
-    const onChangeStartTime = (e) => {
-        setStartTime(e.target.value);
     }
 
     if(isLoading || creating)
@@ -54,8 +55,16 @@ const CreateBattle = () => {
                     />
                 </div>
                 <div>
+                    <DatePicker 
+                        selected={startDate}
+                        onChange={date => setStartDate(date)}
+                    />
+                </div>
+                <div>
                     <ChampionList 
                         champions={champions}
+                        totalChampionsNumber={totalChampionsNumber}
+                        setTotalChampionsNumber={setTotalChampionsNumber}
                     />
                 </div>
                 <div>
@@ -64,7 +73,6 @@ const CreateBattle = () => {
                         champions={champions}
                         totalChampionsNumber={totalChampionsNumber}
                         setTotalChampionsNumber={setTotalChampionsNumber}
-                        
                     />
                 </div>
             </>
