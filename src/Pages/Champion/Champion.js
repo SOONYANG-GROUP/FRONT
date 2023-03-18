@@ -3,29 +3,34 @@ import Loading from "../Loading";
 
 import { useParams } from "react-router-dom";
 
+
 // Dummy Data
 import ChampionsDummyData from "../../DummyData/Champion.json";
+import DummyImage from "../../Images/AIDeveloper.png"
+
 
 const Champion = (props) => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ champion, setChampion ] = useState(null);
     const championId = useParams().id;
-
     
     useEffect(() => {
-        
-        setChampion(GetChampion(championId));
-        setIsLoading(false);
-    }, []);
+        if(GetChampion(championId))
+        {
+            setChampion(GetChampion(championId));
+            setIsLoading(false);
+        }
+
+        return() => {
+            GetChampion(championId);
+        }
+    }, [ championId ]);
 
     const GetChampion = (championId) => {
         return ChampionsDummyData.champions[parseInt(championId)]
     }
-
-
-    console.log(champion)
-
-    if(isLoading)
+    
+    if(isLoading || champion == null)
     {
         return(<Loading />)
     }   
@@ -33,7 +38,12 @@ const Champion = (props) => {
     {
         return(
             <div>
-                
+                <div>
+                    <img 
+                        src={DummyImage}
+                        alt={champion.name}
+                    />
+                </div>
             </div>
         )
     } 
