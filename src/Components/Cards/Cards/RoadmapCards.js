@@ -18,8 +18,6 @@ const RoadmapCard = ({
                 </div>
             </a>
         </div>
-      </a>
-    </div>
   );
 };
 

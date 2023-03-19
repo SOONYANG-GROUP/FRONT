@@ -23,12 +23,6 @@ const Roadmap = () => {
     const GetRoadmap = (id) => {
         return RoadmapDummyData.roadmaps[id - 1];
     }
-    console.log(roadmap);
-  }, [id]);
-
-  const GetRoadmap = (id) => {
-    return RoadmapDummyData.roadmaps[id];
-  };
 
   if (!isLoading) {
     return (
