@@ -17,6 +17,8 @@ export const TitleInput = ({
 }
 
 export const NameInput = ({
+    disabled,
+    nameLabel = "",
     name,
     onChangeName
 }) => {
@@ -26,6 +28,9 @@ export const NameInput = ({
             value={name}
             onChange={onChangeName}
             placeholder="이름 입력"
+            id={nameLabel}
+            className="form-control"
+            disabled={disabled}
         />
     )
 }
@@ -33,6 +38,8 @@ export const NameInput = ({
 
 
 export const ReferenceInput = ({
+    creating,
+    referenceLabel,
     references,
     setAddingReference
 }) => {
@@ -47,7 +54,6 @@ export const ReferenceInput = ({
         await setAddingReference(true);
         if(reference !== "")
         {
-            
             references.push(reference);
             setReference("");
         }
@@ -62,11 +68,15 @@ export const ReferenceInput = ({
                     name="reference"
                     value={reference}
                     onChange={onChangeReference}
+                    id={referenceLabel}
+                    placeholder="https://..."
+                    className="form-control"
+                    disabled={creating}
                 />
             </div>
-            <div>
-                <button onClick={onAddReference}>
-                    +
+            <div className="mt-3">
+                <button onClick={onAddReference} className="btn btn-primary w-100" disabled={creating}>
+                    <span><i className="fa-solid fa-plus"></i></span>
                 </button>
             </div>
         </div>
@@ -74,22 +84,3 @@ export const ReferenceInput = ({
 }
 
 
-
-export const RoadmapInput = ({
-    curriculums
-}) => {
-    const [ title, setTitle ] = useState("");
-    const [ description, setDescription ] = useState("");
-    const [ references, setReferences ] = useState([]);
-    
-    const onChangeTitle = () => {
-
-    }
-
-    const onChangeDescription = () => {
-
-    }
-
-    
-
-}

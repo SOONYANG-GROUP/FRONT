@@ -13,14 +13,18 @@ export const DescriptionInput = ({
 }
 
 export const StudyTip = ({
+    disabled,
     studyTip,
+    studyTipLabel,
     onChangeStudyTip
 }) => {
     return(
         <textarea
             name="studyTip"
-            value={studyTip}
+            id={studyTipLabel}
             onChange={onChangeStudyTip}
+            className="form-control"
+            disabled={disabled}
         >
         </textarea>
     )
