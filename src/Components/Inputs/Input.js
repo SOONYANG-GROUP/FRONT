@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export const TitleInput = ({
+    creating,
     title,
     onChangeTitle
 }) => {
@@ -11,6 +12,8 @@ export const TitleInput = ({
             value={title}
             onChange={onChangeTitle}
             placeholder="제목을 입력하세요"
+            className="form-control"
+            disabled={creating}
             autoFocus
         />
     )

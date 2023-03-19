@@ -1,4 +1,5 @@
 export const DescriptionInput = ({
+    creating,
     description,
     onChangeDescription
 }) => {
@@ -7,6 +8,8 @@ export const DescriptionInput = ({
             name="description"
             value={description}
             onChange={onChangeDescription}
+            className="form-control"
+            disabled={creating}
         >
         </textarea>
     )

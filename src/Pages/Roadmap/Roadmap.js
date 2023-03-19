@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import frontendDeveloper from "../../assets/images/frontendDeveloper.svg";
-import html5 from "../../assets/images/html5.png";
-// //후원 사이트
+
 
 import RoadmapDummyData from "../../DummyData/Roadmap.json";
 
