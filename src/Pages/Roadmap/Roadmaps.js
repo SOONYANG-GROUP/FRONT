@@ -5,6 +5,7 @@ import RoadmapCards from "../../Components/Cards/Cards/RoadmapCards";
 import RoadmapDummyData from "../../DummyData/Roadmap.json";
 import Loading from "../Loading";
 import windows from "../../assets/images/windows.svg";
+import CreateSkillBtn from "../../Components/Modal/CreateSkillModal";
 const Roadmaps = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
@@ -43,13 +44,7 @@ const Roadmaps = () => {
                     로드맵 추가하기
                     <i class="ms-2" data-feather="arrow-right"></i>
                   </a>
-                  <a
-                    class="btn btn-lg btn-primary-soft text-primary fw-500"
-                    href="create/skill"
-                    target="#"
-                  >
-                    스킬 추가하기
-                  </a>
+                  <CreateSkillBtn />
                 </div>
               </div>
               <div

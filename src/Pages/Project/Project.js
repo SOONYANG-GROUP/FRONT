@@ -19,7 +19,6 @@ const Project = () => {
 
   const [ changingPage, setChangingPage ] = useState(false);
   const [ pageNumber, setPageNumber ] = useState(0);
-  
 
   const { id } = useParams();
 
@@ -38,6 +37,8 @@ const Project = () => {
   const onChangeComment = (e) => {
     setComment(e.target.value);
   }
+
+  
 
   const onChangePageNumber = async (e) => {
     await setChangingPage(true);
@@ -222,6 +223,9 @@ const DetailPageOne = ({
     </div>
   )
 }
+
+
+
 
 const DetailPageZero = ({
   project
