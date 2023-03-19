@@ -18,15 +18,14 @@ const Home = () => {
               <div class="d-flex flex-column flex-sm-row">
                 <a
                   class="btn btn-lg btn-primary fw-500 me-sm-3 mb-3 mb-sm-0"
-                  href="#explore"
+                  href="/projects"
                 >
                   모집중인 프로젝트
                   <i class="ms-2" data-feather="arrow-right"></i>
                 </a>
                 <a
                   class="btn btn-lg btn-primary-soft text-primary fw-500"
-                  href="https://docs.startbootstrap.com/sb-ui-kit-pro/quickstart"
-                  target="#"
+                  href="/roadmaps"
                 >
                   로드맵 확인하러가기
                 </a>

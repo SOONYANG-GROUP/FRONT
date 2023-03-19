@@ -17,31 +17,22 @@ const Header = () => {
 
         <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
           <li>
-            <a
-              href="http://localhost:3000/"
-              className="nav-link px-2 link-secondary"
-            >
+            <a href="/" className="nav-link px-2 link-secondary">
               Home
             </a>
           </li>
           <li>
-            <a
-              href="http://localhost:3000/roadmaps"
-              className="nav-link px-2 link-dark"
-            >
+            <a href="/roadmaps" className="nav-link px-2 link-dark">
               Roadmap
             </a>
           </li>
           <li>
-            <a
-              href="http://localhost:3000/profile/1"
-              className="nav-link px-2 link-dark"
-            >
+            <a href="/profile/1" className="nav-link px-2 link-dark">
               Profile
             </a>
           </li>
           <li>
-            <a href="#" className="nav-link px-2 link-dark">
+            <a href="/projects" className="nav-link px-2 link-dark">
               Projects
             </a>
           </li>
