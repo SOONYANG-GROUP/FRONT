@@ -13,6 +13,8 @@ import CreateRoadmap from "./Pages/Roadmap/CreateRoadmap";
 import Roadmaps from "./Pages/Roadmap/Roadmaps";
 import Roadmap from "./Pages/Roadmap/Roadmap";
 import Header from "./Layout/Header";
+import Test2 from "./Test2";
+import Test from "./Test";
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
         <Route path="/create/roadmap" element={<CreateRoadmap />} />
 
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/test" element={<Test />} />
+        <Route path="/test2" element={<Test2 />} />
       </Routes>
     </Router>
   );
