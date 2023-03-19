@@ -11,15 +11,18 @@
       "skills": [
         {
           "name": "html",
-          "skillUrl": "http://www.naver.com"
+          "skillUrl": "http://www.naver.com",
+          "imageUrl": ""
         },
         {
           "name": "css",
-          "skillUrl": "http://www.google.com"
+          "skillUrl": "http://www.google.com",
+          "imageUrl": ""
         },
         {
           "name": "javaScript",
-          "skillUrl": "http://www.daum.net"
+          "skillUrl": "http://www.daum.net",
+          "imageUrl": ""
         }
       ],
       "iconClassName": "fa-solid fa-paint-roller fa-2xl"

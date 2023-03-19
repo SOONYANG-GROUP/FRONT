@@ -10,6 +10,7 @@ const Roadmaps = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [roadmaps, setRoadmaps] = useState([]);
+  const [ pageNumber, setPageNumber ] = useState(0);
 
   useEffect(() => {
     if (GetRoadmaps()) {
@@ -21,6 +22,13 @@ const Roadmaps = () => {
   const GetRoadmaps = () => {
     return RoadmapDummyData.roadmaps;
   };
+
+  const onClickPageNumber = async (e) => {
+    e.preventDefault();
+    await setGenerating(true);
+    setPageNumber(parseInt(e.target.id));
+    await setGenerating(false);
+  }
 
   if (isLoading) {
     return <Loading />;
@@ -57,14 +65,116 @@ const Roadmaps = () => {
             </div>
           </div>
         </div>
-
-        <div className="container mt-5">
-          {console.log(roadmaps)}
-          <RoadmapCards roadmaps={roadmaps} />
-        </div>
+        <RoadmapPage 
+          roadmaps={roadmaps}
+          skills={[]}
+          generating={generating}
+          pageNumber={pageNumber}
+          onClickPageNumber={onClickPageNumber}
+        />
       </>
     );
   }
 };
+
+const RoadmapsNav = ({
+  pageNumber,
+  onClickPageNumber
+}) => {
+  return(
+    <div>
+    <ul className="nav nav-pills justify-content-center">
+      <li className="nav-item">
+        <a 
+          id={0}
+          className={`nav-link ${pageNumber === 0 ? "active" : ""}`} 
+          aria-current="page" 
+          href="#" 
+          onClick={onClickPageNumber}
+        >로드맵</a>
+      </li>
+      <li className="nav-item">
+        <a 
+          id={1}
+          className={`nav-link ${pageNumber === 1 ? "active" : ""}`} 
+          href="#"
+          onClick={onClickPageNumber}  
+        >스킬</a>
+      </li>
+    </ul>
+  </div>
+  )
+}
+
+const RoadmapPage = ({
+  roadmaps,
+  skills,
+  generating,
+  pageNumber,
+  onClickPageNumber
+}) => {
+  if(generating)
+  {
+    return(
+      <div>
+        Generating
+      </div>
+    )
+  }
+  else
+  {
+    if(pageNumber === 0)
+    {
+      return(<RoadmapZeroPage 
+        roadmaps={roadmaps} 
+        pageNumber={pageNumber}
+        onClickPageNumber={onClickPageNumber}
+        />)
+    }
+    else if(pageNumber === 1)
+    {
+      return(<RoadmapOnePage 
+        skills={skills} 
+        pageNumber={pageNumber}
+        onClickPageNumber={onClickPageNumber}
+      />)
+    }
+    else
+    {
+      return(<></>)
+    }
+  }
+}
+
+const RoadmapOnePage = ({
+  skills,
+  pageNumber,
+  onClickPageNumber
+}) => {
+  return(
+    <div className="container mt-5">
+      <RoadmapsNav 
+        pageNumber={pageNumber}
+        onClickPageNumber={onClickPageNumber}
+      />
+    </div>
+  )
+}
+
+const RoadmapZeroPage = ({
+  pageNumber,
+  roadmaps,
+  onClickPageNumber
+}) => {
+  return(
+    <div className="container mt-5">
+      <RoadmapsNav 
+        pageNumber={pageNumber}
+        onClickPageNumber={onClickPageNumber}
+      />
+      <RoadmapCards roadmaps={roadmaps} />
+    </div>
+  )
+}
 
 export default Roadmaps;

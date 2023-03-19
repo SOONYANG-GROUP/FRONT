@@ -6,7 +6,7 @@ const RoadmapCard = ({ roadmap }) => {
       <a
         href={`/roadmap/${roadmap._id}`}
         style={{ textDecoration: "none" }}
-        className="text-black"
+        className="text-black shadow-sm"
       >
         <div className="card mb-4 box-shadow h-100">
           <div className="card-body p-5">
@@ -24,7 +24,7 @@ const RoadmapCard = ({ roadmap }) => {
 
 const RoadmapCards = ({ roadmaps }) => {
   return (
-    <div className="album py-5 bg-light">
+    <div className="album py-5">
       <div className="container">
         <div className="row">
           {roadmaps.map((roadmap, index) => {

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { NameInput } from "../../Components/Inputs/Input";
-import { DescriptionInput } from "../../Components/Inputs/Textarea";
 import SkillList from "../../Components/List/SkillList";
 import SkillModalBtn from "../../Components/Modal/SkillModal";
 
@@ -35,16 +34,17 @@ const CreateRoadmap = () => {
     const onAddSkill = async (e) => {
         e.preventDefault();
         await setAddingSkill(true);
-
+        console.log(e.target.id);
         await setAddingSkill(false)
     }
 
     return(
         <>
-            <div>
+            <div className="container px-5">
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
                         <h4>* 로드맵 이름</h4>
+                        <span className="text-muted">반드시 직업 이름을 적어주세요</span>
                     </div>
                     <NameInput
                         name={name}

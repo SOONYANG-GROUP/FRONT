@@ -108,7 +108,7 @@ const CreateProject = () => {
                             addingReference={addingReference}
                         />
                     </div>
-                    <div>
+                    <div className="mt-2">
                         <ReferenceInput 
                             creating={creating}
                             referenceLabel={""}

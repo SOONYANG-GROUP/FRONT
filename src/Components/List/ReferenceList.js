@@ -6,15 +6,17 @@ const ReferenceListElement = ({
     onDeleteChampion
 }) => {
     return(
-        <div>
-            <div>
-                <a href={reference} key={index}>
-                    {reference}
-                </a>
+        <div className="row mt-2">
+            <div className="col-10">
+                <input 
+                    value={reference}
+                    className="form-control"
+                    disabled
+                />
             </div>
-            <div>
-                <button value={index} onClick={onDeleteChampion}>
-                    삭제
+            <div className="col">
+                <button className="btn btn-danger" value={index} onClick={onDeleteChampion}>
+                    <i className="fa-solid fa-trash"></i>
                 </button>
             </div>
         </div>

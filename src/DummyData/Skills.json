@@ -3,6 +3,8 @@
         {
             "name": "C++",
             "studyTip": "",
+            "imageId": "",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/6132/6132222.png",
             "references": [
                 {
                     "referenceLink": "https://www.naver.com"
@@ -15,12 +17,28 @@
         {
             "name": "C",
             "studyTip": "",
+            "imageId": "",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/3665/3665923.png",
             "references": [
                 {
                     "referenceLink": "https://www.tesla.com/"
                 },
                 {
                     "referenceLink": "https://www.tesla.com/"
+                }
+            ]
+        },
+        {
+            "name": "C#",
+            "studyTip": "",
+            "imageId": "",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/6132/6132221.png",
+            "references": [
+                {
+                    "referenceLink": "https://www.naver.com"
+                },
+                {
+                    "referenceLink": "https://www.disney.com"
                 }
             ]
         }
