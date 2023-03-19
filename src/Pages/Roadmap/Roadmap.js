@@ -10,6 +10,7 @@ const Roadmap = () => {
     const [ roadmap, setRoadmap ] = useState(null);
     const id = useParams().id;
 
+
     useEffect(() => {
         if(GetRoadmap(id))
         {
@@ -19,7 +20,7 @@ const Roadmap = () => {
     }, [ id ]);
 
     const GetRoadmap = (id) => {
-        return RoadmapDummyData.roadmaps[id];
+        return RoadmapDummyData.roadmaps[id - 1];
     }
 
     console.log(roadmap)

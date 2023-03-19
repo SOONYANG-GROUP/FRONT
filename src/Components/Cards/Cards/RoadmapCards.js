@@ -5,18 +5,18 @@ const RoadmapCard = ({
 }) => {
     return(
         <div className="col-md-4">
-            <div className="card mb-4 box-shadow">
-            <div className="card-body">
-                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div className="d-flex justify-content-between align-items-center">
-                <div className="btn-group">
-                    <button type="button" className="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
+            <a href={`/roadmap/${roadmap._id}`} style={{textDecoration: "none"}} className="text-black">
+                <div className="card mb-4 box-shadow">
+                    <div className="card-body p-5">
+                        <h4 className="text-center"><i className={roadmap.iconClassName}></i></h4>
+                        <h5 className="card-text text-center mt-4">
+                            {roadmap.roadmap}
+                        </h5>
+                        <div className="d-flex justify-content-between align-items-center">
+                        </div>
+                    </div>
                 </div>
-                <small className="text-muted">9 mins</small>
-                </div>
-            </div>
-            </div>
+            </a>
         </div>
     )
 }
