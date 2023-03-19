@@ -11,10 +11,17 @@ const Roadmap = () => {
   const [roadmap, setRoadmap] = useState(null);
   const id = useParams().id;
 
-  useEffect(() => {
-    if (GetRoadmap(id)) {
-      setRoadmap(GetRoadmap(id));
-      setIsLoading(false);
+
+    useEffect(() => {
+        if(GetRoadmap(id))
+        {
+            setRoadmap(GetRoadmap(id));
+            setIsLoading(false);
+        }
+    }, [ id ]);
+
+    const GetRoadmap = (id) => {
+        return RoadmapDummyData.roadmaps[id - 1];
     }
     console.log(roadmap);
   }, [id]);

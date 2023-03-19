@@ -1,22 +1,22 @@
 import React from "react";
 
-const RoadmapCard = ({ roadmap }) => {
-  console.log(roadmap);
-  return (
-    <div
-      class="col-lg-4 col-md-6 mb-5 aos-init aos-animate components"
-      data-aos="fade-up"
-    >
-      <a
-        class="card text-center text-decoration-none h-100 lift text-secondary"
-        href={`http://localhost:3002/roadmap/${roadmap._id}`}
-      >
-        <div class="card-body py-5">
-          <div class="icon-stack icon-stack-lg bg-green-soft text-green mb-4">
-            <i class={roadmap.iconClassName}></i>
-          </div>
-          <h5>{roadmap.roadmap}</h5>
-          <p class="card-text small">{roadmap.shortDescription}</p>
+const RoadmapCard = ({
+    roadmap
+}) => {
+    return(
+        <div className="col-md-4">
+            <a href={`/roadmap/${roadmap._id}`} style={{textDecoration: "none"}} className="text-black">
+                <div className="card mb-4 box-shadow">
+                    <div className="card-body p-5">
+                        <h4 className="text-center"><i className={roadmap.iconClassName}></i></h4>
+                        <h5 className="card-text text-center mt-4">
+                            {roadmap.roadmap}
+                        </h5>
+                        <div className="d-flex justify-content-between align-items-center">
+                        </div>
+                    </div>
+                </div>
+            </a>
         </div>
       </a>
     </div>
