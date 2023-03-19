@@ -43,12 +43,18 @@ const CreateRoadmap = () => {
         <>
             <div>
                 <div>
+                    <div className="text-uppercase-expanded small mb-2 pt-5">
+                        <h4>* 로드맵 이름</h4>
+                    </div>
                     <NameInput
                         name={name}
                         onChangeName={onChangeName}
                     />
                 </div>
                 <div>
+                    <div className="text-uppercase-expanded small mb-2 pt-5">
+                        <h4>* 로드맵 스킬 트리</h4>
+                    </div>
                     <SkillList 
                         skills={skills}
                         deletingSkill={deletingSkill}
