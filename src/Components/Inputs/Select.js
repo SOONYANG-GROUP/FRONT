@@ -43,7 +43,7 @@ export const FieldSelectTag = ({
                     totalFieldsNumber={totalFieldsNumber}
                 />
             </div>
-            <div className="col-8">
+            <div className="col-7">
                 <DetailFieldSelect
                     field={field}
                     onChangeDetailField={onChangeDetailField}

@@ -64,8 +64,8 @@ export const ReferenceInput = ({
     }
 
     return(
-        <div>
-            <div>
+        <div className="row">
+            <div className="col-10">
                 <input 
                     type="text"
                     name="reference"
@@ -77,8 +77,8 @@ export const ReferenceInput = ({
                     disabled={creating}
                 />
             </div>
-            <div className="mt-3">
-                <button onClick={onAddReference} className="btn btn-primary w-100" disabled={creating}>
+            <div className="col">
+                <button onClick={onAddReference} className="btn btn-primary" disabled={creating}>
                     <span><i className="fa-solid fa-plus"></i></span>
                 </button>
             </div>

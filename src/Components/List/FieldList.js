@@ -12,7 +12,7 @@ const FieldListElement = ({
                     <option>{field.field}</option>
                 </select>
             </div>
-            <div className="col-8">
+            <div className="col-7">
                 <select className="form-select" disabled>
                     <option>{field.detailField}</option>
                 </select>

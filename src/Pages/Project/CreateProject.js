@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TitleInput } from "../../Components/Inputs/Input";
+import { ReferenceInput, TitleInput } from "../../Components/Inputs/Input";
 import { FieldSelectTag } from "../../Components/Inputs/Select";
 import { DescriptionInput } from "../../Components/Inputs/Textarea";
 import FieldList from "../../Components/List/FieldList";
@@ -8,16 +8,19 @@ import Loading from "../Loading";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import ReferenceList from "../../Components/List/ReferenceList";
 
 const CreateProject = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ creating, setCreating ] = useState(false);
     const [ addingField, setAddingField ] = useState(false);
+    const [ addingReference, setAddingReference ] = useState(false); 
 
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ startDate, setStartDate ] = useState(new Date());
     const [ fields, setFields ] = useState([]);
+    const [ references, setReferences ] = useState([]);
 
     let [ totalFieldsNumber, setTotalFieldsNumber ] = useState(0); 
 
@@ -99,6 +102,25 @@ const CreateProject = () => {
                         <h4>* 참고 자료</h4>
                         <span>벤치마킹하는 서비스나, 프로젝트를 정리하신 자료의 웹주소를 등록해주세요.</span>
                     </div>
+                    <div>
+                        <ReferenceList 
+                            references={references}
+                            addingReference={addingReference}
+                        />
+                    </div>
+                    <div>
+                        <ReferenceInput 
+                            creating={creating}
+                            referenceLabel={""}
+                            references={references}
+                            setAddingReference={setAddingReference}
+                        />
+                    </div>
+                </div>
+                <div className="mb-2 pt-5">
+                    <button className="btn btn-primary w-100">
+                        Start Project
+                    </button>
                 </div>
             </div>
         )
