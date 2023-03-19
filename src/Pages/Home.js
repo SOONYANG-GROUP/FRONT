@@ -51,9 +51,9 @@ const Home = () => {
                 <div class="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
                   완성된 프로젝트들을 눈으로 직접 확인하세요
                 </div>
-                <h2>완성된 프로젝트들</h2>
+                <h2>최근 모집중인 프로젝트</h2>
                 <p class="lead">
-                  해당 프로젝트들을 통해 새로운 아이디어를 얻으세요!
+                  해당 프로젝트들을 참여해 새로운 스킬를 얻으세요!
                 </p>
               </div>
             </div>
