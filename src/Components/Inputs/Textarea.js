@@ -35,6 +35,7 @@ export const CommentInput = ({
             name="comment"
             value={comment}
             onChange={onChangeComment}
+            className="form-control"
         >
         </textarea>
     )
