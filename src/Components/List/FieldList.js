@@ -6,16 +6,20 @@ const FieldListElement = ({
     onDeleteField
 }) => {
     return(
-        <div key={index}>
-            <p>
-                {field.field}
-            </p>
-            <p>
-                {field.detailField}
-            </p>
-            <div>
-                <button value={index} onClick={onDeleteField}>
-                    삭제
+        <div key={index} className="row mb-2">
+            <div className="col-3">
+                <select className="form-select" disabled>
+                    <option>{field.field}</option>
+                </select>
+            </div>
+            <div className="col-7">
+                <select className="form-select" disabled>
+                    <option>{field.detailField}</option>
+                </select>
+            </div>
+            <div className="col">
+                <button className="btn btn-danger" value={index} onClick={onDeleteField}>
+                    <span><i className="fa-solid fa-trash"></i></span>
                 </button>
             </div>
         </div>

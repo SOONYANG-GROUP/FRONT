@@ -36,25 +36,23 @@ export const FieldSelectTag = ({
 
 
     return(
-        <div>
-            <div>
+        <div className="row">
+            <div className="col-3">
                 <FieldSelect 
                     onChangeField={onChangeField}
                     totalFieldsNumber={totalFieldsNumber}
                 />
             </div>
-            <div>
+            <div className="col-7">
                 <DetailFieldSelect
                     field={field}
                     onChangeDetailField={onChangeDetailField}
                     totalFieldsNumber={totalFieldsNumber}
                 />
             </div>
-            <div>
-                <button onClick={onAddField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
-                    <p>
-                        +
-                    </p>
+            <div className="col">
+                <button className="btn btn-primary" onClick={onAddField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
+                    <i className="fa-sharp fa-solid fa-plus"></i>
                 </button>
             </div>
         </div>
@@ -66,7 +64,7 @@ const FieldSelect = ({
     totalFieldsNumber
 }) => {
     return(
-        <select onChange={onChangeField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
+        <select className="form-select"  onChange={onChangeField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
             {FieldLists.map((FieldListEle, index) => {
                 return(
                     <option value={FieldListEle} key={index}>
@@ -87,7 +85,7 @@ const DetailFieldSelect = ({
     if(field == FieldLists[0])
     {
         return(
-            <select onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
+            <select className="form-select" onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
                 {FrontendFieldLists.map((FrontendFieldEle, index) => {
                 return(
                     <option value={FrontendFieldEle} key={index}>
@@ -102,7 +100,7 @@ const DetailFieldSelect = ({
     else if(field == FieldLists[1])
     {
         return(
-            <select onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
+            <select className="form-select" onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
                 {BackendFieldLists.map((BackendFieldEle, index) => {
                     return(
                         <option value={BackendFieldEle} key={index}>
@@ -116,7 +114,7 @@ const DetailFieldSelect = ({
     else if(field == FieldLists[2])
     {
         return(
-            <select onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
+            <select className="form-select" onChange={onChangeDetailField} disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}>
                 {SecurityFieldLists.map((securityEle, index) => {
                     return(
                         <option value={securityEle} key={index}>

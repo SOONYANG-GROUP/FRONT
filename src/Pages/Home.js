@@ -233,26 +233,14 @@ const Home = () => {
             <div class="col-lg-4 text-center mb-5">
               <div class="display-1 fw-700 text-gray-400">00+</div>
               <div class="h5">현재 가입된 유저의 수</div>
-              <p>
-                We've extended and restyled Bootstrap's default components to
-                create a this beautifully designed UI Toolkit.
-              </p>
             </div>
             <div class="col-lg-4 text-center mb-5">
               <div class="display-1 fw-700 text-gray-400">00+</div>
               <div class="h5">진행중인 사이드 프로젝트의 수</div>
-              <p>
-                Pre-built page templates will save you hours of development
-                time, allowing you to launch your project faster.
-              </p>
             </div>
             <div class="col-lg-4 text-center mb-5">
               <div class="display-1 fw-700 text-gray-400">00+</div>
               <div class="h5">완료된 프로젝트의 수</div>
-              <p>
-                Extended and new utility classes will give you even more control
-                over your content with minimal custom CSS.
-              </p>
             </div>
           </div>
           <div class="text-center">

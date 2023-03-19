@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export const TitleInput = ({
+    creating,
     title,
     onChangeTitle
 }) => {
@@ -11,12 +12,16 @@ export const TitleInput = ({
             value={title}
             onChange={onChangeTitle}
             placeholder="제목을 입력하세요"
+            className="form-control"
+            disabled={creating}
             autoFocus
         />
     )
 }
 
 export const NameInput = ({
+    disabled,
+    nameLabel = "",
     name,
     onChangeName
 }) => {
@@ -26,6 +31,9 @@ export const NameInput = ({
             value={name}
             onChange={onChangeName}
             placeholder="이름 입력"
+            id={nameLabel}
+            className="form-control"
+            disabled={disabled}
         />
     )
 }
@@ -33,6 +41,8 @@ export const NameInput = ({
 
 
 export const ReferenceInput = ({
+    creating,
+    referenceLabel,
     references,
     setAddingReference
 }) => {
@@ -47,7 +57,6 @@ export const ReferenceInput = ({
         await setAddingReference(true);
         if(reference !== "")
         {
-            
             references.push(reference);
             setReference("");
         }
@@ -55,18 +64,22 @@ export const ReferenceInput = ({
     }
 
     return(
-        <div>
-            <div>
+        <div className="row">
+            <div className="col-10">
                 <input 
                     type="text"
                     name="reference"
                     value={reference}
                     onChange={onChangeReference}
+                    id={referenceLabel}
+                    placeholder="https://..."
+                    className="form-control"
+                    disabled={creating}
                 />
             </div>
-            <div>
-                <button onClick={onAddReference}>
-                    +
+            <div className="col">
+                <button onClick={onAddReference} className="btn btn-primary" disabled={creating}>
+                    <span><i className="fa-solid fa-plus"></i></span>
                 </button>
             </div>
         </div>
@@ -74,22 +87,3 @@ export const ReferenceInput = ({
 }
 
 
-
-export const RoadmapInput = ({
-    curriculums
-}) => {
-    const [ title, setTitle ] = useState("");
-    const [ description, setDescription ] = useState("");
-    const [ references, setReferences ] = useState([]);
-    
-    const onChangeTitle = () => {
-
-    }
-
-    const onChangeDescription = () => {
-
-    }
-
-    
-
-}

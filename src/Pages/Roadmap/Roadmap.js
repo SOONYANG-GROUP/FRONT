@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import frontendDeveloper from "../../assets/images/frontendDeveloper.svg";
-import html5 from "../../assets/images/html5.png";
-// //후원 사이트
+
 
 import RoadmapDummyData from "../../DummyData/Roadmap.json";
 
@@ -79,19 +78,19 @@ const Roadmap = () => {
           <div class="container px-5">
             <div class="row gx-5 text-center">
               <div class="col-lg-4 mb-5 mb-lg-0">
-                <h3>평군 연봉</h3>
+                <h3>평균 연봉</h3>
                 <br />
-                <p class="mb-0">{roadmap.averageSalary}</p>
+                <p class="mb-0 fs-1">{roadmap.averageSalary}</p>
               </div>
               <div class="col-lg-4 mb-5 mb-lg-0">
                 <h3>대표 언어</h3>
                 <br />
-                <p class="mb-0">{roadmap.mostUsedLanguage}</p>
+                <p class="mb-0 fs-1">{roadmap.mostUsedLanguage}</p>
               </div>
               <div class="col-lg-4 mb-5 mb-lg-0">
                 <h3>대표 프레임 워크</h3>
                 <br />
-                <p class="mb-0">{roadmap.mostUsedFramework}</p>
+                <p class="mb-0 fs-1">{roadmap.mostUsedFramework}</p>
               </div>
             </div>
           </div>
