@@ -8,10 +8,14 @@ import { CommentInput } from "../../Components/Inputs/Textarea";
 const Project = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [ creatingComment, setCreatingComment ] = useState(false);
+  const [ creatingToDoListEle, setCreatingToDoListEle ] = useState(false);
 
   const [project, setProject] = useState({});
   const [ comment, setComment ] = useState("");
   const [ comments, setComments ] = useState([]);
+  const [ todoList, setTodoList ] = useState([]);
+  
+  const [ discordURL, setDiscordURL ] = useState("");
 
   const [ changingPage, setChangingPage ] = useState(false);
   const [ pageNumber, setPageNumber ] = useState(0);
@@ -24,12 +28,12 @@ const Project = () => {
       const projectData = ProjectDummyData.project;
       setProject(projectData);
       setComments(projectData.comments);
+      setTodoList(projectData.todoList);
+      setDiscordURL(projectData.discordURL);
       setIsLoading(false);
     };
     getProject();
   }, [id]);
-
-  console.log(project)
 
   const onChangeComment = (e) => {
     setComment(e.target.value);
@@ -86,6 +90,8 @@ const Project = () => {
           pageNumber={pageNumber}
           comment={comment}
           comments={comments}
+          todoList={todoList}
+          discordURL={discordURL}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
         />
@@ -97,13 +103,16 @@ const Project = () => {
 };
 
 const DetailPage = ({
+  discordURL,
+  todoList,
   changingPage,
   project,
   pageNumber,
   comment,
   comments,
   onChangeComment,
-  creatingComment
+  creatingComment,
+  creatingToDoListEle
 }) => {
   if(changingPage)
   {
@@ -132,11 +141,52 @@ const DetailPage = ({
         />
       )
     }
-    else
+    else if(pageNumber === 2)
     {
-      return(<></>)
+      return(
+        <DetailPageTwo 
+          discordURL={discordURL}
+          todoList={todoList}
+          creatingToDoListEle={creatingToDoListEle}
+        />
+      )
     }
   }
+}
+
+const DetailPageTwo = ({
+  discordURL,
+  todoList,
+  creatingToDoListEle
+}) => {
+  return(
+    <div className="container px-5">
+      <div className="text-uppercase-expanded small mb-2 pt-5">
+        <h4>To Do List</h4>
+      </div>
+      <hr class="mt-0 mb-3 mt-3 " />
+      {creatingToDoListEle ? (<></>) : (
+      <div>
+        {todoList.map((toDoListEle, index) => {
+          return(
+            <div>
+              <p key={index}>
+                {toDoListEle.task}
+              </p>
+            </div>
+          )
+        })}
+      </div>
+      )}
+      <div className="text-uppercase-expanded small mb-2 pt-5">
+        <h4>Community URL</h4>
+      </div>
+      <hr class="mt-0 mb-3 mt-3 " />
+      <div>
+        <a href={discordURL}>Discord</a>
+      </div>
+    </div>
+  )
 }
 
 const DetailPageOne = ({
@@ -145,7 +195,6 @@ const DetailPageOne = ({
   onChangeComment,
   creatingComment
 }) => {
-  console.log(creatingComment)
   return(
     <div className="container px-5">
       <div className="text-uppercase-expanded small mb-2 pt-5">
@@ -158,25 +207,18 @@ const DetailPageOne = ({
           onChangeComment={onChangeComment}
         />
       </div>
+      {creatingComment ? (<></>) : (
       <div>
-        {creatingComment ? (<></>) : (comments.map((commentEle, index) => {
+        {comments.map((comment, index) => {
           return(
             <div>
-              <div>
-                {comment.user}
-              </div>
-              <div>
-                {comment.date}
-              </div>
-              <div>
-                <p>
-                  {comment.comment}
-                </p>
-              </div>
+              {comment.comment}
             </div>
           )
-        }))}
+        })}
       </div>
+      )}
+
     </div>
   )
 }
