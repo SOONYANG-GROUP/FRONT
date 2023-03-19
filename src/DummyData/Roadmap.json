@@ -1,53 +1,282 @@
 {
-    "roadmaps": [
+  "roadmaps": [
+    {
+      "_id": 1,
+      "roadmap": "웹 프론트엔드 개발자",
+      "field": "프론트",
+      "averageSalary": 1000,
+      "mostUsedLanguage": "JavaScript",
+      "mostUsedFramework": "React",
+      "shortDescription": "웹 프런트 엔드 개발자는 매력적인 사용자 경험을 만들기 위해 HTML, CSS 및 JavaScript를 사용하여 웹 사이트 인터페이스를 구축합니다.",
+      "skills": [
         {
-            "_id": 1,
-            "roadmap": "웹 프론트엔드 개발자",
-            "field": "",
-            "averageSalary": 1000,
-            "skills": [
-                {
-                    "name": "C++",
-                    "skillUrl": "http://www.naver.com"
-                },
-                {
-                    "name": "C",
-                    "skillUrl": "http://www.google.com"
-                },
-                {
-                    "name": "컴퓨터 구조",
-                    "skillUrl": "http://www.daum.net"
-                },
-                {
-                    "name": "운영체제",
-                    "skillUrl": "https://www.spacex.com/"
-                }
-            ],
-            "iconClassName": "fa-solid fa-paint-roller fa-2xl"
+          "name": "html",
+          "skillUrl": "http://www.naver.com"
         },
         {
-            "_id": 2,
-            "roadmap": "블록체인 개발자",
-            "field": "",
-            "averageSalary": 1000,
-            "skills": [],
-            "iconClassName": "fa-brands fa-bitcoin fa-2xl"
+          "name": "css",
+          "skillUrl": "http://www.google.com"
         },
         {
-            "_id": 3,
-            "roadmap": "게임 서버 개발자",
-            "field": "",
-            "averageSalary": 1000,
-            "skills": [],
-            "iconClassName": "fa-sharp fa-solid fa-server fa-2xl"
-        },
-        {
-            "_id": 4,
-            "roadmap": "화이트 해커",
-            "field": "",
-            "averageSalary": 1000,
-            "skills": [],
-            "iconClassName": "fa-brands fa-hackerrank fa-2xl"
+          "name": "javaScript",
+          "skillUrl": "http://www.daum.net"
         }
-    ]
+      ],
+      "iconClassName": "fa-solid fa-paint-roller fa-2xl"
+    },
+    {
+      "_id": 2,
+      "roadmap": "blockchain developer",
+      "field": "",
+      "averageSalary": 1000,
+      "shortDescription": "블록체인 개발자들은 안전하고 투명한 데이터 관리를 위해 블록체인 기술을 활용해 분산형 애플리케이션을 구축한다.",
+      "skills": [
+        {
+          "name": "Solidity",
+          "skillUrl": ""
+        },
+        {
+          "name": "Ethereum",
+          "skillUrl": ""
+        },
+        {
+          "name": "Hyperledger Fabric",
+          "skillUrl": ""
+        }
+      ],
+      "mostUsedLanguage": "Solidity",
+      "mostUsedFramework": "Truffle",
+      "iconClassName": "fa-brands fa-bitcoin fa-2xl"
+    },
+    {
+      "_id": 3,
+      "roadmap": "게임 서버 개발자",
+      "field": "",
+      "averageSalary": 1000,
+      "shortDescription": "게임 서버 개발자는 온라인 멀티플레이어 게임을 위한 서버를 만들고 유지하여 안정적인 연결과 원활한 게임 플레이를 보장합니다.",
+      "skills": [
+        {
+          "name": "C++",
+          "skillUrl": ""
+        },
+        {
+          "name": "Java",
+          "skillUrl": ""
+        },
+        {
+          "name": "Python",
+          "skillUrl": ""
+        },
+        {
+          "name": "Unity",
+          "skillUrl": ""
+        },
+        {
+          "name": "Unreal Engine",
+          "skillUrl": ""
+        }
+      ],
+      "iconClassName": "fa-sharp fa-solid fa-server fa-2xl"
+    },
+    {
+      "_id": 4,
+      "roadmap": "화이트 해커",
+      "field": "",
+      "averageSalary": 1000,
+      "shortDescription": "화이트 햇 해커 개발자는 컴퓨터 시스템의 보안 취약점을 식별하고 수정하여 전반적인 보안을 향상시킵니다.",
+      "skills": [
+        {
+          "name": "Python",
+          "skillUrl": ""
+        },
+        {
+          "name": "C++",
+          "skillUrl": ""
+        },
+        {
+          "name": "Java",
+          "skillUrl": ""
+        },
+        {
+          "name": "Linux",
+          "skillUrl": ""
+        },
+        {
+          "name": "Networking",
+          "skillUrl": ""
+        }
+      ],
+      "iconClassName": "fa-brands fa-hackerrank fa-2xl"
+    },
+    {
+      "_id": 5,
+      "roadmap": "풀 스택 웹 개발자",
+      "field": "",
+      "averageSalary": 800,
+      "shortDescription": "Full-stack web developers build web applications using both front-end and back-end technologies.",
+      "skills": [
+        {
+          "name": "HTML",
+          "skillUrl": ""
+        },
+        {
+          "name": "CSS",
+          "skillUrl": ""
+        },
+        {
+          "name": "JavaScript",
+          "skillUrl": ""
+        },
+        {
+          "name": "React",
+          "skillUrl": ""
+        },
+        {
+          "name": "Node.js",
+          "skillUrl": ""
+        },
+        {
+          "name": "Express",
+          "skillUrl": ""
+        }
+      ],
+      "iconClassName": "fa-solid fa-laptop-code fa-2xl"
+    },
+    {
+      "_id": 6,
+      "roadmap": "Artificial Intelligence Engineer",
+      "field": "",
+      "averageSalary": 1200,
+      "shortDescription": "Artificial Intelligence Engineers develop machine learning algorithms and applications to automate tasks and improve decision-making.",
+      "skills": [
+        {
+          "name": "Python",
+          "skillUrl": ""
+        },
+        {
+          "name": "R",
+          "skillUrl": ""
+        },
+        {
+          "name": "TensorFlow",
+          "skillUrl": ""
+        },
+        {
+          "name": "PyTorch",
+          "skillUrl": ""
+        },
+        {
+          "name": "Scikit-learn",
+          "skillUrl": ""
+        },
+        {
+          "name": "Deep Learning",
+          "skillUrl": ""
+        }
+      ],
+      "iconClassName": "fa-solid fa-robot fa-2xl"
+    },
+    {
+      "_id": 7,
+      "roadmap": "Mobile App Developer",
+      "field": "",
+      "averageSalary": 900,
+      "shortDescription": "Mobile app developers create and maintain applications for mobile devices such as smartphones and tablets.",
+      "skills": [
+        {
+          "name": "Java",
+          "skillUrl": ""
+        },
+        {
+          "name": "Swift",
+          "skillUrl": ""
+        },
+        {
+          "name": "Kotlin",
+          "skillUrl": ""
+        },
+        {
+          "name": "React Native",
+          "skillUrl": ""
+        },
+        {
+          "name": "Flutter",
+          "skillUrl": ""
+        },
+        {
+          "name": "iOS Development",
+          "skillUrl": ""
+        }
+      ],
+      "iconClassName": "fa-solid fa-mobile-alt fa-2xl"
+    },
+    {
+      "_id": 8,
+      "roadmap": "Cloud Solutions Architect",
+      "field": "",
+      "averageSalary": 1500,
+      "shortDescription": "Cloud Solutions Architects design and implement cloud-based infrastructure and services to meet business needs.",
+      "skills": [
+        {
+          "name": "Cloud Computing",
+          "skillUrl": ""
+        },
+        {
+          "name": "AWS",
+          "skillUrl": ""
+        },
+        {
+          "name": "Azure",
+          "skillUrl": ""
+        },
+        {
+          "name": "Google Cloud Platform",
+          "skillUrl": ""
+        },
+        {
+          "name": "Networking",
+          "skillUrl": ""
+        },
+        {
+          "name": "Security",
+          "skillUrl": ""
+        }
+      ],
+      "iconClassName": "fa-solid fa-cloud fa-2xl"
+    },
+    {
+      "_id": 9,
+      "roadmap": "DevOps Engineer",
+      "field": "",
+      "averageSalary": 1100,
+      "shortDescription": "DevOps Engineers bridge the gap between development and operations by automating processes and improving collaboration.",
+      "skills": [
+        {
+          "name": "Linux",
+          "skillUrl": ""
+        },
+        {
+          "name": "Docker",
+          "skillUrl": ""
+        },
+        {
+          "name": "Kubernetes",
+          "skillUrl": ""
+        },
+        {
+          "name": "Continuous Integration / Continuous Deployment (CI/CD)",
+          "skillUrl": ""
+        },
+        {
+          "name": "Scripting",
+          "skillUrl": ""
+        },
+        {
+          "name": "Monitoring and Logging",
+          "skillUrl": ""
+        }
+      ],
+      "iconClassName": "fa-solid fa-tools fa-2xl"
+    }
+  ]
 }

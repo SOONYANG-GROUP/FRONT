@@ -4,48 +4,65 @@ import Loading from "../Loading";
 import ProjectsDummyData from "../../DummyData/Projects.json";
 import ProjectCards from "../../Components/Cards/Cards/ProjectCards";
 
+import BuildTeam from "../../assets/images/BuildTeam.svg";
+
 const Projects = () => {
-    const [ isLoading, setIsLoading ] = useState(true);
-    const [ generating, setGenerating ] = useState(false);
-    const [ projects, setProjects ] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [generating, setGenerating] = useState(false);
+  const [projects, setProjects] = useState([]);
 
-    useEffect(() => {
-        if(GetProjects())
-        {
-            setProjects(GetProjects());
-            setIsLoading(false);
-        }
-    }, []);
-
-    const GetProjects = () => {
-        return ProjectsDummyData.projects;
+  useEffect(() => {
+    if (GetProjects()) {
+      setProjects(GetProjects());
+      setIsLoading(false);
     }
+  }, []);
 
-    if(isLoading)
-    {
-        return(<Loading />)
-    }
-    else
-    {
-        return(
-            <div>
+  const GetProjects = () => {
+    return ProjectsDummyData.projects;
+  };
 
-                <div class="container my-5">
-                    <div class="bg-light p-5 rounded">
-                        <div class="col-sm-8 py-5 mx-auto">
-                            <h1 class="display-5 fw-normal"><i className="fa-solid fa-code"></i> 어제보다 더 나은 개발자로 성장하세요</h1>
-                            <p class="fs-5">
-                                이론과 실전을 겸비한 뛰어난 개발자가 되기 위해 프로젝트에 신청하세요
-                            </p>
-                        </div>
-                    </div>
+  if (isLoading) {
+    return <Loading />;
+  } else {
+    return (
+      <div>
+        <div class="page-header-ui-content pt-5">
+          <div class="container px-5">
+            <div class="row gx-5 align-items-center">
+              <div class="col-lg-6" data-aos="fade-up">
+                <h1 class="page-header-ui-title">
+                  팀을 구해 사이드 프로젝트를 <br /> 진행하세요!
+                </h1>
+                <p class="page-header-ui-text mb-5">
+                  CampusCrew는 다양한 사이드프로젝트 추천과 로드맵을 함께
+                  제공해드립니다.
+                </p>
+                원하시는 주제가 없나요?
+                <div class="d-flex flex-column flex-sm-row">
+                  <a
+                    class="btn btn-lg btn-primary fw-500 me-sm-3 mb-3 mb-sm-0"
+                    href="/create/roadmap"
+                  >
+                    팀 만들기
+                    <i class="ms-2" data-feather="arrow-right"></i>
+                  </a>
                 </div>
-                <ProjectCards 
-                    projects={projects}
-                />
+              </div>
+              <div
+                class="col-lg-6 d-none d-lg-block"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              >
+                <img class="img-fluid" src={BuildTeam} alt="..." />
+              </div>
             </div>
-        )
-    }
-}
+          </div>
+        </div>
+        <ProjectCards projects={projects} />
+      </div>
+    );
+  }
+};
 
 export default Projects;

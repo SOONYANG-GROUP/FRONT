@@ -1,45 +1,40 @@
 import React from "react";
 
-const RoadmapCard = ({
-    roadmap
-}) => {
-    return(
-        <div className="col-md-4">
-            <div className="card mb-4 box-shadow">
-            <div className="card-body">
-                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div className="d-flex justify-content-between align-items-center">
-                <div className="btn-group">
-                    <button type="button" className="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" className="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small className="text-muted">9 mins</small>
-                </div>
-            </div>
-            </div>
+const RoadmapCard = ({ roadmap }) => {
+  console.log(roadmap);
+  return (
+    <div
+      class="col-lg-4 col-md-6 mb-5 aos-init aos-animate components"
+      data-aos="fade-up"
+    >
+      <a
+        class="card text-center text-decoration-none h-100 lift text-secondary"
+        href={`http://localhost:3002/roadmap/${roadmap._id}`}
+      >
+        <div class="card-body py-5">
+          <div class="icon-stack icon-stack-lg bg-green-soft text-green mb-4">
+            <i class={roadmap.iconClassName}></i>
+          </div>
+          <h5>{roadmap.roadmap}</h5>
+          <p class="card-text small">{roadmap.shortDescription}</p>
         </div>
-    )
-}
+      </a>
+    </div>
+  );
+};
 
-const RoadmapCards = ({
-    roadmaps
-}) => {
-    return(
-        <div className="album py-5 bg-light">
-            <div className="container">
-            <div className="row">
-                {roadmaps.map((roadmap, index) => {
-                    return(
-                        <RoadmapCard 
-                            key={index}
-                            roadmap={roadmap}
-                        />
-                    )
-                })}
-            </div>
-            </div>
+const RoadmapCards = ({ roadmaps }) => {
+  return (
+    <div className="album py-5 bg-light">
+      <div className="container">
+        <div className="row">
+          {roadmaps.map((roadmap, index) => {
+            return <RoadmapCard key={index} roadmap={roadmap} />;
+          })}
         </div>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
 export default RoadmapCards;
