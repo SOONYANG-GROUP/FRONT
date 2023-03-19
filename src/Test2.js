@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 const Test = () => {
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
@@ -31,15 +31,15 @@ const Test = () => {
 
   // login 버튼 클릭 이벤트
   const onClickLogin = () => {
-    console.log("click login");
+    let data = {
+      age: { age },
+      password: { password },
+      email: { email },
+      nickname: { nickname },
+      name: { name },
+    };
     axios
-      .post("http://localhost:8080/join", {
-        age: { age },
-        password: { password },
-        email: { email },
-        nickname: { nickname },
-        name: { name },
-      })
+      .post("http://localhost:8080/join", JSON.stringify(data))
       .then((res) => console.log(res))
       .catch();
   };
