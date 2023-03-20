@@ -123,6 +123,14 @@ const Home = () => {
             </svg>
           </div>
         </section>
+
+        <div class="text-center mb-10">
+          <div class="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+            최근 이용자들이 수정한 정보를 확인하세요
+          </div>
+          <h2>최근 수정된 정보</h2>
+          <p class="lead"></p>
+        </div>
       </>
     );
   }
