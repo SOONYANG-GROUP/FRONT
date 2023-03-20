@@ -2,27 +2,30 @@
   "roadmaps": [
     {
       "_id": 1,
-      "roadmap": "웹 프론트엔드 개발자",
-      "field": "프론트",
-      "averageSalary": 1000,
+      "roadmap": "web frontend developer",
+      "field": "front",
+      "averageSalary": 65000,
       "mostUsedLanguage": "JavaScript",
       "mostUsedFramework": "React",
-      "shortDescription": "웹 프런트 엔드 개발자는 매력적인 사용자 경험을 만들기 위해 HTML, CSS 및 JavaScript를 사용하여 웹 사이트 인터페이스를 구축합니다.",
+      "shortDescription": "Web front-end developers build website interfaces using HTML, CSS, and JavaScript to create engaging user experiences.",
       "skills": [
         {
-          "name": "html",
-          "skillUrl": "http://www.naver.com",
-          "imageUrl": ""
+          "name": "HTML",
+          "skillUrl": "https://www.w3schools.com/html/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/1532/1532556.png",
+          "description": "HTML (Hypertext Markup Language) is used to create the structure and content of a web page."
         },
         {
-          "name": "css",
-          "skillUrl": "http://www.google.com",
-          "imageUrl": ""
+          "name": "CSS",
+          "skillUrl": "https://www.w3schools.com/css/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/732/732190.png",
+          "description": "CSS (Cascading Style Sheets) is used to style and layout web pages."
         },
         {
-          "name": "javaScript",
-          "skillUrl": "http://www.daum.net",
-          "imageUrl": ""
+          "name": "JavaScript",
+          "skillUrl": "https://www.w3schools.com/js/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/1199/1199124.png",
+          "description": "JavaScript is used to make web pages interactive and dynamic."
         }
       ],
       "iconClassName": "fa-solid fa-paint-roller fa-2xl"
@@ -30,151 +33,166 @@
     {
       "_id": 2,
       "roadmap": "blockchain developer",
-      "field": "",
-      "averageSalary": 1000,
-      "shortDescription": "블록체인 개발자들은 안전하고 투명한 데이터 관리를 위해 블록체인 기술을 활용해 분산형 애플리케이션을 구축한다.",
+      "field": "blockchain",
+      "averageSalary": 110000,
+      "mostUsedLanguage": "Solidity",
+      "mostUsedFramework": "Truffle",
+      "shortDescription": "Blockchain developers use blockchain technology to build decentralized applications for secure and transparent data management.",
       "skills": [
         {
           "name": "Solidity",
-          "skillUrl": ""
+          "skillUrl": "https://soliditylang.org/",
+          "skillImgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Solidity_logo.svg/1200px-Solidity_logo.svg.png",
+          "description": "Solidity is a contract-oriented programming language used for writing smart contracts on the Ethereum blockchain."
         },
         {
           "name": "Ethereum",
-          "skillUrl": ""
+          "skillUrl": "https://ethereum.org/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/4123/4123811.png",
+          "description": "Ethereum is a blockchain platform that allows developers to build decentralized applications."
         },
         {
           "name": "Hyperledger Fabric",
-          "skillUrl": ""
+          "skillUrl": "https://www.hyperledger.org/use/fabric",
+          "skillImgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk6C6icQ_bjpjho7mQnF3NasIOp98vfryedQ&usqp=CAU",
+          "description": "Hyperledger Fabric is a blockchain platform for enterprise applications, allowing developers to build secure and scalable blockchain solutions."
         }
       ],
-      "mostUsedLanguage": "Solidity",
-      "mostUsedFramework": "Truffle",
       "iconClassName": "fa-brands fa-bitcoin fa-2xl"
     },
     {
-      "_id": 3,
-      "roadmap": "게임 서버 개발자",
-      "field": "",
-      "averageSalary": 1000,
-      "shortDescription": "게임 서버 개발자는 온라인 멀티플레이어 게임을 위한 서버를 만들고 유지하여 안정적인 연결과 원활한 게임 플레이를 보장합니다.",
+      "_id": 5,
+      "roadmap": "game server developer",
+      "field": "game",
+      "averageSalary": 95000,
+      "mostUsedLanguage": "C++",
+      "mostUsedFramework": "Unreal Engine",
+      "shortDescription": "Game server developers create the backend infrastructure and architecture for online multiplayer games, handling tasks such as player matchmaking, data storage, and game logic.",
       "skills": [
         {
           "name": "C++",
-          "skillUrl": ""
-        },
-        {
-          "name": "Java",
-          "skillUrl": ""
-        },
-        {
-          "name": "Python",
-          "skillUrl": ""
-        },
-        {
-          "name": "Unity",
-          "skillUrl": ""
+          "skillUrl": "https://www.cplusplus.com/",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/cplusplus_logo_icon_168064.png",
+          "description": "C++ is a high-performance programming language used in game development for its speed and memory management capabilities."
         },
         {
           "name": "Unreal Engine",
-          "skillUrl": ""
+          "skillUrl": "https://www.unrealengine.com/",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/unreal_engine_logo_icon_168084.png",
+          "description": "Unreal Engine is a game engine developed by Epic Games, commonly used in game development for its powerful graphics rendering and game development tools."
+        },
+        {
+          "name": "Network Programming",
+          "skillUrl": "https://en.wikipedia.org/wiki/Network_programming",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_net_icon_130068.png",
+          "description": "Network programming involves designing and implementing communication protocols between computer programs to enable data exchange over networks."
         }
       ],
-      "iconClassName": "fa-sharp fa-solid fa-server fa-2xl"
+      "iconClassName": "fa-solid fa-gamepad fa-2xl"
     },
     {
-      "_id": 4,
-      "roadmap": "화이트 해커",
-      "field": "",
-      "averageSalary": 1000,
-      "shortDescription": "화이트 햇 해커 개발자는 컴퓨터 시스템의 보안 취약점을 식별하고 수정하여 전반적인 보안을 향상시킵니다.",
+      "_id": 6,
+      "roadmap": "white hat hacker",
+      "field": "cybersecurity",
+      "averageSalary": 85000,
+      "mostUsedLanguage": "Python",
+      "shortDescription": "White hat hackers are ethical hackers who specialize in finding vulnerabilities and securing computer systems against potential attacks.",
       "skills": [
         {
+          "name": "Penetration Testing",
+          "skillUrl": "https://en.wikipedia.org/wiki/Penetration_test",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_penetration_tester_icon_130089.png",
+          "description": "Penetration testing is a method of evaluating the security of a computer system or network by simulating an attack from a malicious source."
+        },
+        {
           "name": "Python",
-          "skillUrl": ""
+          "skillUrl": "https://www.python.org/",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/python_logo_icon_168886.png",
+          "description": "Python is a popular programming language used in cybersecurity for its ease of use, readability, and vast libraries of modules and packages."
         },
         {
-          "name": "C++",
-          "skillUrl": ""
-        },
-        {
-          "name": "Java",
-          "skillUrl": ""
-        },
-        {
-          "name": "Linux",
-          "skillUrl": ""
-        },
-        {
-          "name": "Networking",
-          "skillUrl": ""
+          "name": "Vulnerability Assessment",
+          "skillUrl": "https://en.wikipedia.org/wiki/Vulnerability_assessment",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_security_icon_130162.png",
+          "description": "Vulnerability assessment is the process of identifying and assessing security vulnerabilities in computer systems or networks."
         }
       ],
-      "iconClassName": "fa-brands fa-hackerrank fa-2xl"
+      "iconClassName": "fa-solid fa-user-shield fa-2xl"
     },
     {
       "_id": 5,
-      "roadmap": "풀 스택 웹 개발자",
-      "field": "",
-      "averageSalary": 800,
-      "shortDescription": "Full-stack web developers build web applications using both front-end and back-end technologies.",
+      "roadmap": "full stack web developer",
+      "field": "web development",
+      "averageSalary": 75000,
+      "mostUsedLanguage": "JavaScript",
+      "mostUsedFramework": "Node.js",
+      "shortDescription": "Full stack web developers are proficient in both front-end and back-end web development, enabling them to build complete web applications.",
       "skills": [
         {
           "name": "HTML",
-          "skillUrl": ""
+          "skillUrl": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_html_icon_130541.png",
+          "description": "HTML is the markup language used to structure content on the web."
         },
         {
           "name": "CSS",
-          "skillUrl": ""
+          "skillUrl": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_css_icon_130661.png",
+          "description": "CSS is the style sheet language used to add visual styling to HTML content."
         },
         {
           "name": "JavaScript",
-          "skillUrl": ""
-        },
-        {
-          "name": "React",
-          "skillUrl": ""
+          "skillUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_js_official_icon_130509.png",
+          "description": "JavaScript is the programming language used to add interactivity to web pages."
         },
         {
           "name": "Node.js",
-          "skillUrl": ""
+          "skillUrl": "https://nodejs.org/en/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/919/919825.png",
+          "description": "Node.js is an open-source, cross-platform JavaScript runtime environment used to build scalable and fast network applications."
         },
         {
-          "name": "Express",
-          "skillUrl": ""
+          "name": "React",
+          "skillUrl": "https://reactjs.org/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/1126/1126012.png",
+          "description": "React is a JavaScript library used to build user interfaces and single-page applications."
+        },
+        {
+          "name": "MongoDB",
+          "skillUrl": "https://www.mongodb.com/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/2906/2906274.png",
+          "description": "MongoDB is a NoSQL document database used to store data for web applications."
         }
       ],
-      "iconClassName": "fa-solid fa-laptop-code fa-2xl"
+      "iconClassName": "fa-solid fa-globe fa-2xl"
     },
     {
       "_id": 6,
       "roadmap": "Artificial Intelligence Engineer",
-      "field": "",
+      "field": "AI",
       "averageSalary": 1200,
-      "shortDescription": "Artificial Intelligence Engineers develop machine learning algorithms and applications to automate tasks and improve decision-making.",
+      "mostUsedLanguage": "Python",
+      "mostUsedFramework": "TensorFlow",
+      "shortDescription": "Artificial Intelligence Engineers design and develop intelligent systems and algorithms that can learn from and make decisions based on data.",
       "skills": [
         {
           "name": "Python",
-          "skillUrl": ""
+          "skillUrl": "https://www.python.org/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/919/919852.png",
+          "description": "One of the most popular programming languages used in AI development."
         },
         {
-          "name": "R",
-          "skillUrl": ""
-        },
-        {
-          "name": "TensorFlow",
-          "skillUrl": ""
-        },
-        {
-          "name": "PyTorch",
-          "skillUrl": ""
-        },
-        {
-          "name": "Scikit-learn",
-          "skillUrl": ""
+          "name": "Machine Learning",
+          "skillUrl": "https://en.wikipedia.org/wiki/Machine_learning",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/933/933258.png",
+          "description": "The ability of computers to learn from data and make decisions."
         },
         {
           "name": "Deep Learning",
-          "skillUrl": ""
+          "skillUrl": "https://en.wikipedia.org/wiki/Deep_learning",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/8637/8637113.png",
+          "description": "A subset of machine learning that uses artificial neural networks to model and solve complex problems."
         }
       ],
       "iconClassName": "fa-solid fa-robot fa-2xl"
@@ -182,67 +200,59 @@
     {
       "_id": 7,
       "roadmap": "Mobile App Developer",
-      "field": "",
-      "averageSalary": 900,
-      "shortDescription": "Mobile app developers create and maintain applications for mobile devices such as smartphones and tablets.",
+      "field": "Mobile",
+      "averageSalary": 1100,
+      "mostUsedLanguage": "Java",
+      "mostUsedFramework": "Flutter",
+      "shortDescription": "Mobile App Developers design and develop applications for mobile devices such as smartphones and tablets, using programming languages and frameworks optimized for mobile platforms.",
       "skills": [
         {
           "name": "Java",
-          "skillUrl": ""
+          "skillUrl": "https://www.java.com/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/226/226777.png",
+          "description": "One of the most popular programming languages used in Android development."
         },
         {
           "name": "Swift",
-          "skillUrl": ""
-        },
-        {
-          "name": "Kotlin",
-          "skillUrl": ""
-        },
-        {
-          "name": "React Native",
-          "skillUrl": ""
+          "skillUrl": "https://developer.apple.com/swift/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/732/732250.png",
+          "description": "The programming language used to develop iOS applications."
         },
         {
           "name": "Flutter",
-          "skillUrl": ""
-        },
-        {
-          "name": "iOS Development",
-          "skillUrl": ""
+          "skillUrl": "https://flutter.dev/",
+          "skillImgUrl": "https://blog.kakaocdn.net/dn/liuIY/btrt6fAFKNp/hZpWyNNdvu2Gy9Q7nukk3K/img.png",
+          "description": "A mobile app SDK for building high-performance, high-fidelity, apps for iOS and Android, from a single codebase."
         }
       ],
-      "iconClassName": "fa-solid fa-mobile-alt fa-2xl"
+      "iconClassName": "fa-solid fa-mobile fa-2xl"
     },
     {
       "_id": 8,
       "roadmap": "Cloud Solutions Architect",
-      "field": "",
-      "averageSalary": 1500,
-      "shortDescription": "Cloud Solutions Architects design and implement cloud-based infrastructure and services to meet business needs.",
+      "field": "Cloud",
+      "averageSalary": 1200,
+      "mostUsedLanguage": "Python",
+      "mostUsedFramework": "Amazon Web Services",
+      "shortDescription": "Cloud Solutions Architects design and implement cloud-based solutions for businesses, using a combination of technical and business skills to ensure that the solutions meet the needs of the organization.",
       "skills": [
         {
-          "name": "Cloud Computing",
-          "skillUrl": ""
-        },
-        {
-          "name": "AWS",
-          "skillUrl": ""
+          "name": "Amazon Web Services",
+          "skillUrl": "https://aws.amazon.com/",
+          "skillImgUrl": "https://static-00.iconduck.com/assets.00/aws-icon-256x256-qvoq2ml5.png",
+          "description": "A widely used cloud platform offering a broad range of services, including compute, storage, and database services."
         },
         {
           "name": "Azure",
-          "skillUrl": ""
+          "skillUrl": "https://azure.microsoft.com/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/873/873107.png",
+          "description": "A cloud platform provided by Microsoft, offering a wide range of services for computing, storage, and networking."
         },
         {
-          "name": "Google Cloud Platform",
-          "skillUrl": ""
-        },
-        {
-          "name": "Networking",
-          "skillUrl": ""
-        },
-        {
-          "name": "Security",
-          "skillUrl": ""
+          "name": "Python",
+          "skillUrl": "https://www.python.org/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/919/919852.png",
+          "description": "A popular programming language used in cloud computing due to its ease of use and versatility."
         }
       ],
       "iconClassName": "fa-solid fa-cloud fa-2xl"
@@ -250,36 +260,32 @@
     {
       "_id": 9,
       "roadmap": "DevOps Engineer",
-      "field": "",
+      "field": "DevOps",
       "averageSalary": 1100,
-      "shortDescription": "DevOps Engineers bridge the gap between development and operations by automating processes and improving collaboration.",
+      "mostUsedLanguage": "Bash",
+      "mostUsedFramework": "Jenkins",
+      "shortDescription": "DevOps Engineers work to streamline the development and deployment processes of software applications, using automation and collaboration tools to reduce errors and increase efficiency.",
       "skills": [
         {
-          "name": "Linux",
-          "skillUrl": ""
+          "name": "Jenkins",
+          "skillUrl": "https://www.jenkins.io/",
+          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/jenkins_logo_icon_170552.png",
+          "description": "An open-source automation server used to build, test, and deploy software applications."
         },
         {
           "name": "Docker",
-          "skillUrl": ""
+          "skillUrl": "https://www.docker.com/",
+          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/5969/5969059.png",
+          "description": "A platform used to develop, ship, and run applications as containers."
         },
         {
-          "name": "Kubernetes",
-          "skillUrl": ""
-        },
-        {
-          "name": "Continuous Integration / Continuous Deployment (CI/CD)",
-          "skillUrl": ""
-        },
-        {
-          "name": "Scripting",
-          "skillUrl": ""
-        },
-        {
-          "name": "Monitoring and Logging",
-          "skillUrl": ""
+          "name": "Bash",
+          "skillUrl": "https://www.gnu.org/software/bash/",
+          "skillImgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bash_Logo_Colored.svg/512px-Bash_Logo_Colored.svg.png?20180723054350",
+          "description": "A shell scripting language used to automate tasks in a Unix-based environment."
         }
       ],
-      "iconClassName": "fa-solid fa-tools fa-2xl"
+      "iconClassName": "fa-solid fa-cogs fa-2xl"
     }
   ]
 }

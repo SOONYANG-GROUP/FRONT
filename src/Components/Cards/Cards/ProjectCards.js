@@ -5,7 +5,7 @@ const ProjectCard = ({ project }) => {
     <div className="col-lg-4 mb-5 mb-lg-0 mt-3">
       <a
         className="card lift h-100 text-secondary shadow-sm p-3 bg-body-tertiary rounded"
-        href={`http://localhost:3002/project/${project._id}`}
+        href={`http://localhost:3000/project/${project._id}`}
         style={{ textDecoration: "none" }}
       >
         <div className="card-body">

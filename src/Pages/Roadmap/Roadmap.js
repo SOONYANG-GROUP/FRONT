@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import frontendDeveloper from "../../assets/images/frontendDeveloper.svg";
 
-
 import RoadmapDummyData from "../../DummyData/Roadmap.json";
 
 const Roadmap = () => {
@@ -10,18 +9,16 @@ const Roadmap = () => {
   const [roadmap, setRoadmap] = useState(null);
   const id = useParams().id;
 
-
-    useEffect(() => {
-        if(GetRoadmap(id))
-        {
-            setRoadmap(GetRoadmap(id));
-            setIsLoading(false);
-        }
-    }, [ id ]);
-
-    const GetRoadmap = (id) => {
-        return RoadmapDummyData.roadmaps[id - 1];
+  useEffect(() => {
+    if (GetRoadmap(id)) {
+      setRoadmap(GetRoadmap(id));
+      setIsLoading(false);
     }
+  }, [id]);
+
+  const GetRoadmap = (id) => {
+    return RoadmapDummyData.roadmaps[id - 1];
+  };
 
   if (!isLoading) {
     return (
@@ -93,6 +90,45 @@ const Roadmap = () => {
                 <p class="mb-0 fs-1">{roadmap.mostUsedFramework}</p>
               </div>
             </div>
+          </div>
+        </section>
+        <br />
+        <br />
+        <br />
+
+        <section class="bg-white py-10" id="get-started">
+          <div class="container px-5">
+            <div class="row gx-5 text-center">
+              <div class="text-uppercase-expanded small mb-2 pt-5 pb-5">
+                <h4>필요한 기술 스택</h4>
+              </div>
+              {roadmap.skills.map((s) => {
+                return (
+                  <div class="col-lg-4 mb-5 mb-lg-0">
+                    <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4">
+                      <img
+                        src={s.skillImgUrl}
+                        alt="..."
+                        width="70"
+                        height="70"
+                      />
+                    </div>
+                    <h2>{s.name}</h2>
+                    <p class="mb-0">{s.description}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          <div class="svg-border-rounded text-light">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 144.54 17.34"
+              preserveAspectRatio="none"
+              fill="currentColor"
+            >
+              <path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path>
+            </svg>
           </div>
         </section>
       </div>

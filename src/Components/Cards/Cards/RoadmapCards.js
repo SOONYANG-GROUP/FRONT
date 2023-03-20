@@ -8,7 +8,7 @@ const RoadmapCard = ({ roadmap }) => {
         style={{ textDecoration: "none" }}
         className="text-black shadow-sm"
       >
-        <div className="card mb-4 box-shadow h-100">
+        <div className="card mb-4 box-shadow">
           <div className="card-body p-5">
             <h4 className="text-center">
               <i className={roadmap.iconClassName}></i>
