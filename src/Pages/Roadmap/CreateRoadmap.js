@@ -11,7 +11,25 @@ const CreateRoadmap = () => {
     const [ addingSkill, setAddingSkill ] = useState(false);
 
     const [ name, setName ] = useState("");
-    const [ skills, setSkills ] = useState([]);
+    const [ skills, setSkills ] = useState([
+
+        {
+            "_id": 3,
+            "name": "C#",
+            "studyTip": "",
+            "imageId": "",
+            "imageUrl": "https://cdn-icons-png.flaticon.com/512/6132/6132221.png",
+            "references": [
+                {
+                    "referenceLink": "https://www.naver.com"
+                },
+                {
+                    "referenceLink": "https://www.disney.com"
+                }
+            ]
+        }
+
+    ]);
     const [ loadedSkills, setLoadedSkills ] = useState([]);
     
 
@@ -34,7 +52,13 @@ const CreateRoadmap = () => {
     const onAddSkill = async (e) => {
         e.preventDefault();
         await setAddingSkill(true);
-        console.log(e.target.id);
+        const selectedSkill = loadedSkills[parseInt(e.target.id)];
+        
+        const selectedEleInSkills = skills.find((e) => { return e.name === selectedSkill.name});
+        if(selectedEleInSkills === undefined)
+        {
+            skills.push(selectedEleInSkills);
+        }
         await setAddingSkill(false)
     }
 

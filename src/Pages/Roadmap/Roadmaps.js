@@ -3,25 +3,35 @@ import React, { useEffect, useState } from "react";
 import RoadmapCards from "../../Components/Cards/Cards/RoadmapCards";
 
 import RoadmapDummyData from "../../DummyData/Roadmap.json";
+import SkillsDummyData from "../../DummyData/Skills.json";
+
 import Loading from "../Loading";
 import windows from "../../assets/images/windows.svg";
 import CreateSkillBtn from "../../Components/Modal/CreateSkillModal";
+import SkillCards from "../../Components/Cards/Cards/SkillCards";
 const Roadmaps = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [roadmaps, setRoadmaps] = useState([]);
+  const [ skills, setSkills ] = useState([]);
   const [ pageNumber, setPageNumber ] = useState(0);
 
   useEffect(() => {
-    if (GetRoadmaps()) {
+    if (GetRoadmaps() && GetSkills()) {
       setRoadmaps(RoadmapDummyData.roadmaps);
+      setSkills(SkillsDummyData.skills);
       setIsLoading(false);
     }
   }, []);
 
+
   const GetRoadmaps = () => {
     return RoadmapDummyData.roadmaps;
   };
+
+  const GetSkills = () => {
+    return SkillsDummyData.skills;
+  }
 
   const onClickPageNumber = async (e) => {
     e.preventDefault();
@@ -29,6 +39,7 @@ const Roadmaps = () => {
     setPageNumber(parseInt(e.target.id));
     await setGenerating(false);
   }
+
 
   if (isLoading) {
     return <Loading />;
@@ -52,7 +63,12 @@ const Roadmaps = () => {
                     로드맵 추가하기
                     <i class="ms-2" data-feather="arrow-right"></i>
                   </a>
-                  <CreateSkillBtn />
+                  <a
+                    className="btn btn-lg btn-primary-soft text-primary fw-500"
+                    href="/create/skill"
+                  >
+                     스킬 추가하기
+                  </a>
                 </div>
               </div>
               <div
@@ -67,7 +83,7 @@ const Roadmaps = () => {
         </div>
         <RoadmapPage 
           roadmaps={roadmaps}
-          skills={[]}
+          skills={skills}
           generating={generating}
           pageNumber={pageNumber}
           onClickPageNumber={onClickPageNumber}
@@ -156,6 +172,9 @@ const RoadmapOnePage = ({
       <RoadmapsNav 
         pageNumber={pageNumber}
         onClickPageNumber={onClickPageNumber}
+      />
+      <SkillCards 
+        skills={skills}
       />
     </div>
   )

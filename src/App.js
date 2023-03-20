@@ -10,6 +10,7 @@ import Projects from "./Pages/Project/Projects";
 import Project from "./Pages/Project/Project";
 
 import CreateRoadmap from "./Pages/Roadmap/CreateRoadmap";
+import CreateSkill from "./Pages/Roadmap/CreateSkill";
 import Roadmaps from "./Pages/Roadmap/Roadmaps";
 import Roadmap from "./Pages/Roadmap/Roadmap";
 import Header from "./Layout/Header";
@@ -29,7 +30,7 @@ function App() {
         <Route path="/roadmaps" element={<Roadmaps />} />
         <Route path="/roadmap/:id" element={<Roadmap />} />
         <Route path="/create/roadmap" element={<CreateRoadmap />} />
-
+        <Route path="/create/skill" element={<CreateSkill />} />
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/test" element={<Test />} />
         <Route path="/test2" element={<Test2 />} />

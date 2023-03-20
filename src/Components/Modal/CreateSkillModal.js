@@ -36,7 +36,7 @@ const CreateSkillModal = () => {
     }
     
     return(
-        <div className="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal fade" id="exampleModal3" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -70,7 +70,7 @@ const CreateSkillModal = () => {
                                     references={references}
                                 />
                             </div>
-                            <div>
+                            <div className="mt-2">
                                 <ReferenceInput 
                                     creating={creating}
                                     references={references}

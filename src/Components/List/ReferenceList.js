@@ -15,8 +15,8 @@ const ReferenceListElement = ({
                 />
             </div>
             <div className="col">
-                <button className="btn btn-danger" value={index} onClick={onDeleteChampion}>
-                    <i className="fa-solid fa-trash"></i>
+                <button className="btn btn-danger" id={index} onClick={onDeleteChampion}>
+                    <i id={index} className="fa-solid fa-trash"></i>
                 </button>
             </div>
         </div>
@@ -33,7 +33,7 @@ const ReferenceList = ({
     const onDeleteChampion = async (e) => {
         e.preventDefault();
         await setDeleting(true);
-        references.splice(parseInt(e.target.value), 1);
+        references.splice(parseInt(e.target.id), 1);
         await setDeleting(false);
     }
 
