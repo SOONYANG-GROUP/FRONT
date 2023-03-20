@@ -6,7 +6,7 @@ import ProjectCards from "../../Components/Cards/Cards/ProjectCards";
 
 import BuildTeam from "../../assets/images/BuildTeam.svg";
 
-const Projects = () => {
+const Projects = (homePage, projectPage) => {
   const [isLoading, setIsLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [projects, setProjects] = useState([]);

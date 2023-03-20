@@ -44,7 +44,7 @@ const ProjectCard = ({ project }) => {
   );
 };
 
-const ProjectCards = ({ projects }) => {
+const ProjectCards = ({ projects, flag }) => {
   return (
     <section className="bg-white py-10">
       <div className="container px-5">
