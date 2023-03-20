@@ -74,7 +74,7 @@ const Home = () => {
           <ProjectCards projects={projects} flag={2} />
         </section>
 
-        <section class="bg-white py-10">
+        <section class="bg-white py-10 mt-5">
           <div class="container px-5">
             <div class="row gx-5 justify-content-center">
               <div class="col-lg-8">
