@@ -9,14 +9,15 @@ import CommentList from "../../Components/List/CommentList";
 const Project = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [creatingComment, setCreatingComment] = useState(false);
-  const [creatingToDoListEle, setCreatingToDoListEle] = useState(false);
+  const [ creatingToDoListEle, setCreatingToDoListEle ] = useState(false);
 
   const [project, setProject] = useState({});
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [todoList, setTodoList] = useState([]);
 
-  const [discordURL, setDiscordURL] = useState("");
+  const [ discordURL, setDiscordURL ] = useState("");
+  const [ openKakaoURL, setOpenKakaoURL ] = useState("");
 
   const [changingPage, setChangingPage] = useState(false);
   const [pageNumber, setPageNumber] = useState(0);
@@ -30,6 +31,7 @@ const Project = () => {
 
       setComments(projectData.comments);
       setTodoList(projectData.todoList);
+      setOpenKakaoURL(projectData.openKakaoURL);
       setDiscordURL(projectData.discordURL);
 
       setIsLoading(false);
@@ -112,6 +114,7 @@ const Project = () => {
           comments={comments}
           todoList={todoList}
           discordURL={discordURL}
+          openKakaoURL={openKakaoURL}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
         />
@@ -122,6 +125,7 @@ const Project = () => {
 
 const DetailPage = ({
   discordURL,
+  openKakaoURL,
   todoList,
   changingPage,
   project,
@@ -151,6 +155,7 @@ const DetailPage = ({
         <DetailPageTwo
           discordURL={discordURL}
           todoList={todoList}
+          openKakaoURL={openKakaoURL}
           creatingToDoListEle={creatingToDoListEle}
         />
       );
@@ -158,7 +163,7 @@ const DetailPage = ({
   }
 };
 
-const DetailPageTwo = ({ discordURL, todoList, creatingToDoListEle }) => {
+const DetailPageTwo = ({ discordURL, todoList, creatingToDoListEle, openKakaoURL }) => {
   return (
     <div className="container px-5">
       <div className="text-uppercase-expanded small mb-2 pt-5">
@@ -180,10 +185,26 @@ const DetailPageTwo = ({ discordURL, todoList, creatingToDoListEle }) => {
       )}
       <div className="text-uppercase-expanded small mb-2 pt-5">
         <h4>Community</h4>
+        <span className="text-muted">팀원들과 대화를 공유할 수 있는 공간입니다.</span>
       </div>
-      <hr class="mt-0 mb-3 mt-3 " />
-      <div>
-        <a href={discordURL}>Discord</a>
+      <hr className="mt-0 mb-3 mt-3" />
+      <div className="row">
+        <div className="col-md-6">
+          <a href={discordURL} className="btn text-light" style={{backgroundColor: '#6f42c1'}}>
+            <i className="fa-brands fa-discord"></i> DISCORD
+          </a>
+        </div>
+        <div className="col-md-6">
+          <a href={openKakaoURL} className="btn btn-warning text-light">
+            <i className="fa-solid fa-comment"></i> KAKAO
+          </a>
+        </div>
+      </div>
+
+      <div className="text-uppercase-expanded small mb-2 pt-5">
+        <h4>결과물 링크 제출</h4>
+        <span className="text-muted">로그에 기록할 결과물 링크 제출해 주세요.</span>
+        <hr className="mt-0 mb-3 mt-3" />
       </div>
     </div>
   );
