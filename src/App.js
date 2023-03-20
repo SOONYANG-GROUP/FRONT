@@ -17,7 +17,6 @@ import Header from "./Layout/Header";
 import Test2 from "./Test2";
 import Test from "./Test";
 import Skill from "./Pages/Roadmap/Skill";
-import Login from "./Pages/Login";
 
 
 
@@ -39,7 +38,6 @@ function App() {
         <Route path="/profile/:id" element={<Profile />} />
         <Route path="/test" element={<Test />} />
         <Route path="/test2" element={<Test2 />} />
-        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
