@@ -45,32 +45,46 @@ const ProjectCard = ({ project }) => {
 };
 
 const ProjectCards = ({ projects, flag }) => {
+  console.log(flag);
   return (
     <section className="bg-white py-10">
       <div className="container px-5">
         <div className="d-flex align-items-center justify-content-between mb-4">
-          <h2 className="mb-0">팀원 모집중인 프로젝트</h2>
-          <a
-            className="btn btn-sm btn-primary d-inline-flex align-items-center"
-            href="#!"
-          >
-            See more
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="feather feather-arrow-right ms-1"
-            >
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          </a>
+          <div>
+            {flag === 1 ? (
+              <h2 className="mb-0">팀원 모집중인 프로젝트</h2>
+            ) : (
+              <></>
+            )}
+          </div>
+
+          <>
+            {flag === 2 ? (
+              <a
+                className="btn btn-sm btn-primary d-inline-flex align-items-center"
+                href="#!"
+              >
+                See more
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="feather feather-arrow-right ms-1"
+                >
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            ) : (
+              <></>
+            )}
+          </>
         </div>
         <div className="row gx-5">
           {projects.map((project, index) => {
