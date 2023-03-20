@@ -79,7 +79,7 @@ const Home = () => {
             <div class="row gx-5 justify-content-center">
               <div class="col-lg-8">
                 <div class="text-center mb-10">
-                  <h2>CampusCrew 현황</h2>
+                  <h2>Campus Crew 현황</h2>
                   <p class="lead">
                     해당 사이트를 이용하시는 유저분들, 진행중인 프로젝트, <br />
                     완료된 프로젝트의 수를 확인하세요.

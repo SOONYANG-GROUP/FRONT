@@ -1,0 +1,19 @@
+{
+    "comment": {
+        "username": "김철수",
+        "date": "2023-04-10",
+        "comment": "로그인 화면이 아름답네요",
+        "subComments": [
+            {
+                "username": "박민지",
+                "date": "2023-04-12",
+                "comment": "감사합니다 ㅎㅎ"
+            },
+            {
+                "username": "오융택",
+                "date": "2023-04-12",
+                "comment": "음..."
+            }
+        ]
+    }
+}

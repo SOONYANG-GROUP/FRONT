@@ -4,11 +4,15 @@ import Loading from "../Loading";
 
 import ProjectDummyData from "../../DummyData/Project.json";
 import { CommentInput } from "../../Components/Inputs/Textarea";
+import CommentList from "../../Components/List/CommentList";
 
 const Project = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [ creatingComment, setCreatingComment ] = useState(false);
   const [ creatingToDoListEle, setCreatingToDoListEle ] = useState(false);
+  const [ creatingDiscord, setCreatingDiscord ] = useState(false);
+  const [ creatingOpenKakao, setCreatingOpenKakao ] = useState(false);
+
 
   const [project, setProject] = useState({});
   const [ comment, setComment ] = useState("");
@@ -26,9 +30,11 @@ const Project = () => {
     const getProject = () => {
       const projectData = ProjectDummyData.project;
       setProject(projectData);
+
       setComments(projectData.comments);
       setTodoList(projectData.todoList);
       setDiscordURL(projectData.discordURL);
+
       setIsLoading(false);
     };
     getProject();
@@ -37,7 +43,6 @@ const Project = () => {
   const onChangeComment = (e) => {
     setComment(e.target.value);
   }
-
   
 
   const onChangePageNumber = async (e) => {
@@ -61,7 +66,6 @@ const Project = () => {
           </div>
         </div>
 
-
         <ul className="nav nav-tabs col-lg-8 mx-auto text-center d-flex justify-content-center">
           <li className="nav-item" id="0">
             <a className={`nav-link ${pageNumber === 0 ? "active" : ""}`} id="0" aria-current="page" href="#" onClick={onChangePageNumber}>
@@ -84,7 +88,6 @@ const Project = () => {
             </a>
           </li>
         </ul>
-
         <DetailPage 
           changingPage={changingPage}
           project={project}
@@ -96,8 +99,6 @@ const Project = () => {
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
         />
-
-
       </>
     );
   }
@@ -180,7 +181,7 @@ const DetailPageTwo = ({
       </div>
       )}
       <div className="text-uppercase-expanded small mb-2 pt-5">
-        <h4>Community URL</h4>
+        <h4>Community</h4>
       </div>
       <hr class="mt-0 mb-3 mt-3 " />
       <div>
@@ -208,17 +209,11 @@ const DetailPageOne = ({
           onChangeComment={onChangeComment}
         />
       </div>
-      {creatingComment ? (<></>) : (
-      <div>
-        {comments.map((comment, index) => {
-          return(
-            <div>
-              {comment.comment}
-            </div>
-          )
-        })}
-      </div>
-      )}
+      <CommentList 
+        creatingComment={creatingComment}
+        comments={comments}
+      />
+
 
     </div>
   )
@@ -248,7 +243,7 @@ const DetailPageZero = ({
                 <div className="col-md-5 support-field-label">
                   {p.field}
                 </div>
-                <div className="col-md-7 support-field-value">
+                <div className="col-md-5 support-field-value">
                   {p.recruited}/{p.limit}
                 </div>
               </div>
@@ -257,9 +252,6 @@ const DetailPageZero = ({
         </div>
       </div>
 
-      <div class="col-lg-4 text-lg-end">
-        <div class="text-gray-400 small">May 2018 - Present</div>
-      </div>
     </div>
     <div class="text-uppercase-expanded small mb-2 pt-5">
       <h4>소개</h4>
@@ -270,9 +262,6 @@ const DetailPageZero = ({
         <h4 class="mb-0">1. 지원동기</h4>
 
         <p>{project.description}</p>
-      </div>
-      <div class="col-lg-4 text-lg-end">
-        <div class="text-gray-400 small">August 2015 - May 2018</div>
       </div>
     </div>
     <div class="text-uppercase-expanded small mb-2 pt-5">
@@ -285,9 +274,6 @@ const DetailPageZero = ({
         <br />
         <p>{project.needs}</p>
       </div>
-      <div class="col-lg-4 text-lg-end">
-        <div class="text-gray-400 small">May 2018 - Present</div>
-      </div>
     </div>
     <div class="text-uppercase-expanded small mb-2 pt-5">
       <h4>참고 링크</h4>
@@ -296,9 +282,6 @@ const DetailPageZero = ({
     <div class="row gx-5">
       <div class="col-lg-8">
         <p>{project.reference}</p>
-      </div>
-      <div class="col-lg-4 text-lg-end">
-        <div class="text-gray-400 small">June 2011 - August 2015</div>
       </div>
     </div>
   </div>
