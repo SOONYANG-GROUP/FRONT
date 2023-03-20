@@ -83,7 +83,10 @@ const CreateRoadmap = () => {
                         </div>
                         <input 
                             type="text"
-                            
+                            name="computerLanguage"
+                            value={computerLanguage}
+                            onChange={onChangeComputerLanguage}
+                            className="form-control"
                         />
                     </div>
                     <div className="col-md-6">
@@ -91,6 +94,13 @@ const CreateRoadmap = () => {
                             <h4>* 로그맵 대표 프레임워크</h4>
                             <span className="text-muted">해당 개발 분야를 대표하는 프레임워크</span>
                         </div>
+                        <input 
+                            type="text"
+                            name="framework"
+                            value={framework}
+                            onChange={onChangeFramework}
+                            className="form-control"
+                        />
                     </div>
                 </div>
                 <div>
@@ -110,8 +120,8 @@ const CreateRoadmap = () => {
                 <div>
                     
                 </div>
-                <div>
-                    <button>
+                <div className="mb-2 pt-5">
+                    <button className="btn btn-primary w-100">
                         Create Roadmap
                     </button>
                 </div>

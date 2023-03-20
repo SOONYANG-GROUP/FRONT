@@ -10,17 +10,31 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ReferenceList from "../../Components/List/ReferenceList";
 
+import axios from "axios";
+import GPTPrint from "../../Components/GPT/GPTPrint";
+
 const CreateProject = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ creating, setCreating ] = useState(false);
     const [ addingField, setAddingField ] = useState(false);
     const [ addingReference, setAddingReference ] = useState(false); 
+    const [ generatingIdea, setGeneratingIdea ] = useState(false);
+    const [ useIdeaFeature, setUseIdeaFeature ] = useState(false);
 
+    const [ openAIError, setOpenAIError ] = useState(false);
+
+    const [ activeKakao, setActiveKakao ] = useState(false);
+    const [ activeDiscord, setActiveDiscord ] = useState(false);
+
+    const [ words, setWords ] = useState([]);
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
     const [ startDate, setStartDate ] = useState(new Date());
     const [ fields, setFields ] = useState([]);
     const [ references, setReferences ] = useState([]);
+
+    const [ kakao, setKakao ] = useState("");
+    const [ discord, setDiscord ] = useState("");
 
     let [ totalFieldsNumber, setTotalFieldsNumber ] = useState(0); 
 
@@ -36,6 +50,52 @@ const CreateProject = () => {
         setDescription(e.target.value);
     }
 
+    const onChangeActiveDiscord = (e) => {
+        if(activeDiscord)
+        {
+            setDiscord("");
+        }
+        setActiveDiscord(!activeDiscord);
+    }
+
+    const onChangeActiveKakao = (e) => {
+        if(activeKakao)
+        {
+            setKakao("");
+        }
+        setActiveKakao(!activeKakao);
+    }
+
+    const onChangeDiscord = (e) => {
+        setDiscord(e.target.value);
+    }
+
+    const onChangeKakao = (e) => {
+        setKakao(e.target.value);
+    }
+
+
+    const onClickGPTBtn = async (e) => {
+        e.preventDefault();
+        setGeneratingIdea(true);
+        await axios.post(`http://localhost:5000/ask/idea`, {
+            role: "user",
+            content: "초보 개발자 5명이 14일동안 개발할 수 있는 재미있고 유용한 사이드 프로젝트 하나만 추천해줘"
+        }, {})
+        .then(async (res) => {
+            console.log(res.data.data.choices[0].message.content);
+            setWords([res.data.data.choices[0].message.content]);
+        })
+        .catch(async (err) => {
+            await setOpenAIError(true);
+            console.error(err);
+        });
+
+        await setUseIdeaFeature(true);
+        await setGeneratingIdea(false);
+    }
+
+    console.log(openAIError)
 
     if(isLoading || creating)
     {
@@ -45,6 +105,27 @@ const CreateProject = () => {
     {
         return(
             <div className="container px-5">
+                <div>
+                    <div className="text-uppercase-expanded small mb-2 pt-5">
+                        <h4>* GPT에게 물어보기</h4>
+                        
+                        <span className="text-muted">GPT에게 사이드 프로젝트 아이디어를 질문하세요</span>
+                        {words.length === 0 ? (<></>) : (<GPTPrint words={words} />)}
+                    </div>
+                    {generatingIdea ? (
+                        <button className="btn btn-primary btn-sm" disabled>
+                            <div className="spinner-border text-light spinner-border-sm" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                        </button>
+                    ) : (
+                    <button className="btn btn-primary btn-sm" disabled={useIdeaFeature} onClick={onClickGPTBtn}>
+                        아이디어 질문하기
+                    </button>
+                    )}
+
+                </div>
+
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
                         <h4>* 사이드 프로젝트명</h4>
@@ -76,6 +157,70 @@ const CreateProject = () => {
                         className="form-control"
                     />
                 </div>
+
+                <div>
+                    <div className="text-uppercase-expanded small mb-2 pt-5">
+                        <h4>* 커뮤니티</h4>
+                    </div>
+
+
+                    <div className="row">
+                        <div className="col-md-6">
+                            <div className="" style={{display: "flex"}}>
+                                <div className="form-check form-switch">
+                                    <label className="form-check-label text-muted" htmlFor="flexSwitchCheckDefault1">
+                                        <i className="fa-brands fa-discord fa-lg"></i>
+                                    </label>
+                                    <input 
+                                        className="form-check-input" 
+                                        type="checkbox" 
+                                        role="switch" 
+                                        id="flexSwitchCheckDefault1" 
+                                        onChange={onChangeActiveDiscord}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col">
+                                <input 
+                                    className="form-control"
+                                    disabled={!activeDiscord}
+                                    name="discord"
+                                    value={discord}
+                                    onChange={onChangeDiscord}
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="col-md-6">
+                            <div className="" style={{ display: "flex"}}>
+                                <div className="form-check form-switch">
+                                    <label className="form-check-label text-muted" htmlFor="flexSwitchCheckDefault2">
+                                        <i className="fa-solid fa-comment fa-lg"></i>
+                                    </label>
+                                    <input 
+                                        className="form-check-input" 
+                                        type="checkbox" 
+                                        role="switch" 
+                                        id="flexSwitchCheckDefault2" 
+                                        onChange={onChangeActiveKakao}    
+                                    />
+                                </div>
+                            </div>
+                            <div className="col">
+                                <input 
+                                    className="form-control"
+                                    disabled={!activeKakao}
+                                    name="kakao"
+                                    value={kakao}
+                                    onChange={onChangeKakao}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
                         <h4>* 모집 인원</h4>
@@ -97,6 +242,11 @@ const CreateProject = () => {
                         />
                     </div>
                 </div>
+
+
+
+
+
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
                         <h4>* 참고 자료</h4>

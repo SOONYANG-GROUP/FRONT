@@ -4,11 +4,15 @@ import Loading from "../Loading";
 
 import ProjectDummyData from "../../DummyData/Project.json";
 import { CommentInput } from "../../Components/Inputs/Textarea";
+import CommentList from "../../Components/List/CommentList";
 
 const Project = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [creatingComment, setCreatingComment] = useState(false);
-  const [creatingToDoListEle, setCreatingToDoListEle] = useState(false);
+  const [ creatingComment, setCreatingComment ] = useState(false);
+  const [ creatingToDoListEle, setCreatingToDoListEle ] = useState(false);
+  const [ creatingDiscord, setCreatingDiscord ] = useState(false);
+  const [ creatingOpenKakao, setCreatingOpenKakao ] = useState(false);
+
 
   const [project, setProject] = useState({});
   const [comment, setComment] = useState("");
@@ -26,9 +30,11 @@ const Project = () => {
     const getProject = () => {
       const projectData = ProjectDummyData.project;
       setProject(projectData);
+
       setComments(projectData.comments);
       setTodoList(projectData.todoList);
       setDiscordURL(projectData.discordURL);
+
       setIsLoading(false);
     };
     getProject();
@@ -101,8 +107,7 @@ const Project = () => {
             </a>
           </li>
         </ul>
-
-        <DetailPage
+        <DetailPage 
           changingPage={changingPage}
           project={project}
           pageNumber={pageNumber}
@@ -177,7 +182,7 @@ const DetailPageTwo = ({ discordURL, todoList, creatingToDoListEle }) => {
         </div>
       )}
       <div className="text-uppercase-expanded small mb-2 pt-5">
-        <h4>Community URL</h4>
+        <h4>Community</h4>
       </div>
       <hr class="mt-0 mb-3 mt-3 " />
       <div>
@@ -200,15 +205,51 @@ const DetailPageOne = ({
       </div>
       <hr class="mt-0 mb-3 mt-3 " />
       <div className="form-floating">
-        <div class="d-flex flex-row justify-content-center align-items-center">
-          <div class="w-50">
-            <CommentInput comment={comment} onChangeComment={onChangeComment} />
-          </div>
-          <div>
-            <button type="button" class="btn btn-primary">
-              등록
-            </button>
-          </div>
+        <CommentInput 
+          comment={comment}
+          onChangeComment={onChangeComment}
+        />
+      </div>
+      <CommentList 
+        creatingComment={creatingComment}
+        comments={comments}
+      />
+
+
+    </div>
+  )
+}
+
+
+
+
+const DetailPageZero = ({
+  project
+}) => {
+  return(
+    <>
+  <div class="container px-5">
+    <div class="text-uppercase-expanded small mb-2 pt-5">
+      <h4>모집 현황</h4>
+    </div>
+    <hr class="mt-0 mb-3 mt-3 " />
+    <div class="row gx-5 mb-3 mt-3">
+      <div class="col-lg-8">
+        <h4 class="mb-0">Support field</h4>
+        <br />
+        <div class="support-fields">
+          {project.fields.map((p) => {
+            return (
+              <div className="row support-field">
+                <div className="col-md-5 support-field-label">
+                  {p.field}
+                </div>
+                <div className="col-md-5 support-field-value">
+                  {p.recruited}/{p.limit}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
       {creatingComment ? (
@@ -224,33 +265,14 @@ const DetailPageOne = ({
   );
 };
 
-const DetailPageZero = ({ project }) => {
-  return (
-    <>
-      <div class="container px-5">
-        <div class="text-uppercase-expanded small mb-2 pt-5">
-          <h4>모집 현황</h4>
-        </div>
-        <hr class="mt-0 mb-3 mt-3 " />
-        <div class="row gx-5 mb-3 mt-3">
-          <div class="col-lg-8">
-            <h4 class="mb-0">Support field</h4>
-            <br />
-            <div class="support-fields">
-              {project.fields.map((p) => {
-                return (
-                  <div className="row support-field">
-                    <div className="col-md-5 support-field-label">
-                      {p.field}
-                    </div>
-                    <div className="col-md-7 support-field-value">
-                      {p.recruited}/{p.limit}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+    </div>
+    <div class="text-uppercase-expanded small mb-2 pt-5">
+      <h4>소개</h4>
+    </div>
+    <hr class="mt-0 mb-3 mt-3 " />
+    <div class="row gx-5 mb-3 mt-3">
+      <div class="col-lg-8">
+        <h4 class="mb-0">1. 지원동기</h4>
 
           <div class="col-lg-4 text-lg-end">
             <div class="text-gray-400 small">May 2018 - Present</div>
@@ -297,8 +319,30 @@ const DetailPageZero = ({ project }) => {
           </div>
         </div>
       </div>
-    </>
-  );
-};
+    </div>
+    <div class="text-uppercase-expanded small mb-2 pt-5">
+      <h4>기술/언어</h4>
+    </div>
+    <hr class="mt-0 mb-3 mt-3 " />
+    <div class="row gx-5 mb-3 mt-3">
+      <div class="col-lg-8">
+        <h4 class="mb-0">구현하는데 필요한 스택</h4>
+        <br />
+        <p>{project.needs}</p>
+      </div>
+    </div>
+    <div class="text-uppercase-expanded small mb-2 pt-5">
+      <h4>참고 링크</h4>
+    </div>
+    <hr class="mt-0 mb-3 mt-3 " />
+    <div class="row gx-5">
+      <div class="col-lg-8">
+        <p>{project.reference}</p>
+      </div>
+    </div>
+  </div>
+  </>
+  )
+}
 
 export default Project;
