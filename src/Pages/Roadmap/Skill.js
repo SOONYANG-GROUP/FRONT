@@ -27,7 +27,7 @@ const Skill = () => {
         <header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
           <div class="page-header-ui-content mb-n5">
             <div class="container px-5">
-              <div class="row gx-5 justify-content-center align-items-center">
+              <div class="row gx-5 justify-content-center align-items-center mt-5 pt-2 mb-5">
                 <div
                   class="col-lg-6 aos-init aos-animate"
                   data-aos="fade-right"
@@ -58,7 +58,12 @@ const Skill = () => {
                       data-color="black"
                     >
                       <div class="screen">
-                        <img class="img-fluid" src={skill.imageUrl} alt="..." />
+                        <img
+                          class="img-fluid"
+                          src={skill.imageUrl}
+                          alt="..."
+                          width={300}
+                        />
                       </div>
                     </div>
                   </div>
