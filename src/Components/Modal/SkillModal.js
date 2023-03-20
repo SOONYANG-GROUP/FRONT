@@ -7,7 +7,7 @@ const SkillModalBtn = ({
 }) => {
     return(
         <>
-            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+            <button type="button" className="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                 스킬 추가하기
             </button>
             <SkillModal 

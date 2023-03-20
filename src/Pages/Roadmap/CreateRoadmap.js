@@ -11,27 +11,11 @@ const CreateRoadmap = () => {
     const [ addingSkill, setAddingSkill ] = useState(false);
 
     const [ name, setName ] = useState("");
-    const [ skills, setSkills ] = useState([
-
-        {
-            "_id": 3,
-            "name": "C#",
-            "studyTip": "",
-            "imageId": "",
-            "imageUrl": "https://cdn-icons-png.flaticon.com/512/6132/6132221.png",
-            "references": [
-                {
-                    "referenceLink": "https://www.naver.com"
-                },
-                {
-                    "referenceLink": "https://www.disney.com"
-                }
-            ]
-        }
-
-    ]);
+    const [ skills, setSkills ] = useState([]);
     const [ loadedSkills, setLoadedSkills ] = useState([]);
     
+    const [ framework, setFramework ] = useState("");
+    const [ computerLanguage, setComputerLanguage ] = useState("");
 
     useEffect(() => {
         if(GetLoadedSkills())
@@ -70,23 +54,52 @@ const CreateRoadmap = () => {
         await setAddingSkill(false)
     }
 
+    const onChangeFramework = (e) => {
+        setFramework(e.target.value);
+    }
+
+    const onChangeComputerLanguage = (e) => {
+        setComputerLanguage(e.target.value);
+    }
+
     return(
         <>
             <div className="container px-5">
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
                         <h4>* 로드맵 이름</h4>
-                        <span className="text-muted">반드시 직업 이름을 적어주세요</span>
+                        <span className="text-muted">개발 분야 이름을 적어주세요</span>
                     </div>
                     <NameInput
                         name={name}
                         onChangeName={onChangeName}
                     />
                 </div>
+                <div className="row">
+                    <div className="col-md-6">
+                        <div className="text-uppercase-expanded small mb-2 pt-5">
+                            <h4>* 로드맵 대표 언어</h4>
+                            <span className="text-muted">해당 개발 분야를 대표하는 언어</span>
+                        </div>
+                        <input 
+                            type="text"
+                            
+                        />
+                    </div>
+                    <div className="col-md-6">
+                        <div className="text-uppercase-expanded small mb-2 pt-5">
+                            <h4>* 로그맵 대표 프레임워크</h4>
+                            <span className="text-muted">해당 개발 분야를 대표하는 프레임워크</span>
+                        </div>
+                    </div>
+                </div>
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
                         <h4>* 로드맵 스킬 트리</h4>
                         <span className="text-muted">해당 직업을 얻기 위해 필요한 스킬을 추가하세요</span>
+                    </div>
+                    <div>
+                        <SkillModalBtn loadedSkills={loadedSkills} addingSkill={addingSkill} onAddSkill={onAddSkill} />
                     </div>
                     <SkillList 
                         skills={skills}
@@ -95,11 +108,7 @@ const CreateRoadmap = () => {
                     />
                 </div>
                 <div>
-                    <SkillModalBtn 
-                        loadedSkills={loadedSkills}
-                        addingSkill={addingSkill}
-                        onAddSkill={onAddSkill}
-                    />
+                    
                 </div>
                 <div>
                     <button>
