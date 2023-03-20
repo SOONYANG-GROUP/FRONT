@@ -16,6 +16,7 @@ import Roadmap from "./Pages/Roadmap/Roadmap";
 import Header from "./Layout/Header";
 import Test2 from "./Test2";
 import Test from "./Test";
+import Skill from "./Pages/Roadmap/Skill";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/create/" />
         <Route path="/roadmaps" element={<Roadmaps />} />
         <Route path="/roadmap/:id" element={<Roadmap />} />
+        <Route path="/skill/:id" element={<Skill />} />
         <Route path="/create/roadmap" element={<CreateRoadmap />} />
         <Route path="/create/skill" element={<CreateSkill />} />
         <Route path="/profile/:id" element={<Profile />} />
