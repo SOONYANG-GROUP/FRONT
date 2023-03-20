@@ -1,49 +1,199 @@
 {
-    "skills": [
+  "skills": [
+    {
+      "_id": 1,
+      "name": "C++",
+      "studyTip": "",
+      "imageId": "",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/6132/6132222.png",
+      "references": [
         {
-            "_id": 1,
-            "name": "C++",
-            "studyTip": "",
-            "imageId": "",
-            "imageUrl": "https://cdn-icons-png.flaticon.com/512/6132/6132222.png",
-            "references": [
-                {
-                    "referenceLink": "https://www.naver.com"
-                },
-                {
-                    "referenceLink": "http://www.google.com"
-                }
-            ]
+          "referenceLink": "https://www.naver.com"
         },
         {
-            "_id": 2,
-            "name": "C",
-            "studyTip": "",
-            "imageId": "",
-            "imageUrl": "https://cdn-icons-png.flaticon.com/512/3665/3665923.png",
-            "references": [
-                {
-                    "referenceLink": "https://www.tesla.com/"
-                },
-                {
-                    "referenceLink": "https://www.tesla.com/"
-                }
-            ]
-        },
-        {
-            "_id": 3,
-            "name": "C#",
-            "studyTip": "",
-            "imageId": "",
-            "imageUrl": "https://cdn-icons-png.flaticon.com/512/6132/6132221.png",
-            "references": [
-                {
-                    "referenceLink": "https://www.naver.com"
-                },
-                {
-                    "referenceLink": "https://www.disney.com"
-                }
-            ]
+          "referenceLink": "http://www.google.com"
         }
-    ]
+      ]
+    },
+    {
+      "_id": 2,
+      "name": "C",
+      "studyTip": "",
+      "imageId": "",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/3665/3665923.png",
+      "references": [
+        {
+          "referenceLink": "https://www.tesla.com/"
+        },
+        {
+          "referenceLink": "https://www.tesla.com/"
+        }
+      ]
+    },
+    {
+      "_id": 3,
+      "name": "C#",
+      "studyTip": "",
+      "imageId": "",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/6132/6132221.png",
+      "references": [
+        {
+          "referenceLink": "https://www.naver.com"
+        },
+        {
+          "referenceLink": "https://www.disney.com"
+        }
+      ]
+    },
+    {
+      "_id": 4,
+      "name": "Java",
+      "studyTip": "Focus on understanding object-oriented programming concepts.",
+      "imageId": "123456",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/226/226777.png",
+      "references": [
+        {
+          "referenceLink": "https://docs.oracle.com/en/java/"
+        },
+        {
+          "referenceLink": "https://www.udemy.com/topic/java/"
+        }
+      ]
+    },
+    {
+      "_id": 5,
+      "name": "Python",
+      "studyTip": "Start with simple projects and gradually increase the complexity as you learn more.",
+      "imageId": "987654",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919852.png",
+      "references": [
+        {
+          "referenceLink": "https://docs.python.org/3/"
+        },
+        {
+          "referenceLink": "https://www.codecademy.com/learn/learn-python"
+        }
+      ]
+    },
+    {
+      "_id": 6,
+      "name": "JavaScript",
+      "studyTip": "Start with the basics of the language and then move on to using frameworks and libraries.",
+      "imageId": "456789",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919828.png",
+      "references": [
+        {
+          "referenceLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript"
+        },
+        {
+          "referenceLink": "https://www.w3schools.com/js/"
+        }
+      ]
+    },
+    {
+      "_id": 7,
+      "name": "Ruby",
+      "studyTip": "Focus on learning the language fundamentals before moving on to using Ruby on Rails.",
+      "imageId": "234567",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919853.png",
+      "references": [
+        {
+          "referenceLink": "https://www.ruby-lang.org/en/documentation/"
+        },
+        {
+          "referenceLink": "https://www.codecademy.com/learn/learn-ruby"
+        }
+      ]
+    },
+    {
+      "_id": 8,
+      "name": "PHP",
+      "studyTip": "Start with the basics of the language and then move on to using popular web frameworks like Laravel or Symfony.",
+      "imageId": "567890",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919836.png",
+      "references": [
+        {
+          "referenceLink": "https://www.php.net/manual/en/"
+        },
+        {
+          "referenceLink": "https://laracasts.com/series/php-for-beginners"
+        }
+      ]
+    },
+    {
+      "_id": 9,
+      "name": "Swift",
+      "studyTip": "Start with the basics of the language and then move on to using popular iOS app development frameworks like UIKit or SwiftUI.",
+      "imageId": "678901",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919855.png",
+      "references": [
+        {
+          "referenceLink": "https://developer.apple.com/documentation/swift"
+        },
+        {
+          "referenceLink": "https://www.hackingwithswift.com/learn"
+        }
+      ]
+    },
+    {
+      "_id": 10,
+      "name": "Kotlin",
+      "studyTip": "Focus on learning the language fundamentals before moving on to using popular Android app development frameworks like Jetpack.",
+      "imageId": "789012",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919854.png",
+      "references": [
+        {
+          "referenceLink": "https://kotlinlang.org/docs/home.html"
+        },
+        {
+          "referenceLink": "https://developer.android.com/kotlin"
+        }
+      ]
+    },
+    {
+      "_id": 11,
+      "name": "TypeScript",
+      "studyTip": "Start with the basics of the language and then move on to using popular web development frameworks like Angular or React.",
+      "imageId": "890123",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919832.png",
+      "references": [
+        {
+          "referenceLink": "https://www.typescriptlang.org/docs/"
+        },
+        {
+          "referenceLink": "https://angular.io/docs"
+        }
+      ]
+    },
+    {
+      "_id": 12,
+      "name": "Rust",
+      "studyTip": "Start with the basics of the language and then focus on using the language for systems programming and web development.",
+      "imageId": "901234",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919849.png",
+      "references": [
+        {
+          "referenceLink": "https://www.rust-lang.org/learn"
+        },
+        {
+          "referenceLink": "https://doc.rust-lang.org/book/"
+        }
+      ]
+    },
+    {
+      "_id": 13,
+      "name": "Go",
+      "studyTip": "Start with the basics of the language and then focus on using the language for systems programming and web development.",
+      "imageId": "012345",
+      "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919825.png",
+      "references": [
+        {
+          "referenceLink": "https://golang.org/doc/"
+        },
+        {
+          "referenceLink": "https://tour.golang.org/welcome/1"
+        }
+      ]
+    }
+  ]
 }
