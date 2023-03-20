@@ -39,14 +39,20 @@ export const LoginModalBtn = () => {
 const LoginModal = () => {
   const HandleButtonClick = async (e) => {
     console.log("asd");
-    axios
-      .post("https://localhost:8080/login")
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    // axios
+    //   .get("http://localhost:8080/oauth2/authorization/google")
+    //   .then((response) => {
+    //     console.log(response);
+    //     const headerValue = response.headers["header-name"];
+    //     console.log(headerValue);
+    //     // do something with the header value
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //     // handle error
+    //   });
   };
 
   return (
@@ -57,6 +63,7 @@ const LoginModal = () => {
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
+      <button>LogOut</button>
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-body">
