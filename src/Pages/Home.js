@@ -107,7 +107,7 @@ const Home = () => {
                   회원 가입을 완료 후 멋진 팀원들과 함께 하세요.
                 </p>
               </div>
-              <a class="btn btn-primary fw-500" href="#">
+              <a class="btn btn-primary fw-500" href="#!">
                 회원등록하기
               </a>
             </div>
