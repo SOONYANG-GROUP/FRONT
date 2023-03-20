@@ -52,12 +52,20 @@ const CreateRoadmap = () => {
     const onAddSkill = async (e) => {
         e.preventDefault();
         await setAddingSkill(true);
+
+        let isExisted = false;
         const selectedSkill = loadedSkills[parseInt(e.target.id)];
-        
-        const selectedEleInSkills = skills.find((e) => { return e.name === selectedSkill.name});
-        if(selectedEleInSkills === undefined)
+        for(let i = 0; i < skills.length; ++i)
         {
-            skills.push(selectedEleInSkills);
+            if(skills[i].name === selectedSkill.name)
+            {
+                isExisted = true;
+            }
+        }
+
+        if(!isExisted)
+        {
+            skills.push(selectedSkill);
         }
         await setAddingSkill(false)
     }
@@ -78,6 +86,7 @@ const CreateRoadmap = () => {
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
                         <h4>* 로드맵 스킬 트리</h4>
+                        <span className="text-muted">해당 직업을 얻기 위해 필요한 스킬을 추가하세요</span>
                     </div>
                     <SkillList 
                         skills={skills}

@@ -6,12 +6,23 @@ const SkillListElement = ({
     onDeleteSkill
 }) => {
     return(
-        <div>
-            {skill.name}
-            <div>
-                <button id={index} onClick={onDeleteSkill}>
-                    -
-                </button>
+        <div className="col-md-4">
+            <div className="card card-body shadow-sm">
+                <div style={{
+                    margin: "0 auto",
+                    width: "50%"
+                }}>
+                    <img 
+                        src={skill.imageUrl}
+                        alt={skill.name}
+                        style={{width: "100%"}}
+                    />
+                </div>
+                <div className="mt-3">
+                    <button id={index} onClick={onDeleteSkill} className="btn btn-danger w-100">
+                        <i id={index} className="fa-solid fa-trash"></i>
+                    </button>
+                </div>
             </div>
         </div>
     )
@@ -36,17 +47,21 @@ const SkillList = ({
     else
     {
         return(
-            <div>
-                {skills.map((skill, index) => {
-                    return(
-                        <SkillListElement 
-                            skill={skill}
-                            key={index}
-                            index={index}
-                            onDeleteSkill={onDeleteSkill}
-                        />
-                    )
-                })}
+            <div className="album py-5">
+                <div className="container">
+                    <div className="row">
+                        {skills.map((skill, index) => {
+                            return(
+                                <SkillListElement 
+                                    skill={skill}
+                                    key={index}
+                                    index={index}
+                                    onDeleteSkill={onDeleteSkill}
+                                />
+                            )
+                        })}
+                    </div>
+                </div>
             </div>
         )
     }
