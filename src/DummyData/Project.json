@@ -7,10 +7,7 @@
     "startDate": "2023-04-01",
     "needs": "react , js, spring , java, html , css ",
     "reference": "www.google.com",
-    "references": [
-      "https://www.google.com",
-      "https://www.naver.com"
-    ],
+    "references": ["https://www.google.com", "https://www.naver.com"],
     "remainingTime": 103,
 
     "fields": [
@@ -58,30 +55,6 @@
         "phone": "010-4444-5555",
         "field": "게임 서버 개발자",
         "status": "confirmed"
-      }
-    ],
-    "comments": [
-      {
-        "user": "김철수",
-        "date": "2023-04-10",
-        "comment": "로그인 화면이 아름답네요.",
-        "subComments": [
-          {
-            "username": "박민지",
-            "date": "2023-04-10",
-            "comment": "감사합니다."
-          },
-          {
-            "username": "오융택",
-            "date": "2023-04-12",
-            "comment": "음..."
-          }
-        ]
-      },
-      {
-        "user": "박민지",
-        "date": "2023-04-12",
-        "comment": "게임에서 사용할 아이템을 더 많이 추가해볼까요?"
       }
     ],
     "todoList": [

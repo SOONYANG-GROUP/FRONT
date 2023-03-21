@@ -5,11 +5,13 @@ import Loading from "../Loading";
 import ProjectDummyData from "../../DummyData/Project.json";
 import { CommentInput } from "../../Components/Inputs/Textarea";
 import CommentList from "../../Components/List/CommentList";
+import Comments from "../../DummyData/Comment.json";
+import axios from "axios";
 
 const Project = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [creatingComment, setCreatingComment] = useState(false);
-  const [ creatingToDoListEle, setCreatingToDoListEle ] = useState(false);
+  const [creatingToDoListEle, setCreatingToDoListEle] = useState(false);
 
   const [project, setProject] = useState({});
   const [comment, setComment] = useState("");
@@ -17,8 +19,8 @@ const Project = () => {
   const [todoList, setTodoList] = useState([]);
   const [ resultLink, setResultLink ] = useState("");
 
-  const [ discordURL, setDiscordURL ] = useState("");
-  const [ openKakaoURL, setOpenKakaoURL ] = useState("");
+  const [discordURL, setDiscordURL] = useState("");
+  const [openKakaoURL, setOpenKakaoURL] = useState("");
 
   const [changingPage, setChangingPage] = useState(false);
   const [pageNumber, setPageNumber] = useState(0);
@@ -28,13 +30,13 @@ const Project = () => {
   useEffect(() => {
     const getProject = () => {
       const projectData = ProjectDummyData.project;
-      setProject(projectData);
 
-      setComments(projectData.comments);
+      setProject(projectData);
+      setComments(Comments.comment);
       setTodoList(projectData.todoList);
       setOpenKakaoURL(projectData.openKakaoURL);
       setDiscordURL(projectData.discordURL);
-
+      setCreatingComment(false);
       setIsLoading(false);
     };
     getProject();
@@ -52,6 +54,18 @@ const Project = () => {
     await setChangingPage(true);
     setPageNumber(parseInt(e.target.id));
     await setChangingPage(false);
+  };
+
+  const onCreateComment = async () => {
+    //  await axios
+    // .post("https://localhost:8080/" , {changeComment}, )
+    // .then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+    setCreatingComment(true);
   };
 
   if (isLoading) {
@@ -123,7 +137,11 @@ const Project = () => {
           openKakaoURL={openKakaoURL}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
+<<<<<<< HEAD
           onChangeResultLink={onChangeResultLink}
+=======
+          onCreateComment={onCreateComment}
+>>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
         />
       </>
     );
@@ -143,7 +161,11 @@ const DetailPage = ({
   onChangeComment,
   creatingComment,
   creatingToDoListEle,
+<<<<<<< HEAD
   onChangeResultLink
+=======
+  onCreateComment,
+>>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
 }) => {
   if (changingPage) {
     return <div>Loading...</div>;
@@ -157,6 +179,7 @@ const DetailPage = ({
           comments={comments}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
+          onCreateComment={onCreateComment}
         />
       );
     } else if (pageNumber === 2) {
@@ -174,6 +197,7 @@ const DetailPage = ({
   }
 };
 
+<<<<<<< HEAD
 const DetailPageTwo = ({ 
   discordURL, 
   todoList, 
@@ -181,6 +205,13 @@ const DetailPageTwo = ({
   openKakaoURL,
   resultLink,
   onChangeResultLink
+=======
+const DetailPageTwo = ({
+  discordURL,
+  todoList,
+  creatingToDoListEle,
+  openKakaoURL,
+>>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
 }) => {
   return (
     <div className="container px-5">
@@ -203,12 +234,22 @@ const DetailPageTwo = ({
       )}
       <div className="text-uppercase-expanded small mb-2 pt-5">
         <h4>Community</h4>
-        <span className="text-muted">팀원들과 대화를 공유할 수 있는 공간입니다.</span>
+        <span className="text-muted">
+          팀원들과 대화를 공유할 수 있는 공간입니다.
+        </span>
       </div>
       <hr className="mt-0 mb-3 mt-3" />
       <div className="row">
         <div className="col-md-6">
+<<<<<<< HEAD
           <a href={discordURL} className="btn text-light w-100" style={{backgroundColor: '#6f42c1'}} target='_blank'>
+=======
+          <a
+            href={discordURL}
+            className="btn text-light"
+            style={{ backgroundColor: "#6f42c1" }}
+          >
+>>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
             <i className="fa-brands fa-discord"></i> DISCORD
           </a>
         </div>
@@ -221,7 +262,9 @@ const DetailPageTwo = ({
 
       <div className="text-uppercase-expanded small mb-2 pt-5">
         <h4>결과물 링크 제출</h4>
-        <span className="text-muted">로그에 기록할 결과물 링크 제출해 주세요.</span>
+        <span className="text-muted">
+          로그에 기록할 결과물 링크 제출해 주세요.
+        </span>
         <hr className="mt-0 mb-3 mt-3" />
         <div>
           <input 
@@ -241,23 +284,33 @@ const DetailPageOne = ({
   comments,
   onChangeComment,
   creatingComment,
+  onCreateComment,
 }) => {
   return (
     <div className="container px-5">
       <div className="text-uppercase-expanded small mb-2 pt-5">
-        <h4>질문하기</h4>
+        <h4>의견 & 질문하기</h4>
       </div>
       <hr class="mt-0 mb-3 mt-3 " />
-      <div className="form-floating">
-        <CommentInput comment={comment} onChangeComment={onChangeComment} />
+      <div className="d-flex flex-row form-floating align-items-center">
+        <div className="w-75 pe-2">
+          <CommentInput comment={comment} onChangeComment={onChangeComment} />
+        </div>
+        <div className="">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={onCreateComment}
+          >
+            등록
+          </button>
+        </div>
       </div>
       {creatingComment ? (
         <></>
       ) : (
         <div>
-          {comments.map((comment, index) => {
-            return <div>{comment.comment}</div>;
-          })}
+          <CommentList comments={comments} />
         </div>
       )}
     </div>
@@ -303,7 +356,6 @@ const DetailPageZero = ({ project }) => {
         <div class="row gx-5 mb-3 mt-3">
           <div class="col-lg-8">
             <h4 class="mb-0">1. 지원동기</h4>
-
             <p>{project.description}</p>
           </div>
           <div class="col-lg-4 text-lg-end">
