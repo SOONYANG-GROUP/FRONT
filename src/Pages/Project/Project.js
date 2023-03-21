@@ -17,7 +17,7 @@ const Project = () => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [todoList, setTodoList] = useState([]);
-  const [ resultLink, setResultLink ] = useState("");
+  const [resultLink, setResultLink] = useState("");
 
   const [discordURL, setDiscordURL] = useState("");
   const [openKakaoURL, setOpenKakaoURL] = useState("");
@@ -48,7 +48,7 @@ const Project = () => {
 
   const onChangeResultLink = (e) => {
     setResultLink(e.target.value);
-  }
+  };
 
   const onChangePageNumber = async (e) => {
     await setChangingPage(true);
@@ -137,8 +137,8 @@ const Project = () => {
           openKakaoURL={openKakaoURL}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
-          onCreateComment={onCreateComment}
           onChangeResultLink={onChangeResultLink}
+          onCreateComment={onCreateComment}
         />
       </>
     );
@@ -158,9 +158,8 @@ const DetailPage = ({
   onChangeComment,
   creatingComment,
   creatingToDoListEle,
-  onCreateComment,
   onChangeResultLink,
-
+  onCreateComment,
 }) => {
   if (changingPage) {
     return <div>Loading...</div>;
@@ -199,7 +198,8 @@ const DetailPageTwo = ({
   todoList,
   creatingToDoListEle,
   openKakaoURL,
-  onChangeResultLink
+  resultLink,
+  onChangeResultLink,
 }) => {
   return (
     <div className="container px-5">
@@ -238,7 +238,11 @@ const DetailPageTwo = ({
           </a>
         </div>
         <div className="col-md-6">
-          <a href={openKakaoURL} className="btn btn-warning text-light w-100" target='_blank'>
+          <a
+            href={openKakaoURL}
+            className="btn btn-warning text-light w-100"
+            target="_blank"
+          >
             <i className="fa-solid fa-comment"></i> KAKAO
           </a>
         </div>
@@ -251,7 +255,7 @@ const DetailPageTwo = ({
         </span>
         <hr className="mt-0 mb-3 mt-3" />
         <div>
-          <input 
+          <input
             type="text"
             name="resultLink"
             value={resultLink}
