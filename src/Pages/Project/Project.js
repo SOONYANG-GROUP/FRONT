@@ -7,6 +7,7 @@ import { CommentInput } from "../../Components/Inputs/Textarea";
 import CommentList from "../../Components/List/CommentList";
 import Comments from "../../DummyData/Comment.json";
 import axios from "axios";
+import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningModal";
 
 const Project = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,6 +56,10 @@ const Project = () => {
     setPageNumber(parseInt(e.target.id));
     await setChangingPage(false);
   };
+
+  const onSubmitLink = async (e) => {
+
+  }
 
   const onCreateComment = async () => {
     //  await axios
@@ -136,6 +141,7 @@ const Project = () => {
           discordURL={discordURL}
           openKakaoURL={openKakaoURL}
           creatingComment={creatingComment}
+          onSubmitLink={onSubmitLink}
           onChangeComment={onChangeComment}
           onChangeResultLink={onChangeResultLink}
           onCreateComment={onCreateComment}
@@ -159,6 +165,7 @@ const DetailPage = ({
   creatingComment,
   creatingToDoListEle,
   onChangeResultLink,
+  onSubmitLink,
   onCreateComment,
 }) => {
   if (changingPage) {
@@ -186,6 +193,7 @@ const DetailPage = ({
           openKakaoURL={openKakaoURL}
           onChangeResultLink={onChangeResultLink}
           creatingToDoListEle={creatingToDoListEle}
+          onSubmitLink={onSubmitLink}
         />
       );
     }
@@ -198,8 +206,8 @@ const DetailPageTwo = ({
   todoList,
   creatingToDoListEle,
   openKakaoURL,
-  resultLink,
   onChangeResultLink,
+  onSubmitLink,
 }) => {
   return (
     <div className="container px-5">
@@ -231,7 +239,7 @@ const DetailPageTwo = ({
         <div className="col-md-6">
           <a
             href={discordURL}
-            className="btn text-light"
+            className="btn text-light w-100"
             style={{ backgroundColor: "#6f42c1" }}
           >
             <i className="fa-brands fa-discord"></i> DISCORD
@@ -255,12 +263,21 @@ const DetailPageTwo = ({
         </span>
         <hr className="mt-0 mb-3 mt-3" />
         <div>
-          <input
-            type="text"
-            name="resultLink"
-            value={resultLink}
-            onChange={onChangeResultLink}
-          />
+          <div>
+            <input
+              type="text"
+              name="resultLink"
+              className="form-control"
+              value={resultLink}
+              onChange={onChangeResultLink}
+            />
+          </div>
+          <div>
+            <LinkSubmitWarningModalBtn 
+              resultLink={resultLink}
+              onSubmitLink={onSubmitLink}
+            />
+          </div>
         </div>
       </div>
     </div>
