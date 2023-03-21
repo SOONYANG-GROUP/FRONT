@@ -21,12 +21,17 @@ const Profile = () => {
     console.log(profile);
     return (
       <>
-        <div class="card col-md-8 mb-3 mx-auto">
+        <div class="card col-md-6 mb-3 mx-auto position-relative">
           <img
             src={backgroundImg}
             class="card-img-top"
             alt="..."
-            style={{ height: "20rem" }}
+            style={{ height: "12rem" }}
+          />
+          <img
+            src="https://media.licdn.com/dms/image/C4E03AQHx5UwslFTP9g/profile-displayphoto-shrink_800_800/0/1516305818135?e=2147483647&v=beta&t=8ZUNRLMaagGdK5o3p3wmgPoZL3JgCQc6oTmydGTLODQ"
+            class="rounded-circle position-absolute top-50 start-50 translate-middle"
+            style={{ width: "120px", border: "2px solid white" }}
           />
           <div class="card-body">
             <h5 class="card-title">{profile[0].name}</h5>
@@ -36,7 +41,8 @@ const Profile = () => {
             </p>
           </div>
         </div>
-        <div class="card col-md-8 mb-3 mx-auto">
+
+        <div class="card col-md-6 mb-3 mx-auto">
           <div class="container px-5">
             <div class="text-uppercase-expanded small mb-2 pt-5">
               <h4>정보</h4>

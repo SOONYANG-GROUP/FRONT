@@ -14,7 +14,7 @@ const Login = () => {
   sessionStorage.setItem("refreshToken", { refreshToken });
 
   useEffect(() => {
-    const fetch = async () => {
+    const fetch = async (e) => {
       await axios
         .post("http://localhost:8080/jwt-test", null, {
           headers: { Authorization: accessToken },
@@ -22,30 +22,48 @@ const Login = () => {
         .then((response) => {
           console.log("response입니다 ", response);
         })
-        .catch((error) => {
-          //   console.error(error);
-          const throwException = async () => {
-            console.log("throwExceoption");
-            await axios
-              .post("http://localhost:8080/jwt-test", null, {
-                headers: {
-                  "Content-Type": "application/json",
-                  "Authorization-refresh": refreshToken,
-                  Authorization: accessToken,
-                },
-              })
-              .then((res) => {
-                console.log(res);
-              });
-          };
-          throwException();
+        .catch((e) => {
+          // console.error(e.message);
+          // const throwException = async () => {
+          //   console.log("throwExceoption");
+          //   await axios
+          //     .post("http://localhost:8080/jwt-test", null, {
+          //       headers: {
+          //         "Content-Type": "application/json",
+          //         "Authorization-refresh": refreshToken,
+          //         Authorization: accessToken,
+          //       },
+          //     })
+          //     .then((res) => {
+          //       console.log(res);
+          //     });
+          // };
+          // throwException();
           // handle error
         });
     };
     fetch();
   }, []);
 
-  return <></>;
+  const onSendToken = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:8080/jwt-test", null, {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization-refresh": refreshToken,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
+  return (
+    <>
+      <button onClick={onSendToken}>send refreshToken</button>
+    </>
+  );
 };
 
 export default Login;

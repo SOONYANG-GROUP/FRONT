@@ -304,6 +304,17 @@ const DetailPageOne = ({
 };
 
 const DetailPageZero = ({ project }) => {
+  const onSupportButton = () => {
+    console.log("지원하기");
+    // axios
+    //   .post("https://localhost:8080/login")
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+  };
   return (
     <>
       <div class="container px-5">
@@ -318,12 +329,30 @@ const DetailPageZero = ({ project }) => {
             <div class="support-fields">
               {project.fields.map((p) => {
                 return (
-                  <div className="row support-field">
-                    <div className="col-md-5 support-field-label">
+                  <div className="row support-field mb-3 d-flex flex-row align-items-center">
+                    <div className="col-md-3 support-field-label">
                       {p.field}
                     </div>
-                    <div className="col-md-7 support-field-value">
+                    <div className="col-md-3 support-field-value">
                       {p.recruited}/{p.limit}
+                    </div>
+                    <div className="col-md-3">
+                      {p.recruited === p.limit ? (
+                        <button
+                          type="button"
+                          className="btn btn-secondary btn-sm"
+                        >
+                          완료
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="btn btn-primary btn-sm"
+                          onClick={onSupportButton}
+                        >
+                          지원
+                        </button>
+                      )}
                     </div>
                   </div>
                 );
