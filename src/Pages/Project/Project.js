@@ -17,7 +17,7 @@ const Project = () => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [todoList, setTodoList] = useState([]);
-  const [ resultLink, setResultLink ] = useState("");
+  const [resultLink, setResultLink] = useState("");
 
   const [discordURL, setDiscordURL] = useState("");
   const [openKakaoURL, setOpenKakaoURL] = useState("");
@@ -48,7 +48,7 @@ const Project = () => {
 
   const onChangeResultLink = (e) => {
     setResultLink(e.target.value);
-  }
+  };
 
   const onChangePageNumber = async (e) => {
     await setChangingPage(true);
@@ -137,11 +137,8 @@ const Project = () => {
           openKakaoURL={openKakaoURL}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
-<<<<<<< HEAD
           onChangeResultLink={onChangeResultLink}
-=======
           onCreateComment={onCreateComment}
->>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
         />
       </>
     );
@@ -161,11 +158,8 @@ const DetailPage = ({
   onChangeComment,
   creatingComment,
   creatingToDoListEle,
-<<<<<<< HEAD
-  onChangeResultLink
-=======
+  onChangeResultLink,
   onCreateComment,
->>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
 }) => {
   if (changingPage) {
     return <div>Loading...</div>;
@@ -197,21 +191,13 @@ const DetailPage = ({
   }
 };
 
-<<<<<<< HEAD
-const DetailPageTwo = ({ 
-  discordURL, 
-  todoList, 
-  creatingToDoListEle, 
-  openKakaoURL,
-  resultLink,
-  onChangeResultLink
-=======
 const DetailPageTwo = ({
   discordURL,
   todoList,
   creatingToDoListEle,
   openKakaoURL,
->>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
+  resultLink,
+  onChangeResultLink,
 }) => {
   return (
     <div className="container px-5">
@@ -241,20 +227,20 @@ const DetailPageTwo = ({
       <hr className="mt-0 mb-3 mt-3" />
       <div className="row">
         <div className="col-md-6">
-<<<<<<< HEAD
-          <a href={discordURL} className="btn text-light w-100" style={{backgroundColor: '#6f42c1'}} target='_blank'>
-=======
           <a
             href={discordURL}
             className="btn text-light"
             style={{ backgroundColor: "#6f42c1" }}
           >
->>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
             <i className="fa-brands fa-discord"></i> DISCORD
           </a>
         </div>
         <div className="col-md-6">
-          <a href={openKakaoURL} className="btn btn-warning text-light w-100" target='_blank'>
+          <a
+            href={openKakaoURL}
+            className="btn btn-warning text-light w-100"
+            target="_blank"
+          >
             <i className="fa-solid fa-comment"></i> KAKAO
           </a>
         </div>
@@ -267,7 +253,7 @@ const DetailPageTwo = ({
         </span>
         <hr className="mt-0 mb-3 mt-3" />
         <div>
-          <input 
+          <input
             type="text"
             name="resultLink"
             value={resultLink}
