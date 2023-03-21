@@ -5,11 +5,12 @@ import Loading from "../Loading";
 import ProjectDummyData from "../../DummyData/Project.json";
 import { CommentInput } from "../../Components/Inputs/Textarea";
 import CommentList from "../../Components/List/CommentList";
+import Comments from "../../DummyData/Comment.json";
+import axios from "axios";
 
 const Project = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [creatingComment, setCreatingComment] = useState(false);
-  const [creatingToDoListEle, setCreatingToDoListEle] = useState(false);
 
   const [project, setProject] = useState({});
   const [comment, setComment] = useState("");
@@ -26,12 +27,12 @@ const Project = () => {
   useEffect(() => {
     const getProject = () => {
       const projectData = ProjectDummyData.project;
-      setProject(projectData);
 
-      setComments(projectData.comments);
+      setProject(projectData);
+      setComments(Comments.comment);
       setTodoList(projectData.todoList);
       setDiscordURL(projectData.discordURL);
-
+      setCreatingComment(false);
       setIsLoading(false);
     };
     getProject();
@@ -45,6 +46,18 @@ const Project = () => {
     await setChangingPage(true);
     setPageNumber(parseInt(e.target.id));
     await setChangingPage(false);
+  };
+
+  const onCreateComment = async () => {
+    //  await axios
+    // .post("https://localhost:8080/" , {changeComment}, )
+    // .then(function (response) {
+    //   console.log(response);
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
+    setCreatingComment(true);
   };
 
   if (isLoading) {
@@ -114,6 +127,7 @@ const Project = () => {
           discordURL={discordURL}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
+          onCreateComment={onCreateComment}
         />
       </>
     );
@@ -131,6 +145,7 @@ const DetailPage = ({
   onChangeComment,
   creatingComment,
   creatingToDoListEle,
+  onCreateComment,
 }) => {
   if (changingPage) {
     return <div>Loading...</div>;
@@ -144,6 +159,7 @@ const DetailPage = ({
           comments={comments}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
+          onCreateComment={onCreateComment}
         />
       );
     } else if (pageNumber === 2) {
@@ -194,23 +210,33 @@ const DetailPageOne = ({
   comments,
   onChangeComment,
   creatingComment,
+  onCreateComment,
 }) => {
   return (
     <div className="container px-5">
       <div className="text-uppercase-expanded small mb-2 pt-5">
-        <h4>질문하기</h4>
+        <h4>의견 & 질문하기</h4>
       </div>
       <hr class="mt-0 mb-3 mt-3 " />
-      <div className="form-floating">
-        <CommentInput comment={comment} onChangeComment={onChangeComment} />
+      <div className="d-flex flex-row form-floating align-items-center">
+        <div className="w-75 pe-2">
+          <CommentInput comment={comment} onChangeComment={onChangeComment} />
+        </div>
+        <div className="">
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={onCreateComment}
+          >
+            등록
+          </button>
+        </div>
       </div>
       {creatingComment ? (
         <></>
       ) : (
         <div>
-          {comments.map((comment, index) => {
-            return <div>{comment.comment}</div>;
-          })}
+          <CommentList comments={comments} />
         </div>
       )}
     </div>
@@ -256,7 +282,6 @@ const DetailPageZero = ({ project }) => {
         <div class="row gx-5 mb-3 mt-3">
           <div class="col-lg-8">
             <h4 class="mb-0">1. 지원동기</h4>
-
             <p>{project.description}</p>
           </div>
           <div class="col-lg-4 text-lg-end">

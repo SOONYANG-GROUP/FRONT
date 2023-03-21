@@ -1,19 +1,56 @@
 {
-    "comment": {
-        "username": "김철수",
-        "date": "2023-04-10",
-        "comment": "로그인 화면이 아름답네요",
-        "subComments": [
-            {
-                "username": "박민지",
-                "date": "2023-04-12",
-                "comment": "감사합니다 ㅎㅎ"
-            },
-            {
-                "username": "오융택",
-                "date": "2023-04-12",
-                "comment": "음..."
-            }
-        ]
+  "comment": [
+    {
+      "_id": 1,
+      "username": "김철수",
+      "date": "2023-04-10",
+      "comment": "로그인 화면이 아름답네요",
+      "subComments": [
+        {
+          "_id": "1",
+          "username": "박민지",
+          "date": "2023-04-12",
+          "comment": "감사합니다 ㅎㅎ"
+        },
+        {
+          "_id": "2",
+          "username": "오융택",
+          "date": "2023-04-12",
+          "comment": "음..."
+        }
+      ]
+    },
+    {
+      "_id": 2,
+      "username": "Jane Smith",
+      "date": "2023-03-28",
+      "comment": "I have a suggestion for improvement",
+      "subComments": [
+        {
+          "_id": "1",
+          "username": "John Doe",
+          "date": "2023-03-29",
+          "comment": "What is it?"
+        },
+        {
+          "_id": "2",
+          "username": "Emily Johnson",
+          "date": "2023-03-30",
+          "comment": "Yeah, tell us!"
+        },
+        {
+          "_id": "3",
+          "username": "Jane Smith",
+          "date": "2023-03-31",
+          "comment": "I think we can improve the user interface by adding more visual cues."
+        },
+        {
+          "_id": "4",
+          "username": "John Doe",
+          "date": "2023-03-31",
+          "comment": "That's a good idea. We should discuss this further."
+        }
+      ]
     }
+  ]
 }
