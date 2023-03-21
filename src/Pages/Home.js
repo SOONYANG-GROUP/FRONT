@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import programmer from "../assets/images/programming.svg";
 import ProjectCards from "../Components/Cards/Cards/ProjectCards";
 import ProjectsDummyData from "../DummyData/Projects.json";
+import TeamProject from "../assets/images/TeamProject.svg";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +50,7 @@ const Home = () => {
                 data-aos="fade-up"
                 data-aos-delay="100"
               >
-                <img class="img-fluid" src={programmer} alt="..." />
+                <img class="img-fluid" src={TeamProject} alt="..." />
               </div>
             </div>
           </div>

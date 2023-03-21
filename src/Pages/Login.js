@@ -6,20 +6,24 @@ const Login = () => {
   let accessToken = params.get("accessToken");
   let refreshToken = params.get("refreshToken");
 
+<<<<<<< Updated upstream
   sessionStorage.setItem("accessToken", { accessToken });
   sessionStorage.setItem("refreshToken", { refreshToken });
+=======
+  sessionStorage.setItem("accessToken", accessToken);
+  sessionStorage.setItem("refreshToken", refreshToken);
+>>>>>>> Stashed changes
 
   useEffect(() => {
-    const fetch = async (e) => {
+    const fetch = async () => {
+      console.log("요청");
       await axios
-        .post("http://localhost:8080/jwt-test", null, {
-          headers: { Authorization: accessToken },
-        })
+        .post("http://localhost:8080/jwt-test", null, {})
         .then((response) => {
           console.log("response입니다 ", response);
         })
         .catch((e) => {
-          // console.error(e.message);
+          console.error(e.message);
           // const throwException = async () => {
           //   console.log("throwExceoption");
           //   await axios
@@ -40,6 +44,12 @@ const Login = () => {
     };
     fetch();
   }, []);
+
+  // useEffect(() => {
+  //   const fetch = async (e) => {
+  //     await axios.interceptors.request.use();
+  //   };
+  // });
 
   const onSendToken = async (e) => {
     e.preventDefault();
