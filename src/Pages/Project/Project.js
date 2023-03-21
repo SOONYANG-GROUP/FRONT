@@ -137,11 +137,8 @@ const Project = () => {
           openKakaoURL={openKakaoURL}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
-<<<<<<< HEAD
-          onChangeResultLink={onChangeResultLink}
-=======
           onCreateComment={onCreateComment}
->>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
+          onChangeResultLink={onChangeResultLink}
         />
       </>
     );
@@ -161,11 +158,9 @@ const DetailPage = ({
   onChangeComment,
   creatingComment,
   creatingToDoListEle,
-<<<<<<< HEAD
-  onChangeResultLink
-=======
   onCreateComment,
->>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
+  onChangeResultLink,
+
 }) => {
   if (changingPage) {
     return <div>Loading...</div>;
@@ -185,6 +180,7 @@ const DetailPage = ({
     } else if (pageNumber === 2) {
       return (
         <DetailPageTwo
+          
           discordURL={discordURL}
           todoList={todoList}
           resultLink={resultLink}
@@ -197,21 +193,13 @@ const DetailPage = ({
   }
 };
 
-<<<<<<< HEAD
-const DetailPageTwo = ({ 
-  discordURL, 
-  todoList, 
-  creatingToDoListEle, 
-  openKakaoURL,
-  resultLink,
-  onChangeResultLink
-=======
 const DetailPageTwo = ({
+  resultLink,
   discordURL,
   todoList,
   creatingToDoListEle,
   openKakaoURL,
->>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
+  onChangeResultLink
 }) => {
   return (
     <div className="container px-5">
@@ -241,15 +229,11 @@ const DetailPageTwo = ({
       <hr className="mt-0 mb-3 mt-3" />
       <div className="row">
         <div className="col-md-6">
-<<<<<<< HEAD
-          <a href={discordURL} className="btn text-light w-100" style={{backgroundColor: '#6f42c1'}} target='_blank'>
-=======
           <a
             href={discordURL}
             className="btn text-light"
             style={{ backgroundColor: "#6f42c1" }}
           >
->>>>>>> 3f8c0fc10962561bdb4ad950a1942f1e61e68ccf
             <i className="fa-brands fa-discord"></i> DISCORD
           </a>
         </div>
