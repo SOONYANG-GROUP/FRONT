@@ -3,12 +3,8 @@ import { useEffect } from "react";
 
 const Login = () => {
   const params = new URLSearchParams(window.location.search);
-
   let accessToken = params.get("accessToken");
   let refreshToken = params.get("refreshToken");
-
-  console.log(accessToken);
-  console.log(refreshToken);
 
   sessionStorage.setItem("accessToken", { accessToken });
   sessionStorage.setItem("refreshToken", { refreshToken });

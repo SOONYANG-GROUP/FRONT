@@ -109,7 +109,11 @@ const CreateRoadmap = () => {
                         <span className="text-muted">해당 직업을 얻기 위해 필요한 스킬을 추가하세요</span>
                     </div>
                     <div>
-                        <SkillModalBtn loadedSkills={loadedSkills} addingSkill={addingSkill} onAddSkill={onAddSkill} />
+                        <SkillModalBtn 
+                            loadedSkills={loadedSkills} 
+                            addingSkill={addingSkill} 
+                            onAddSkill={onAddSkill} 
+                        />
                     </div>
                     <SkillList 
                         skills={skills}
@@ -117,9 +121,7 @@ const CreateRoadmap = () => {
                         setDeletingSkill={setDeletingSkill}
                     />
                 </div>
-                <div>
-                    
-                </div>
+
                 <div className="mb-2 pt-5">
                     <button className="btn btn-primary w-100">
                         Create Roadmap
