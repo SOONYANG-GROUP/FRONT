@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const SubCommentElement = ({ subComment }) => {
   return (
-    <div>
-      <div>
-        <div>{subComment.username}</div>
-        <div>{subComment.date}</div>
-      </div>
-      <div>{subComment.comment}</div>
+    <div className=" mb-3 px-3">
+      <div className="fw-bold mb-2">{subComment.username}</div>
+      <div className="fw-normal">{subComment.comment}</div>
+      <div className="fw-light">{subComment.date}</div>
+      <hr />
     </div>
   );
 };
@@ -25,6 +23,11 @@ const SubCommentList = ({ subComments }) => {
 
 const CommentListEle = ({ comment }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const onButtonClick = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  console.log(isExpanded);
   return (
     <div className="card card-body mb-3">
       <div className="col-md-4 mb-3">
@@ -32,27 +35,39 @@ const CommentListEle = ({ comment }) => {
         <div className="fw-normal">{comment.comment}</div>
         <div className="fw-light">{comment.date}</div>
       </div>
-      {comment.subComments.length > 0 && (
-        <div>
-          <button
-            className="btn btn-primary"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target={`#collapse-${comment._id}`}
-            aria-expanded={isExpanded}
-            aria-controls={`collapse-${comment._id}`}
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            View {comment.subComments.length} subcomments
-          </button>
-          <div
-            className={`collapse ${isExpanded ? "show" : ""}`}
-            id={`collapse-${comment._id}`}
-          >
+      <div className="w-20">
+        <>
+          {comment.subComments.length > 0 ? (
+            <button
+              type="button"
+              className="btn btn-primary mb-3"
+              onClick={onButtonClick}
+            >
+              <div className="d-flex justify-content-center align-items-center">
+                <div className="mx-2">
+                  {comment.subComments.length}개의 댓글 보기
+                </div>
+                {isExpanded ? (
+                  <i class="fa-solid fa-chevron-up"></i>
+                ) : (
+                  <i class="fa-solid fa-chevron-down"></i>
+                )}
+              </div>
+            </button>
+          ) : (
+            <></>
+          )}
+        </>
+      </div>
+      <>
+        {isExpanded ? (
+          <div>
             <SubCommentList subComments={comment.subComments} />
           </div>
-        </div>
-      )}
+        ) : (
+          <></>
+        )}
+      </>
     </div>
   );
 };
