@@ -72,6 +72,23 @@
       }
     ],
     "discordURL": "https://discord.gg/abc123",
-    "openKakaoURL": ""
+    "openKakaoURL": "",
+    "candidates": [
+      {
+        "username": "오융택",
+        "profileLink": "https://www.naver.com",
+        "profileImageURL": "https://i.namu.wiki/i/2TuPYw_Rdctzw37LdmDdHJ8i2BP5D3uyF13aECZbRjODGw_MkzG1jtAe5dfWp9lWxq4kp5I3q0EwSV12Dhq9lCZLGKYZ_apQr6yrJq6oArXzU4ll4CZyblmr9TgnfHfJQ6h_QRWhE87Oa4Cy0vcE9w.webp"
+      },
+      {
+        "username": "유재광",
+        "profileLink": "https://www.naver.com",
+        "profileImageURL": "https://i.namu.wiki/i/kOeh_dlAzApF-wSfJYSqdysEqbPL5RXGtKY0jDfPblkof-VJLLXt9_O2C6ne7bWg_KItICuiPmp3h1WEaWsfoTjxaLHUbJpoGymz0GmdD3kUIQF6MOVb3rFridpC0FGR1Nbi0qEdIRvQi46tZVIVAg.webp"
+      },
+      {
+        "username": "채형일",
+        "profileLink": "https://www.naver.com",
+        "profileImageURL": "https://i.namu.wiki/i/UdIg5KBbP6Y1I6gwV3-1VpK7jo-1yxZXC_ZgA5ghd3Mb-P7QpCwdM3Gelg6UN_BVdj-d0kJSJj4S3UlcInczV0FotqyVRjSsQkojqrMk1e5xC1_aT_C9LxXN_lkrrW7pReRHJ4W5twoB36CSkL8iKA.webp"
+      }
+    ]
   }
 }

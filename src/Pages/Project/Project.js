@@ -14,10 +14,12 @@ const Project = () => {
   const [creatingComment, setCreatingComment] = useState(false);
   const [creatingToDoListEle, setCreatingToDoListEle] = useState(false);
 
+  const [ isProjectActive, setIsProjectActive ] = useState(false);
   const [project, setProject] = useState({});
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [todoList, setTodoList] = useState([]);
+  const [ candidates, setCandidates ] = useState([]);
   const [resultLink, setResultLink] = useState("");
 
   const [discordURL, setDiscordURL] = useState("");
@@ -37,6 +39,7 @@ const Project = () => {
       setTodoList(projectData.todoList);
       setOpenKakaoURL(projectData.openKakaoURL);
       setDiscordURL(projectData.discordURL);
+      setCandidates(projectData.candidates);
       setCreatingComment(false);
       setIsLoading(false);
     };
@@ -141,6 +144,9 @@ const Project = () => {
           discordURL={discordURL}
           openKakaoURL={openKakaoURL}
           creatingComment={creatingComment}
+          candidates={candidates}
+          creatingToDoListEle={creatingToDoListEle}
+          isProjectActive={isProjectActive}
           onSubmitLink={onSubmitLink}
           onChangeComment={onChangeComment}
           onChangeResultLink={onChangeResultLink}
@@ -152,6 +158,8 @@ const Project = () => {
 };
 
 const DetailPage = ({
+  isProjectActive,
+  candidates,
   resultLink,
   discordURL,
   openKakaoURL,
@@ -197,8 +205,48 @@ const DetailPage = ({
         />
       );
     }
+    else if(pageNumber === 3)
+    {
+      return(
+        <DetailPageThree 
+          isProjectActive={isProjectActive}
+          candidates={candidates}
+        />
+      )
+    }
   }
 };
+
+const DetailPageThree = ({
+  isProjectActive,
+  candidates
+}) => {
+  if(isProjectActive)
+  {
+    return(
+      <div className="container px-5">
+        <div className="text-uppercase-expanded small mb-2 pt-5">
+          <h4>프로젝트 진행 중...</h4>
+        </div>
+        <hr className="mt-0 mb-3 mt-3" />
+      </div>
+    )
+  }
+  else
+  {
+    return(
+      <div className="container px-5">
+        <div className="text-uppercase-expanded small mb-2 pt-5">
+          <h4>지원자</h4>
+        </div>
+        <hr className="mt-0 mb-3 mt-3" />
+
+
+      </div>
+    )
+  }
+
+}
 
 const DetailPageTwo = ({
   resultLink,
@@ -239,7 +287,7 @@ const DetailPageTwo = ({
         <div className="col-md-6">
           <a
             href={discordURL}
-            className="btn text-light w-100"
+            className="btn text-light w-100 m-1"
             style={{ backgroundColor: "#6f42c1" }}
           >
             <i className="fa-brands fa-discord"></i> DISCORD
@@ -248,7 +296,7 @@ const DetailPageTwo = ({
         <div className="col-md-6">
           <a
             href={openKakaoURL}
-            className="btn btn-warning text-light w-100"
+            className="btn btn-warning text-light w-100 m-1"
             target="_blank"
           >
             <i className="fa-solid fa-comment"></i> KAKAO
@@ -272,7 +320,7 @@ const DetailPageTwo = ({
               onChange={onChangeResultLink}
             />
           </div>
-          <div>
+          <div className="mt-3 mb-3">
             <LinkSubmitWarningModalBtn 
               resultLink={resultLink}
               onSubmitLink={onSubmitLink}
