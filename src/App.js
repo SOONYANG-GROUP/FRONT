@@ -18,14 +18,11 @@ import Test2 from "./Test2";
 import Test from "./Test";
 import Skill from "./Pages/Roadmap/Skill";
 import Login from "./Pages/Login";
-<<<<<<< Updated upstream
 
 import EditRoadmap from "./Pages/Roadmap/EditRoadmap";
 import EditSkill from "./Pages/Roadmap/EditSkill";
 
-=======
 import axios from "axios";
->>>>>>> Stashed changes
 function App() {
   let refreshSubscribing = false;
   console.log("App.js");

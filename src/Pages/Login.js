@@ -6,13 +6,8 @@ const Login = () => {
   let accessToken = params.get("accessToken");
   let refreshToken = params.get("refreshToken");
 
-<<<<<<< Updated upstream
-  sessionStorage.setItem("accessToken", { accessToken });
-  sessionStorage.setItem("refreshToken", { refreshToken });
-=======
   sessionStorage.setItem("accessToken", accessToken);
   sessionStorage.setItem("refreshToken", refreshToken);
->>>>>>> Stashed changes
 
   useEffect(() => {
     const fetch = async () => {
