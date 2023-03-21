@@ -7,21 +7,20 @@ const Login = () => {
   const [ refreshToken, setRefreshToken ] = useState(params.get("refreshToken"));
   
 
-  sessionStorage.setItem("accessToken", { accessToken });
-  sessionStorage.setItem("refreshToken", { refreshToken });
+  sessionStorage.setItem("accessToken", accessToken);
+  sessionStorage.setItem("refreshToken", refreshToken);
 
   /* 
   useEffect(() => {
-    const fetch = async (e) => {
+    const fetch = async () => {
+      console.log("요청");
       await axios
-        .post("http://localhost:8080/jwt-test", null, {
-          headers: { Authorization: accessToken },
-        })
+        .post("http://localhost:8080/jwt-test", null, {})
         .then((response) => {
           console.log("response입니다 ", response);
         })
         .catch((e) => {
-          // console.error(e.message);
+          console.error(e.message);
           // const throwException = async () => {
           //   console.log("throwExceoption");
           //   await axios
