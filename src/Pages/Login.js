@@ -1,14 +1,16 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Login = () => {
   const params = new URLSearchParams(window.location.search);
-  let accessToken = params.get("accessToken");
-  let refreshToken = params.get("refreshToken");
+  const [ accessToken, setAccessToken ] = useState(params.get("accessToken"));
+  const [ refreshToken, setRefreshToken ] = useState(params.get("refreshToken"));
+  
 
   sessionStorage.setItem("accessToken", { accessToken });
   sessionStorage.setItem("refreshToken", { refreshToken });
 
+  /* 
   useEffect(() => {
     const fetch = async (e) => {
       await axios
@@ -40,7 +42,7 @@ const Login = () => {
     };
     fetch();
   }, []);
-
+  */
   const onSendToken = async (e) => {
     e.preventDefault();
     await axios
