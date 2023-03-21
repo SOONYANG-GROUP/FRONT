@@ -15,6 +15,7 @@ const Project = () => {
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [todoList, setTodoList] = useState([]);
+  const [ resultLink, setResultLink ] = useState("");
 
   const [ discordURL, setDiscordURL ] = useState("");
   const [ openKakaoURL, setOpenKakaoURL ] = useState("");
@@ -42,6 +43,10 @@ const Project = () => {
   const onChangeComment = (e) => {
     setComment(e.target.value);
   };
+
+  const onChangeResultLink = (e) => {
+    setResultLink(e.target.value);
+  }
 
   const onChangePageNumber = async (e) => {
     await setChangingPage(true);
@@ -109,6 +114,7 @@ const Project = () => {
         <DetailPage
           changingPage={changingPage}
           project={project}
+          resultLink={resultLink}
           pageNumber={pageNumber}
           comment={comment}
           comments={comments}
@@ -117,6 +123,7 @@ const Project = () => {
           openKakaoURL={openKakaoURL}
           creatingComment={creatingComment}
           onChangeComment={onChangeComment}
+          onChangeResultLink={onChangeResultLink}
         />
       </>
     );
@@ -124,6 +131,7 @@ const Project = () => {
 };
 
 const DetailPage = ({
+  resultLink,
   discordURL,
   openKakaoURL,
   todoList,
@@ -135,6 +143,7 @@ const DetailPage = ({
   onChangeComment,
   creatingComment,
   creatingToDoListEle,
+  onChangeResultLink
 }) => {
   if (changingPage) {
     return <div>Loading...</div>;
@@ -155,7 +164,9 @@ const DetailPage = ({
         <DetailPageTwo
           discordURL={discordURL}
           todoList={todoList}
+          resultLink={resultLink}
           openKakaoURL={openKakaoURL}
+          onChangeResultLink={onChangeResultLink}
           creatingToDoListEle={creatingToDoListEle}
         />
       );
@@ -163,7 +174,14 @@ const DetailPage = ({
   }
 };
 
-const DetailPageTwo = ({ discordURL, todoList, creatingToDoListEle, openKakaoURL }) => {
+const DetailPageTwo = ({ 
+  discordURL, 
+  todoList, 
+  creatingToDoListEle, 
+  openKakaoURL,
+  resultLink,
+  onChangeResultLink
+}) => {
   return (
     <div className="container px-5">
       <div className="text-uppercase-expanded small mb-2 pt-5">
@@ -190,12 +208,12 @@ const DetailPageTwo = ({ discordURL, todoList, creatingToDoListEle, openKakaoURL
       <hr className="mt-0 mb-3 mt-3" />
       <div className="row">
         <div className="col-md-6">
-          <a href={discordURL} className="btn text-light" style={{backgroundColor: '#6f42c1'}}>
+          <a href={discordURL} className="btn text-light w-100" style={{backgroundColor: '#6f42c1'}} target='_blank'>
             <i className="fa-brands fa-discord"></i> DISCORD
           </a>
         </div>
         <div className="col-md-6">
-          <a href={openKakaoURL} className="btn btn-warning text-light">
+          <a href={openKakaoURL} className="btn btn-warning text-light w-100" target='_blank'>
             <i className="fa-solid fa-comment"></i> KAKAO
           </a>
         </div>
@@ -205,6 +223,14 @@ const DetailPageTwo = ({ discordURL, todoList, creatingToDoListEle, openKakaoURL
         <h4>결과물 링크 제출</h4>
         <span className="text-muted">로그에 기록할 결과물 링크 제출해 주세요.</span>
         <hr className="mt-0 mb-3 mt-3" />
+        <div>
+          <input 
+            type="text"
+            name="resultLink"
+            value={resultLink}
+            onChange={onChangeResultLink}
+          />
+        </div>
       </div>
     </div>
   );
