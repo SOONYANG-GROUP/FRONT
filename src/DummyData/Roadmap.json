@@ -12,19 +12,19 @@
         {
           "name": "HTML",
           "skillUrl": "https://www.w3schools.com/html/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/1532/1532556.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/1532/1532556.png",
           "description": "HTML (Hypertext Markup Language) is used to create the structure and content of a web page."
         },
         {
           "name": "CSS",
           "skillUrl": "https://www.w3schools.com/css/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/732/732190.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/732/732190.png",
           "description": "CSS (Cascading Style Sheets) is used to style and layout web pages."
         },
         {
           "name": "JavaScript",
           "skillUrl": "https://www.w3schools.com/js/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/1199/1199124.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/1199/1199124.png",
           "description": "JavaScript is used to make web pages interactive and dynamic."
         }
       ],
@@ -42,19 +42,19 @@
         {
           "name": "Solidity",
           "skillUrl": "https://soliditylang.org/",
-          "skillImgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Solidity_logo.svg/1200px-Solidity_logo.svg.png",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Solidity_logo.svg/1200px-Solidity_logo.svg.png",
           "description": "Solidity is a contract-oriented programming language used for writing smart contracts on the Ethereum blockchain."
         },
         {
           "name": "Ethereum",
           "skillUrl": "https://ethereum.org/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/4123/4123811.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/4123/4123811.png",
           "description": "Ethereum is a blockchain platform that allows developers to build decentralized applications."
         },
         {
           "name": "Hyperledger Fabric",
           "skillUrl": "https://www.hyperledger.org/use/fabric",
-          "skillImgUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk6C6icQ_bjpjho7mQnF3NasIOp98vfryedQ&usqp=CAU",
+          "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk6C6icQ_bjpjho7mQnF3NasIOp98vfryedQ&usqp=CAU",
           "description": "Hyperledger Fabric is a blockchain platform for enterprise applications, allowing developers to build secure and scalable blockchain solutions."
         }
       ],
@@ -72,19 +72,19 @@
         {
           "name": "C++",
           "skillUrl": "https://www.cplusplus.com/",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/cplusplus_logo_icon_168064.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/cplusplus_logo_icon_168064.png",
           "description": "C++ is a high-performance programming language used in game development for its speed and memory management capabilities."
         },
         {
           "name": "Unreal Engine",
           "skillUrl": "https://www.unrealengine.com/",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/unreal_engine_logo_icon_168084.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/unreal_engine_logo_icon_168084.png",
           "description": "Unreal Engine is a game engine developed by Epic Games, commonly used in game development for its powerful graphics rendering and game development tools."
         },
         {
           "name": "Network Programming",
           "skillUrl": "https://en.wikipedia.org/wiki/Network_programming",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_net_icon_130068.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_net_icon_130068.png",
           "description": "Network programming involves designing and implementing communication protocols between computer programs to enable data exchange over networks."
         }
       ],
@@ -101,19 +101,19 @@
         {
           "name": "Penetration Testing",
           "skillUrl": "https://en.wikipedia.org/wiki/Penetration_test",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_penetration_tester_icon_130089.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_penetration_tester_icon_130089.png",
           "description": "Penetration testing is a method of evaluating the security of a computer system or network by simulating an attack from a malicious source."
         },
         {
           "name": "Python",
           "skillUrl": "https://www.python.org/",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/python_logo_icon_168886.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/python_logo_icon_168886.png",
           "description": "Python is a popular programming language used in cybersecurity for its ease of use, readability, and vast libraries of modules and packages."
         },
         {
           "name": "Vulnerability Assessment",
           "skillUrl": "https://en.wikipedia.org/wiki/Vulnerability_assessment",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_security_icon_130162.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_security_icon_130162.png",
           "description": "Vulnerability assessment is the process of identifying and assessing security vulnerabilities in computer systems or networks."
         }
       ],
@@ -131,37 +131,37 @@
         {
           "name": "HTML",
           "skillUrl": "https://developer.mozilla.org/en-US/docs/Web/HTML",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_html_icon_130541.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_html_icon_130541.png",
           "description": "HTML is the markup language used to structure content on the web."
         },
         {
           "name": "CSS",
           "skillUrl": "https://developer.mozilla.org/en-US/docs/Web/CSS",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_css_icon_130661.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_css_icon_130661.png",
           "description": "CSS is the style sheet language used to add visual styling to HTML content."
         },
         {
           "name": "JavaScript",
           "skillUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_js_official_icon_130509.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2107/PNG/512/file_type_js_official_icon_130509.png",
           "description": "JavaScript is the programming language used to add interactivity to web pages."
         },
         {
           "name": "Node.js",
           "skillUrl": "https://nodejs.org/en/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/919/919825.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919825.png",
           "description": "Node.js is an open-source, cross-platform JavaScript runtime environment used to build scalable and fast network applications."
         },
         {
           "name": "React",
           "skillUrl": "https://reactjs.org/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/1126/1126012.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/1126/1126012.png",
           "description": "React is a JavaScript library used to build user interfaces and single-page applications."
         },
         {
           "name": "MongoDB",
           "skillUrl": "https://www.mongodb.com/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/2906/2906274.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/2906/2906274.png",
           "description": "MongoDB is a NoSQL document database used to store data for web applications."
         }
       ],
@@ -179,19 +179,19 @@
         {
           "name": "Python",
           "skillUrl": "https://www.python.org/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/919/919852.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919852.png",
           "description": "One of the most popular programming languages used in AI development."
         },
         {
           "name": "Machine Learning",
           "skillUrl": "https://en.wikipedia.org/wiki/Machine_learning",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/933/933258.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/933/933258.png",
           "description": "The ability of computers to learn from data and make decisions."
         },
         {
           "name": "Deep Learning",
           "skillUrl": "https://en.wikipedia.org/wiki/Deep_learning",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/8637/8637113.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/8637/8637113.png",
           "description": "A subset of machine learning that uses artificial neural networks to model and solve complex problems."
         }
       ],
@@ -209,19 +209,19 @@
         {
           "name": "Java",
           "skillUrl": "https://www.java.com/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/226/226777.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/226/226777.png",
           "description": "One of the most popular programming languages used in Android development."
         },
         {
           "name": "Swift",
           "skillUrl": "https://developer.apple.com/swift/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/732/732250.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/732/732250.png",
           "description": "The programming language used to develop iOS applications."
         },
         {
           "name": "Flutter",
           "skillUrl": "https://flutter.dev/",
-          "skillImgUrl": "https://blog.kakaocdn.net/dn/liuIY/btrt6fAFKNp/hZpWyNNdvu2Gy9Q7nukk3K/img.png",
+          "imageUrl": "https://blog.kakaocdn.net/dn/liuIY/btrt6fAFKNp/hZpWyNNdvu2Gy9Q7nukk3K/img.png",
           "description": "A mobile app SDK for building high-performance, high-fidelity, apps for iOS and Android, from a single codebase."
         }
       ],
@@ -239,19 +239,19 @@
         {
           "name": "Amazon Web Services",
           "skillUrl": "https://aws.amazon.com/",
-          "skillImgUrl": "https://static-00.iconduck.com/assets.00/aws-icon-256x256-qvoq2ml5.png",
+          "imageUrl": "https://static-00.iconduck.com/assets.00/aws-icon-256x256-qvoq2ml5.png",
           "description": "A widely used cloud platform offering a broad range of services, including compute, storage, and database services."
         },
         {
           "name": "Azure",
           "skillUrl": "https://azure.microsoft.com/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/873/873107.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/873/873107.png",
           "description": "A cloud platform provided by Microsoft, offering a wide range of services for computing, storage, and networking."
         },
         {
           "name": "Python",
           "skillUrl": "https://www.python.org/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/919/919852.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/919/919852.png",
           "description": "A popular programming language used in cloud computing due to its ease of use and versatility."
         }
       ],
@@ -269,19 +269,19 @@
         {
           "name": "Jenkins",
           "skillUrl": "https://www.jenkins.io/",
-          "skillImgUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/jenkins_logo_icon_170552.png",
+          "imageUrl": "https://cdn.icon-icons.com/icons2/2699/PNG/512/jenkins_logo_icon_170552.png",
           "description": "An open-source automation server used to build, test, and deploy software applications."
         },
         {
           "name": "Docker",
           "skillUrl": "https://www.docker.com/",
-          "skillImgUrl": "https://cdn-icons-png.flaticon.com/512/5969/5969059.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/5969/5969059.png",
           "description": "A platform used to develop, ship, and run applications as containers."
         },
         {
           "name": "Bash",
           "skillUrl": "https://www.gnu.org/software/bash/",
-          "skillImgUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bash_Logo_Colored.svg/512px-Bash_Logo_Colored.svg.png?20180723054350",
+          "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Bash_Logo_Colored.svg/512px-Bash_Logo_Colored.svg.png?20180723054350",
           "description": "A shell scripting language used to automate tasks in a Unix-based environment."
         }
       ],

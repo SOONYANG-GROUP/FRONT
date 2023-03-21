@@ -21,7 +21,6 @@ const Skill = () => {
   };
 
   if (!isLoading) {
-    console.log(skill);
     return (
       <div>
         <header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
@@ -37,7 +36,7 @@ const Skill = () => {
                     로그인 기능을 통해 해당 내용을 수정할 수 있습니다.
                   </p>
                   <div class="mb-5 mb-lg-0">
-                    <a class="me-3" href="#!">
+                    <a class="me-3" href={`/edit/skill/${skill._id}`}>
                       내용 수정 하기
                     </a>
                     <a href="#!">관리자 소환</a>

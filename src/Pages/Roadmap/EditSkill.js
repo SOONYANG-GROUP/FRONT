@@ -6,7 +6,7 @@ import ReferenceList from "../../Components/List/ReferenceList";
 import Loading from "../Loading";
 
 import SkillsDummyData from "../../DummyData/Skills.json";
-
+import { NameInput, ReferenceInput } from "../../Components/Inputs/Input";
 
 const EditSkill = () => {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -16,19 +16,23 @@ const EditSkill = () => {
     const [ name, setName ] = useState('');
     const [ studyTip, setStudyTip ] = useState('');
     const [ references, setReferences ] = useState([]);
+    
 
     const id = useParams().id;
 
     useEffect(() => {
-        if(GetSkills())
+        if(GetSkill(id))
         {
-            
+            setName(GetSkill(id).name);
+            setStudyTip(GetSkill(id).studyTip);
+            setReferences(GetSkill(id).references);
+            setIsLoading(false);
         }
-        setIsLoading(false);
-    }, []);
+    }, [ id ]);
 
-    const GetSkills = () => {
-        return SkillsDummyData.skills;
+
+    const GetSkill = (id) => {
+        return SkillsDummyData.skills[id];
     }
 
     const onChangeName = (e) => {
@@ -73,7 +77,7 @@ const EditSkill = () => {
                             <h4>* 스킬 연구 방법</h4>
                             <span className="text-muted">스킬을 연구하는 방법에 대해 알려주세요</span>
                         </div>
-                        <StudyTip 
+                        <StudyTip
                             studyTip={studyTip}
                             disabled={editing}
                             onChangeStudyTip={onChangeStudyTip}
@@ -84,16 +88,23 @@ const EditSkill = () => {
                             <h4>* 스킬 연구 참고 자료</h4>
                         </div>
                         <div>
-                            <ReferenceList 
+                            <ReferenceList
                                 addingReference={addingReference}
                                 references={references}
                             />
                         </div>
                         <div className="mt-2">
-                            <button className="btn btn-primary w-100">
-                                스킬 연구 추가하기
-                            </button>
+                            <ReferenceInput 
+                                creating={editing}
+                                references={references}
+                                setAddingReference={setAddingReference}
+                            />
                         </div>
+                    </div>
+                    <div className="mt-2">
+                        <button className="btn btn-primary w-100">
+                            스킬 연구 고치기
+                        </button>
                     </div>
                 </div>
             )

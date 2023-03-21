@@ -25,6 +25,7 @@ export const StudyTip = ({
         <textarea
             name="studyTip"
             id={studyTipLabel}
+            value={studyTip}
             onChange={onChangeStudyTip}
             className="form-control"
             disabled={disabled}

@@ -19,6 +19,9 @@ import Test from "./Test";
 import Skill from "./Pages/Roadmap/Skill";
 import Login from "./Pages/Login";
 
+import EditRoadmap from "./Pages/Roadmap/EditRoadmap";
+import EditSkill from "./Pages/Roadmap/EditSkill";
+
 function App() {
   return (
     <Router>
@@ -35,6 +38,9 @@ function App() {
         <Route path="/create/roadmap" element={<CreateRoadmap />} />
         <Route path="/create/skill" element={<CreateSkill />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/edit/skill/:id" element={<EditSkill />} />
+        <Route path="/edit/roadmap/:id" element={<EditRoadmap />} />
+
         <Route path="/test" element={<Test />} />
         <Route path="/test2" element={<Test2 />} />
         <Route path="/login" element={<Login />} />

@@ -28,10 +28,10 @@ const EditRoadmap = () => {
     useEffect(() => {
         if(GetRoadmap(id) && GetSkills())
         {
-            setName(GetRoadmap(id).name);
-            setComputerLanguage(GetRoadmap(id).computerLanguage);
+            setName(GetRoadmap(id).roadmap);
+            setComputerLanguage(GetRoadmap(id).mostUsedLanguage);
             setSkills(GetRoadmap(id).skills);
-            setFramework(GetRoadmap(id).framework);
+            setFramework(GetRoadmap(id).mostUsedFramework);
             setLoadedSkills(GetSkills());
         }
         setIsLoading(false);
@@ -57,8 +57,25 @@ const EditRoadmap = () => {
         setName(e.target.value);
     }
 
-    const onAddSkill = (e) => {
+    const onAddSkill = async (e) => {
+        e.preventDefault();
+        await setAddingSkill(true);
 
+        let isExisted = false;
+        const selectedSkill = loadedSkills[parseInt(e.target.id)];
+        for(let i = 0; i < skills.length; ++i)
+        {
+            if(skills[i].name === selectedSkill.name)
+            {
+                isExisted = true;
+            }
+        }
+
+        if(!isExisted)
+        {
+            skills.push(selectedSkill);
+        }
+        await setAddingSkill(false);
     }
 
     if(isLoading)

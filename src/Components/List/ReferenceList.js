@@ -27,7 +27,6 @@ const ReferenceList = ({
     references,
     addingReference
 }) => {
-
     const [deleting, setDeleting ] = useState(false);
     
     const onDeleteChampion = async (e) => {
