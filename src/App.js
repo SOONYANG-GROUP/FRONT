@@ -22,8 +22,92 @@ import Login from "./Pages/Login";
 import EditRoadmap from "./Pages/Roadmap/EditRoadmap";
 import EditSkill from "./Pages/Roadmap/EditSkill";
 
+import Test1 from "./Test1";
+
 import axios from "axios";
+import { useEffect } from "react";
+
+
+
 function App() {
+
+  
+
+  // It's Okay to activate this section when Get request started
+  axios.interceptors.request.use(
+    async(config) => {
+      const accessToken = await window.sessionStorage.getItem("accessToken");
+      if(accessToken)
+      {
+        // There is an access token in session storage.
+        config.headers["Authorization"] = await accessToken;
+      }
+      return config;
+    },
+    (error) => {
+      console.log(`Promise Reject In Request: ${error}`);
+      return Promise.reject(error)
+    }
+  );
+
+  axios.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    async (error) => {
+      const {
+        config,
+        response: { status }
+      } = error;
+
+      if(status === 401)
+      {
+        const originalRequest = config;
+        const refreshToken = await sessionStorage.getItem("refreshToken");
+        const { data } = await axios.post(
+          "http://localhost:5000", {}, {
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+              "Authorization-refresh": refreshToken
+            }
+          }
+        );
+        sessionStorage.setItem("accessToken", data.data.accessToken);
+        originalRequest.headers.Authorization = `${data.data.accessToken}`
+        return axios(originalRequest);
+      }
+      return Promise.reject(error);
+    }
+  )
+
+  useEffect(() => {
+
+  }, []);
+
+  //const GetResponseWhenPostRefreshToken = async () => {
+  //  let data = null;
+  //  let headers = {
+  //    "Content-Type": "application/json;charset=utf-8",
+  //    "Authorization-refresh": ""
+  //  };
+//
+  //  const refreshToken = sessionStorage.getItem("refreshToken");
+  //  if(refreshToken !== "" || refreshToken !== undefined || refreshToken !== null)
+  //  {
+  //    headers["Authorization-refresh"] = refreshToken;
+  //  }
+//
+  //  await axios.post("http://localhost:5000/", {}, {headers: headers})
+  //  .then((res) => {
+  //    console.log(`res in GetResponseWhenPostRefreshToken: ${res}`);
+  //  })
+  //  .catch((err) => {
+  //    console.log(`err in GetResponseWhenPostRefreshToken: ${err}`);
+  //  })
+  //  return data;
+  //}
+
+  /*
   let refreshSubscribing = false;
   console.log("App.js");
   if (!window.sessionStorage.getItem("accessToken")) {
@@ -36,7 +120,7 @@ function App() {
 
         if (!accessToken) {
           console.log("accessToken이 없습니다.");
-          return;
+          return; <- """"""""""""이부분이 잘못되었습니다.""""""""""""
         } else {
           console.log("accessToken이 있습니다.");
           // console.log(accessToken);
@@ -115,15 +199,18 @@ function App() {
           return data.data[0];
         } else if (data.flag === "fail") {
           console.log("서버로부터 받은 데이터 false");
-          return false;
+          return false; => null;
         } else {
-          return false;
+          return false; => null;
         }
       } catch (error) {
         console.log(error);
       }
     }
   }
+
+  */
+
 
   return (
     <Router>
@@ -145,6 +232,7 @@ function App() {
 
         <Route path="/test" element={<Test />} />
         <Route path="/test2" element={<Test2 />} />
+        <Route path="/test1" element={<Test1 />} />
         <Route path="/login" element={<Login />} />
       </Routes>
     </Router>

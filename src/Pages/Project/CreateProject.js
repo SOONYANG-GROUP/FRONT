@@ -74,7 +74,6 @@ const CreateProject = () => {
         setKakao(e.target.value);
     }
 
-
     const onClickGPTBtn = async (e) => {
         e.preventDefault();
         setGeneratingIdea(true);
@@ -95,7 +94,38 @@ const CreateProject = () => {
         await setGeneratingIdea(false);
     }
 
-    console.log(openAIError)
+    // 명수를 표현해보자
+    const onCreateProject = async (e) => {
+        e.preventDefault();
+
+        
+
+        try
+        {
+            setCreating(true);
+            await axios.post(`http://localhost:5000/create/project`, {
+                title,
+                description,
+                startDate,
+                fields,
+                references,
+                kakao,
+                discord,
+            })
+            .then((res) => {
+
+            })
+            .catch((err) => {
+
+            })
+        }
+        catch(error)
+        {
+
+        }
+        setCreating(false);
+    }
+
 
     if(isLoading || creating)
     {
@@ -268,7 +298,7 @@ const CreateProject = () => {
                     </div>
                 </div>
                 <div className="mb-2 pt-5">
-                    <button className="btn btn-primary w-100">
+                    <button className="btn btn-primary w-100" onClick={onCreateProject}>
                         Start Project
                     </button>
                 </div>

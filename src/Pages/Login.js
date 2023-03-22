@@ -10,7 +10,7 @@ const Login = () => {
   sessionStorage.setItem("accessToken", accessToken);
   sessionStorage.setItem("refreshToken", refreshToken);
 
-  /* 
+
   useEffect(() => {
     const fetch = async () => {
       console.log("요청");
@@ -41,7 +41,7 @@ const Login = () => {
     };
     fetch();
   }, []);
-  */
+
   const onSendToken = async (e) => {
     e.preventDefault();
     await axios
