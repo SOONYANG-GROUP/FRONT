@@ -9,12 +9,7 @@ const Login = () => {
   sessionStorage.setItem("accessToken", accessToken);
   sessionStorage.setItem("refreshToken", refreshToken);
 
-<<<<<<< HEAD
-
-  useEffect(() => {
-=======
   const onclickButton = () => {
->>>>>>> 0f6589f37608030ed98f5ceb26a4be37afc337f4
     const fetch = async () => {
       console.log("요청");
       await axios
@@ -27,23 +22,6 @@ const Login = () => {
         });
     };
     fetch();
-<<<<<<< HEAD
-  }, []);
-
-  const onSendToken = async (e) => {
-    e.preventDefault();
-    await axios
-      .post("http://localhost:8080/jwt-test", null, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization-refresh": refreshToken,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      });
-=======
->>>>>>> 0f6589f37608030ed98f5ceb26a4be37afc337f4
   };
 
   return (

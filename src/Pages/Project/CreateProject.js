@@ -13,6 +13,36 @@ import ReferenceList from "../../Components/List/ReferenceList";
 import axios from "axios";
 import GPTPrint from "../../Components/GPT/GPTPrint";
 
+const PreprocessField = (fields) => {
+    let preprocessedFields = [];
+
+    let fieldNames = [];
+    let fieldNumbers = [];
+
+    for(let index = 0; index < fields.length; ++index)
+    {
+        const indexOfFieldName = fieldNames.findIndex((element) => element === fields[index].detailField);
+        if(indexOfFieldName !== -1)
+        {
+            fieldNumbers[indexOfFieldName] += 1;
+        }
+        else
+        {
+            fieldNames.push(fields[index].detailField);
+            fieldNumbers.push(1);
+        }
+    }
+    for(let index = 0; index < fieldNames.length; ++index)
+    {
+        preprocessedFields.push({
+            field: fieldNames[index],
+            totalNum: fieldNumbers[index]
+        });
+    }
+    return preprocessedFields;
+}
+
+
 const CreateProject = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ creating, setCreating ] = useState(false);
@@ -98,34 +128,9 @@ const CreateProject = () => {
     const onCreateProject = async (e) => {
         e.preventDefault();
 
-        
-
-        try
-        {
-            setCreating(true);
-            await axios.post(`http://localhost:5000/create/project`, {
-                title,
-                description,
-                startDate,
-                fields,
-                references,
-                kakao,
-                discord,
-            })
-            .then((res) => {
-
-            })
-            .catch((err) => {
-
-            })
-        }
-        catch(error)
-        {
-
-        }
-        setCreating(false);
     }
 
+    
 
     if(isLoading || creating)
     {

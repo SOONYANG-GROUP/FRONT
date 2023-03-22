@@ -6,19 +6,20 @@ const SkillListElement = ({
     onDeleteSkill
 }) => {
     return(
-        <div className="col-md-4">
-            <div className="card card-body shadow-sm">
+        <div className="col-md-4" id={index}>
+            <div className="card card-body shadow-sm" id={index}>
                 <div style={{
                     margin: "0 auto",
                     width: "50%"
-                }}>
+                }} id={index}>
                     <img 
                         src={skill.imageUrl}
                         alt={skill.name}
                         style={{width: "100%"}}
+                        id={index}
                     />
                 </div>
-                <div className="mt-3">
+                <div className="mt-3" id={index}>
                     <button id={index} onClick={onDeleteSkill} className="btn btn-danger w-100">
                         <i id={index} className="fa-solid fa-trash"></i>
                     </button>
@@ -35,6 +36,7 @@ const SkillList = ({
 }) => {
     const onDeleteSkill = async (e) => {
         e.preventDefault();
+        console.log(e.target.id)
         await setDeletingSkill(true);
         await skills.splice(parseInt(e.target.id), 1);
         await setDeletingSkill(false);
