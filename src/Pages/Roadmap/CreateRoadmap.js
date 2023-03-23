@@ -3,10 +3,13 @@ import { NameInput } from "../../Components/Inputs/Input";
 import SkillList from "../../Components/List/SkillList";
 import SkillModalBtn from "../../Components/Modal/SkillModal";
 
+import axios from "axios";
 import SkillsDummyData from "../../DummyData/Skills.json";
+import Loading from "../Loading";
 
 const CreateRoadmap = () => {
     const [ isLoading, setIsLoading ] = useState(true);
+    const [ creating, setCreating ] = useState(false);
     const [ deletingSkill, setDeletingSkill ] = useState(false);
     const [ addingSkill, setAddingSkill ] = useState(false);
 
@@ -62,74 +65,111 @@ const CreateRoadmap = () => {
         setComputerLanguage(e.target.value);
     }
 
-    return(
-        <>
-            <div className="container px-5">
-                <div>
-                    <div className="text-uppercase-expanded small mb-2 pt-5">
-                        <h4>* 로드맵 이름</h4>
-                        <span className="text-muted">개발 분야 이름을 적어주세요</span>
-                    </div>
-                    <NameInput
-                        name={name}
-                        onChangeName={onChangeName}
-                    />
-                </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <div className="text-uppercase-expanded small mb-2 pt-5">
-                            <h4>* 로드맵 대표 언어</h4>
-                            <span className="text-muted">해당 개발 분야를 대표하는 언어</span>
-                        </div>
-                        <input 
-                            type="text"
-                            name="computerLanguage"
-                            value={computerLanguage}
-                            onChange={onChangeComputerLanguage}
-                            className="form-control"
-                        />
-                    </div>
-                    <div className="col-md-6">
-                        <div className="text-uppercase-expanded small mb-2 pt-5">
-                            <h4>* 로그맵 대표 프레임워크</h4>
-                            <span className="text-muted">해당 개발 분야를 대표하는 프레임워크</span>
-                        </div>
-                        <input 
-                            type="text"
-                            name="framework"
-                            value={framework}
-                            onChange={onChangeFramework}
-                            className="form-control"
-                        />
-                    </div>
-                </div>
-                <div>
-                    <div className="text-uppercase-expanded small mb-2 pt-5">
-                        <h4>* 로드맵 스킬 트리</h4>
-                        <span className="text-muted">해당 직업을 얻기 위해 필요한 스킬을 추가하세요</span>
-                    </div>
-                    <div>
-                        <SkillModalBtn 
-                            loadedSkills={loadedSkills} 
-                            addingSkill={addingSkill} 
-                            onAddSkill={onAddSkill} 
-                        />
-                    </div>
-                    <SkillList 
-                        skills={skills}
-                        deletingSkill={deletingSkill}
-                        setDeletingSkill={setDeletingSkill}
-                    />
-                </div>
+    const onClickRoadmap = async (e) => {
+        e.preventDefault();
+        await setCreating(true);
+        await axios.post("http://localhost:5000/create/roadmap", {
+            name,
+            skills,
+            framework,
+            computerLanguage
+        }, {})
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.error(err);
+        })
+        await setCreating(false);
+    }
 
-                <div className="mb-2 pt-5">
-                    <button className="btn btn-primary w-100">
-                        Create Roadmap
-                    </button>
+    
+    if(isLoading)
+    {
+        return(<Loading />)
+    }
+    else
+    {
+        if(creating)
+        {
+            return(
+                <div>
+                    Creating...
                 </div>
-            </div>
-        </>
-    )
+            )
+        }
+        else
+        {
+            return(
+                <>
+                    <div className="container px-5">
+                        <div>
+                            <div className="text-uppercase-expanded small mb-2 pt-5">
+                                <h4>* 로드맵 이름</h4>
+                                <span className="text-muted">개발 분야 이름을 적어주세요</span>
+                            </div>
+                            <NameInput
+                                name={name}
+                                onChangeName={onChangeName}
+                            />
+                        </div>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="text-uppercase-expanded small mb-2 pt-5">
+                                    <h4>* 로드맵 대표 언어</h4>
+                                    <span className="text-muted">해당 개발 분야를 대표하는 언어</span>
+                                </div>
+                                <input 
+                                    type="text"
+                                    name="computerLanguage"
+                                    value={computerLanguage}
+                                    onChange={onChangeComputerLanguage}
+                                    className="form-control"
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <div className="text-uppercase-expanded small mb-2 pt-5">
+                                    <h4>* 로그맵 대표 프레임워크</h4>
+                                    <span className="text-muted">해당 개발 분야를 대표하는 프레임워크</span>
+                                </div>
+                                <input 
+                                    type="text"
+                                    name="framework"
+                                    value={framework}
+                                    onChange={onChangeFramework}
+                                    className="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <div className="text-uppercase-expanded small mb-2 pt-5">
+                                <h4>* 로드맵 스킬 트리</h4>
+                                <span className="text-muted">해당 직업을 얻기 위해 필요한 스킬을 추가하세요</span>
+                            </div>
+                            <div>
+                                <SkillModalBtn 
+                                    loadedSkills={loadedSkills} 
+                                    addingSkill={addingSkill} 
+                                    onAddSkill={onAddSkill} 
+                                />
+                            </div>
+                            <SkillList 
+                                skills={skills}
+                                deletingSkill={deletingSkill}
+                                setDeletingSkill={setDeletingSkill}
+                            />
+                        </div>
+        
+                        <div className="mb-2 pt-5">
+                            <button className="btn btn-primary w-100" onClick={onClickRoadmap}>
+                                Create Roadmap
+                            </button>
+                        </div>
+                    </div>
+                </>
+            )
+        }
+    }
 }
 
 export default CreateRoadmap;

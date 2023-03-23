@@ -26,8 +26,6 @@ const CommentListEle = ({ comment }) => {
   const onButtonClick = () => {
     setIsExpanded(!isExpanded);
   };
-
-  console.log(isExpanded);
   return (
     <div className="card card-body mb-3">
       <div className="col-md-4 mb-3">

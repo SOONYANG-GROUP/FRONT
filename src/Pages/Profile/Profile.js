@@ -28,13 +28,13 @@ const Profile = () => {
             style={{ height: "12rem" }}
           />
           <img
-            src="https://media.licdn.com/dms/image/C4E03AQHx5UwslFTP9g/profile-displayphoto-shrink_800_800/0/1516305818135?e=2147483647&v=beta&t=8ZUNRLMaagGdK5o3p3wmgPoZL3JgCQc6oTmydGTLODQ"
+            src="https://fs.jtbc.co.kr/prog/drama/rebornrich/Img/site/ProgInfo/202211100323537197.jpg"
             className="rounded-circle position-absolute top-50 start-50 translate-middle"
-            style={{ width: "120px", border: "2px solid white" }}
+            style={{ width: "120px", height: "120px", border: "2px solid white", backgroundSize: "cover" }}
           />
           <div className="card-body">
-            <h5 className="card-title">{profile[0].name}</h5>
-            <p className="card-text">{profile[0].introduce}</p>
+            <h3 className="card-title text-center fw-bold">{profile[0].name}</h3>
+            <p className="card-text text-center text-muted">{profile[0].introduce}</p>
           </div>
         </div>
 

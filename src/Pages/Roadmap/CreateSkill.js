@@ -4,6 +4,8 @@ import { StudyTip } from "../../Components/Inputs/Textarea";
 import ReferenceList from "../../Components/List/ReferenceList";
 import Loading from "../Loading";
 
+import axios from "axios";
+
 const CreateSkill = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ creating, setCreating ] = useState(false);
@@ -28,6 +30,28 @@ const CreateSkill = () => {
     const onCreateSkill = async (e) => {
         e.preventDefault();
         await setCreating(true);
+        try
+        {
+            await axios.post(`http://localhost:5000/create/skill`, {
+                name,
+                references,
+                studyTip,
+                imageId: "",
+                imageUrl: "",
+                imageFormData: null
+            }, {})
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+        }
+        catch(error)
+        {
+            console.error(error);
+        }
+        await setCreating(false);
     }
     
     if(isLoading)
@@ -51,7 +75,7 @@ const CreateSkill = () => {
                 </div>
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
-                        <h4>* 스킬 연구 방법</h4>
+                        <h4>* 스킬 연마 방법</h4>
                         <span className="text-muted">스킬을 연구하는 방법에 대해 알려주세요</span>
                     </div>
                     <StudyTip 
@@ -62,7 +86,7 @@ const CreateSkill = () => {
                 </div>
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
-                        <h4>* 스킬 연구 참고 자료</h4>
+                        <h4>* 스킬 연마 참고 자료</h4>
                     </div>
                     <div>
                         <ReferenceList 
@@ -78,7 +102,7 @@ const CreateSkill = () => {
                         />
                     </div>
                 </div>
-                <div className="mb-2 pt-5">
+                <div className="mb-2 pt-5" onClick={onCreateSkill}>
                     <button className="btn btn-primary w-100">
                         스킬 연구 추가하기
                     </button>
