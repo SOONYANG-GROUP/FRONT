@@ -39,7 +39,7 @@ function App() {
       return config;
     },
     (error) => {
-      console.log(error);
+      console.dir(error);
       return Promise.reject(error);
     }
   );
@@ -73,15 +73,26 @@ function App() {
             }
           )
           .then((res) => {
-            console.log(res.config.headers.Authorization);
-            console.log(res.config.headers[0]);
+            return res;
           })
           .catch((e) => {
-            console.log(e);
+            console.dir(e);
+            return e;
           });
-        console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-        sessionStorage.setItem("accessToken", data.data.accessToken);
-        originalRequest.headers.Authorization = `${data.data.accessToken}`;
+
+        console.log(data);
+        await sessionStorage.setItem(
+          "accessToken",
+          `Bearer ${data.accessToken}`
+        );
+        await sessionStorage.setItem(
+          "refreshToken",
+          `Bearer ${data.refreshToken}`
+        );
+
+        originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
+        originalRequest.headers.Authorizationrefresh = `Bearer ${data.refreshToken}`;
+
         return axios(originalRequest);
       }
       return Promise.reject(error);
