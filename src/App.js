@@ -26,8 +26,18 @@ import Test1 from "./Test1";
 
 import axios from "axios";
 import TestNode from "./TestNode";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    console.log("로그인이 되어 있는지 확인합니다.");
+    if (sessionStorage.getItem("refreshToken")) {
+      console.log("로그인 되어 있습니다.");
+    } else {
+      console.log("로그인이 필요합니다.");
+    }
+  }, []);
+
   axios.interceptors.request.use(
     async (config) => {
       console.log(config);
@@ -98,10 +108,6 @@ function App() {
       return Promise.reject(error);
     }
   );
-
-  if (sessionStorage.getItem("refreshToken")) {
-    console.log("로그인 되어 있습니다.");
-  }
 
   return (
     <Router>
