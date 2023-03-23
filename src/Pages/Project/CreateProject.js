@@ -5,40 +5,46 @@ import { DescriptionInput } from "../../Components/Inputs/Textarea";
 import FieldList from "../../Components/List/FieldList";
 import Loading from "../Loading";
 
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
 import ReferenceList from "../../Components/List/ReferenceList";
 
 import axios from "axios";
 import GPTPrint from "../../Components/GPT/GPTPrint";
 
-const PreprocessField = (fields) => {
-    let preprocessedFields = [];
 
+let SearchPreprocessedField = (fields) => {
+    let preprocessedFields = [];
+    
     let fieldNames = [];
+    let fieldDetailNames = [];
     let fieldNumbers = [];
 
     for(let index = 0; index < fields.length; ++index)
     {
-        const indexOfFieldName = fieldNames.findIndex((element) => element === fields[index].detailField);
-        if(indexOfFieldName !== -1)
+        const indexOfDetailFieldName = fieldDetailNames.findIndex((element) => element === fields[index].detailField);
+        if(indexOfDetailFieldName !== -1)
         {
-            fieldNumbers[indexOfFieldName] += 1;
+            fieldNumbers[indexOfDetailFieldName] += 1;
         }
         else
         {
-            fieldNames.push(fields[index].detailField);
+            fieldNames.push(fields[index].field);
+            fieldDetailNames.push(fields[index].detailField);
             fieldNumbers.push(1);
         }
     }
-    for(let index = 0; index < fieldNames.length; ++index)
+
+    for(let index = 0; index < fieldDetailNames.length; ++index)
     {
         preprocessedFields.push({
             field: fieldNames[index],
+            detailField: fieldDetailNames[index],
             totalNum: fieldNumbers[index]
         });
     }
+
     return preprocessedFields;
 }
 
@@ -56,10 +62,12 @@ const CreateProject = () => {
     const [ activeKakao, setActiveKakao ] = useState(false);
     const [ activeDiscord, setActiveDiscord ] = useState(false);
 
+
     const [ words, setWords ] = useState([]);
     const [ title, setTitle ] = useState("");
     const [ description, setDescription ] = useState("");
-    const [ startDate, setStartDate ] = useState(new Date());
+
+    const [ recruitmentDeadLine, setRecruitmentDeadLine ] = useState(new Date());
     const [ fields, setFields ] = useState([]);
     const [ references, setReferences ] = useState([]);
 
@@ -124,10 +132,34 @@ const CreateProject = () => {
         await setGeneratingIdea(false);
     }
 
-    // 명수를 표현해보자
     const onCreateProject = async (e) => {
         e.preventDefault();
-
+        await setCreating(true);
+        try
+        {
+            await axios.post(`http://localhost:5000/create/project`, {
+                "title": title,
+                "description": description,
+                "recruitmentDeadLine": recruitmentDeadLine,
+                "startDate": "",
+                "endDate": "",
+                "fields": SearchPreprocessedField(fields),
+                "references": references,
+                "kakao": kakao,
+                "discord": discord
+            }, {})
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
+        await setCreating(false);
     }
 
     
@@ -187,8 +219,8 @@ const CreateProject = () => {
                         <span className="text-muted">더 빠른 시간에 시작할수록, 프로젝트 성공 확률이 높아집니다.</span>
                     </div>
                     <DatePicker 
-                        selected={startDate}
-                        onChange={date => setStartDate(date)}
+                        selected={recruitmentDeadLine}
+                        onChange={date => setRecruitmentDeadLine(date)}
                         className="form-control"
                     />
                 </div>

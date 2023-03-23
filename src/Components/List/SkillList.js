@@ -7,7 +7,7 @@ const SkillListElement = ({
 }) => {
     return(
         <div className="col-md-4" id={index}>
-            <div className="card card-body shadow-sm" id={index}>
+            <div className="card card-body shadow-sm mb-3" id={index}>
                 <div style={{
                     margin: "0 auto",
                     width: "50%"
@@ -68,5 +68,4 @@ const SkillList = ({
         )
     }
 }
-
 export default SkillList;

@@ -61,7 +61,7 @@ const Project = () => {
   };
 
   const onSubmitLink = async (e) => {
-
+    
   }
 
   const onCreateComment = async () => {
@@ -260,23 +260,6 @@ const DetailPageTwo = ({
   return (
     <div className="container px-5">
       <div className="text-uppercase-expanded small mb-2 pt-5">
-        <h4>To Do List</h4>
-      </div>
-      <hr class="mt-0 mb-3 mt-3 " />
-      {creatingToDoListEle ? (
-        <></>
-      ) : (
-        <div>
-          {todoList.map((toDoListEle, index) => {
-            return (
-              <div>
-                <p key={index}>{toDoListEle.task}</p>
-              </div>
-            );
-          })}
-        </div>
-      )}
-      <div className="text-uppercase-expanded small mb-2 pt-5">
         <h4>Community</h4>
         <span className="text-muted">
           팀원들과 대화를 공유할 수 있는 공간입니다.
@@ -383,7 +366,7 @@ const DetailPageZero = ({ project }) => {
     //   });
   };
   return (
-    <>
+    <div>
       <div class="container px-5">
         <div class="text-uppercase-expanded small mb-2 pt-5">
           <h4>모집 현황</h4>
@@ -426,10 +409,6 @@ const DetailPageZero = ({ project }) => {
               })}
             </div>
           </div>
-
-          <div class="col-lg-4 text-lg-end">
-            <div class="text-gray-400 small">May 2018 - Present</div>
-          </div>
         </div>
         <div class="text-uppercase-expanded small mb-2 pt-5">
           <h4>소개</h4>
@@ -439,9 +418,6 @@ const DetailPageZero = ({ project }) => {
           <div class="col-lg-8">
             <h4 class="mb-0">1. 지원동기</h4>
             <p>{project.description}</p>
-          </div>
-          <div class="col-lg-4 text-lg-end">
-            <div class="text-gray-400 small">August 2015 - May 2018</div>
           </div>
         </div>
         <div class="text-uppercase-expanded small mb-2 pt-5">
@@ -454,9 +430,6 @@ const DetailPageZero = ({ project }) => {
             <br />
             <p>{project.needs}</p>
           </div>
-          <div class="col-lg-4 text-lg-end">
-            <div class="text-gray-400 small">May 2018 - Present</div>
-          </div>
         </div>
         <div class="text-uppercase-expanded small mb-2 pt-5">
           <h4>참고 링크</h4>
@@ -466,12 +439,9 @@ const DetailPageZero = ({ project }) => {
           <div class="col-lg-8">
             <p>{project.reference}</p>
           </div>
-          <div class="col-lg-4 text-lg-end">
-            <div class="text-gray-400 small">June 2011 - August 2015</div>
-          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
