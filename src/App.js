@@ -22,6 +22,8 @@ import Login from "./Pages/Login";
 import EditRoadmap from "./Pages/Roadmap/EditRoadmap";
 import EditSkill from "./Pages/Roadmap/EditSkill";
 
+import Test1 from "./Test1";
+
 import axios from "axios";
 import TestNode from "./TestNode";
 
@@ -105,6 +107,7 @@ function App() {
         <Route path="/edit/roadmap/:id" element={<EditRoadmap />} />
         <Route path="/test" element={<Test />} />
         <Route path="/test2" element={<Test2 />} />
+        <Route path="/test1" element={<Test1 />} />
         <Route path="/login" element={<Login />} />
         <Route path="/testnode" element={<TestNode />} />
       </Routes>

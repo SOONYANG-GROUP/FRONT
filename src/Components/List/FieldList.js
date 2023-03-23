@@ -17,9 +17,9 @@ const FieldListElement = ({
                     <option>{field.detailField}</option>
                 </select>
             </div>
-            <div className="col">
-                <button className="btn btn-danger" value={index} onClick={onDeleteField}>
-                    <span><i className="fa-solid fa-trash"></i></span>
+            <div className="col" id={index}>
+                <button className="btn btn-danger" id={index} onClick={onDeleteField}>
+                    <span id={index}><i className="fa-solid fa-trash" id={index}></i></span>
                 </button>
             </div>
         </div>
@@ -37,7 +37,7 @@ const FieldList = ({
     const onDeleteField = async (e) => {
         e.preventDefault();
         await setDeleting(true);
-        fields.splice(parseInt(e.target.value), 1);
+        fields.splice(parseInt(e.target.id), 1);
         setTotalFieldsNumber(totalFieldsNumber - 1);
         await setDeleting(false);
     }
