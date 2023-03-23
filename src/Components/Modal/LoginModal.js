@@ -19,7 +19,12 @@ export const LoginModalBtn = () => {
 
 const LoginModal = () => {
   const HandleButtonClick = async (e) => {
-    console.log("asd");
+    // fetch("http://localhost:8080/oauth2/authorization/google").then(
+    //   (response) => {
+    //     console.log(response.headers.get("content-type"));
+    //   }
+    // );
+
     window.location.href = "http://localhost:8080/oauth2/authorization/google";
     // axios
     //   .post("https://localhost:8080/login")
