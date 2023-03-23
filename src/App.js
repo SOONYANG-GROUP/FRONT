@@ -99,6 +99,10 @@ function App() {
     }
   );
 
+  if (sessionStorage.getItem("refreshToken")) {
+    console.log("로그인 되어 있습니다.");
+  }
+
   return (
     <Router>
       <Header />

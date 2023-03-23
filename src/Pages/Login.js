@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
   if (!sessionStorage.getItem("accessToken")) {
@@ -24,6 +25,13 @@ const Login = () => {
     };
     fetch();
   };
+
+  if (sessionStorage.getItem("accessToken")) {
+    let token = sessionStorage.getItem("accessToken").split(" ")[1];
+    console.log(token);
+    let decoded = jwt_decode(token);
+    console.log(decoded);
+  }
 
   return (
     <>
