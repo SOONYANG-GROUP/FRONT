@@ -2,12 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Login = () => {
-  const params = new URLSearchParams(window.location.search);
-  const [accessToken, setAccessToken] = useState(params.get("accessToken"));
-  const [refreshToken, setRefreshToken] = useState(params.get("refreshToken"));
-
-  sessionStorage.setItem("accessToken", accessToken);
-  sessionStorage.setItem("refreshToken", refreshToken);
+  if (!sessionStorage.getItem("accessToken")) {
+    const params = new URLSearchParams(window.location.search);
+    const accessToken = params.get("accessToken");
+    const refreshToken = params.get("refreshToken");
+    sessionStorage.setItem("accessToken", accessToken);
+    sessionStorage.setItem("refreshToken", refreshToken);
+  }
 
   const onclickButton = () => {
     const fetch = async () => {
