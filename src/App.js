@@ -39,6 +39,7 @@ function App() {
     } else {
       setIsLoggedIn(false);
       console.log("로그인이 필요합니다.");
+      sessionStorage.clear();
     }
   }, []);
   axios.interceptors.request.use(
@@ -117,23 +118,53 @@ function App() {
     <Router>
       <Header isLoggedIn={isLoggedIn} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/projects" element={<Projects />} />
-        <Route path="/project/:id" element={<Project />} />
-        <Route path="/create/project" element={<CreateProject />} />
+        <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/projects"
+          element={<Projects isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/project/:id"
+          element={<Project isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/create/project"
+          element={<CreateProject isLoggedIn={isLoggedIn} />}
+        />
         <Route path="/create/" />
-        <Route path="/roadmaps" element={<Roadmaps />} />
-        <Route path="/roadmap/:id" element={<Roadmap />} />
-        <Route path="/skill/:id" element={<Skill />} />
-        <Route path="/create/roadmap" element={<CreateRoadmap />} />
-        <Route path="/create/skill" element={<CreateSkill />} />
-        <Route path="/profile/:id" element={<Profile />} />
-        <Route path="/edit/skill/:id" element={<EditSkill />} />
-        <Route path="/edit/roadmap/:id" element={<EditRoadmap />} />
-        <Route path="/test" element={<Test />} />
-        <Route path="/test2" element={<Test2 />} />
-        <Route path="/test1" element={<Test1 />} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/roadmaps"
+          element={<Roadmaps isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/roadmap/:id"
+          element={<Roadmap isLoggedIn={isLoggedIn} />}
+        />
+        <Route path="/skill/:id" element={<Skill isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/create/roadmap"
+          element={<CreateRoadmap isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/create/skill"
+          element={<CreateSkill isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/profile/:id"
+          element={<Profile isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/edit/skill/:id"
+          element={<EditSkill isLoggedIn={isLoggedIn} />}
+        />
+        <Route
+          path="/edit/roadmap/:id"
+          element={<EditRoadmap isLoggedIn={isLoggedIn} />}
+        />
+        <Route path="/test" element={<Test isLoggedIn={isLoggedIn} />} />
+        <Route path="/test2" element={<Test2 isLoggedIn={isLoggedIn} />} />
+        <Route path="/test1" element={<Test1 isLoggedIn={isLoggedIn} />} />
+        <Route path="/login" element={<Login isLoggedIn={isLoggedIn} />} />
       </Routes>
     </Router>
   );

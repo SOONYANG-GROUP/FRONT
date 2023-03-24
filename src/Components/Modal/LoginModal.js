@@ -32,7 +32,7 @@ export const LoginModalBtn = ({ isLoggedIn }) => {
   }
 };
 
-const LoginModal = () => {
+export const LoginModal = () => {
   const HandleButtonClick = async (e) => {
     // fetch("http://localhost:8080/oauth2/authorization/google").then(
     //   (response) => {

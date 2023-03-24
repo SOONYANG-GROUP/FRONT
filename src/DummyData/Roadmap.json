@@ -48,7 +48,7 @@
         {
           "name": "Ethereum",
           "skillUrl": "https://ethereum.org/",
-          "imageUrl": "https://cdn-icons-png.flaticon.com/512/4123/4123811.png",
+          "imageUrl": "https://cdn-icons-png.flaticon.com/512/206/206879.png",
           "description": "Ethereum is a blockchain platform that allows developers to build decentralized applications."
         },
         {
@@ -61,7 +61,7 @@
       "iconClassName": "fa-brands fa-bitcoin fa-2xl"
     },
     {
-      "_id": 5,
+      "_id": 3,
       "roadmap": "game server developer",
       "field": "game",
       "averageSalary": 95000,
@@ -91,7 +91,7 @@
       "iconClassName": "fa-solid fa-gamepad fa-2xl"
     },
     {
-      "_id": 6,
+      "_id": 4,
       "roadmap": "white hat hacker",
       "field": "cybersecurity",
       "averageSalary": 85000,

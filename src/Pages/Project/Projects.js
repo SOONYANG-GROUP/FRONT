@@ -3,20 +3,19 @@ import Loading from "../Loading";
 
 import ProjectsDummyData from "../../DummyData/Projects.json";
 import ProjectCards from "../../Components/Cards/Cards/ProjectCards";
-
 import BuildTeam from "../../assets/images/BuildTeam.svg";
 
-const Projects = (homePage, projectPage) => {
+import { LoginModal } from "../../Components/Modal/LoginModal";
+
+const Projects = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    if (GetProjects()) {
-      setProjects(GetProjects());
-      setIsLoading(false);
-    }
-  }, []);
+    setProjects(GetProjects());
+    setIsLoading(false);
+  }, [isLoggedIn]);
 
   const GetProjects = () => {
     return ProjectsDummyData.projects;
@@ -40,13 +39,29 @@ const Projects = (homePage, projectPage) => {
                 </p>
                 원하시는 주제가 없나요?
                 <div class="d-flex flex-column flex-sm-row">
-                  <a
-                    class="btn btn-lg btn-primary fw-500 me-sm-3 mb-3 mb-sm-0"
-                    href="/create/project"
-                  >
-                    팀 만들기
-                    <i class="ms-2" data-feather="arrow-right"></i>
-                  </a>
+                  {isLoggedIn ? (
+                    <>
+                      <a
+                        class="btn btn-lg btn-primary fw-500 me-sm-3 mb-3 mb-sm-0"
+                        href="/create/project"
+                      >
+                        팀 만들기
+                        <i class="ms-2" data-feather="arrow-right"></i>
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        className="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"
+                      >
+                        팀 만들기
+                      </button>
+                      <LoginModal />
+                    </>
+                  )}
                 </div>
               </div>
               <div

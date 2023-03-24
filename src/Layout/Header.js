@@ -1,5 +1,6 @@
 import { LoginModalBtn } from "../Components/Modal/LoginModal";
 import { useEffect, useState } from "react";
+import { LoginModal } from "../Components/Modal/LoginModal";
 
 const Header = ({ isLoggedIn }) => {
   return (
@@ -35,9 +36,23 @@ const Header = ({ isLoggedIn }) => {
             </a>
           </li>
           <li>
-            <a href="/profile/1" className="nav-link px-2 link-dark">
-              Profile
-            </a>
+            {isLoggedIn ? (
+              <a href="/profile/1" className="nav-link px-2 link-dark">
+                Profile
+              </a>
+            ) : (
+              <>
+                <a
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  className="nav-link px-2 link-dark"
+                  style={{ cursor: "pointer" }}
+                >
+                  Profile
+                </a>
+                <LoginModal />
+              </>
+            )}
           </li>
         </ul>
         <div className="col-md-3 text-end">
