@@ -68,6 +68,7 @@ const CreateProject = () => {
   const [discord, setDiscord] = useState("");
 
   let [totalFieldsNumber, setTotalFieldsNumber] = useState(0);
+  let [theNumberOfRemain, setTheNumberOfRemain] = useState(5);
 
   useEffect(() => {
     setIsLoading(false);
@@ -305,16 +306,18 @@ const CreateProject = () => {
           <div>
             <FieldList
               fields={fields}
-              totalFieldsNumber={totalFieldsNumber}
-              setTotalFieldsNumber={setTotalFieldsNumber}
+              theNumberOfRemain={theNumberOfRemain}
+              setTheNumberOfRemain={setTheNumberOfRemain}
             />
           </div>
           <div>
             <FieldSelectTag
+              theNumberOfRemain={theNumberOfRemain}
               setAddingField={setAddingField}
               fields={fields}
               totalFieldsNumber={totalFieldsNumber}
               setTotalFieldsNumber={setTotalFieldsNumber}
+              setTheNumberOfRemain={setTheNumberOfRemain}
             />
           </div>
         </div>

@@ -7,13 +7,14 @@ import {
 } from "../Constants/Lists";
 
 export const FieldSelectTag = ({
-  totalFieldsNumber,
+  theNumberOfRemain,
   setAddingField,
-  setTotalFieldsNumber,
   fields,
+  setTheNumberOfRemain,
 }) => {
   const [field, setField] = useState(FieldLists[0]);
   const [detailField, setDetailField] = useState(FrontendFieldLists[0]);
+  const [ totalNum, setTotalNum ] = useState(1);
 
   const onChangeField = (e) => {
     setField(e.target.value);
@@ -23,14 +24,24 @@ export const FieldSelectTag = ({
     setDetailField(e.target.value);
   };
 
+  const onChangeTotalNum = (e) => {
+    setTotalNum(parseInt(e.target.value));
+  }
+
   const onAddField = async (e) => {
     e.preventDefault();
     await setAddingField(true);
-    fields.push({
-      field,
-      detailField,
-    });
-    await setTotalFieldsNumber(totalFieldsNumber + 1);
+
+    if(theNumberOfRemain - totalNum >= 0)
+    {
+      fields.push({
+        field,
+        detailField,
+        totalNum,
+      });
+      setTotalNum(1)
+      await setTheNumberOfRemain(theNumberOfRemain - totalNum);
+    }
     await setAddingField(false);
   };
 
@@ -39,24 +50,29 @@ export const FieldSelectTag = ({
       <div className="col-3">
         <FieldSelect
           onChangeField={onChangeField}
-          totalFieldsNumber={totalFieldsNumber}
+          theNumberOfRemain={theNumberOfRemain}
         />
       </div>
       <div className="col-5">
         <DetailFieldSelect
           field={field}
           onChangeDetailField={onChangeDetailField}
-          totalFieldsNumber={totalFieldsNumber}
+          theNumberOfRemain={theNumberOfRemain}
         />
       </div>
       <div className="col-2">
-        <DetailNumSelect />
+        <DetailNumSelect 
+          theNumberOfRemain={theNumberOfRemain}
+          onChangeTotalNum={onChangeTotalNum}
+          totalNum={totalNum}
+        />
       </div>
+
       <div className="col">
         <button
           className="btn btn-primary"
           onClick={onAddField}
-          disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}
+          disabled={theNumberOfRemain <= 0}
         >
           <i className="fa-sharp fa-solid fa-plus"></i>
         </button>
@@ -65,12 +81,12 @@ export const FieldSelectTag = ({
   );
 };
 
-const FieldSelect = ({ onChangeField, totalFieldsNumber }) => {
+const FieldSelect = ({ onChangeField, theNumberOfRemain }) => {
   return (
     <select
       className="form-select"
       onChange={onChangeField}
-      disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}
+      disabled={theNumberOfRemain === 0}
     >
       {FieldLists.map((FieldListEle, index) => {
         return (
@@ -83,13 +99,18 @@ const FieldSelect = ({ onChangeField, totalFieldsNumber }) => {
   );
 };
 
-const DetailNumSelect = () => {
+const DetailNumSelect = ({
+  totalNum,
+  theNumberOfRemain,
+  onChangeTotalNum
+}) => {
   return (
-    <select className="form-select">
-      <option selected>1</option>
-      <option value="1">2</option>
-      <option value="2">3</option>
-      <option value="3">4</option>
+    <select className="form-select" disabled={theNumberOfRemain <= 0} onClick={onChangeTotalNum}>
+      {theNumberOfRemain > 0 ? (<option id="1" selected={totalNum === 1 ? true : false}>1</option>) : (<></>)}
+      {theNumberOfRemain > 1 ? (<option id="2" selected={totalNum === 2 ? true : false}>2</option>) : (<></>)}
+      {theNumberOfRemain > 2 ? (<option id="3" selected={totalNum === 3 ? true : false}>3</option>) : (<></>)}
+      {theNumberOfRemain > 3 ? (<option id="4" selected={totalNum === 4 ? true : false}>4</option>) : (<></>)}
+      {theNumberOfRemain > 4 ? (<option id="5" selected={totalNum === 5 ? true : false}>5</option>) : (<></>)}
     </select>
   );
 };
@@ -97,14 +118,14 @@ const DetailNumSelect = () => {
 const DetailFieldSelect = ({
   field,
   onChangeDetailField,
-  totalFieldsNumber,
+  theNumberOfRemain,
 }) => {
   if (field === FieldLists[0]) {
     return (
       <select
         className="form-select"
         onChange={onChangeDetailField}
-        disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}
+        disabled={theNumberOfRemain <= 0}
       >
         {FrontendFieldLists.map((FrontendFieldEle, index) => {
           return (
@@ -120,7 +141,7 @@ const DetailFieldSelect = ({
       <select
         className="form-select"
         onChange={onChangeDetailField}
-        disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}
+        disabled={theNumberOfRemain <= 0}
       >
         {BackendFieldLists.map((BackendFieldEle, index) => {
           return (
@@ -136,7 +157,7 @@ const DetailFieldSelect = ({
       <select
         className="form-select"
         onChange={onChangeDetailField}
-        disabled={totalFieldsNumber > 4 || totalFieldsNumber < 0}
+        disabled={theNumberOfRemain <= 0}
       >
         {SecurityFieldLists.map((securityEle, index) => {
           return (

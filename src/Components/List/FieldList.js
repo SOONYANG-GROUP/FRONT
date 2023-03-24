@@ -15,7 +15,7 @@ const FieldListElement = ({ index, field, onDeleteField }) => {
       </div>
       <div className="col-2">
         <select className="form-select" disabled>
-          <option>{field.detailField}</option>
+          <option>{field.totalNum}</option>
         </select>
       </div>
       <div className="col" id={index}>
@@ -29,16 +29,29 @@ const FieldListElement = ({ index, field, onDeleteField }) => {
   );
 };
 
-const FieldList = ({ fields, totalFieldsNumber, setTotalFieldsNumber }) => {
+const FieldList = ({ fields, theNumberOfRemain, setTheNumberOfRemain }) => {
   const [deleting, setDeleting] = useState(false);
+
+  //const onDeleteField = async (e) => {
+  //  e.preventDefault();
+  //  await setDeleting(true);
+  //  fields.splice(parseInt(e.target.id), 1);
+  //  setTotalFieldsNumber(totalFieldsNumber - 1);
+  //  await setDeleting(false);
+  //};
 
   const onDeleteField = async (e) => {
     e.preventDefault();
     await setDeleting(true);
-    fields.splice(parseInt(e.target.id), 1);
-    setTotalFieldsNumber(totalFieldsNumber - 1);
+
+    const indexOfFields = parseInt(e.target.id)
+    const delTotalNum = fields[parseInt(e.target.id)].totalNum;
+    
+    setTheNumberOfRemain(theNumberOfRemain + parseInt(delTotalNum))
+    fields.splice(parseInt(indexOfFields), 1)
+    
     await setDeleting(false);
-  };
+  }
 
   if (fields.length === 0) {
     return <></>;
