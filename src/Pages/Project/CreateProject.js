@@ -140,9 +140,9 @@ const CreateProject = () => {
           {
             title: title,
             description: description,
-            recruitmentDeadLine: recruitmentDeadLine,
-            startDate: "",
-            endDate: "",
+            // recruitmentDeadLine: JSON.stringify(recruitmentDeadLine),
+            // startDate: "",
+            // endDate: "",
             fields: SearchPreprocessedField(fields),
             references: references,
             openChatUrl: kakao,

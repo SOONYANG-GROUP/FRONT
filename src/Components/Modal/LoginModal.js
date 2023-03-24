@@ -2,19 +2,27 @@ import axios from "axios";
 import React, { useState } from "react";
 
 export const LoginModalBtn = (isLoggedIn) => {
-  return (
-    <>
-      <button
-        type="button"
-        className="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        로그인
+  if (!isLoggedIn) {
+    return (
+      <>
+        <button
+          type="button"
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          로그인
+        </button>
+        <LoginModal isLoggedIn={isLoggedIn} />
+      </>
+    );
+  } else {
+    return (
+      <button type="button" className="btn btn-primary">
+        로그아웃
       </button>
-      <LoginModal isLoggedIn={isLoggedIn} />
-    </>
-  );
+    );
+  }
 };
 
 const LoginModal = ({ isLoggedIn }) => {
