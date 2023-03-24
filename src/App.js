@@ -26,18 +26,21 @@ import Test1 from "./Test1";
 
 import axios from "axios";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     console.log("로그인이 되어 있는지 확인합니다.");
     if (sessionStorage.getItem("refreshToken")) {
+      setIsLoggedIn(true);
       console.log("로그인 되어 있습니다.");
     } else {
+      setIsLoggedIn(false);
       console.log("로그인이 필요합니다.");
     }
   }, []);
-
   axios.interceptors.request.use(
     async (config) => {
       console.log(config);
@@ -112,7 +115,7 @@ function App() {
 
   return (
     <Router>
-      <Header />
+      <Header isLoggedIn={isLoggedIn} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/projects" element={<Projects />} />

@@ -1,23 +1,38 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-export const LoginModalBtn = (isLoggedIn) => {
-  return (
-    <>
-      <button
-        type="button"
-        className="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        로그인
-      </button>
-      <LoginModal isLoggedIn={isLoggedIn} />
-    </>
-  );
+export const LoginModalBtn = ({ isLoggedIn }) => {
+  const onLogOut = (e) => {
+    sessionStorage.clear();
+    window.location.href = "/";
+  };
+
+  if (!isLoggedIn) {
+    return (
+      <>
+        <button
+          type="button"
+          className="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          로그인
+        </button>
+        <LoginModal />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <button type="button" className="btn btn-primary" onClick={onLogOut}>
+          로그아웃
+        </button>
+      </>
+    );
+  }
 };
 
-const LoginModal = ({ isLoggedIn }) => {
+const LoginModal = () => {
   const HandleButtonClick = async (e) => {
     // fetch("http://localhost:8080/oauth2/authorization/google").then(
     //   (response) => {
