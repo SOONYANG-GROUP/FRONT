@@ -132,33 +132,33 @@ const CreateProject = () => {
   const onCreateProject = async (e) => {
     console.log(SearchPreprocessedField(fields));
     e.preventDefault();
-    // await setCreating(true);
-    // try {
-    //   await axios
-    //     .post(
-    //       `http://localhost:8080/boards/add`,
-    //       {
-    //         title: title,
-    //         description: description,
-    //         recruitmentDeadLine: recruitmentDeadLine,
-    //         startDate: "",
-    //         endDate: "",
-    //         fields: SearchPreprocessedField(fields),
-    //         references: references,
-    //         openChatUrl: kakao,
-    //         voiceChatUrl: discord,
-    //       },
-    //       {}
-    //     )
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    await setCreating(true);
+    try {
+      await axios
+        .post(
+          `http://localhost:8080/projects/add`,
+          {
+            title: title,
+            description: description,
+            recruitmentDeadLine: recruitmentDeadLine,
+            startDate: "",
+            endDate: "",
+            fields: SearchPreprocessedField(fields),
+            references: references,
+            openChatUrl: kakao,
+            voiceChatUrl: discord,
+          },
+          {}
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
     await setCreating(false);
   };
 
