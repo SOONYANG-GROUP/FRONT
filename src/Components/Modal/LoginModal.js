@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-export const LoginModalBtn = () => {
-  // const [isLoggedIn,setIsLoggedIn] = useState();
-
+export const LoginModalBtn = (isLoggedIn) => {
   return (
     <>
       <button
@@ -14,12 +12,12 @@ export const LoginModalBtn = () => {
       >
         로그인
       </button>
-      <LoginModal />
+      <LoginModal isLoggedIn={isLoggedIn} />
     </>
   );
 };
 
-const LoginModal = () => {
+const LoginModal = ({ isLoggedIn }) => {
   const HandleButtonClick = async (e) => {
     // fetch("http://localhost:8080/oauth2/authorization/google").then(
     //   (response) => {
@@ -37,6 +35,7 @@ const LoginModal = () => {
     //     console.log(error);
     //   });
   };
+
   return (
     <div
       className="modal fade"

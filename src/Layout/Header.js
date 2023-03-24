@@ -1,6 +1,19 @@
 import { LoginModalBtn } from "../Components/Modal/LoginModal";
+import { useEffect, useState } from "react";
 
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    console.log("로그인이 되어 있는지 확인합니다.");
+    if (sessionStorage.getItem("refreshToken")) {
+      setIsLoggedIn(true);
+      console.log("로그인 되어 있습니다.");
+    } else {
+      console.log("로그인이 필요합니다.");
+    }
+  }, []);
+
   return (
     <div className="container">
       <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -40,7 +53,7 @@ const Header = () => {
           </li>
         </ul>
         <div className="col-md-3 text-end">
-          <LoginModalBtn />
+          <LoginModalBtn isLoggedIn={isLoggedIn} />
         </div>
       </header>
     </div>

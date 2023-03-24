@@ -3,7 +3,7 @@ import ProjectCards from "../Components/Cards/Cards/ProjectCards";
 import ProjectsDummyData from "../DummyData/Projects.json";
 import TeamProject from "../assets/images/TeamProject.svg";
 
-import axios from "axios"
+import axios from "axios";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -16,7 +16,6 @@ const Home = () => {
     };
     fetch();
   }, []);
-
 
   if (isLoading) {
     return <>Loading...</>;
@@ -34,10 +33,10 @@ const Home = () => {
                 </p>
                 <div className="d-flex flex-column flex-sm-row">
                   <a
-                    className="btn btn-lg btn-primary fw-500 me-sm-3 mb-3 mb-sm-0"
+                    className="btn btn-lg btn-soft fw-500 text-primary me-sm-3 mb-3 mb-sm-0"
                     href="/projects"
                   >
-                    모집중인 프로젝트
+                    프로젝트 확인하러가기
                     <i className="ms-2" data-feather="arrow-right"></i>
                   </a>
                   <a

@@ -8,6 +8,7 @@ const Profile = () => {
 
   useEffect(() => {
     const getProfile = () => {
+
       const profileData = ProfileDummyData.profiles;
       setProfile(profileData);
       setIsLoading(false);
