@@ -7,14 +7,28 @@ import BuildTeam from "../../assets/images/BuildTeam.svg";
 
 import { LoginModal } from "../../Components/Modal/LoginModal";
 
+import axios from "axios";
+
 const Projects = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    setProjects(GetProjects());
-    setIsLoading(false);
+    const fetch = async () => {
+      await axios
+        .get("http://localhost:8080/projects/1")
+        .then((res) => {
+          console.log(res.data.createDateTime);
+          return res;
+        })
+        .catch((e) => {
+          return e;
+        });
+      setProjects(GetProjects());
+      setIsLoading(false);
+    };
+    fetch();
   }, [isLoggedIn]);
 
   const GetProjects = () => {

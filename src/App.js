@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 
 import Profile from "./Pages/Profile/Profile";
-
+import AptitudeTest from "./Pages/AptitudeTest";
 import CreateProject from "./Pages/Project/CreateProject";
 import Projects from "./Pages/Project/Projects";
 import Project from "./Pages/Project/Project";
@@ -92,6 +92,7 @@ function App() {
           })
           .catch((e) => {
             console.dir(e);
+            sessionStorage.clear();
             return e;
           });
 
@@ -165,6 +166,10 @@ function App() {
         <Route path="/test2" element={<Test2 isLoggedIn={isLoggedIn} />} />
         <Route path="/test1" element={<Test1 isLoggedIn={isLoggedIn} />} />
         <Route path="/login" element={<Login isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/aptitudeTest"
+          element={<AptitudeTest isLoggedIn={isLoggedIn} />}
+        />
       </Routes>
     </Router>
   );

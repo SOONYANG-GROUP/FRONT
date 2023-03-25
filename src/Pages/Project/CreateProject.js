@@ -36,7 +36,7 @@ let SearchPreprocessedField = (fields) => {
     preprocessedFields.push({
       field: fieldNames[index],
       detailField: fieldDetailNames[index],
-      totalNum: fieldNumbers[index],
+      maxRecruit: fieldNumbers[index],
     });
   }
 
@@ -70,7 +70,20 @@ const CreateProject = () => {
   let [totalFieldsNumber, setTotalFieldsNumber] = useState(0);
   let [theNumberOfRemain, setTheNumberOfRemain] = useState(5);
 
+  const [projectId, setProjectId] = useState();
+
   useEffect(() => {
+    // const fetch = async () => {
+    //   await axios
+    //     .get("URL")
+    //     .then((res) => {
+    //       return res;
+    //     })
+    //     .catch((e) => {
+    //       return e;
+    //     });
+    // };
+    // fetch();
     setIsLoading(false);
   }, []);
 
@@ -131,35 +144,45 @@ const CreateProject = () => {
   };
 
   const onCreateProject = async (e) => {
-    console.log(SearchPreprocessedField(fields));
+    const projectDate = {
+      year: recruitmentDeadLine.getFullYear(),
+      month: recruitmentDeadLine.getMonth() + 1,
+      date: recruitmentDeadLine.getDate(),
+    };
+    //데이터 형식***************************************************************************************************
+    // yyyy:mm:dd
+
+    console.log(projectDate);
     e.preventDefault();
-    await setCreating(true);
-    try {
-      await axios
-        .post(
-          `http://localhost:8080/projects/add`,
-          {
-            title: title,
-            description: description,
-            // recruitmentDeadLine: recruitmentDeadLine,
-            // startDate: "",
-            // endDate: "",
-            recruitUserDto: SearchPreprocessedField(fields),
-            references: references,
-            openChatUrl: kakao,
-            voiceChatUrl: discord,
-          },
-          {}
-        )
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+    // await setCreating(true);
+    // try {
+    //   await axios
+    //     .post(
+    //       `http://localhost:8080/projects/add`,
+    //       {
+    //         title: title,
+    //         description: description,
+    //         recruitmentDeadLine: recruitmentDeadLine,
+    //         // startDate: "",
+    //         // endDate: "",
+    //         recruitUserDto: SearchPreprocessedField(fields),
+    //         references: references,
+    //         openChatUrl: kakao,
+    //         voiceChatUrl: discord,
+    //       },
+    //       {}
+    //     )
+    //     .then((res) => {
+    //       // const id  = res.data.id
+    //       // window.location.replace(`/project/${id}`)
+    //       console.log(res);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // } catch (error) {
+    //   console.log(error);
+    // }
     await setCreating(false);
   };
 
