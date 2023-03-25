@@ -149,10 +149,17 @@ const CreateProject = () => {
       month: recruitmentDeadLine.getMonth() + 1,
       date: recruitmentDeadLine.getDate(),
     };
+
+    const { year, month, date } = projectDate;
+
+    const recruitmentDeadLine2 =
+      String(year) +
+      String(month).padStart(2, "0") +
+      String(date).padStart(2, "0");
+    console.log(recruitmentDeadLine2);
     //데이터 형식***************************************************************************************************
     // yyyy:mm:dd
 
-    console.log(projectDate);
     e.preventDefault();
     // await setCreating(true);
     // try {
@@ -162,7 +169,7 @@ const CreateProject = () => {
     //       {
     //         title: title,
     //         description: description,
-    //         recruitmentDeadLine: recruitmentDeadLine,
+    //         recruitmentDate: recruitmentDeadLine,
     //         // startDate: "",
     //         // endDate: "",
     //         recruitUserDto: SearchPreprocessedField(fields),
