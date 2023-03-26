@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useState } from "react";
 const ProjectCard = ({ project }) => {
   // let totalNum = 0;
   // console.log(`project id = ${project.id} 입니다.`);
@@ -53,6 +53,12 @@ const ProjectCard = ({ project }) => {
 };
 
 const ProjectCards = ({ projects, flag }) => {
+  const [isLoading, setIsLoading] = useState();
+
+  // useEffect(()=> {
+
+  // })
+
   return (
     <section className="bg-white py-10">
       <div className="container px-5">

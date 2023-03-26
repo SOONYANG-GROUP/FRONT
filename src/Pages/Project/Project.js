@@ -7,7 +7,7 @@ import { CommentInput } from "../../Components/Inputs/Textarea";
 import CommentList from "../../Components/List/CommentList";
 import Comments from "../../DummyData/Comment.json";
 import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningModal";
-
+import axios from "axios";
 const Project = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [creatingComment, setCreatingComment] = useState(false);
@@ -28,7 +28,6 @@ const Project = () => {
   const [pageNumber, setPageNumber] = useState(0);
 
   const { id } = useParams();
-  console.log(id);
 
   useEffect(() => {
     const fetch = () => {
@@ -72,14 +71,14 @@ const Project = () => {
   const onSubmitLink = async (e) => {};
 
   const onCreateComment = async () => {
-    //  await axios
-    // .post("https://localhost:8080/" , {changeComment}, )
-    // .then(function (response) {
-    //   console.log(response);
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    // });
+    await axios
+      .post(`http://localhost:8080/projects/${id}/comment`, { comment })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
     setCreatingComment(true);
   };
 
@@ -317,6 +316,20 @@ const DetailPageOne = ({
   creatingComment,
   onCreateComment,
 }) => {
+  const id = useParams().id;
+  console.log("asd");
+  useEffect(() => {
+    const fetch = async () => {
+      await axios
+        .get(`http://localhost:8080/projects/${id}/comment`)
+        .then((res) => {
+          console.log(res);
+          return res;
+        });
+    };
+    fetch();
+  });
+
   return (
     <div className="container px-5">
       <div className="text-uppercase-expanded small mb-2 pt-5">

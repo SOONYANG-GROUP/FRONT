@@ -10,9 +10,10 @@ const Home = () => {
   const [projects, setProjects] = useState();
 
   useEffect(() => {
-    const fetch = () => {
-      setProjects(ProjectsDummyData.projects);
-      setIsLoading(false);
+    setIsLoading(true);
+    const fetch = async () => {
+      await setProjects(ProjectsDummyData.projects);
+      await setIsLoading(false);
     };
     fetch();
   }, []);

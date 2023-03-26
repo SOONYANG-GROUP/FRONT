@@ -15,28 +15,31 @@ const Projects = ({ isLoggedIn }) => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    const fetch = async () => {
-      await axios
-        .get("http://localhost:8080/projects")
-        .then((res) => {
-          console.log(res.data.homeCardDtos);
-          setProjects(res.data.homeCardDtos);
-          return res;
-        })
-        .catch((e) => {
-          return e;
-        });
-      setIsLoading(false);
-    };
-    fetch();
+    // const fetch = async () => {
+    //   await axios
+    //     .get("http://localhost:8080/projects")
+    //     .then((res) => {
+    //       console.log(res.data.homeCardDtos);
+    //       setProjects(res.data.homeCardDtos);
+    //       return res;
+    //     })
+    //     .catch((e) => {
+    //       return e;
+    //     });
+    //   };
+    //   fetch();
+    setProjects(GetProjects());
+    setGenerating(false);
+    setIsLoading(false);
   }, [isLoggedIn]);
 
-  // const GetProjects = () => {
-  //   console.log(ProjectsDummyData.projects);
-  //   return ProjectsDummyData.projects;
-  // };
+  const GetProjects = () => {
+    console.log(ProjectsDummyData.projects);
+    setGenerating(true);
+    return ProjectsDummyData.projects;
+  };
 
-  if (isLoading) {
+  if (isLoading && generating) {
     return <Loading />;
   } else {
     return (
