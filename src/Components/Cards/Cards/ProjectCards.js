@@ -7,7 +7,7 @@ const ProjectCard = ({ project }) => {
   //   console.log(num.maxRecruit);
   //   totalNum += num.maxRecruit;
   // }
-
+  console.log(project);
   return (
     <div className="col-lg-4 mb-5 mb-lg-0 mt-3">
       <a
@@ -18,7 +18,7 @@ const ProjectCard = ({ project }) => {
         <div className="card-body">
           <h3 className="text-primary mb-0 text-dark">{project.title}</h3>
           <div className="small text-gray-800 fw-500 mt-3">
-            {project.recruitUserDtos[0].detailField} 외{" "}
+            {/* {project.recruitUserDtos[0].detailField} 외{" "} */}
             {project.fields.length - 1}명 모집 중
           </div>
           <div className="small text-gray-500">
@@ -53,7 +53,7 @@ const ProjectCard = ({ project }) => {
 };
 
 const ProjectCards = ({ projects, flag }) => {
-  const [isLoading, setIsLoading] = useState();
+  console.log(projects);
 
   // useEffect(()=> {
 
