@@ -1,12 +1,12 @@
 import React from "react";
 
 const ProjectCard = ({ project }) => {
-  let totalNum = 0;
-  console.log(`project id = ${project.id} 입니다.`);
-  for (let num of project.recruitUserDtos) {
-    console.log(num.maxRecruit);
-    totalNum += num.maxRecruit;
-  }
+  // let totalNum = 0;
+  // console.log(`project id = ${project.id} 입니다.`);
+  // for (let num of project.recruitUserDtos) {
+  //   console.log(num.maxRecruit);
+  //   totalNum += num.maxRecruit;
+  // }
 
   return (
     <div className="col-lg-4 mb-5 mb-lg-0 mt-3">

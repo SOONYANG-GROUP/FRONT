@@ -15,7 +15,7 @@ const FieldListElement = ({ index, field, onDeleteField }) => {
       </div>
       <div className="col-2">
         <select className="form-select" disabled>
-          <option>{field.totalNum}</option>
+          <option>{field.maxRecruit}</option>
         </select>
       </div>
       <div className="col" id={index}>
@@ -44,14 +44,14 @@ const FieldList = ({ fields, theNumberOfRemain, setTheNumberOfRemain }) => {
     e.preventDefault();
     await setDeleting(true);
 
-    const indexOfFields = parseInt(e.target.id)
-    const delTotalNum = fields[parseInt(e.target.id)].totalNum;
-    
-    setTheNumberOfRemain(theNumberOfRemain + parseInt(delTotalNum))
-    fields.splice(parseInt(indexOfFields), 1)
-    
+    const indexOfFields = parseInt(e.target.id);
+    const delMaxRecruit = fields[parseInt(e.target.id)].maxRecruit;
+
+    setTheNumberOfRemain(theNumberOfRemain + parseInt(delMaxRecruit));
+    fields.splice(parseInt(indexOfFields), 1);
+
     await setDeleting(false);
-  }
+  };
 
   if (fields.length === 0) {
     return <></>;

@@ -14,7 +14,7 @@ export const FieldSelectTag = ({
 }) => {
   const [field, setField] = useState(FieldLists[0]);
   const [detailField, setDetailField] = useState(FrontendFieldLists[0]);
-  const [ totalNum, setTotalNum ] = useState(1);
+  const [maxRecruit, setMaxRecruit] = useState(1);
 
   const onChangeField = (e) => {
     setField(e.target.value);
@@ -24,23 +24,22 @@ export const FieldSelectTag = ({
     setDetailField(e.target.value);
   };
 
-  const onChangeTotalNum = (e) => {
-    setTotalNum(parseInt(e.target.value));
-  }
+  const onChangemaxRecruit = (e) => {
+    setMaxRecruit(parseInt(e.target.value));
+  };
 
   const onAddField = async (e) => {
     e.preventDefault();
     await setAddingField(true);
 
-    if(theNumberOfRemain - totalNum >= 0)
-    {
+    if (theNumberOfRemain - maxRecruit >= 0) {
       fields.push({
         field,
         detailField,
-        totalNum,
+        maxRecruit,
       });
-      setTotalNum(1)
-      await setTheNumberOfRemain(theNumberOfRemain - totalNum);
+      setMaxRecruit(1);
+      await setTheNumberOfRemain(theNumberOfRemain - maxRecruit);
     }
     await setAddingField(false);
   };
@@ -61,10 +60,10 @@ export const FieldSelectTag = ({
         />
       </div>
       <div className="col-2">
-        <DetailNumSelect 
+        <DetailNumSelect
           theNumberOfRemain={theNumberOfRemain}
-          onChangeTotalNum={onChangeTotalNum}
-          totalNum={totalNum}
+          onChangemaxRecruit={onChangemaxRecruit}
+          maxRecruit={maxRecruit}
         />
       </div>
 
@@ -100,17 +99,51 @@ const FieldSelect = ({ onChangeField, theNumberOfRemain }) => {
 };
 
 const DetailNumSelect = ({
-  totalNum,
+  maxRecruit,
   theNumberOfRemain,
-  onChangeTotalNum
+  onChangemaxRecruit,
 }) => {
   return (
-    <select className="form-select" disabled={theNumberOfRemain <= 0} onClick={onChangeTotalNum}>
-      {theNumberOfRemain > 0 ? (<option id="1" selected={totalNum === 1 ? true : false}>1</option>) : (<></>)}
-      {theNumberOfRemain > 1 ? (<option id="2" selected={totalNum === 2 ? true : false}>2</option>) : (<></>)}
-      {theNumberOfRemain > 2 ? (<option id="3" selected={totalNum === 3 ? true : false}>3</option>) : (<></>)}
-      {theNumberOfRemain > 3 ? (<option id="4" selected={totalNum === 4 ? true : false}>4</option>) : (<></>)}
-      {theNumberOfRemain > 4 ? (<option id="5" selected={totalNum === 5 ? true : false}>5</option>) : (<></>)}
+    <select
+      className="form-select"
+      disabled={theNumberOfRemain <= 0}
+      onClick={onChangemaxRecruit}
+    >
+      {theNumberOfRemain > 0 ? (
+        <option id="1" selected={maxRecruit === 1 ? true : false}>
+          1
+        </option>
+      ) : (
+        <></>
+      )}
+      {theNumberOfRemain > 1 ? (
+        <option id="2" selected={maxRecruit === 2 ? true : false}>
+          2
+        </option>
+      ) : (
+        <></>
+      )}
+      {theNumberOfRemain > 2 ? (
+        <option id="3" selected={maxRecruit === 3 ? true : false}>
+          3
+        </option>
+      ) : (
+        <></>
+      )}
+      {theNumberOfRemain > 3 ? (
+        <option id="4" selected={maxRecruit === 4 ? true : false}>
+          4
+        </option>
+      ) : (
+        <></>
+      )}
+      {theNumberOfRemain > 4 ? (
+        <option id="5" selected={maxRecruit === 5 ? true : false}>
+          5
+        </option>
+      ) : (
+        <></>
+      )}
     </select>
   );
 };

@@ -13,35 +13,35 @@ import ReferenceList from "../../Components/List/ReferenceList";
 import axios from "axios";
 import GPTPrint from "../../Components/GPT/GPTPrint";
 
-let SearchPreprocessedField = (fields) => {
-  let preprocessedFields = [];
-  let fieldNames = [];
-  let fieldDetailNames = [];
-  let fieldNumbers = [];
-  //Field 생성 하는 곳*************************************************************************************************************************
-  for (let index = 0; index < fields.length; ++index) {
-    const indexOfDetailFieldName = fieldDetailNames.findIndex(
-      (element) => element === fields[index].detailField
-    );
-    if (indexOfDetailFieldName !== -1) {
-      fieldNumbers[indexOfDetailFieldName] += 1;
-    } else {
-      fieldNames.push(fields[index].field);
-      fieldDetailNames.push(fields[index].detailField);
-      fieldNumbers.push(1);
-    }
-  }
+// let SearchPreprocessedField = (fields) => {
+//   let preprocessedFields = [];
+//   let fieldNames = [];
+//   let fieldDetailNames = [];
+//   let fieldNumbers = [];
+//   //Field 생성 하는 곳*************************************************************************************************************************
+//   for (let index = 0; index < fields.length; ++index) {
+//     const indexOfDetailFieldName = fieldDetailNames.findIndex(
+//       (element) => element === fields[index].detailField
+//     );
+//     if (indexOfDetailFieldName !== -1) {
+//       fieldNumbers[indexOfDetailFieldName] += 1;
+//     } else {
+//       fieldNames.push(fields[index].field);
+//       fieldDetailNames.push(fields[index].detailField);
+//       fieldNumbers.push(1);
+//     }
+//   }
 
-  for (let index = 0; index < fieldDetailNames.length; ++index) {
-    preprocessedFields.push({
-      field: fieldNames[index],
-      detailField: fieldDetailNames[index],
-      maxRecruit: fieldNumbers[index],
-    });
-  }
+//   for (let index = 0; index < fieldDetailNames.length; ++index) {
+//     preprocessedFields.push({
+//       field: fieldNames[index],
+//       detailField: fieldDetailNames[index],
+//       maxRecruit: fieldNumbers[index],
+//     });
+//   }
 
-  return preprocessedFields;
-};
+//   return preprocessedFields;
+// };
 
 const CreateProject = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -169,6 +169,7 @@ const CreateProject = () => {
     e.preventDefault();
     await setCreating(true);
     console.log(fields);
+    // console.log(SearchPreprocessedField(fields));
     // try {
     //   await axios
     //     .post(
@@ -179,7 +180,7 @@ const CreateProject = () => {
     //         recruitmentDate: recruitmentDeadLine2,
     //         // startDate: "",
     //         // endDate: "",
-    //         recruitUserDto: SearchPreprocessedField(fields),
+    //         recruitUserDto: fields,
     //         references: references,
     //         openChatUrl: kakao,
     //         voiceChatUrl: discord,
@@ -187,9 +188,9 @@ const CreateProject = () => {
     //       {}
     //     )
     //     .then((res) => {
-    //       const id = res.data;
-    //       window.location.replace(`/project/${id}`);
-    //       console.log(res.data);
+    //       // const id = res.data;
+    //       // window.location.replace(`/project/${id}`);
+    //       // console.log(res.data);
     //     })
     //     .catch((err) => {
     //       console.log(err);
