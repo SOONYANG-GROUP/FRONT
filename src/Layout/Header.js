@@ -54,6 +54,11 @@ const Header = ({ isLoggedIn }) => {
               </>
             )}
           </li>
+          <li>
+            <a href="/aptitudeTest" className="nav-link px-2 link-dark">
+              AptitudeTest
+            </a>
+          </li>
         </ul>
         <div className="col-md-3 text-end">
           <LoginModalBtn isLoggedIn={isLoggedIn} />

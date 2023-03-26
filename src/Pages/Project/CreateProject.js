@@ -152,16 +152,23 @@ const CreateProject = () => {
 
     const { year, month, date } = projectDate;
 
-    const recruitmentDeadLine2 =
+    let recruitmentDeadLine2 =
       String(year) +
       String(month).padStart(2, "0") +
       String(date).padStart(2, "0");
+
+    recruitmentDeadLine2 = `${String(year)}-${String(month).padStart(
+      2,
+      "0"
+    )}-${String(date).padStart(2, "0")}`;
+
     console.log(recruitmentDeadLine2);
     //데이터 형식***************************************************************************************************
     // yyyy:mm:dd
 
     e.preventDefault();
-    // await setCreating(true);
+    await setCreating(true);
+    console.log(fields);
     // try {
     //   await axios
     //     .post(
@@ -169,7 +176,7 @@ const CreateProject = () => {
     //       {
     //         title: title,
     //         description: description,
-    //         recruitmentDate: recruitmentDeadLine,
+    //         recruitmentDate: recruitmentDeadLine2,
     //         // startDate: "",
     //         // endDate: "",
     //         recruitUserDto: SearchPreprocessedField(fields),
@@ -180,9 +187,9 @@ const CreateProject = () => {
     //       {}
     //     )
     //     .then((res) => {
-    //       // const id  = res.data.id
-    //       // window.location.replace(`/project/${id}`)
-    //       console.log(res);
+    //       const id = res.data;
+    //       window.location.replace(`/project/${id}`);
+    //       console.log(res.data);
     //     })
     //     .catch((err) => {
     //       console.log(err);

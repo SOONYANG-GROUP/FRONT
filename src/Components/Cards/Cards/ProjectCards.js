@@ -1,17 +1,25 @@
 import React from "react";
 
 const ProjectCard = ({ project }) => {
+  let totalNum = 0;
+  console.log(`project id = ${project.id} 입니다.`);
+  for (let num of project.recruitUserDtos) {
+    console.log(num.maxRecruit);
+    totalNum += num.maxRecruit;
+  }
+
   return (
     <div className="col-lg-4 mb-5 mb-lg-0 mt-3">
       <a
         className="card lift h-100 text-secondary shadow-sm p-3 bg-body-tertiary rounded"
-        href={`http://localhost:3000/project/${project._id}`}
+        href={`http://localhost:3000/project/${project.id}`}
         style={{ textDecoration: "none" }}
       >
         <div className="card-body">
           <h3 className="text-primary mb-0 text-dark">{project.title}</h3>
           <div className="small text-gray-800 fw-500 mt-3">
-            {project.fields[0]} 외 {project.fields.length - 1}명 모집 중
+            {project.recruitUserDtos[0].detailField} 외{" "}
+            {project.fields.length - 1}명 모집 중
           </div>
           <div className="small text-gray-500">
             남은 시간 {project.remainingTime}일
@@ -31,8 +39,8 @@ const ProjectCard = ({ project }) => {
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
-              strokeLineJoin="round"
-              class="feather feather-arrow-right"
+              strokeLinejoin="round"
+              className="feather feather-arrow-right"
             >
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
@@ -57,10 +65,9 @@ const ProjectCards = ({ projects, flag }) => {
             )}
           </div>
 
-          <>
-            {flag === 2 ? (<></>) : (<></>)}
-          </>
+          <>{flag === 2 ? <></> : <></>}</>
         </div>
+
         <div className="row gx-5">
           {projects.map((project, index) => {
             return <ProjectCard project={project} key={index} />;

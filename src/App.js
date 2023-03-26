@@ -60,7 +60,7 @@ function App() {
 
   axios.interceptors.response.use(
     async (response) => {
-      console.log(response);
+      // console.log(response);
       return response;
     }, // 응답이 성공적인 경우 아무것도 하지 않음
     async (error) => {
