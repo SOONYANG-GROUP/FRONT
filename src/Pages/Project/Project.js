@@ -6,7 +6,6 @@ import ProjectDummyData from "../../DummyData/Project.json";
 import { CommentInput } from "../../Components/Inputs/Textarea";
 import CommentList from "../../Components/List/CommentList";
 import Comments from "../../DummyData/Comment.json";
-import axios from "axios";
 import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningModal";
 
 const Project = () => {
