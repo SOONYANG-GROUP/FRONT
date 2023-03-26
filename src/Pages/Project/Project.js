@@ -68,8 +68,13 @@ const Project = () => {
     await setChangingPage(false);
     const fetch = () => {
       axios
-        .get(`http://localhost:8080/project/${id}/comment`)
+        .get(`http://localhost:8080/projects/${id}/comment`)
         .then((res) => {
+          console.log(res.data.commentDtos);
+          res.data.commentDtos.map((res) => {
+            console.log(res.commentId);
+            return res.commentId;
+          });
           return res;
         })
         .catch((e) => {
@@ -327,7 +332,7 @@ const DetailPageOne = ({
   creatingComment,
   onCreateComment,
 }) => {
-  const id = useParams().id;
+  // const id = useParams().id;
   console.log("asd");
 
   // useEffect(() => {
@@ -341,6 +346,15 @@ const DetailPageOne = ({
   //   };
   //   fetch();
   // });
+  const id = useParams().id;
+  console.log(id);
+  const onSubmitComment = () => {
+    // axios
+    //   .post(`http://localhost:8080/projects/${id}/comment?`, { comment })
+    //   .then((res) => {
+    //     return res;
+    //   });
+  };
 
   return (
     <div className="container px-5">
@@ -352,10 +366,10 @@ const DetailPageOne = ({
         <div className="w-75 pe-2">
           <CommentInput comment={comment} onChangeComment={onChangeComment} />
         </div>
-        <div className="">
+        <div class="input-group-append">
           <button
+            class="btn btn-outline-secondary"
             type="button"
-            className="btn btn-primary"
             onClick={onCreateComment}
           >
             등록

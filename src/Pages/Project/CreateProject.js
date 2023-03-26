@@ -170,34 +170,34 @@ const CreateProject = () => {
     await setCreating(true);
     console.log(fields);
     // console.log(SearchPreprocessedField(fields));
-    // try {
-    //   await axios
-    //     .post(
-    //       `http://localhost:8080/projects/add`,
-    //       {
-    //         title: title,
-    //         description: description,
-    //         recruitmentDate: recruitmentDeadLine2,
-    //         // startDate: "",
-    //         // endDate: "",
-    //         recruitUserDto: fields,
-    //         references: references,
-    //         openChatUrl: kakao,
-    //         voiceChatUrl: discord,
-    //       },
-    //       {}
-    //     )
-    //     .then((res) => {
-    //       // const id = res.data;
-    //       // window.location.replace(`/project/${id}`);
-    //       // console.log(res.data);
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await axios
+        .post(
+          `http://localhost:8080/projects/add`,
+          {
+            title: title,
+            description: description,
+            recruitmentDate: recruitmentDeadLine2,
+            // startDate: "",
+            // endDate: "",
+            recruitUserDto: fields,
+            references: references,
+            openChatUrl: kakao,
+            voiceChatUrl: discord,
+          },
+          {}
+        )
+        .then((res) => {
+          // const id = res.data;
+          // window.location.replace(`/project/${id}`);
+          // console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
     await setCreating(false);
   };
 

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import axios from "axios";
+import { useParams } from "react-router";
 const SubCommentElement = ({ subComment }) => {
   return (
     <div className=" mb-3 px-3">
@@ -23,9 +24,32 @@ const SubCommentList = ({ subComments }) => {
 
 const CommentListEle = ({ comment }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const onButtonClick = () => {
+  const [subComment, setSubComment] = useState();
+
+  const onButtonClick = async () => {
+    // await axios
+    //   .get("http://localhost:8080/projects/2/comment/subcomment?commentId=5")
+    //   .then((res) => {
+    //     console.log(res);
+    //     return res;
+    //   });
+
     setIsExpanded(!isExpanded);
   };
+
+  const onChangeSubComment = (e) => {
+    setSubComment(e.target.value);
+    console.log(subComment);
+  };
+  const id = useParams().id;
+  const onSubmitSubcomment = async () => {
+    await axios.post(
+      `http://localhost:8080/projects/2/subcomment?commentId=5`,
+      { subComment }
+    );
+    console.log(subComment);
+  };
+
   return (
     <div className="card card-body mb-3">
       <div className="col-md-4 mb-3">
@@ -59,9 +83,30 @@ const CommentListEle = ({ comment }) => {
       </div>
       <>
         {isExpanded ? (
-          <div>
-            <SubCommentList subComments={comment.subComments} />
-          </div>
+          <>
+            <div>
+              <SubCommentList subComments={comment.subComments} />
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="댓글을 입력해주세요"
+                aria-label="Recipient's username"
+                aria-describedby="basic-addon2"
+                onChange={onChangeSubComment}
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  onClick={onSubmitSubcomment}
+                >
+                  등록
+                </button>
+              </div>
+            </div>
+          </>
         ) : (
           <></>
         )}
