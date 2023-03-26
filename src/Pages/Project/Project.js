@@ -66,6 +66,17 @@ const Project = () => {
     await setChangingPage(true);
     setPageNumber(parseInt(e.target.id));
     await setChangingPage(false);
+    const fetch = () => {
+      axios
+        .get(`http://localhost:8080/project/${id}/comment`)
+        .then((res) => {
+          return res;
+        })
+        .catch((e) => {
+          return e;
+        });
+    };
+    fetch();
   };
 
   const onSubmitLink = async (e) => {};
@@ -318,17 +329,18 @@ const DetailPageOne = ({
 }) => {
   const id = useParams().id;
   console.log("asd");
-  useEffect(() => {
-    const fetch = async () => {
-      await axios
-        .get(`http://localhost:8080/projects/${id}/comment`)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
-    };
-    fetch();
-  });
+
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     await axios
+  //       .get(`http://localhost:8080/projects/${id}/comment`)
+  //       .then((res) => {
+  //         console.log(res);
+  //         return res;
+  //       });
+  //   };
+  //   fetch();
+  // });
 
   return (
     <div className="container px-5">
