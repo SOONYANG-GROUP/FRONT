@@ -30,26 +30,33 @@ const CreateSkill = () => {
     const onCreateSkill = async (e) => {
         e.preventDefault();
         await setCreating(true);
-        try
+        if(name === "" || studyTip === "" || references.length === 0)
         {
-            await axios.post(`http://localhost:5000/create/skill`, {
-                name,
-                references,
-                studyTip,
-                imageId: "",
-                imageUrl: "",
-                imageFormData: null
-            }, {})
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((err) => {
-                console.error(err);
-            })
+            await setCreating(false);
         }
-        catch(error)
+        else
         {
-            console.error(error);
+            try
+            {
+                await axios.post(`http://localhost:5000/create/skill`, {
+                    name,
+                    references,
+                    studyTip,
+                    imageId: "",
+                    imageUrl: "",
+                    imageFormData: null
+                }, {})
+                .then((res) => {
+                    window.location.replace(`/skill/${res.data.id}`);
+                })
+                .catch((err) => {
+                    console.error(err);
+                })
+            }
+            catch(error)
+            {
+                console.error(error);
+            }
         }
         await setCreating(false);
     }
