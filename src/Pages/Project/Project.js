@@ -13,12 +13,12 @@ const Project = () => {
   const [creatingComment, setCreatingComment] = useState(false);
   const [creatingToDoListEle, setCreatingToDoListEle] = useState(false);
 
-  const [ isProjectActive, setIsProjectActive ] = useState(false);
+  const [isProjectActive, setIsProjectActive] = useState(false);
   const [project, setProject] = useState({});
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [todoList, setTodoList] = useState([]);
-  const [ candidates, setCandidates ] = useState([]);
+  const [candidates, setCandidates] = useState([]);
   const [resultLink, setResultLink] = useState("");
 
   const [discordURL, setDiscordURL] = useState("");
@@ -28,8 +28,18 @@ const Project = () => {
   const [pageNumber, setPageNumber] = useState(0);
 
   const { id } = useParams();
+  console.log(id);
 
   useEffect(() => {
+    const fetch = () => {
+      axios.get(`http://localhost:8080/projects/${id}`).then((res) => {
+        console.log(res.data);
+        return res.data;
+      });
+    };
+
+    fetch();
+
     const getProject = () => {
       const projectData = ProjectDummyData.project;
 
@@ -59,9 +69,7 @@ const Project = () => {
     await setChangingPage(false);
   };
 
-  const onSubmitLink = async (e) => {
-    
-  }
+  const onSubmitLink = async (e) => {};
 
   const onCreateComment = async () => {
     //  await axios
@@ -193,7 +201,6 @@ const DetailPage = ({
     } else if (pageNumber === 2) {
       return (
         <DetailPageTwo
-          
           discordURL={discordURL}
           todoList={todoList}
           resultLink={resultLink}
@@ -203,49 +210,38 @@ const DetailPage = ({
           onSubmitLink={onSubmitLink}
         />
       );
-    }
-    else if(pageNumber === 3)
-    {
-      return(
-        <DetailPageThree 
+    } else if (pageNumber === 3) {
+      return (
+        <DetailPageThree
           isProjectActive={isProjectActive}
           candidates={candidates}
         />
-      )
+      );
     }
   }
 };
 
-const DetailPageThree = ({
-  isProjectActive,
-  candidates
-}) => {
-  if(isProjectActive)
-  {
-    return(
+const DetailPageThree = ({ isProjectActive, candidates }) => {
+  if (isProjectActive) {
+    return (
       <div className="container px-5">
         <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>프로젝트 진행 중...</h4>
         </div>
         <hr className="mt-0 mb-3 mt-3" />
       </div>
-    )
-  }
-  else
-  {
-    return(
+    );
+  } else {
+    return (
       <div className="container px-5">
         <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>지원자</h4>
         </div>
         <hr className="mt-0 mb-3 mt-3" />
-
-
       </div>
-    )
+    );
   }
-
-}
+};
 
 const DetailPageTwo = ({
   resultLink,
@@ -303,7 +299,7 @@ const DetailPageTwo = ({
             />
           </div>
           <div className="mt-3 mb-3">
-            <LinkSubmitWarningModalBtn 
+            <LinkSubmitWarningModalBtn
               resultLink={resultLink}
               onSubmitLink={onSubmitLink}
             />

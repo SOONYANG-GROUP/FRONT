@@ -2,9 +2,12 @@ import axios from "axios";
 import React, { useState } from "react";
 
 export const LoginModalBtn = ({ isLoggedIn }) => {
-  const onLogOut = (e) => {
+  const onLogOut = async (e) => {
     sessionStorage.clear();
     window.location.href = "/";
+    await axios.get("http://localhost:8080/logout").then((res) => {
+      return res;
+    });
   };
 
   if (!isLoggedIn) {
