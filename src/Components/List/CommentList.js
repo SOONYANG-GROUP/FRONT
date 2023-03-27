@@ -2,17 +2,27 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 const SubCommentElement = ({ subComment }) => {
+  const year = subComment.createDate[0];
+  const month = subComment.createDate[1];
+  const date = subComment.createDate[2];
+  const hour = subComment.createDate[3];
+  const min = subComment.createDate[4];
+  console.log(year);
   return (
     <div className=" mb-3 px-3">
-      <div className="fw-bold mb-2">{subComment.username}</div>
-      <div className="fw-normal">{subComment.comment}</div>
-      <div className="fw-light">{subComment.date}</div>
+      <div className="fw-bold mb-2">{subComment.name}</div>
+      <div className="fw-normal">{subComment.subComment}</div>
+      <div className="fw-light">{`${year}년 ${month}월 ${date}일 ${hour}시 ${min}분 `}</div>
       <hr />
     </div>
   );
 };
 
 const SubCommentList = ({ subComments }) => {
+  console.log(subComments);
+  if (!subComments) {
+    return <></>;
+  }
   return (
     <div>
       {subComments.map((subComment, index) => {
@@ -25,30 +35,27 @@ const SubCommentList = ({ subComments }) => {
 const CommentListEle = ({ comment }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [subComment, setSubComment] = useState();
-  const createdDateTime = new Date(
-    comment.createDate[0],
-    comment.createDate[1],
-    comment.createDate[2],
-    comment.createDate[3],
-    comment.createDate[4]
-  );
+  const [subComments, setSubComments] = useState();
 
   const year = comment.createDate[0];
   const month = comment.createDate[1];
   const date = comment.createDate[2];
   const hour = comment.createDate[3];
   const min = comment.createDate[4];
-  // http://localhost:8080/projects/${id}/comment/subcomment?commentId=${comment.commentId}
+
   const onButtonClick = async () => {
+    setIsExpanded(!isExpanded);
     console.log(comment.commentId);
     await axios
-      .get(`http://localhost:8080/projects/2/comment/subcomment?commentId=5`)
+      .get(
+        `http://localhost:8080/projects/${id}/comment/subcomment?commentId=${comment.commentId}`
+      )
       .then((res) => {
         console.log(res);
+        setSubComments(res.data);
+        console.log(subComments);
         return res;
       });
-
-    setIsExpanded(!isExpanded);
   };
 
   const onChangeSubComment = (e) => {
@@ -91,7 +98,22 @@ const CommentListEle = ({ comment }) => {
               </div>
             </button>
           ) : (
-            <></>
+            <>
+              <button
+                type="button"
+                className="btn btn-seconds mb-3"
+                onClick={onButtonClick}
+              >
+                <div className="d-flex justify-content-center align-items-center">
+                  <div className="mx-2">댓글 달기</div>
+                  {isExpanded ? (
+                    <i class="fa-solid fa-chevron-up"></i>
+                  ) : (
+                    <i class="fa-solid fa-chevron-down"></i>
+                  )}
+                </div>
+              </button>
+            </>
           )}
         </>
       </div>
@@ -99,7 +121,7 @@ const CommentListEle = ({ comment }) => {
         {isExpanded ? (
           <>
             <div>
-              <SubCommentList subComments={comment.subComments} />
+              <SubCommentList subComments={subComments} />
             </div>
             <div class="input-group mb-3">
               <input

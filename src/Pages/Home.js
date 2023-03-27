@@ -2,12 +2,30 @@ import React, { useState, useEffect } from "react";
 import ProjectCards from "../Components/Cards/Cards/ProjectCards";
 import ProjectsDummyData from "../DummyData/Projects.json";
 import TeamProject from "../assets/images/TeamProject.svg";
-// import CurrentSituation from "../Components/CurrentSituation/CrrentSituation";
 import axios from "axios";
+import CurrentSituation from "../Components/CurrentSituation/CurrentSituation";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [projects, setProjects] = useState();
+  const [projects2, setProjects2] = useState();
+
+  useEffect(() => {
+    const fetch = async () => {
+      await axios
+        .get("http://localhost:8080/projects")
+        .then((res) => {
+          console.log(res.data.homeCardDtos);
+          setProjects2(res.data.homeCardDtos);
+          setIsLoading(false);
+          return res;
+        })
+        .catch((e) => {
+          return e;
+        });
+    };
+    fetch();
+  }, []);
 
   useEffect(() => {
     setIsLoading(true);
@@ -75,10 +93,10 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <ProjectCards projects={projects} flag={2} />
+          <ProjectCards projects={projects2} />
         </section>
 
-        {/* <CurrentSituation /> */}
+        <CurrentSituation />
       </>
     );
   }

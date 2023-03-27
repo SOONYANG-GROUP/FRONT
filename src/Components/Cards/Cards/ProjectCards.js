@@ -26,6 +26,7 @@ const ProjectCard = React.memo(({ project }) => {
       project.recruitUserDtos.reduce((acc, cur) => acc + cur.currentRecruit, 0),
     [project]
   );
+  // ****************************************************************************************************************************************************
 
   if (!totalRecruit) {
     return null;
@@ -72,13 +73,12 @@ const ProjectCard = React.memo(({ project }) => {
 });
 
 const ProjectCards = ({ projects, flag }) => {
-  const isLoading = useMemo(() => !projects.length, [projects]);
+  const isLoading = useMemo(() => !projects, [projects]);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  console.log(projects);
   return (
     <section className="bg-white py-10">
       <div className="container px-5">
@@ -90,8 +90,6 @@ const ProjectCards = ({ projects, flag }) => {
               <></>
             )}
           </div>
-
-          <>{flag === 2 ? <></> : <></>}</>
         </div>
         <div className="row gx-5">
           {projects.map((project, index) => {
