@@ -32,14 +32,14 @@ const Test = () => {
   // login 버튼 클릭 이벤트
   const onClickLogin = () => {
     let data = {
-      age: { age },
-      password: { password },
-      email: { email },
-      nickname: { nickname },
-      name: { name },
+      age: age,
+      password: password,
+      email: email,
+      nickname: nickname,
+      name: name,
     };
     axios
-      .post("http://localhost:8080/join", JSON.stringify(data))
+      .post("http://localhost:8080/join", data)
       .then((res) => console.log(res))
       .catch();
   };
@@ -55,7 +55,7 @@ const Test = () => {
     <div>
       <h2>resist</h2>
       <div>
-        <label htmlFor="input_id">ID : </label>
+        <label>AGE : </label>
         <input
           type="text"
           name="input_id"
@@ -64,7 +64,7 @@ const Test = () => {
         />
       </div>
       <div>
-        <label htmlFor="input_id">PW : </label>
+        <label>PW : </label>
         <input
           type="text"
           name="input_id"
@@ -73,7 +73,7 @@ const Test = () => {
         />
       </div>
       <div>
-        <label htmlFor="input_id">ID : </label>
+        <label>EMAIL : </label>
         <input
           type="text"
           name="input_id"
@@ -82,7 +82,7 @@ const Test = () => {
         />
       </div>
       <div>
-        <label htmlFor="input_id">ID : </label>
+        <label>nickname : </label>
         <input
           type="text"
           name="input_id"
@@ -91,7 +91,7 @@ const Test = () => {
         />
       </div>
       <div>
-        <label htmlFor="input_pw">PW : </label>
+        <label htmlFor="input_pw">name : </label>
         <input
           type="text"
           name="input_pw"
