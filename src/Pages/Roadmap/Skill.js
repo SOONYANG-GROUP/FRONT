@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import frontendDeveloper from "../../assets/images/frontendDeveloper.svg";
@@ -9,18 +10,44 @@ const Skill = () => {
   const [skill, setSkill] = useState(null);
   const id = useParams().id;
 
+  const promiseHandler = (callType, setStateType) => {
+    callType.then((data) => {
+      setStateType(data);
+    })
+  }
+
   useEffect(() => {
-    if (GetSkill(id)) {
-      setSkill(GetSkill(id));
-      setIsLoading(false);
-    }
+    // 더미 데이터
+    // if (GetSkill(id)) {
+    //   setSkill(GetSkill(id));
+    //   setIsLoading(false);
+    // }
+
+    // 서버용
+    promiseHandler(GetSkill(id), setSkill);
+    setIsLoading(false)
   }, [id]);
 
-  const GetSkill = (id) => {
-    return SkillsDummyData.skills[id - 1];
+  const GetSkill = async (id) => {
+    // 더미 데이터
+    // return SkillsDummyData.skills[id - 1];
+
+    // 서버용
+    const skillForLoading = await axios.get(`http://localhost:9999/skill/one/${id}`)
+    .then(async(res) => {
+      const skill = await res.data.skill;
+      return skill;
+    })
+    .catch((err) => {
+      console.error(err);
+      return null;
+    });
+    return skillForLoading;
   };
 
-  if (!isLoading) {
+  
+
+  if (!isLoading && skill) {
     return (
       <div>
         <header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
@@ -59,7 +86,7 @@ const Skill = () => {
                       <div class="screen">
                         <img
                           class="img-fluid"
-                          src={skill.imageUrl}
+                          src={skill.secureImageUrl}
                           alt="..."
                           width={300}
                         />
@@ -72,26 +99,8 @@ const Skill = () => {
           </div>
           <div class="svg-border-waves text-white">이미지</div>
         </header>
-        <section class="bg-white py-10">
-          <div class="container px-5">
-            <div class="row gx-5 text-center">
-              <div class="col-lg-4 mb-5 mb-lg-0">
-                <h3>평균 연봉</h3>
-                <br />
-                asd
-              </div>
-              <div class="col-lg-4 mb-5 mb-lg-0">
-                <h3>대표 언어</h3>
-                <br />
-                asd
-              </div>
-              <div class="col-lg-4 mb-5 mb-lg-0">
-                <h3>대표 프레임 워크</h3>
-                <br />
-                asd
-              </div>
-            </div>
-          </div>
+        <section>
+          
         </section>
         <br />
         <br />

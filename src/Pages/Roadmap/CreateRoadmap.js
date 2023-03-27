@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NameInput } from "../../Components/Inputs/Input";
+import { NameInput, ThumbnailImageInput } from "../../Components/Inputs/Input";
 import SkillList from "../../Components/List/SkillList";
 import SkillModalBtn from "../../Components/Modal/SkillModal";
 
@@ -12,6 +12,9 @@ const CreateRoadmap = () => {
     const [ creating, setCreating ] = useState(false);
     const [ deletingSkill, setDeletingSkill ] = useState(false);
     const [ addingSkill, setAddingSkill ] = useState(false);
+    const [ imageUploading, setImageUploading ] = useState(false);
+    
+    const [ image, setImage ] = useState(null);
 
     const [ name, setName ] = useState("");
     const [ skills, setSkills ] = useState([]);
@@ -49,6 +52,8 @@ const CreateRoadmap = () => {
 
         return skillsForLoading;
     }
+
+    console.log(loadedSkills)
 
     const onChangeName = (e) => {
         setName(e.target.value);
@@ -98,8 +103,7 @@ const CreateRoadmap = () => {
                 skills,
                 framework,
                 computerLanguage,
-                imageUrl: "",
-                imageId: ""
+                image
             }, {})
             .then((res) => {
                 const _id = res.data._id;
@@ -112,8 +116,30 @@ const CreateRoadmap = () => {
         await setCreating(false);
     }
 
-    console.log(skills);
+    const handleImage = async (e) => {
+        await setImageUploading(true);
+        const file = e.target.files[0];
+        if(file !== undefined)
+        {
+            setFileToBase(file);
+        }
+        else
+        {
+            setImage(null);
+        }
+        await setImageUploading(false);
+    }
 
+    const setFileToBase = (file) => {
+        const reader = new FileReader();
+        console.log(`file: ${file}`)
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setImage(reader.result);
+        }
+    }
+
+    
     
     if(isLoading)
     {
@@ -134,6 +160,23 @@ const CreateRoadmap = () => {
             return(
                 <>
                     <div className="container px-5">
+                        <div className="text-uppercase-expanded small mb-2 pt-5">
+                            <h4>* 로드맵 사진</h4>
+                            <span className="text-muted">개발 로드맵과 관련된 사진을 업로드 하세요.</span>
+                            <div>
+                                {imageUploading ? (<></>) : (
+                                    image && <img src={image} alt="roadmap_thumbnail" />
+                                )}
+                            </div>
+                            <div>
+                                <input 
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImage}
+                                />
+                            </div>
+                        </div>
+
                         <div>
                             <div className="text-uppercase-expanded small mb-2 pt-5">
                                 <h4>* 로드맵 이름</h4>
@@ -192,7 +235,7 @@ const CreateRoadmap = () => {
                         </div>
         
                         <div className="mb-2 pt-5">
-                            <button className="btn btn-primary w-100" onClick={onClickRoadmap}>
+                            <button className="btn btn-primary w-100" onClick={onClickRoadmap} disabled={creating}>
                                 Create Roadmap
                             </button>
                         </div>

@@ -120,25 +120,14 @@ const CreateProject = () => {
   const onClickGPTBtn = async (e) => {
     e.preventDefault();
     setGeneratingIdea(true);
-    await axios
-      .post(
-        `http://localhost:5000/ask/idea`,
-        {
-          role: "user",
-          content:
-            "초보 개발자 5명이 14일동안 개발할 수 있는 재미있고 유용한 사이드 프로젝트 하나만 추천해줘",
-        },
-        {}
-      )
-      .then(async (res) => {
-        console.log(res.data.data.choices[0].message.content);
-        setWords([res.data.data.choices[0].message.content]);
-      })
-      .catch(async (err) => {
-        await setOpenAIError(true);
-        console.error(err);
-      });
-
+    await axios.post('http://localhost:9999/gpt/project/idea')
+    .then(async (res) => {
+      setWords([res.data.data.choices[0].message.content]);
+    })
+    .catch(async (err) => {
+      await setOpenAIError(true);
+      console.error(err)
+    });
     await setUseIdeaFeature(true);
     await setGeneratingIdea(false);
   };

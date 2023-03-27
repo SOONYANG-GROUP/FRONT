@@ -4,28 +4,73 @@ import axios from "axios";
 
 const JWTest = () => {
     const [ isLoading, setIsLoading ] = useState(true);
+    const [ creating, setCreating ] = useState(false);
+    
+    const [ image, setImage ] = useState(null);
 
     useEffect(() => {
-        GetSkills();
         setIsLoading(false);
     }, []);
     
-    const GetSkills = async () => {
-        await axios.get("http://localhost:9999/skill/one/6420e3db35bafa2991683f00")
-        .then((res) => {
-            
-            console.log(res);
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+    const handleImage = async (e) => {
+        await setCreating(true);
+        const file = e.target.files[0];
+        setFileToBase(file);
+        await setCreating(false);
+        console.log(file);
+        
     }
 
-    return(
-        <div>
+    const setFileToBase = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setImage(reader.result);
+        }
+    }
 
-        </div>
-    )
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try
+        {
+            console.log('hel')
+            await axios.post("http://localhost:9999/upload/skill/thumbnail", {image})
+            .then((res) => {
+                const _id = res.data._id;
+                window.location.replace(`/skill/${_id}`);
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+        }
+        catch(error)
+        {
+            console.error(error);
+        }
+        
+    }
+
+    
+    if(creating)
+    {
+        return(
+            <div></div>
+        )
+    }
+    else
+    {
+        return(
+            <div>
+                {creating ? (<></>) : (<img src={image}/>)}
+                <input 
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImage}
+                />
+                <button onClick={onSubmit}>Submit</button>
+            </div>
+        )
+    }
 }
 
 export default JWTest;
