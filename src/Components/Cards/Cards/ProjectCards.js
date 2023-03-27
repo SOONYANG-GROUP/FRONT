@@ -1,13 +1,35 @@
-import React from "react";
-import { useState } from "react";
-const ProjectCard = ({ project }) => {
-  // let totalNum = 0;
-  // console.log(`project id = ${project.id} 입니다.`);
-  // for (let num of project.recruitUserDtos) {
-  //   console.log(num.maxRecruit);
-  //   totalNum += num.maxRecruit;
-  // }
-  console.log(project);
+import React, { useEffect } from "react";
+import { useState, useMemo } from "react";
+const ProjectCard = React.memo(({ project }) => {
+  //********************************************************프로젝트 시작시간, 남은 모집 시간 계산********************************************************
+  const currentDate = new Date(); // current date
+  const createdDateTime = new Date(
+    project.createdDateTime[0],
+    project.createdDateTime[1],
+    project.createdDateTime[2]
+  );
+  console.log(createdDateTime);
+  const deadlineDateTime = new Date();
+  deadlineDateTime.setDate(deadlineDateTime.getDate() + 14);
+  console.log(deadlineDateTime);
+  const timeDiff = deadlineDateTime.getTime() - currentDate.getTime(); // difference in milliseconds
+  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+  console.log(daysDiff);
+  // ****************************************************************************************************************************************************
+  // ********************************************************총 모집 인원 및 현재 참가한 인원 *************************************************************
+  const totalRecruit = useMemo(
+    () => project.recruitUserDtos.reduce((acc, cur) => acc + cur.maxRecruit, 0),
+    [project]
+  );
+  const currentRecruit = useMemo(
+    () =>
+      project.recruitUserDtos.reduce((acc, cur) => acc + cur.currentRecruit, 0),
+    [project]
+  );
+
+  if (!totalRecruit) {
+    return null;
+  }
   return (
     <div className="col-lg-4 mb-5 mb-lg-0 mt-3">
       <a
@@ -18,16 +40,13 @@ const ProjectCard = ({ project }) => {
         <div className="card-body">
           <h3 className="text-primary mb-0 text-dark">{project.title}</h3>
           <div className="small text-gray-800 fw-500 mt-3">
-            {/* {project.recruitUserDtos[0].detailField} 외{" "} */}
-            {project.fields.length - 1}명 모집 중
+            {project.recruitUserDtos[0].detailField} 외 {totalRecruit}명 모집 중
           </div>
-          <div className="small text-gray-500">
-            남은 시간 {project.remainingTime}일
-          </div>
+          <div className="small text-gray-500">남은 시간 {daysDiff}일</div>
         </div>
         <div className="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
           <div className="small text-gray-500">
-            모집 중 {project.completedRecruitment} / {project.fields.length}
+            모집 중 {currentRecruit} / {totalRecruit}
           </div>
           <div className="small text-gray-500">
             <svg
@@ -50,15 +69,16 @@ const ProjectCard = ({ project }) => {
       </a>
     </div>
   );
-};
+});
 
 const ProjectCards = ({ projects, flag }) => {
+  const isLoading = useMemo(() => !projects.length, [projects]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   console.log(projects);
-
-  // useEffect(()=> {
-
-  // })
-
   return (
     <section className="bg-white py-10">
       <div className="container px-5">
@@ -73,7 +93,6 @@ const ProjectCards = ({ projects, flag }) => {
 
           <>{flag === 2 ? <></> : <></>}</>
         </div>
-
         <div className="row gx-5">
           {projects.map((project, index) => {
             return <ProjectCard project={project} key={index} />;

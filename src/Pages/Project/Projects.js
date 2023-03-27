@@ -13,35 +13,37 @@ const Projects = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
   const [projects, setProjects] = useState([]);
+  const [projects2, setProjects2] = useState();
 
   useEffect(() => {
-    // const fetch = async () => {
-    //   await axios
-    //     .get("http://localhost:8080/projects")
-    //     .then((res) => {
-    //       console.log(res.data.homeCardDtos);
-    //       setProjects(res.data.homeCardDtos);
-    //       return res;
-    //     })
-    //     .catch((e) => {
-    //       return e;
-    //     });
-    //   };
-    //   fetch();
+    const fetch = async () => {
+      await axios
+        .get("http://localhost:8080/projects")
+        .then((res) => {
+          console.log(res.data.homeCardDtos);
+          setProjects2(res.data.homeCardDtos);
+          setIsLoading(false);
+          return res;
+        })
+        .catch((e) => {
+          return e;
+        });
+    };
+    fetch();
     setProjects(GetProjects());
     setGenerating(false);
-    setIsLoading(false);
   }, [isLoggedIn]);
-
+  console.log(projects);
   const GetProjects = () => {
-    console.log(ProjectsDummyData.projects);
+    // console.log(ProjectsDummyData.projects);
     setGenerating(true);
     return ProjectsDummyData.projects;
   };
 
-  if (isLoading && generating) {
+  if (isLoading) {
     return <Loading />;
   } else {
+    console.log(projects2);
     return (
       <div>
         <div className="page-header-ui-content pt-5">
@@ -92,7 +94,7 @@ const Projects = ({ isLoggedIn }) => {
             </div>
           </div>
         </div>
-        <ProjectCards projects={projects} />
+        <ProjectCards projects={projects2} />
       </div>
     );
   }
