@@ -22,7 +22,8 @@ const CreateRoadmap = () => {
     
     const [ framework, setFramework ] = useState("");
     const [ computerLanguage, setComputerLanguage ] = useState("");
-    
+    const [ references, setReferences ] = useState([]);
+
 
     const promiseHandler = (callType, setStateType) => {
         callType.then((data) => {
@@ -53,8 +54,6 @@ const CreateRoadmap = () => {
 
         return skillsForLoading;
     }
-
-    console.log(loadedSkills)
 
     const onChangeName = (e) => {
         setName(e.target.value);

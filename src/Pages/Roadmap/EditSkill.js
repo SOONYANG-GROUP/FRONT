@@ -98,15 +98,22 @@ const EditSkill = () => {
                     references,
                     image,
                     isChanged
+                })
+                .then((res) => {
+                    const _id = res.data._id;
+                    window.location.replace(`/skill/${_id}`);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    setEditing(false);
                 });
-                
             }
         }
         catch(error)
         {
             console.error(error);
+            setEditing(false);
         }
-        setEditing(false);
     }
 
     if(isLoading)
@@ -182,7 +189,11 @@ const EditSkill = () => {
                         </div>
                     </div>
                     <div className="mt-2">
-                        <button className="btn btn-primary w-100" disabled={editing}>
+                        <button 
+                            className="btn btn-primary w-100" 
+                            disabled={editing}
+                            onClick={onEditSkill}
+                        >
                             스킬 연구 고치기
                         </button>
                     </div>
