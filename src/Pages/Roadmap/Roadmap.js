@@ -132,20 +132,24 @@ const Roadmap = () => {
               <div class="text-uppercase-expanded small mb-2 pt-5 pb-5">
                 <h4>필요한 기술 스택</h4>
               </div>
-              {roadmap.skills.map((s) => {
+              {roadmap.skills.map((s, index) => {
                 return (
-                  <div class="col-lg-4 mb-5 mb-lg-0">
-                    <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4">
-                      <img
-                        src={s.imageSecureUrl}
-                        alt="..."
-                        width="70"
-                        height="70"
-                      />
+                  
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                      <a href={`/skill/${s._id}`} key={index} className="text-black" style={{ textDecoration: "none" }}>
+                        <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4">
+                          <img
+                            src={s.imageSecureUrl}
+                            alt="..."
+                            width="70"
+                            height="70"
+                          />
+                        </div>
+                        <h2>{s.name}</h2>
+                        <p class="mb-0">{s.description}</p>
+                      </a>
                     </div>
-                    <h2>{s.name}</h2>
-                    <p class="mb-0">{s.description}</p>
-                  </div>
+
                 );
               })}
             </div>

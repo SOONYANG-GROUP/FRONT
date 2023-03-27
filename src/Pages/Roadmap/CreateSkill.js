@@ -32,7 +32,7 @@ const CreateSkill = () => {
     const onCreateSkill = async (e) => {
         e.preventDefault();
         await setCreating(true);
-        if(name === "" || studyTip === "" || references.length === 0)
+        if(name === "" || studyTip === "" || references.length === 0 || image === null)
         {
             await setCreating(false);
         }
