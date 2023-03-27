@@ -20,16 +20,34 @@ const CreateRoadmap = () => {
     const [ framework, setFramework ] = useState("");
     const [ computerLanguage, setComputerLanguage ] = useState("");
 
+    const promiseHandler = (callType, setStateType) => {
+        callType.then((data) => {
+            setStateType(data);
+        })
+    }
+
     useEffect(() => {
-        if(GetLoadedSkills())
-        {
-            setLoadedSkills(GetLoadedSkills());
-            setIsLoading(false);
-        }
+        promiseHandler(GetLoadedSkills(), setLoadedSkills);
+        setIsLoading(false);
+        
     }, []);
 
-    const GetLoadedSkills = () => {
-        return SkillsDummyData.skills;
+    const GetLoadedSkills = async () => {
+        // 더미 데이터
+        //return SkillsDummyData.skills;
+
+        // 서버를 통해 받아오기
+        const skillsForLoading = await axios.get("http://localhost:9999/skill/all")
+        .then(async (res) => {
+            const skills = await res.data.skills;
+            return skills;
+        })
+        .catch((err) => {
+            console.error(err);
+            return [];
+        });
+
+        return skillsForLoading;
     }
 
     const onChangeName = (e) => {
@@ -68,20 +86,33 @@ const CreateRoadmap = () => {
     const onClickRoadmap = async (e) => {
         e.preventDefault();
         await setCreating(true);
-        await axios.post("http://localhost:5000/create/roadmap", {
-            name,
-            skills,
-            framework,
-            computerLanguage
-        }, {})
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((err) => {
-            console.error(err);
-        })
+
+        if(name === "" || framework === "" || computerLanguage === "")
+        {
+            console.log("error");
+        }
+        else
+        {
+            await axios.post("http://localhost:9999/roadmap/create", {
+                name,
+                skills,
+                framework,
+                computerLanguage,
+                imageUrl: "",
+                imageId: ""
+            }, {})
+            .then((res) => {
+                const _id = res.data._id;
+                window.location.replace(`/roadmap/${_id}`);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        }
         await setCreating(false);
     }
+
+    console.log(skills);
 
     
     if(isLoading)

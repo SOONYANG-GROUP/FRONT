@@ -38,7 +38,7 @@ const CreateSkill = () => {
         {
             try
             {
-                await axios.post(`http://localhost:5000/create/skill`, {
+                await axios.post(`http://localhost:9999/skill/create`, {
                     name,
                     references,
                     studyTip,
@@ -47,7 +47,8 @@ const CreateSkill = () => {
                     imageFormData: null
                 }, {})
                 .then((res) => {
-                    window.location.replace(`/skill/${res.data.id}`);
+                    const _id = res.data._id;
+                    window.location.replace(`/skill/${res.data._id}`);
                 })
                 .catch((err) => {
                     console.error(err);

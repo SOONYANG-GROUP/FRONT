@@ -28,6 +28,8 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 
+import JWTest from "./Pages/JWTest";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -170,6 +172,7 @@ function App() {
           path="/aptitudeTest"
           element={<AptitudeTest isLoggedIn={isLoggedIn} />}
         />
+        <Route path="/jwtest" element={<JWTest />} />
       </Routes>
     </Router>
   );
