@@ -234,11 +234,40 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
         .then((res) => {
           setParticipatedUsers(res.data.appliedUserDtos);
           setIsLoading(false);
+
           return res;
         });
     };
     fetch();
   }, []);
+
+  const onClickPermitBtn = async (e) => {
+    e.preventDefault();
+    let data = {};
+
+    // await axios
+    //   .post("http://localhost:8080/", data)
+    //   .then((res) => {
+    //     return res;
+    //   })
+    //   .catch((e) => {
+    //     return e;
+    //   });
+  };
+
+  const onClickDenyBtn = async (e) => {
+    e.preventDefault();
+    let data = {};
+
+    // await axios
+    //   .post("http://localhost:8080/", data)
+    //   .then((res) => {
+    //     return res;
+    //   })
+    //   .catch((e) => {
+    //     return e;
+    //   });
+  };
 
   if (isLoading) {
     return <>Loading...</>;
@@ -263,9 +292,42 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
         {participatedUsers.map((p) => {
           return (
             <>
-              <div>{p.detailField}</div>
-              <div>{p.userId}</div>
-              <div>{p.null}</div>
+              <div class="row gx-5 mb-3 mt-3 justify-contents-center align-items-center">
+                <div class="col-lg-6">
+                  <br />
+                  <div className="col-md-8 align-text-center">
+                    <div
+                      className="btn btn-second"
+                      onClick={() => {
+                        window.location.assign(`/profile/${id}`);
+                      }}
+                    >
+                      지원 분야 : {p.detailField} 이름:
+                      {p.name}
+                    </div>
+                  </div>
+                </div>
+                <div className="col">
+                  <button
+                    className="btn btn-primary"
+                    onClick={() => {
+                      onClickPermitBtn(p.userId);
+                    }}
+                  >
+                    참가 ㅇㅋ
+                  </button>
+                </div>
+                <div className="col">
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => {
+                      onClickDenyBtn(p.userId);
+                    }}
+                  >
+                    참가 ㄴㄴ
+                  </button>
+                </div>
+              </div>
             </>
           );
         })}
