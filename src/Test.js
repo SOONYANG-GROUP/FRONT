@@ -22,10 +22,6 @@ const Test = () => {
     };
     console.log(data);
     await axios.post("http://localhost:8080/login", data).then((res) => {
-      console.log(res);
-      axios.get("http://localhost:8080/login").then((res) => {
-        return res;
-      });
       return res;
     });
   };
@@ -37,18 +33,6 @@ const Test = () => {
       return res;
     });
   };
-
-  // 페이지 렌더링 후 가장 처음 호출되는 함수
-  // useEffect(
-  //   () => {
-  //     axios
-  //       .get("/user_inform/login")
-  //       .then((res) => console.log(res))
-  //       .catch();
-  //   },
-  //   // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-  //   []
-  // );
 
   return (
     <div>
