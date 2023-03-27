@@ -223,6 +223,27 @@ const DetailPage = ({
 };
 
 const DetailPageThree = ({ isProjectActive, candidates }) => {
+  const id = useParams().id;
+  const [participatedUsers, setParticipatedUsers] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetch = async () => {
+      await axios
+        .get(`http://localhost:8080/projects/${id}/manager`)
+        .then((res) => {
+          setParticipatedUsers(res.data.appliedUserDtos);
+          setIsLoading(false);
+          return res;
+        });
+    };
+    fetch();
+  }, []);
+
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+
   if (isProjectActive) {
     return (
       <div className="container px-5">
@@ -239,6 +260,15 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
           <h4>지원자</h4>
         </div>
         <hr className="mt-0 mb-3 mt-3" />
+        {participatedUsers.map((p) => {
+          return (
+            <>
+              <div>{p.detailField}</div>
+              <div>{p.userId}</div>
+              <div>{p.null}</div>
+            </>
+          );
+        })}
       </div>
     );
   }
@@ -395,17 +425,22 @@ const DetailPageOne = ({
 };
 
 const DetailPageZero = ({ project }) => {
-  const onSupportButton = () => {
-    console.log("지원하기");
-    // axios
-    //   .post("https://localhost:8080/login")
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+  const id = useParams().id;
+
+  const onSupportButton = async (field, detailField) => {
+    console.log(detailField);
+    let data = {
+      field: field,
+      detailField: detailField,
+    };
+    await axios
+      .post(`http://localhost:8080/projects/${id}/join`, data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {});
   };
+
   return (
     <div>
       <div class="container px-5">
@@ -419,6 +454,7 @@ const DetailPageZero = ({ project }) => {
             <br />
             <div class="support-fields">
               {project.recruitUserDtos.map((p) => {
+                console.log(p.detailField);
                 return (
                   <div className="row support-field mb-3 d-flex flex-row align-items-center">
                     <div className="col-md-3 support-field-label">
@@ -439,7 +475,9 @@ const DetailPageZero = ({ project }) => {
                         <button
                           type="button"
                           className="btn btn-primary btn-sm"
-                          onClick={onSupportButton}
+                          onClick={() =>
+                            onSupportButton(p.field, p.detailField)
+                          }
                         >
                           지원
                         </button>
