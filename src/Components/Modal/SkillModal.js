@@ -29,7 +29,7 @@ const SkillElement = ({
             <button id={index} onClick={onAddSkill} className="card card-body w-100 shadow-sm">
                 <div id={index}>
                     <img 
-                        src={skill.imageUrl}
+                        src={skill.imageSecureUrl}
                         id={index}
                         style={{width: "70%"}}
                     />

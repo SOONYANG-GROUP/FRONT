@@ -9,9 +9,11 @@ import axios from "axios";
 const CreateSkill = () => {
     const [ isLoading, setIsLoading ] = useState(true);
     const [ creating, setCreating ] = useState(false);
+    const [ imageUploading, setImageUploading ] = useState(false);
     const [ addingReference, setAddingReference ] = useState(false);
 
     const [ name, setName ] = useState("");
+    const [ image, setImage ] = useState(null);
     const [ studyTip, setStudyTip ] = useState("");
     const [ references, setReferences ] = useState([]);
 
@@ -38,16 +40,15 @@ const CreateSkill = () => {
         {
             try
             {
-                await axios.post(`http://localhost:5000/create/skill`, {
+                await axios.post(`http://localhost:9999/skill/create`, {
                     name,
                     references,
                     studyTip,
-                    imageId: "",
-                    imageUrl: "",
-                    imageFormData: null
+                    image
                 }, {})
                 .then((res) => {
-                    window.location.replace(`/skill/${res.data.id}`);
+                    const _id = res.data._id;
+                    window.location.replace(`/skill/${_id}`);
                 })
                 .catch((err) => {
                     console.error(err);
@@ -60,6 +61,23 @@ const CreateSkill = () => {
         }
         await setCreating(false);
     }
+
+    const handleImage = async (e) => {
+        await setImageUploading(true);
+        const file = e.target.files[0];
+        setFileToBase(file);
+        await setImageUploading(false);
+    }
+
+    const setFileToBase = (file) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setImage(reader.result)
+        };
+    }
+
+    
     
     if(isLoading)
     {
@@ -69,6 +87,23 @@ const CreateSkill = () => {
     {
         return(
             <div className="container px-5">
+                <div className="text-uppercase-expanded small mb-2 pt-5">
+                    <h4>* 스킬 이미지</h4>
+                    <span className="text-muted">스킬과 어울리는 이미지를 올려주세요</span>
+                    <div>
+                        {imageUploading ? (<></>) : (
+                            image && <img src={image} alt="skill_thumbnail" />
+                        )}
+                    </div>
+                    <div>
+                        <input 
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImage}
+                        />
+                    </div>
+                </div>
+
                 <div>
                     <div className="text-uppercase-expanded small mb-2 pt-5">
                         <h4>* 스킬 이름</h4>
@@ -110,7 +145,7 @@ const CreateSkill = () => {
                     </div>
                 </div>
                 <div className="mb-2 pt-5" onClick={onCreateSkill}>
-                    <button className="btn btn-primary w-100">
+                    <button className="btn btn-primary w-100" disabled={creating}>
                         스킬 연구 추가하기
                     </button>
                 </div>

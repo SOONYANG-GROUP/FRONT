@@ -18,7 +18,7 @@ const SkillCard = ({
                         }}>
                             <img 
                                 style={{width: "100%"}}
-                                src={skill.imageUrl}
+                                src={skill.imageSecureUrl}
                                 alt={skill.name}
                             />
                         </div>

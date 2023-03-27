@@ -3,24 +3,54 @@ import { useParams } from "react-router-dom";
 import frontendDeveloper from "../../assets/images/frontendDeveloper.svg";
 
 import RoadmapDummyData from "../../DummyData/Roadmap.json";
+import axios from "axios";
 
 const Roadmap = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [roadmap, setRoadmap] = useState(null);
   const id = useParams().id;
 
+  const promiseHandler = (callType, setStateType) => {
+    callType.then((data) => {
+      setStateType(data);
+    })
+  }
+
   useEffect(() => {
-    if (GetRoadmap(id)) {
-      setRoadmap(GetRoadmap(id));
-      setIsLoading(false);
-    }
+    // 더미 데이터
+    // if (GetRoadmap(id)) {
+    //   setRoadmap(GetRoadmap(id));
+    //   setIsLoading(false);
+    // }
+
+    // 서버 용
+    //promiseHandler(GetRoadmap(id), setRoadmap);
+    promiseHandler(GetRoadmap(id), setRoadmap);
+    
+    setIsLoading(false);
+
   }, [id]);
 
-  const GetRoadmap = (id) => {
-    return RoadmapDummyData.roadmaps[id - 1];
+  const GetRoadmap = async (id) => {
+    // 더미 데이터
+    // return RoadmapDummyData.roadmaps[id - 1];
+
+    // 서버용
+    const roadmapForLoading = await axios.get(`http://localhost:9999/roadmap/one/${id}`)
+    .then(async(res) => {
+      const roadmap = await res.data.roadmap;
+      return roadmap;
+    })
+    .catch((err) => {
+      console.error(err);
+      return null;
+    })
+    return roadmapForLoading;
   };
 
-  if (!isLoading) {
+  console.log(roadmap)
+
+  if (!isLoading && roadmap !== null) {
     return (
       <div>
         <header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
@@ -31,7 +61,7 @@ const Roadmap = () => {
                   class="col-lg-6 aos-init aos-animate"
                   data-aos="fade-right"
                 >
-                  <h1 class="page-header-ui-title">{roadmap.roadmap}란?</h1>
+                  <h1 class="page-header-ui-title">{roadmap.name}란?</h1>
                   <p class="page-header-ui-text mb-5">
                     로그인 기능을 통해 해당 내용을 수정할 수 있습니다.
                   </p>
@@ -82,12 +112,12 @@ const Roadmap = () => {
               <div class="col-lg-4 mb-5 mb-lg-0">
                 <h3>대표 언어</h3>
                 <br />
-                <p class="mb-0 fs-1">{roadmap.mostUsedLanguage}</p>
+                <p class="mb-0 fs-1">{roadmap.computerLanguage}</p>
               </div>
               <div class="col-lg-4 mb-5 mb-lg-0">
                 <h3>대표 프레임 워크</h3>
                 <br />
-                <p class="mb-0 fs-1">{roadmap.mostUsedFramework}</p>
+                <p class="mb-0 fs-1">{roadmap.framework}</p>
               </div>
             </div>
           </div>
@@ -107,7 +137,7 @@ const Roadmap = () => {
                   <div class="col-lg-4 mb-5 mb-lg-0">
                     <div class="icon-stack icon-stack-xl bg-gradient-primary-to-secondary text-white mb-4">
                       <img
-                        src={s.skillImgUrl}
+                        src={s.imageSecureUrl}
                         alt="..."
                         width="70"
                         height="70"

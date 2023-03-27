@@ -8,6 +8,9 @@ import SkillsDummyData from "../../DummyData/Skills.json";
 import Loading from "../Loading";
 import windows from "../../assets/images/windows.svg";
 import SkillCards from "../../Components/Cards/Cards/SkillCards";
+
+import axios from "axios";
+
 const Roadmaps = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [generating, setGenerating] = useState(false);
@@ -15,21 +18,58 @@ const Roadmaps = () => {
   const [ skills, setSkills ] = useState([]);
   const [ pageNumber, setPageNumber ] = useState(0);
 
+  const promiseHandler = (callType, setStateType) => {
+    callType.then((data) => {
+      setStateType(data);
+    })
+  }
+
   useEffect(() => {
-    if (GetRoadmaps() && GetSkills()) {
-      setRoadmaps(RoadmapDummyData.roadmaps);
-      setSkills(SkillsDummyData.skills);
-      setIsLoading(false);
-    }
+    promiseHandler(GetRoadmaps(), setRoadmaps);
+    promiseHandler(GetSkills(), setSkills);
+    setIsLoading(false);
+
+    //if (GetRoadmaps() && GetSkills()) {
+    //  setRoadmaps(RoadmapDummyData.roadmaps);
+    //  setSkills(SkillsDummyData.skills);
+    //  setIsLoading(false);
+    //}
   }, []);
 
 
-  const GetRoadmaps = () => {
-    return RoadmapDummyData.roadmaps;
+  const GetRoadmaps = async () => {
+    // 더미 데이터
+    // return RoadmapDummyData.roadmaps;
+
+    // 서버를 통해 받아오기
+    const roadmapsForLoading = await axios.get("http://localhost:9999/roadmap/all")
+    .then(async(res) => {
+      const roadmaps = await res.data.roadmaps;
+      return roadmaps;
+    })
+    .catch((err) => {
+      console.error(err);
+      return [];
+    });
+    return roadmapsForLoading;
   };
 
-  const GetSkills = () => {
-    return SkillsDummyData.skills;
+  const GetSkills = async () => {
+    // 더미 데이터
+    // return SkillsDummyData.skills;
+
+    // 서버를 통해 받아오기
+    const skillsForLoading = await axios.get("http://localhost:9999/skill/all")
+    .then(async (res) => {
+        const skills = await res.data.skills;
+        return skills;
+    })
+    .catch((err) => {
+        console.error(err);
+        return [];
+    });
+
+    return skillsForLoading;
   }
 
   const onClickPageNumber = async (e) => {

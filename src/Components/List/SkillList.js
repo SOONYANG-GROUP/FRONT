@@ -13,11 +13,14 @@ const SkillListElement = ({
                     width: "50%"
                 }} id={index}>
                     <img 
-                        src={skill.imageUrl}
+                        src={skill.imageSecureUrl}
                         alt={skill.name}
                         style={{width: "100%"}}
                         id={index}
                     />
+                </div>
+                <div className="text-center mt-3">
+                    <h3>{skill.name}</h3>
                 </div>
                 <div className="mt-3" id={index}>
                     <button id={index} onClick={onDeleteSkill} className="btn btn-danger w-100">
