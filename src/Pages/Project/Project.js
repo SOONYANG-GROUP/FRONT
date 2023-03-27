@@ -10,7 +10,7 @@ import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningM
 import axios from "axios";
 const Project = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [creatingComment, setCreatingComment] = useState(false);
+  // const [creatingComment, setCreatingComment] = useState(false);
   const [creatingToDoListEle, setCreatingToDoListEle] = useState(false);
 
   const [isProjectActive, setIsProjectActive] = useState(false);
@@ -29,10 +29,13 @@ const Project = () => {
 
   const { id } = useParams();
 
+  const [project2, setProject2] = useState();
+
   useEffect(() => {
     const fetch = () => {
       axios.get(`http://localhost:8080/projects/${id}`).then((res) => {
-        console.log(res.data);
+        setProject2(res.data);
+        setIsLoading(false);
         return res.data;
       });
     };
@@ -48,8 +51,7 @@ const Project = () => {
       setOpenKakaoURL(projectData.openKakaoURL);
       setDiscordURL(projectData.discordURL);
       setCandidates(projectData.candidates);
-      setCreatingComment(false);
-      setIsLoading(false);
+      // setCreatingComment(false);
     };
     getProject();
   }, [id]);
@@ -66,37 +68,21 @@ const Project = () => {
     await setChangingPage(true);
     setPageNumber(parseInt(e.target.id));
     await setChangingPage(false);
-    const fetch = () => {
-      axios
-        .get(`http://localhost:8080/projects/${id}/comment`)
-        .then((res) => {
-          console.log(res.data.commentDtos);
-          res.data.commentDtos.map((res) => {
-            console.log(res.commentId);
-            return res.commentId;
-          });
-          return res;
-        })
-        .catch((e) => {
-          return e;
-        });
-    };
-    fetch();
   };
 
   const onSubmitLink = async (e) => {};
 
-  const onCreateComment = async () => {
-    await axios
-      .post(`http://localhost:8080/projects/${id}/comment`, { comment })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    setCreatingComment(true);
-  };
+  // const onCreateComment = async () => {
+  //   await axios
+  //     .post(`http://localhost:8080/projects/${id}/comment`, { comment })
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  //   setCreatingComment(true);
+  // };
 
   if (isLoading) {
     return <Loading />;
@@ -108,8 +94,8 @@ const Project = () => {
             <div class="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
               사이드 프로젝트
             </div>
-            <h2>{project.title}</h2>
-            <p class="lead">{project.summaryDescription}</p>
+            <h2>{project2.title}</h2>
+            {/* <p class="lead">{project.summaryDescription}</p> */}
           </div>
         </div>
 
@@ -157,7 +143,7 @@ const Project = () => {
         </ul>
         <DetailPage
           changingPage={changingPage}
-          project={project}
+          project={project2}
           resultLink={resultLink}
           pageNumber={pageNumber}
           comment={comment}
@@ -165,14 +151,14 @@ const Project = () => {
           todoList={todoList}
           discordURL={discordURL}
           openKakaoURL={openKakaoURL}
-          creatingComment={creatingComment}
+          // creatingComment={creatingComment}
           candidates={candidates}
           creatingToDoListEle={creatingToDoListEle}
           isProjectActive={isProjectActive}
           onSubmitLink={onSubmitLink}
           onChangeComment={onChangeComment}
           onChangeResultLink={onChangeResultLink}
-          onCreateComment={onCreateComment}
+          // onCreateComment={onCreateComment}
         />
       </>
     );
@@ -192,11 +178,11 @@ const DetailPage = ({
   comment,
   comments,
   onChangeComment,
-  creatingComment,
+  // creatingComment,
   creatingToDoListEle,
   onChangeResultLink,
   onSubmitLink,
-  onCreateComment,
+  // onCreateComment,
 }) => {
   if (changingPage) {
     return <div>Loading...</div>;
@@ -208,9 +194,9 @@ const DetailPage = ({
         <DetailPageOne
           comment={comment}
           comments={comments}
-          creatingComment={creatingComment}
+          // creatingComment={creatingComment}
           onChangeComment={onChangeComment}
-          onCreateComment={onCreateComment}
+          // onCreateComment={onCreateComment}
         />
       );
     } else if (pageNumber === 2) {
@@ -329,32 +315,53 @@ const DetailPageOne = ({
   comment,
   comments,
   onChangeComment,
-  creatingComment,
-  onCreateComment,
+  // creatingComment,
+  // onCreateComment,
 }) => {
-  // const id = useParams().id;
-  console.log("asd");
+  const [creatingComment, setCreatingComment] = useState(false);
 
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     await axios
-  //       .get(`http://localhost:8080/projects/${id}/comment`)
-  //       .then((res) => {
-  //         console.log(res);
-  //         return res;
-  //       });
-  //   };
-  //   fetch();
-  // });
   const id = useParams().id;
-  console.log(id);
-  const onSubmitComment = () => {
-    // axios
-    //   .post(`http://localhost:8080/projects/${id}/comment?`, { comment })
-    //   .then((res) => {
-    //     return res;
-    //   });
+
+  const [comment2, setComment2] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetch = async () => {
+    await axios
+      .get(`http://localhost:8080/projects/${id}/comment`)
+      .then((res) => {
+        setComment2(res.data.commentDtos);
+        setIsLoading(false);
+        setCreatingComment(false);
+        // res.data.commentDtos.map((res) => {
+        //   console.log(res.commentId);
+        //   setComment2(res.data.commentDtos);
+        //   return res.commentId;
+        // });
+        return res;
+      })
+      .catch((e) => {
+        return e;
+      });
   };
+  const onCreateComment = async () => {
+    await axios
+      .post(`http://localhost:8080/projects/${id}/comment`, { comment })
+      .then(function (response) {
+        console.log(response);
+        setCreatingComment(true);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    fetch();
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className="container px-5">
@@ -380,7 +387,7 @@ const DetailPageOne = ({
         <></>
       ) : (
         <div>
-          <CommentList comments={comments} />
+          <CommentList comments={comment2} />
         </div>
       )}
     </div>
@@ -411,17 +418,17 @@ const DetailPageZero = ({ project }) => {
             <h4 class="mb-0">Support field</h4>
             <br />
             <div class="support-fields">
-              {project.fields.map((p) => {
+              {project.recruitUserDtos.map((p) => {
                 return (
                   <div className="row support-field mb-3 d-flex flex-row align-items-center">
                     <div className="col-md-3 support-field-label">
-                      {p.field}
+                      {p.detailField}
                     </div>
                     <div className="col-md-3 support-field-value">
-                      {p.recruited}/{p.limit}
+                      {p.currentRecruit}/{p.maxRecruit}
                     </div>
                     <div className="col-md-3">
-                      {p.recruited === p.limit ? (
+                      {p.currentRecruit === p.limit ? (
                         <button
                           type="button"
                           className="btn btn-secondary btn-sm"
@@ -462,7 +469,7 @@ const DetailPageZero = ({ project }) => {
           <div class="col-lg-8">
             <h4 class="mb-0">구현하는데 필요한 스택</h4>
             <br />
-            <p>{project.needs}</p>
+            {/* <p>{project.needs}</p> */}
           </div>
         </div>
         <div class="text-uppercase-expanded small mb-2 pt-5">
@@ -471,7 +478,9 @@ const DetailPageZero = ({ project }) => {
         <hr class="mt-0 mb-3 mt-3 " />
         <div class="row gx-5">
           <div class="col-lg-8">
-            <p>{project.reference}</p>
+            {project.referenceDtos.map((p) => {
+              return <p>참조링크{p.URL}</p>;
+            })}
           </div>
         </div>
       </div>
