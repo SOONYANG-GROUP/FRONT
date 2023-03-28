@@ -120,14 +120,15 @@ const CreateProject = () => {
   const onClickGPTBtn = async (e) => {
     e.preventDefault();
     setGeneratingIdea(true);
-    await axios.post('http://localhost:9999/gpt/project/idea')
-    .then(async (res) => {
-      setWords([res.data.data.choices[0].message.content]);
-    })
-    .catch(async (err) => {
-      await setOpenAIError(true);
-      console.error(err)
-    });
+    await axios
+      .post("http://localhost:9999/gpt/project/idea")
+      .then(async (res) => {
+        setWords([res.data.data.choices[0].message.content]);
+      })
+      .catch(async (err) => {
+        await setOpenAIError(true);
+        console.error(err);
+      });
     await setUseIdeaFeature(true);
     await setGeneratingIdea(false);
   };
@@ -177,9 +178,9 @@ const CreateProject = () => {
           {}
         )
         .then((res) => {
-          // const id = res.data;
-          // window.location.replace(`/project/${id}`);
-          // console.log(res.data);
+          const id = res.data;
+          window.location.replace(`/project/${id}`);
+          console.log(res.data);
         })
         .catch((err) => {
           console.log(err);

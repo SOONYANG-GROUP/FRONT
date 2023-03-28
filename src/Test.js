@@ -22,6 +22,13 @@ const Test = () => {
     };
     console.log(data);
     await axios.post("http://localhost:8080/login", data).then((res) => {
+      if (!sessionStorage.getItem("accessToken")) {
+        const accessToken = res.data.accessToken;
+        const refreshToken = res.data.refreshToken;
+        sessionStorage.setItem("accessToken", accessToken);
+        sessionStorage.setItem("refreshToken", refreshToken);
+        // window.location.replace("/");
+      }
       return res;
     });
   };

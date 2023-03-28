@@ -10,7 +10,7 @@ const Login = () => {
     const refreshToken = params.get("refreshToken");
     sessionStorage.setItem("accessToken", accessToken);
     sessionStorage.setItem("refreshToken", refreshToken);
-    // window.location.replace(window.history.go(-1));
+    window.location.replace(window.history.go(-1));
   }
 
   if (sessionStorage.getItem("accessToken")) {

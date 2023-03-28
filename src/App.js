@@ -48,19 +48,15 @@ function App() {
 
   axios.interceptors.request.use(
     async (config) => {
-      console.log("interceptor.request.config");
-      console.log(config);
       const accessToken = await window.sessionStorage.getItem("accessToken");
       if (accessToken) {
         config.headers["Authorization"] = await accessToken;
-        console.log(config);
       }
       return config;
     },
     (error) => {
       console.log("interceptor.request.error");
 
-      console.dir(error);
       return Promise.reject(error);
     }
   );
@@ -73,9 +69,6 @@ function App() {
       return response;
     }, // 응답이 성공적인 경우 아무것도 하지 않음
     async (error) => {
-      console.log("interceptor.response.error");
-
-      console.log(error);
       const {
         config,
         response: { status },

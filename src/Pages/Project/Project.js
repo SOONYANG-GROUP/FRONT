@@ -223,6 +223,51 @@ const DetailPage = ({
 };
 
 const DetailPageThree = ({ isProjectActive, candidates }) => {
+  const id = useParams().id;
+  const [participatedUsers, setParticipatedUsers] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetch = async () => {
+      await axios
+        .get(`http://localhost:8080/projects/${id}/manager`)
+        .then((res) => {
+          setParticipatedUsers(res.data.appliedUserDtos);
+          setIsLoading(false);
+
+          return res;
+        });
+    };
+    fetch();
+  }, []);
+
+  const onClickPermitBtn = async (memberId) => {
+    await axios
+      .post(`http://localhost:8080/projects/${id}/permit?memberId=${memberId}`)
+      .then((res) => {
+        return res;
+      })
+      .catch((e) => {
+        return e;
+      });
+  };
+
+  const onClickRejectBtn = async (memberId) => {
+    console.log(memberId);
+    await axios
+      .post(`http://localhost:8080/projects/${id}/reject?memberId=${memberId}`)
+      .then((res) => {
+        return res;
+      })
+      .catch((e) => {
+        return e;
+      });
+  };
+
+  if (isLoading) {
+    return <>Loading...</>;
+  }
+
   if (isProjectActive) {
     return (
       <div className="container px-5">
@@ -239,6 +284,50 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
           <h4>지원자</h4>
         </div>
         <hr className="mt-0 mb-3 mt-3" />
+
+        {participatedUsers &&
+          participatedUsers.map((p) => {
+            return (
+              <>
+                <div class="row gx-5 mb-3 mt-3 justify-contents-center align-items-center">
+                  <div class="col-lg-6">
+                    <br />
+                    <div className="col-md-8 align-text-center">
+                      <div
+                        className="btn btn-second"
+                        onClick={() => {
+                          window.location.assign(`/profile/${id}`);
+                        }}
+                      >
+                        지원 분야 : {p.detailField} 이름:
+                        {p.name}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => {
+                        onClickPermitBtn(p.userId);
+                      }}
+                    >
+                      참가 ㅇㅋ
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => {
+                        onClickRejectBtn(p.userId);
+                      }}
+                    >
+                      참가 ㄴㄴ
+                    </button>
+                  </div>
+                </div>
+              </>
+            );
+          })}
       </div>
     );
   }
@@ -395,17 +484,22 @@ const DetailPageOne = ({
 };
 
 const DetailPageZero = ({ project }) => {
-  const onSupportButton = () => {
-    console.log("지원하기");
-    // axios
-    //   .post("https://localhost:8080/login")
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+  const id = useParams().id;
+
+  const onSupportButton = async (field, detailField) => {
+    console.log(detailField);
+    let data = {
+      field: field,
+      detailField: detailField,
+    };
+    await axios
+      .post(`http://localhost:8080/projects/${id}/join`, data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {});
   };
+
   return (
     <div>
       <div class="container px-5">
@@ -419,6 +513,7 @@ const DetailPageZero = ({ project }) => {
             <br />
             <div class="support-fields">
               {project.recruitUserDtos.map((p) => {
+                console.log(p.detailField);
                 return (
                   <div className="row support-field mb-3 d-flex flex-row align-items-center">
                     <div className="col-md-3 support-field-label">
@@ -439,7 +534,9 @@ const DetailPageZero = ({ project }) => {
                         <button
                           type="button"
                           className="btn btn-primary btn-sm"
-                          onClick={onSupportButton}
+                          onClick={() =>
+                            onSupportButton(p.field, p.detailField)
+                          }
                         >
                           지원
                         </button>

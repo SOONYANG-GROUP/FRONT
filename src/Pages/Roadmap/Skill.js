@@ -13,8 +13,8 @@ const Skill = () => {
   const promiseHandler = (callType, setStateType) => {
     callType.then((data) => {
       setStateType(data);
-    })
-  }
+    });
+  };
 
   useEffect(() => {
     // 더미 데이터
@@ -25,7 +25,7 @@ const Skill = () => {
 
     // 서버용
     promiseHandler(GetSkill(id), setSkill);
-    setIsLoading(false)
+    setIsLoading(false);
   }, [id]);
 
   const GetSkill = async (id) => {
@@ -33,15 +33,16 @@ const Skill = () => {
     // return SkillsDummyData.skills[id - 1];
 
     // 서버용
-    const skillForLoading = await axios.get(`http://localhost:9999/skill/one/${id}`)
-    .then(async(res) => {
-      const skill = await res.data.skill;
-      return skill;
-    })
-    .catch((err) => {
-      console.error(err);
-      return null;
-    });
+    const skillForLoading = await axios
+      .get(`http://localhost:9999/skill/one/${id}`)
+      .then(async (res) => {
+        const skill = await res.data.skill;
+        return skill;
+      })
+      .catch((err) => {
+        console.error(err);
+        return null;
+      });
     return skillForLoading;
   };
 
@@ -99,9 +100,7 @@ const Skill = () => {
           </div>
           <div class="svg-border-waves text-white">이미지</div>
         </header>
-        <section>
-          
-        </section>
+        <section></section>
         <br />
         <br />
         <br />
