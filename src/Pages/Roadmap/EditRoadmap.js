@@ -3,12 +3,11 @@ import { useParams } from "react-router";
 import { NameInput } from "../../Components/Inputs/Input";
 import SkillModalBtn from "../../Components/Modal/SkillModal";
 
-import SkillsDummyData from "../../DummyData/Skills.json";
-import RoadmapDummyData from "../../DummyData/Roadmap.json";
-
 import Loading from "../Loading";
 import SkillList from "../../Components/List/SkillList";
 import axios from "axios";
+import { CreateImageSection, CreateNameSection, CreateReferences, CreateSkillTree } from "../../Components/Sections/CreateSection";
+import { CreateRoadmapFieldSelectTag } from "../../Components/Inputs/Select";
 
 const EditRoadmap = () => {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -16,9 +15,14 @@ const EditRoadmap = () => {
     const [ editing, setEditing ] = useState(false);
     const [ deletingSkill, setDeletingSkill ] = useState(false);
     const [ addingSkill, setAddingSkill ] = useState(false);
+    const [ addingReference, setAddingReference ] = useState(false);
+    
+    
     const [ roadmap, setRoadmap ] = useState(null);
     const [ isChanged, setIsChanged ] = useState(false);
-    const [ image, setImage ] = useState()
+    const [ image, setImage ] = useState();
+    const [ selectedField, setSelectedField ] = useState("");
+    const [ exSelectedField, setExSelectedField ] = useState("");
 
     const [ name, setName ] = useState("");
     const [ skills, setSkills ] = useState([]);
@@ -26,6 +30,9 @@ const EditRoadmap = () => {
     
     const [ framework, setFramework ] = useState("");
     const [ computerLanguage, setComputerLanguage ] = useState("");
+    const [ references, setReferences ] = useState([]);
+
+    const [ isFieldChanged, setIsFieldChanged ] = useState(false);
 
     const id = useParams().id;
 
@@ -38,9 +45,12 @@ const EditRoadmap = () => {
     useEffect(() => {
         promiseHandler(GetRoadmap(id), setRoadmap);
         promiseHandler(GetLoadedSkills(), setLoadedSkills);
-        setIsLoading(false);
 
+        
+        setIsLoading(false);
     }, []);
+
+    console.log(selectedField)
 
     const GetRoadmap = async (id) => {
         // 더미 데이터 용
@@ -55,6 +65,9 @@ const EditRoadmap = () => {
             setComputerLanguage(roadmap.computerLanguage);
             setSkills(roadmap.skills);
             setImage(roadmap.imageSecureUrl);
+            setExSelectedField(roadmap.field);
+            setSelectedField(roadmap.field);
+            setReferences(roadmap.references);
             return roadmap;
         })
         .catch((err) => {
@@ -115,39 +128,57 @@ const EditRoadmap = () => {
         setEditing(true);
         try
         {
-            await axios.post(`http://localhost:9999/roadmap/edit/${id}`, {
-                name: name,
-                computerLanguage: computerLanguage,
-                framework: framework,
-                skills: skills,
-                image: image,
-                isChanged: isChanged
+            await axios.post(`http://localhost:9999/field/edit`, {
+                isFieldChanged: isFieldChanged,
+                exFieldName: exSelectedField,
+                currentFieldName: selectedField,
+                name: name
             })
-            .then((res) => {
-                const _id = res.data._id;
-                window.location.replace(`/roadmap/${_id}`);
+            .then(async (res) => {
+                const field = res.data.field;
+                await axios.post(`http://localhost:9999/roadmap/edit/${id}`, {
+                    name: name,
+                    computerLanguage: computerLanguage,
+                    framework: framework,
+                    image: image,
+                    skills: skills,
+                    isChanged: isChanged,
+                    field: field,
+                    references: references
+                })
+                .then((res) => {
+                    const id = res.data._id;
+                    window.location.replace(`/roadmap/${id}`);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    setEditing(false);
+                })
             })
             .catch((err) => {
                 console.error(err);
                 setEditing(false);
+
             })
         }
         catch(error)
         {
-            console.error(error);
+            console.log(error);
             setEditing(false);
+
         }
+
     }
 
-    const handleImage = async (e) => {
-        await setImageUploading(true);
+    const handleImage = (e) => {
+        setImageUploading(true);
         if(!isChanged)
         {
             setIsChanged(true);
         }
         const file = e.target.files[0];
         setFileToBase(file);
-        await setImageUploading(false);
+        setImageUploading(false);
     }
 
     const setFileToBase = (file) => {
@@ -156,6 +187,14 @@ const EditRoadmap = () => {
         reader.onloadend = () => {
             setImage(reader.result)
         };
+    }
+
+    const onChangeSelectedField = (e) => {
+        if(e.target.value !== exSelectedField)
+            setIsFieldChanged(true);
+        else
+            setIsFieldChanged(false);
+        setSelectedField(e.target.value);
     }
 
     if(isLoading)
@@ -172,36 +211,27 @@ const EditRoadmap = () => {
         {
             return(
                 <div className="container px-5">
-                    <div>
-                        <div className="text-uppercase-expanded small mb-2 pt-5">
-                            <h4>* 로드맵</h4>
-                            <span className="text-muted">로드맵과 어울리는 이미지를 올려주세요</span>
-                            <div>
-                                {imageUploading ? (<></>) : (
-                                    image && <img style={{width: "100%"}} src={image} alt="skill_image" />
-                                )}
-                            </div>
-                            <div>
-                                <input 
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImage}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="text-uppercase-expanded small mb-2 pt-5">
-                            <h4>* 로드맵 이름</h4>
-                            <span className="text-muted">개발 분야 이름을 적어주세요</span>
-                        </div>
-                        <NameInput 
-                            disabled={editing}
-                            name={name}
-                            nameLabel={""}
-                            onChangeName={onChangeName}
-                        />
-                    </div>
+                    <CreateImageSection 
+                        title={"* 로드맵 사진"}
+                        description={"개발 로드맵과 관련된 사진을 업로드 하세요."}
+                        imageUploading={imageUploading}
+                        creating={editing}
+                        handleImage={handleImage}
+                        image={image}
+                    />
+                    <CreateNameSection 
+                        title={"* 로드맵 이름"}
+                        description={"개발 분야 이름을 적어주세요"}
+                        name={name}
+                        creating={editing}
+                        onChangeName={onChangeName}
+                    />
+                    <CreateRoadmapFieldSelectTag 
+                        creating={editing}
+                        editMode={true}
+                        selectedField={selectedField}
+                        onChangeSelectedField={onChangeSelectedField}
+                    />
                     <div className="row">
                         <div className="col-md-6">
                             <div className="text-uppercase-expanded small mb-2 pt-5">
@@ -231,25 +261,24 @@ const EditRoadmap = () => {
                         </div>
                     </div>
 
-                    <div>
-                        <div className="text-uppercase-expanded small mb-2 pt-5">
-                            <h4>* 로드맵 스킬 트리</h4>
-                            <span className="text-muted">해당 직업을 얻기 위해 필요한 스킬을 추가하세요</span>
-                        </div>
-                        <div>
-                            <SkillModalBtn 
-                                loadedSkills={loadedSkills}
-                                addingSkill={addingSkill}
-                                onAddSkill={onAddSkill}
-                            />
-                        </div>
-                        <SkillList 
-                            skills={skills}
-                            deletingSkill={deletingSkill}
-                            setDeletingSkill={setDeletingSkill}
-                        />
-                    </div>
-                    
+                    <CreateSkillTree 
+                        title={"* 로드맵 스킬 트리"}
+                        description={"해당 직업을 얻기 위해 필요한 스킬을 추가하세요"}
+                        addingSkill={addingSkill}
+                        deletingSkill={deletingSkill}
+                        loadedSkills={loadedSkills}
+                        onAddSkill={onAddSkill}
+                        setDeletingSkill={setDeletingSkill}
+                        skills={skills}
+                    />
+                    <CreateReferences 
+                        title={"* 로드맵 참고 자료"}
+                        description={"로드맵을 위해 참고 자료를 공유해 주세요"}
+                        references={references}
+                        setAddingReference={setAddingReference}
+                        addingReference={addingReference}
+                        creating={editing}
+                    />
                     <div className="mb-2 pt-5">
                         <button className="btn btn-primary w-100" disabled={editing} onClick={onEditSkill}>
                             Edit Roadmap

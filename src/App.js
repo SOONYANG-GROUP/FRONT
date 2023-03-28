@@ -22,6 +22,7 @@ import Login from "./Pages/Login";
 import EditRoadmap from "./Pages/Roadmap/EditRoadmap";
 import EditSkill from "./Pages/Roadmap/EditSkill";
 
+
 import Test1 from "./Test1";
 
 import axios from "axios";
@@ -172,6 +173,9 @@ function App() {
           path="/edit/roadmap/:id"
           element={<EditRoadmap isLoggedIn={isLoggedIn} />}
         />
+
+
+
         <Route path="/test" element={<Test isLoggedIn={isLoggedIn} />} />
         <Route path="/test2" element={<Test2 isLoggedIn={isLoggedIn} />} />
         <Route path="/test1" element={<Test1 isLoggedIn={isLoggedIn} />} />

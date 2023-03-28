@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NameInput, ReferenceInput } from "../../Components/Inputs/Input";
-import { StudyTip } from "../../Components/Inputs/Textarea";
-import ReferenceList from "../../Components/List/ReferenceList";
+import { CreateHelloWorld, CreateImageSection, CreateNameSection, CreateReferences, CreateStudyTip } from "../../Components/Sections/CreateSection";
+
 import Loading from "../Loading";
 
 import axios from "axios";
+import { SkillCategorySelectTag } from "../../Components/Inputs/Select";
 
 const CreateSkill = () => {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -16,6 +16,12 @@ const CreateSkill = () => {
     const [ image, setImage ] = useState(null);
     const [ studyTip, setStudyTip ] = useState("");
     const [ references, setReferences ] = useState([]);
+    const [ helloworld, setHelloworld ] = useState("");
+    const [ category, setCategory ] = useState("컴퓨터 언어");
+
+    const onChangeHelloworld = (e) => {
+        setHelloworld(e.target.value);
+    }
 
     useEffect(() => {
         setIsLoading(false);
@@ -44,7 +50,9 @@ const CreateSkill = () => {
                     name,
                     references,
                     studyTip,
-                    image
+                    image,
+                    helloworld,
+                    category
                 }, {})
                 .then((res) => {
                     const _id = res.data._id;
@@ -77,7 +85,16 @@ const CreateSkill = () => {
         };
     }
 
-    
+    const onClickSkillCategory = (e) => {
+        if(e.target.id === "computerLanguage")
+        {
+            setCategory("컴퓨터 언어");
+        }
+        else if(e.target.id === "library")
+        {
+            setCategory("라이브러리")
+        }
+    }
     
     if(isLoading)
     {
@@ -87,63 +104,47 @@ const CreateSkill = () => {
     {
         return(
             <div className="container px-5">
-                <div className="text-uppercase-expanded small mb-2 pt-5">
-                    <h4>* 스킬 이미지</h4>
-                    <span className="text-muted">스킬과 어울리는 이미지를 올려주세요</span>
-                    <div>
-                        {imageUploading ? (<></>) : (
-                            image && <img src={image} alt="skill_thumbnail" />
-                        )}
-                    </div>
-                    <div>
-                        <input 
-                            type="file"
-                            accept="image/*"
-                            onChange={handleImage}
-                        />
-                    </div>
-                </div>
-
-                <div>
-                    <div className="text-uppercase-expanded small mb-2 pt-5">
-                        <h4>* 스킬 이름</h4>
-                        <span className="text-muted">연구해야 할 스킬 이름을 적어주세요</span>
-                    </div>
-                    <NameInput 
-                        name={name}
-                        onChangeName={onChangeName}
-                        disabled={creating}
+                <CreateImageSection 
+                    title={"* 스킬 사진"}
+                    description={"스킬과 어울리는 사진을 올려주세요"}
+                    imageUploading={imageUploading}
+                    image={image}
+                    handleImage={handleImage}
+                />
+                <CreateNameSection 
+                    title={"* 스킬 이름"}
+                    description={"연구해야 할 스킬 이름을 적어주세요"}
+                    name={name}
+                    onChangeName={onChangeName}
+                    creating={creating}
+                />
+                <SkillCategorySelectTag 
+                    category={category}
+                    onClickSkillCategory={onClickSkillCategory}
+                />
+                {category === "컴퓨터 언어" ? (
+                    <CreateHelloWorld 
+                        title={"Hello World 작성하기"}
+                        helloworld={helloworld}
+                        creating={creating}
+                        onChangeHelloworld={onChangeHelloworld}
                     />
-                </div>
-                <div>
-                    <div className="text-uppercase-expanded small mb-2 pt-5">
-                        <h4>* 스킬 연마 방법</h4>
-                        <span className="text-muted">스킬을 연구하는 방법에 대해 알려주세요</span>
-                    </div>
-                    <StudyTip 
-                        studyTip={studyTip}
-                        disabled={creating}
-                        onChangeStudyTip={onChangeStudyTip}
-                    />
-                </div>
-                <div>
-                    <div className="text-uppercase-expanded small mb-2 pt-5">
-                        <h4>* 스킬 연마 참고 자료</h4>
-                    </div>
-                    <div>
-                        <ReferenceList 
-                            addingReference={addingReference}
-                            references={references}
-                        />
-                    </div>
-                    <div className="mt-2">
-                        <ReferenceInput 
-                            creating={creating}
-                            references={references}
-                            setAddingReference={setAddingReference}
-                        />
-                    </div>
-                </div>
+                ) : (<></>)}
+                <CreateStudyTip 
+                    title={"* 스킬 연마 방법"}
+                    description={"스킬을 연구하는 방법에 대해 알려주세요"}
+                    studyTip={studyTip}
+                    creating={creating}
+                    onChangeStudyTip={onChangeStudyTip}
+                />
+                <CreateReferences 
+                    title={"* 스킬 연마 참고 자료"}
+                    description={"스킬 연마에 도움이 되는 자료를 공유해 주세요"}
+                    addingReference={addingReference}
+                    references={references}
+                    creating={creating}
+                    setAddingReference={setAddingReference}
+                />
                 <div className="mb-2 pt-5" onClick={onCreateSkill}>
                     <button className="btn btn-primary w-100" disabled={creating}>
                         스킬 연구 추가하기

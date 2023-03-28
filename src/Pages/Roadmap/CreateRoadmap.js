@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { NameInput, ThumbnailImageInput } from "../../Components/Inputs/Input";
-import SkillList from "../../Components/List/SkillList";
-import SkillModalBtn from "../../Components/Modal/SkillModal";
 
 import axios from "axios";
-import SkillsDummyData from "../../DummyData/Skills.json";
 import Loading from "../Loading";
+
+import { 
+    FieldLists
+} from "../../Components/Constants/Lists";
+import { CreateImageSection, CreateNameSection, CreateReferences, CreateSkillTree } from "../../Components/Sections/CreateSection";
+import { CreateRoadmapFieldSelectTag } from "../../Components/Inputs/Select";
 
 const CreateRoadmap = () => {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -13,7 +15,9 @@ const CreateRoadmap = () => {
     const [ deletingSkill, setDeletingSkill ] = useState(false);
     const [ addingSkill, setAddingSkill ] = useState(false);
     const [ imageUploading, setImageUploading ] = useState(false);
-    
+    const [ addingReference, setAddingReference ] = useState(false);
+    const [ selectedField, setSelectedField ] = useState("");
+
     const [ image, setImage ] = useState(null);
 
     const [ name, setName ] = useState("");
@@ -33,6 +37,7 @@ const CreateRoadmap = () => {
 
     useEffect(() => {
         promiseHandler(GetLoadedSkills(), setLoadedSkills);
+        setSelectedField(FieldLists[0]);
         setIsLoading(false);
         
     }, []);
@@ -51,7 +56,6 @@ const CreateRoadmap = () => {
             console.error(err);
             return [];
         });
-
         return skillsForLoading;
     }
 
@@ -72,7 +76,6 @@ const CreateRoadmap = () => {
                 isExisted = true;
             }
         }
-
         if(!isExisted)
         {
             skills.push(selectedSkill);
@@ -90,30 +93,35 @@ const CreateRoadmap = () => {
 
     const onClickRoadmap = async (e) => {
         e.preventDefault();
-        await setCreating(true);
+        setCreating(true);
 
-        if(name === "" || framework === "" || computerLanguage === "")
-        {
-            console.log("error");
-        }
-        else
-        {
-            await axios.post("http://localhost:9999/roadmap/create", {
-                name,
-                skills,
-                framework,
-                computerLanguage,
-                image
-            }, {})
+        await axios.post("http://localhost:9999/field/create", {
+            fieldName: selectedField,
+            name: name
+        })
+        .then(async (res) => {
+            const field = res.data.field;
+            await axios.post('http://localhost:9999/roadmap/create', {
+                name: name,
+                skills: skills,
+                framework: framework,
+                computerLanguage: computerLanguage,
+                field: field,
+                references: references,
+                image: image
+            })
             .then((res) => {
-                const _id = res.data._id;
-                window.location.replace(`/roadmap/${_id}`);
+                window.location.replace(`/roadmap/${res.data._id}`);
             })
             .catch((err) => {
                 console.error(err);
-            });
-        }
-        await setCreating(false);
+                setCreating(false);
+            })
+        })
+        .catch((err) => {
+            console.error(err);
+            setCreating(false);
+        })
     }
 
     const handleImage = async (e) => {
@@ -139,6 +147,9 @@ const CreateRoadmap = () => {
         }
     }
 
+    const onChangeSelectedField = (e) => {
+        setSelectedField(e.target.value);
+    }
     
     
     if(isLoading)
@@ -160,33 +171,28 @@ const CreateRoadmap = () => {
             return(
                 <>
                     <div className="container px-5">
-                        <div className="text-uppercase-expanded small mb-2 pt-5">
-                            <h4>* 로드맵 사진</h4>
-                            <span className="text-muted">개발 로드맵과 관련된 사진을 업로드 하세요.</span>
-                            <div>
-                                {imageUploading ? (<></>) : (
-                                    image && <img src={image} alt="roadmap_thumbnail" />
-                                )}
-                            </div>
-                            <div>
-                                <input 
-                                    type="file"
-                                    accept="image/*"
-                                    onChange={handleImage}
-                                />
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="text-uppercase-expanded small mb-2 pt-5">
-                                <h4>* 로드맵 이름</h4>
-                                <span className="text-muted">개발 분야 이름을 적어주세요</span>
-                            </div>
-                            <NameInput
-                                name={name}
-                                onChangeName={onChangeName}
-                            />
-                        </div>
+                        <CreateImageSection 
+                            title={"* 로드맵 사진"}
+                            description={"개발 로드맵과 관련된 사진을 업로드 하세요."}
+                            imageUploading={imageUploading}
+                            creating={creating}
+                            handleImage={handleImage}
+                            image={image}
+                        />
+                        
+                        <CreateNameSection
+                            title={"* 로드맵 이름"}
+                            description={"개발 분야 이름을 적어주세요"}
+                            name={name}
+                            creating={creating}
+                            onChangeName={onChangeName}
+                        />
+                        <CreateRoadmapFieldSelectTag 
+                            editMode={false}
+                            selectedField={FieldLists[0]}
+                            creating={creating}
+                            onChangeSelectedField={onChangeSelectedField}
+                        />
                         <div className="row">
                             <div className="col-md-6">
                                 <div className="text-uppercase-expanded small mb-2 pt-5">
@@ -203,7 +209,7 @@ const CreateRoadmap = () => {
                             </div>
                             <div className="col-md-6">
                                 <div className="text-uppercase-expanded small mb-2 pt-5">
-                                    <h4>* 로그맵 대표 프레임워크</h4>
+                                    <h4>* 로드맵 대표 프레임워크</h4>
                                     <span className="text-muted">해당 개발 분야를 대표하는 프레임워크</span>
                                 </div>
                                 <input 
@@ -215,25 +221,24 @@ const CreateRoadmap = () => {
                                 />
                             </div>
                         </div>
-                        <div>
-                            <div className="text-uppercase-expanded small mb-2 pt-5">
-                                <h4>* 로드맵 스킬 트리</h4>
-                                <span className="text-muted">해당 직업을 얻기 위해 필요한 스킬을 추가하세요</span>
-                            </div>
-                            <div>
-                                <SkillModalBtn 
-                                    loadedSkills={loadedSkills} 
-                                    addingSkill={addingSkill} 
-                                    onAddSkill={onAddSkill} 
-                                />
-                            </div>
-                            <SkillList 
-                                skills={skills}
-                                deletingSkill={deletingSkill}
-                                setDeletingSkill={setDeletingSkill}
-                            />
-                        </div>
-        
+                        <CreateSkillTree
+                            title={"* 로드맵 스킬 트리"}
+                            description={"해당 직업을 얻기 위해 필요한 스킬을 추가하세요"}
+                            addingSkill={addingSkill}
+                            deletingSkill={deletingSkill}
+                            loadedSkills={loadedSkills}
+                            onAddSkill={onAddSkill}
+                            setDeletingSkill={setDeletingSkill}
+                            skills={skills}
+                        />
+                        <CreateReferences
+                            title={"* 로드맵 참고 자료"}
+                            description={"로드맵을 위해 참고 자료를 공유해 주세요"}
+                            addingReference={addingReference}
+                            creating={creating}
+                            references={references}
+                            setAddingReference={setAddingReference}
+                        />
                         <div className="mb-2 pt-5">
                             <button className="btn btn-primary w-100" onClick={onClickRoadmap} disabled={creating}>
                                 Create Roadmap

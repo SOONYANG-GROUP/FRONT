@@ -6,6 +6,106 @@ import {
   SecurityFieldLists,
 } from "../Constants/Lists";
 
+export const SkillCategorySelectTag = ({
+  category,
+  onClickSkillCategory
+}) => {
+  console.log(category)
+  return(
+    <div className="text-uppercase-expanded small mb-2 pt-5">
+      <h4>* 스킬 카테고리</h4>
+      <span className="text-muted">어떤 스킬인가요?</span>
+      <div>
+        <div className="form-check">
+          {category === "컴퓨터 언어" ? (<>
+            <input 
+            className="form-check-input" 
+            type="radio" 
+            name="flexRadioDefault" 
+            id="computerLanguage" 
+            onClick={onClickSkillCategory}
+            defaultChecked
+          />
+          <label className="form-check-label" htmlFor="computerLanguage">
+            컴퓨터 언어
+          </label>
+          </>) : (<>            
+          <input 
+            className="form-check-input" 
+            type="radio" 
+            name="flexRadioDefault" 
+            id="computerLanguage" 
+            onClick={onClickSkillCategory}
+          />
+          <label className="form-check-label" htmlFor="computerLanguage">
+            컴퓨터 언어
+          </label>
+        </>)}
+        </div>
+        <div className="form-check">
+          {category === "라이브러리" ? (<>
+            <input 
+            className="form-check-input" 
+            type="radio" 
+            name="flexRadioDefault" 
+            id="library" 
+            onClick={onClickSkillCategory}  
+            defaultChecked
+          />
+          <label className="form-check-label" htmlFor="library">
+            라이브러리
+          </label>
+          </>) : (<>
+            <input 
+            className="form-check-input" 
+            type="radio" 
+            name="flexRadioDefault" 
+            id="library" 
+            onClick={onClickSkillCategory}  
+          />
+          <label className="form-check-label" htmlFor="library">
+            라이브러리
+          </label>
+          </>)}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+export const CreateRoadmapFieldSelectTag = ({
+  selectedField,
+  creating,
+  onChangeSelectedField,
+  editMode = false,
+}) => {
+  return(
+    <div className="text-uppercase-expanded small mb-2 pt-5">
+      <h4>로드맵 필드 설정</h4>
+      <span className="text-muted">로드맵과 어울리는 필드 값을 설정해 주세요</span>
+      <select
+        className="form-select"
+        disabled={creating}
+        onClick={onChangeSelectedField}
+      >
+        {FieldLists.map((fieldEle, index) => {
+          return(
+            <option
+              value={fieldEle}
+              key={index}
+              selected={(fieldEle === selectedField) && editMode}
+            >
+              {fieldEle}
+            </option>
+          )
+        })}
+      </select>
+    </div>
+  )
+}
+
+
 export const FieldSelectTag = ({
   theNumberOfRemain,
   setAddingField,

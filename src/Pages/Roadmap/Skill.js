@@ -45,7 +45,7 @@ const Skill = () => {
     return skillForLoading;
   };
 
-  
+  console.log(skill)
 
   if (!isLoading && skill) {
     return (
@@ -86,7 +86,7 @@ const Skill = () => {
                       <div class="screen">
                         <img
                           class="img-fluid"
-                          src={skill.secureImageUrl}
+                          src={skill.imageSecureUrl}
                           alt="..."
                           width={300}
                         />
