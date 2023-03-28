@@ -72,7 +72,7 @@ const AptitudeTest = () => {
           <>LoadingGPT</>
         ) : (
           <div className="btn btn-primary" onClick={onClickBtn}>
-            GPT가동
+            GPT
           </div>
         )}
       </>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
 const SubCommentElement = ({ subComment }) => {
@@ -33,6 +33,7 @@ const SubCommentList = ({ subComments }) => {
 };
 
 const CommentListEle = ({ comment }) => {
+  console.log(comment);
   const [isExpanded, setIsExpanded] = useState(false);
   const [subComment, setSubComment] = useState();
   const [subComments, setSubComments] = useState();
@@ -42,6 +43,20 @@ const CommentListEle = ({ comment }) => {
   const date = comment.createDate[2];
   const hour = comment.createDate[3];
   const min = comment.createDate[4];
+
+  const fetch = async () => {
+    await axios
+      .get(
+        `http://localhost:8080/projects/${id}/comment/subcomment?commentId=${comment.commentId}`
+      )
+      .then((res) => {
+        setSubComments(res.data);
+        return res;
+      })
+      .catch((e) => {
+        return e;
+      });
+  };
 
   const onButtonClick = async () => {
     setIsExpanded(!isExpanded);
@@ -65,19 +80,24 @@ const CommentListEle = ({ comment }) => {
   const id = useParams().id;
   const onSubmitSubcomment = async () => {
     await axios.post(
-      `http://localhost:8080/projects/${id}/subcomment?commentId=5`,
+      `http://localhost:8080/projects/${id}/subcomment?commentId=${comment.commentId}`,
       { subComment }
     );
+    fetch();
     console.log(subComment);
   };
 
   return (
     <div className="card card-body mb-3">
-      <div className="col-md-4 mb-3">
-        <div className="fw-bold mb-2">{comment.name}</div>
-        <div className="fw-normal">{comment.content}</div>
-        <div className="fw-light">{`${year}년 ${month}월 ${date}일 ${hour}시 ${min}분 `}</div>
-      </div>
+      {comment ? (
+        <div className="col-md-4 mb-3">
+          <div className="fw-bold mb-2">{comment.name}</div>
+          <div className="fw-normal">{comment.content}</div>
+          <div className="fw-light">{`${year}년 ${month}월 ${date}일 ${hour}시 ${min}분 `}</div>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="w-20">
         <>
           {comment.subCommentCount > 0 ? (
@@ -152,6 +172,10 @@ const CommentListEle = ({ comment }) => {
 };
 
 const CommentList = ({ creatingComment, comments }) => {
+  if (!comments) {
+    return null;
+  }
+
   return comments.map((comment, index) => {
     return <CommentListEle key={index} comment={comment} />;
   });

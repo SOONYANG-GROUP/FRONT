@@ -30,10 +30,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import JWTest from "./Pages/JWTest";
+import EditProfile from "./Pages/Profile/EditProfile";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const [userId, setUserId] = useState();
   useEffect(() => {
     console.log("로그인이 되어 있는지 확인합니다.");
     if (sessionStorage.getItem("refreshToken")) {
@@ -64,7 +65,6 @@ function App() {
   axios.interceptors.response.use(
     async (response) => {
       console.log("interceptor.response.response");
-
       console.log(response);
       return response;
     }, // 응답이 성공적인 경우 아무것도 하지 않음
@@ -154,10 +154,7 @@ function App() {
           path="/create/skill"
           element={<CreateSkill isLoggedIn={isLoggedIn} />}
         />
-        <Route
-          path="/profile/:id"
-          element={<Profile isLoggedIn={isLoggedIn} />}
-        />
+        <Route path="/profile" element={<Profile isLoggedIn={isLoggedIn} />} />
         <Route
           path="/edit/skill/:id"
           element={<EditSkill isLoggedIn={isLoggedIn} />}
@@ -178,6 +175,7 @@ function App() {
           element={<AptitudeTest isLoggedIn={isLoggedIn} />}
         />
         <Route path="/jwtest" element={<JWTest />} />
+        <Route path="/editProfile/" element={<EditProfile />} />
       </Routes>
     </Router>
   );

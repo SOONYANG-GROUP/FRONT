@@ -1,11 +1,11 @@
 import { LoginModalBtn } from "../Components/Modal/LoginModal";
-import { useEffect, useState } from "react";
+
 import { LoginModal } from "../Components/Modal/LoginModal";
 
 const Header = ({ isLoggedIn }) => {
   return (
-    <div className="container">
-      <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <div className="container ">
+      <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom  col-md-12">
         <a
           href="/"
           className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
@@ -37,7 +37,7 @@ const Header = ({ isLoggedIn }) => {
           </li>
           <li>
             {isLoggedIn ? (
-              <a href="/profile/1" className="nav-link px-2 link-dark">
+              <a href="/profile" className="nav-link px-2 link-dark">
                 Profile
               </a>
             ) : (
@@ -60,9 +60,9 @@ const Header = ({ isLoggedIn }) => {
             </a>
           </li>
         </ul>
-        <div className="col-md-3 text-end">
+        <span className="col-md-3 text-end">
           <LoginModalBtn isLoggedIn={isLoggedIn} />
-        </div>
+        </span>
       </header>
     </div>
   );

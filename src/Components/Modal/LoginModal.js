@@ -36,7 +36,7 @@ export const LoginModalBtn = ({ isLoggedIn }) => {
 };
 
 export const LoginModal = () => {
-  const HandleButtonClick = async (e) => {
+  const HandleGoogleButtonClick = async (e) => {
     // fetch("http://localhost:8080/oauth2/authorization/google").then(
     //   (response) => {
     //     console.log(response.headers.get("content-type"));
@@ -70,7 +70,7 @@ export const LoginModal = () => {
               <div>
                 <button
                   className="w-100 mb-3 btn btn-primary"
-                  onClick={HandleButtonClick}
+                  onClick={HandleGoogleButtonClick}
                 >
                   <span className="fs-5">
                     <i className="fa-brands fa-google"></i> 구글 로그인하기
@@ -92,7 +92,7 @@ export const LoginModal = () => {
                 </button>
               </div>
               <div>
-                <button className="w-100 btn btn btn-warning">
+                <button className="w-100  mb-3 btn btn btn-warning">
                   <span className="fs-5">
                     <i className="fa-solid fa-comment"></i> 카카오 로그인하기
                   </span>
