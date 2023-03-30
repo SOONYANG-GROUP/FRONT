@@ -1,4 +1,9 @@
-const CurrentSituation = () => {
+const CurrentSituation = ({
+  userCounter,
+  runningProject,
+  recruitingProject,
+}) => {
+  console.log({ userCounter, runningProject, recruitingProject });
   return (
     <>
       <section className="bg-white py-10 mt-5">
@@ -16,16 +21,22 @@ const CurrentSituation = () => {
           </div>
           <div className="row gx-5">
             <div className="col-lg-4 text-center mb-5">
-              <div className="display-1 fw-700 text-gray-400">00+</div>
-              <div className="h5">현재 가입된 유저의 수</div>
+              <div className="display-1 fw-700 text-gray-400">
+                {recruitingProject}+
+              </div>
+              <div className="h5">모집중인 프로젝트의 수</div>
             </div>
             <div className="col-lg-4 text-center mb-5">
-              <div className="display-1 fw-700 text-gray-400">00+</div>
+              <div className="display-1 fw-700 text-gray-400">
+                {runningProject}+
+              </div>
               <div className="h5">진행중인 사이드 프로젝트의 수</div>
             </div>
             <div className="col-lg-4 text-center mb-5">
-              <div className="display-1 fw-700 text-gray-400">00+</div>
-              <div className="h5">완료된 프로젝트의 수</div>
+              <div className="display-1 fw-700 text-gray-400">
+                {userCounter}+
+              </div>
+              <div className="h5">현재 가입된 유저의 수</div>
             </div>
           </div>
           <div className="text-center">
@@ -34,7 +45,7 @@ const CurrentSituation = () => {
                 회원 가입을 완료 후 멋진 팀원들과 함께 하세요.
               </p>
             </div>
-            <a className="btn btn-primary fw-500" href="#!">
+            <a className="btn btn-primary fw-500" href="/registration">
               회원등록하기
             </a>
           </div>

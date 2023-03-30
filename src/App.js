@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 
 import Profile from "./Pages/Profile/Profile";
-import AptitudeTest from "./Pages/AptitudeTest";
+import AptitudeTest from "./Pages/AptitudeTest/AptitudeTest";
 import CreateProject from "./Pages/Project/CreateProject";
 import Projects from "./Pages/Project/Projects";
 import Project from "./Pages/Project/Project";
@@ -22,7 +22,6 @@ import Login from "./Pages/Login";
 import EditRoadmap from "./Pages/Roadmap/EditRoadmap";
 import EditSkill from "./Pages/Roadmap/EditSkill";
 
-
 import Test1 from "./Test1";
 
 import axios from "axios";
@@ -31,6 +30,7 @@ import { useEffect, useState } from "react";
 
 import JWTest from "./Pages/JWTest";
 import EditProfile from "./Pages/Profile/EditProfile";
+import RegistrationPage from "./Pages/Regist/Registration";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -65,7 +65,6 @@ function App() {
   axios.interceptors.response.use(
     async (response) => {
       console.log("interceptor.response.response");
-      console.log(response);
       return response;
     }, // 응답이 성공적인 경우 아무것도 하지 않음
     async (error) => {
@@ -153,7 +152,10 @@ function App() {
           path="/create/skill"
           element={<CreateSkill isLoggedIn={isLoggedIn} />}
         />
-        <Route path="/profile" element={<Profile isLoggedIn={isLoggedIn} />} />
+        <Route
+          path="/users/profile"
+          element={<Profile isLoggedIn={isLoggedIn} />}
+        />
         <Route
           path="/edit/skill/:id"
           element={<EditSkill isLoggedIn={isLoggedIn} />}
@@ -162,8 +164,6 @@ function App() {
           path="/edit/roadmap/:id"
           element={<EditRoadmap isLoggedIn={isLoggedIn} />}
         />
-
-
 
         <Route path="/test" element={<Test isLoggedIn={isLoggedIn} />} />
         <Route path="/test2" element={<Test2 isLoggedIn={isLoggedIn} />} />
@@ -175,6 +175,7 @@ function App() {
         />
         <Route path="/jwtest" element={<JWTest />} />
         <Route path="/editProfile/" element={<EditProfile />} />
+        <Route path="/registration/" element={<RegistrationPage />} />
       </Routes>
     </Router>
   );

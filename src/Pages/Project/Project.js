@@ -38,6 +38,7 @@ const Project = () => {
         .then((res) => {
           setProject2(res.data);
           setIsLoading(false);
+
           return res.data;
         })
         .catch((e) => {
@@ -356,16 +357,16 @@ const DetailPageTwo = ({
       await axios
         .get(`http://localhost:8080/projects/${id}/member`)
         .then((res) => {
-          console.log(res.data);
           setVoiceChatUrl(res.data.voiceChatUrl);
           setOpenChatUrl(res.data.openChatUrl);
-          console.log(voiceChatUrl);
-          console.log(openChatUrl);
-
+          console.log(res.data);
           return res;
         });
     };
     fetch();
+
+    console.log(voiceChatUrl);
+    console.log(openChatUrl);
   }, []);
 
   return (

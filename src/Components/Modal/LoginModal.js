@@ -98,6 +98,15 @@ export const LoginModal = () => {
                   </span>
                 </button>
               </div>
+              <div>
+                <a href="/test">
+                  <button className="w-100  mb-3 btn btn btn-secondary">
+                    <span className="fs-5">
+                      <i className="fa-solid fa-user"></i> 일반 로그인
+                    </span>
+                  </button>
+                </a>
+              </div>
             </div>
           </div>
         </div>

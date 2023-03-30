@@ -9,6 +9,7 @@ const Profile = () => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
+    console.log("요청을 보냅니다.");
     const fetch = async () => {
       await axios
         .get("http://localhost:8080/users/profile")
@@ -26,7 +27,7 @@ const Profile = () => {
 
     const getProfile = () => {
       const profileData = ProfileDummyData.profiles;
-      // setProfile(profileData);
+      // setProfile(profileData);l
       // setIsLoading(false);
     };
     getProfile();
@@ -38,6 +39,7 @@ const Profile = () => {
     return;
   };
   if (isLoading) {
+    console.log("로딩중입니다.");
     return <Loading />;
   } else {
     console.log(profile);
