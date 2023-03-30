@@ -33,11 +33,16 @@ const Project = () => {
 
   useEffect(() => {
     const fetch = () => {
-      axios.get(`http://localhost:8080/projects/${id}`).then((res) => {
-        setProject2(res.data);
-        setIsLoading(false);
-        return res.data;
-      });
+      axios
+        .get(`http://localhost:8080/projects/${id}`)
+        .then((res) => {
+          setProject2(res.data);
+          setIsLoading(false);
+          return res.data;
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     };
 
     fetch();
@@ -70,8 +75,9 @@ const Project = () => {
     await setChangingPage(false);
   };
 
+  // ********************************************************************************결과물 제출********************************************************************
   const onSubmitLink = async (e) => {};
-
+  // **************************************************************************************************************************************************************************
   // const onCreateComment = async () => {
   //   await axios
   //     .post(`http://localhost:8080/projects/${id}/comment`, { comment })
@@ -253,7 +259,6 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
   };
 
   const onClickRejectBtn = async (memberId) => {
-    console.log(memberId);
     await axios
       .post(`http://localhost:8080/projects/${id}/reject?memberId=${memberId}`)
       .then((res) => {
@@ -342,6 +347,27 @@ const DetailPageTwo = ({
   onChangeResultLink,
   onSubmitLink,
 }) => {
+  const id = useParams().id;
+
+  const [voiceChatUrl, setVoiceChatUrl] = useState();
+  const [openChatUrl, setOpenChatUrl] = useState();
+  useEffect(() => {
+    const fetch = async () => {
+      await axios
+        .get(`http://localhost:8080/projects/${id}/member`)
+        .then((res) => {
+          console.log(res.data);
+          setVoiceChatUrl(res.data.voiceChatUrl);
+          setOpenChatUrl(res.data.openChatUrl);
+          console.log(voiceChatUrl);
+          console.log(openChatUrl);
+
+          return res;
+        });
+    };
+    fetch();
+  }, []);
+
   return (
     <div className="container px-5">
       <div className="text-uppercase-expanded small mb-2 pt-5">
@@ -354,7 +380,7 @@ const DetailPageTwo = ({
       <div className="row">
         <div className="col-md-6">
           <a
-            href={discordURL}
+            href={voiceChatUrl}
             className="btn text-light w-100 m-1"
             style={{ backgroundColor: "#6f42c1" }}
           >
@@ -363,7 +389,7 @@ const DetailPageTwo = ({
         </div>
         <div className="col-md-6">
           <a
-            href={openKakaoURL}
+            href={openChatUrl}
             className="btn btn-warning text-light w-100 m-1"
             target="_blank"
           >
@@ -371,7 +397,6 @@ const DetailPageTwo = ({
           </a>
         </div>
       </div>
-
       <div className="text-uppercase-expanded small mb-2 pt-5">
         <h4>결과물 링크 제출</h4>
         <span className="text-muted">
@@ -495,9 +520,11 @@ const DetailPageZero = ({ project }) => {
     await axios
       .post(`http://localhost:8080/projects/${id}/join`, data)
       .then(function (response) {
-        console.log(response);
+        return alert("신청이 완료되었습니다.");
       })
-      .catch(function (error) {});
+      .catch(function (error) {
+        return alert("이미 신청 완료된 프로젝트입니다.");
+      });
   };
 
   return (
