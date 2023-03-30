@@ -64,8 +64,6 @@ function App() {
   axios.interceptors.response.use(
     async (response) => {
       console.log("interceptor.response.response");
-
-      console.log(response);
       return response;
     }, // 응답이 성공적인 경우 아무것도 하지 않음
     async (error) => {
@@ -79,7 +77,6 @@ function App() {
         const originalRequest = config;
 
         const refreshToken = await sessionStorage.getItem("refreshToken");
-        console.log(`refreshToken : ${refreshToken}`);
         const { data } = await axios
           .post(
             "http://localhost:8080/jwt-test",

@@ -1,73 +1,65 @@
 import React, { useEffect, useState } from "react";
 
+import { 
+    FrontendFieldLists,
+    BackendFieldLists,
+    SecurityFieldLists
+
+} from "../Components/Constants/Lists";
+
 import axios from "axios";
+
+
 
 const JWTest = () => {
     const [ isLoading, setIsLoading ] = useState(true);
-    const [ creating, setCreating ] = useState(false);
-    
-    const [ image, setImage ] = useState(null);
+    const [ fields, setFields ] = useState([]);
+    const [ frontendFieldLists, setFrontendFieldLists ] = useState([]);
+    const [ backendFieldLists, setBackendFieldLists] = useState([]);
+    const [ securityFieldLists, setSecurityFieldLists ] = useState([]);
+
+    const promiseHandler = (callType, setStateType) => {
+        callType.then((data) => {
+            setStateType(data);
+        })
+    }
 
     useEffect(() => {
+        promiseHandler(GetFields(), setFields);
         setIsLoading(false);
     }, []);
-    
-    const handleImage = async (e) => {
-        await setCreating(true);
-        const file = e.target.files[0];
-        setFileToBase(file);
-        await setCreating(false);
-        console.log(file);
-        
+
+    const GetFields = async () => {
+        const result = await axios.get("http://localhost:9999/field/all")
+        .then((res) => {
+            setFrontendFieldLists(res.data.fields.filter((field) => field.name === "프론트 엔드"));
+            setBackendFieldLists(res.data.fields.filter((field) => field.name === "백 엔드"));
+            setSecurityFieldLists(res.data.fields.filter((field) => field.name === "해킹 및 보안"));
+            return res.data.fields;
+        })
+        .catch((err) => {
+            return [];
+        });
+        return result;
     }
 
-    const setFileToBase = (file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setImage(reader.result);
-        }
-    }
+    console.log(FrontendFieldLists());
+    console.log(BackendFieldLists());
+    console.log(SecurityFieldLists());
 
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        try
-        {
-            console.log('hel')
-            await axios.post("http://localhost:9999/upload/skill/thumbnail", {image})
-            .then((res) => {
-                const _id = res.data._id;
-                window.location.replace(`/skill/${_id}`);
-            })
-            .catch((err) => {
-                console.error(err)
-            })
-        }
-        catch(error)
-        {
-            console.error(error);
-        }
-        
-    }
-
-    
-    if(creating)
+    if(isLoading)
     {
         return(
-            <div></div>
+            <div>
+                Loading
+            </div>
         )
     }
     else
     {
         return(
             <div>
-                {creating ? (<></>) : (<img src={image}/>)}
-                <input 
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImage}
-                />
-                <button onClick={onSubmit}>Submit</button>
+
             </div>
         )
     }

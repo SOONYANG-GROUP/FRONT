@@ -1,3 +1,21 @@
+
+export const DownloadLibraryInput = ({
+  creating,
+  downloadLibrary,
+  onChangeDownloadLibrary
+}) => {
+  return(
+    <textarea
+      name="downloadLibrary"
+      value={downloadLibrary}
+      onChange={onChangeDownloadLibrary}
+      className="form-control"
+      disabled={creating}
+    >
+    </textarea>
+  )
+}
+
 export const DescriptionInput = ({
   creating,
   description,
@@ -10,24 +28,6 @@ export const DescriptionInput = ({
       onChange={onChangeDescription}
       className="form-control"
       disabled={creating}
-    ></textarea>
-  );
-};
-
-export const StudyTip = ({
-  disabled,
-  studyTip,
-  studyTipLabel,
-  onChangeStudyTip,
-}) => {
-  return (
-    <textarea
-      name="studyTip"
-      id={studyTipLabel}
-      value={studyTip}
-      onChange={onChangeStudyTip}
-      className="form-control"
-      disabled={disabled}
     ></textarea>
   );
 };

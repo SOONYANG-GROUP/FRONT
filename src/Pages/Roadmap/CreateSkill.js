@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { CreateHelloWorld, CreateImageSection, CreateNameSection, CreateReferences, CreateStudyTip } from "../../Components/Sections/CreateSection";
+import { CreateDownloadLibrary, CreateHelloWorld, CreateImageSection, CreateNameSection, CreateReferences } from "../../Components/Sections/CreateSection";
 
 import Loading from "../Loading";
 
@@ -14,10 +14,10 @@ const CreateSkill = () => {
 
     const [ name, setName ] = useState("");
     const [ image, setImage ] = useState(null);
-    const [ studyTip, setStudyTip ] = useState("");
     const [ references, setReferences ] = useState([]);
     const [ helloworld, setHelloworld ] = useState("");
     const [ category, setCategory ] = useState("컴퓨터 언어");
+    const [ downloadLibrary, setDownloadLibrary ] = useState("");
 
     const onChangeHelloworld = (e) => {
         setHelloworld(e.target.value);
@@ -31,14 +31,11 @@ const CreateSkill = () => {
         setName(e.target.value);
     }
 
-    const onChangeStudyTip = (e) => {
-        setStudyTip(e.target.value);
-    }
 
     const onCreateSkill = async (e) => {
         e.preventDefault();
         await setCreating(true);
-        if(name === "" || studyTip === "" || references.length === 0 || image === null)
+        if(name === "" || references.length === 0 || image === null)
         {
             await setCreating(false);
         }
@@ -49,10 +46,10 @@ const CreateSkill = () => {
                 await axios.post(`http://localhost:9999/skill/create`, {
                     name,
                     references,
-                    studyTip,
                     image,
                     helloworld,
-                    category
+                    category,
+                    downloadLibrary
                 }, {})
                 .then((res) => {
                     const _id = res.data._id;
@@ -88,13 +85,23 @@ const CreateSkill = () => {
     const onClickSkillCategory = (e) => {
         if(e.target.id === "computerLanguage")
         {
+            setHelloworld("");
+            setDownloadLibrary("");
             setCategory("컴퓨터 언어");
         }
         else if(e.target.id === "library")
         {
+            setHelloworld("");
+            setDownloadLibrary("");
             setCategory("라이브러리")
         }
     }
+
+    const onChangeDownloadLibrary = (e) => {
+        setDownloadLibrary(e.target.value);
+    }
+
+    
     
     if(isLoading)
     {
@@ -130,13 +137,13 @@ const CreateSkill = () => {
                         onChangeHelloworld={onChangeHelloworld}
                     />
                 ) : (<></>)}
-                <CreateStudyTip 
-                    title={"* 스킬 연마 방법"}
-                    description={"스킬을 연구하는 방법에 대해 알려주세요"}
-                    studyTip={studyTip}
-                    creating={creating}
-                    onChangeStudyTip={onChangeStudyTip}
-                />
+                {category === "라이브러리" ? (
+                    <CreateDownloadLibrary 
+                        creating={creating}
+                        downloadLibrary={downloadLibrary}
+                        onChangeDownloadLibrary={onChangeDownloadLibrary}
+                    />
+                ) : (<></>)}
                 <CreateReferences 
                     title={"* 스킬 연마 참고 자료"}
                     description={"스킬 연마에 도움이 되는 자료를 공유해 주세요"}

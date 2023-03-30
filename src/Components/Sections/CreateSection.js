@@ -2,7 +2,7 @@ import React from "react";
 import SkillList from "../List/SkillList";
 import SkillModalBtn from "../Modal/SkillModal";
 import { NameInput, ReferenceInput } from "../Inputs/Input"
-import { DescriptionInput, StudyTip} from "../Inputs/Textarea"
+import { DescriptionInput, DownloadLibraryInput } from "../Inputs/Textarea"
 import ReferenceList from "../List/ReferenceList";
 
 export const CreateImageSection = ({
@@ -56,27 +56,6 @@ export const CreateNameSection = ({
     )
 }
 
-export const CreateStudyTip = ({
-    title,
-    description,
-    studyTip,
-    creating,
-    onChangeStudyTip
-}) => {
-    return(
-        <div>
-            <div className="text-uppercase-expanded small mb-2 pt-5">
-                <h4>{title}</h4>
-                <span className="text-muted">{description}</span>
-            </div>
-            <StudyTip
-                studyTip={studyTip}
-                disabled={creating}
-                onChangeStudyTip={onChangeStudyTip}
-            />
-        </div>
-    )
-}
 
 export const CreateReferences = ({
     title,
@@ -103,6 +82,26 @@ export const CreateReferences = ({
                     creating={creating}
                     references={references}
                     setAddingReference={setAddingReference}
+                />
+            </div>
+        </div>
+    )
+}
+
+export const CreateDownloadLibrary = ({
+    creating,
+    downloadLibrary,
+    onChangeDownloadLibrary
+}) => {
+    return(
+        <div className="text-uppercase-expanded small mb-2 pt-5">
+            <h4>* 라이브러리 다운로드 명령어</h4>
+            <span className="text-muted">라이브러리 다운로드를 위한 명령어를 입력하세요</span>
+            <div>
+                <DownloadLibraryInput 
+                    creating={creating}
+                    downloadLibrary={downloadLibrary}
+                    onChangeDownloadLibrary={onChangeDownloadLibrary}
                 />
             </div>
         </div>

@@ -203,7 +203,9 @@ const CreateProject = () => {
             <span className="text-muted">
               GPT에게 사이드 프로젝트 아이디어를 질문하세요
             </span>
-            {words.length === 0 ? <></> : <GPTPrint words={words} />}
+            <pre>
+              {words.length === 0 ? <></> : <GPTPrint words={words} />}
+            </pre>
           </div>
           {generatingIdea ? (
             <button className="btn btn-primary btn-sm" disabled>

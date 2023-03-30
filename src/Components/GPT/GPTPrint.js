@@ -32,9 +32,12 @@ const GPTPrint = ({
 
     return (
         <>
-        <p className="text-black text-bold">
+        <pre className="text-black text-bold" style={{
+                      whiteSpace: "pre-wrap",
+                      wordBreak: "break-all"
+                    }}>
             {`${words[index].substring(0, subIndex)}${blink ? "|" : " "}`}
-        </p>
+        </pre>
         </>
     );
 }

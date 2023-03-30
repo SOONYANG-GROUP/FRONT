@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  FieldLists,
-  FrontendFieldLists,
-  BackendFieldLists,
-  SecurityFieldLists,
+  FieldLists
 } from "../Constants/Lists";
+
+import axios from "axios";
 
 export const SkillCategorySelectTag = ({
   category,
   onClickSkillCategory
 }) => {
-  console.log(category)
   return(
     <div className="text-uppercase-expanded small mb-2 pt-5">
       <h4>* 스킬 카테고리</h4>
@@ -112,9 +110,80 @@ export const FieldSelectTag = ({
   fields,
   setTheNumberOfRemain,
 }) => {
+  const [ isLoading, setIsLoading ] = useState(true);
   const [field, setField] = useState(FieldLists[0]);
-  const [detailField, setDetailField] = useState(FrontendFieldLists[0]);
+  const [detailField, setDetailField] = useState("");
   const [maxRecruit, setMaxRecruit] = useState(1);
+
+  const [ frontendFieldLists, setFrontendFieldLists ] = useState([]);
+  const [ backendFieldLists, setBackendFieldLists ] = useState([]);
+  const [ securityFieldLists, setSecurityFieldLists ] = useState([]);
+
+  useEffect(() => {
+    GetFrontendFieldLists();
+    GetBackendFieldLists();
+    GetSecurityFieldLists();
+    setDetailField(frontendFieldLists[0]);
+    setIsLoading(false);
+  }, []);
+
+  const GetFrontendFieldLists = async () => {
+    await axios.get("http://localhost:9999/field/detail/frontend")
+    .then((res) => {
+      if(res.data.field.length === 0)
+      {
+        return [];
+      }
+      else
+      {
+        setFrontendFieldLists(res.data.field[0].detailFields);
+        return res.data.field[0].detailFields;
+      }
+    })
+    .catch((err) => {
+        console.error(err);
+        return [];
+    });
+  }
+
+  const GetBackendFieldLists = async () => {
+    await axios.get("http://localhost:9999/field/detail/backend")
+    .then((res) => {
+      if(res.data.field.length === 0)
+      {
+        return [];
+      }
+      else
+      {
+        setBackendFieldLists(res.data.field[0].detailFields);
+        return res.data.field[0].detailFields;
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return [];
+    })
+  }
+
+  const GetSecurityFieldLists = async () => {
+    await axios.get("http://localhost:9999/field/detail/security")
+    .then((res) => {
+      if(res.data.field.length === 0)
+      {
+        return [];
+      }
+      else
+      {
+        setSecurityFieldLists(res.data.field[0].detailFields);
+        return res.data.field[0].detailFields;
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      return [];
+    })
+  }
+
 
   const onChangeField = (e) => {
     setField(e.target.value);
@@ -144,40 +213,55 @@ export const FieldSelectTag = ({
     await setAddingField(false);
   };
 
-  return (
-    <div className="row">
-      <div className="col-3">
-        <FieldSelect
-          onChangeField={onChangeField}
-          theNumberOfRemain={theNumberOfRemain}
-        />
+  if(isLoading)
+  {
+    return(
+      <div>
+        Loading...
       </div>
-      <div className="col-5">
-        <DetailFieldSelect
-          field={field}
-          onChangeDetailField={onChangeDetailField}
-          theNumberOfRemain={theNumberOfRemain}
-        />
+    )
+  }
+  else
+  {
+    return (
+      <div className="row">
+        <div className="col-3">
+          <FieldSelect
+            onChangeField={onChangeField}
+            theNumberOfRemain={theNumberOfRemain}
+          />
+        </div>
+        <div className="col-5">
+          <DetailFieldSelect
+            field={field}
+            onChangeDetailField={onChangeDetailField}
+            frontendFieldLists={frontendFieldLists}
+            backendFieldLists={backendFieldLists}
+            securityFieldLists={securityFieldLists}
+            theNumberOfRemain={theNumberOfRemain}
+          />
+        </div>
+        <div className="col-2">
+          <DetailNumSelect
+            theNumberOfRemain={theNumberOfRemain}
+            onChangemaxRecruit={onChangemaxRecruit}
+            maxRecruit={maxRecruit}
+          />
+        </div>
+  
+        <div className="col">
+          <button
+            className="btn btn-primary"
+            onClick={onAddField}
+            disabled={theNumberOfRemain <= 0}
+          >
+            <i className="fa-sharp fa-solid fa-plus"></i>
+          </button>
+        </div>
       </div>
-      <div className="col-2">
-        <DetailNumSelect
-          theNumberOfRemain={theNumberOfRemain}
-          onChangemaxRecruit={onChangemaxRecruit}
-          maxRecruit={maxRecruit}
-        />
-      </div>
+    );
+  }
 
-      <div className="col">
-        <button
-          className="btn btn-primary"
-          onClick={onAddField}
-          disabled={theNumberOfRemain <= 0}
-        >
-          <i className="fa-sharp fa-solid fa-plus"></i>
-        </button>
-      </div>
-    </div>
-  );
 };
 
 const FieldSelect = ({ onChangeField, theNumberOfRemain }) => {
@@ -250,9 +334,13 @@ const DetailNumSelect = ({
 
 const DetailFieldSelect = ({
   field,
+  frontendFieldLists,
+  backendFieldLists,
+  securityFieldLists,
   onChangeDetailField,
   theNumberOfRemain,
 }) => {
+  
   if (field === FieldLists[0]) {
     return (
       <select
@@ -260,7 +348,7 @@ const DetailFieldSelect = ({
         onChange={onChangeDetailField}
         disabled={theNumberOfRemain <= 0}
       >
-        {FrontendFieldLists.map((FrontendFieldEle, index) => {
+        {frontendFieldLists.map((FrontendFieldEle, index) => {
           return (
             <option value={FrontendFieldEle} key={index}>
               {FrontendFieldEle}
@@ -276,7 +364,7 @@ const DetailFieldSelect = ({
         onChange={onChangeDetailField}
         disabled={theNumberOfRemain <= 0}
       >
-        {BackendFieldLists.map((BackendFieldEle, index) => {
+        {backendFieldLists.map((BackendFieldEle, index) => {
           return (
             <option value={BackendFieldEle} key={index}>
               {BackendFieldEle}
@@ -292,7 +380,7 @@ const DetailFieldSelect = ({
         onChange={onChangeDetailField}
         disabled={theNumberOfRemain <= 0}
       >
-        {SecurityFieldLists.map((securityEle, index) => {
+        {securityFieldLists.map((securityEle, index) => {
           return (
             <option value={securityEle} key={index}>
               {securityEle}

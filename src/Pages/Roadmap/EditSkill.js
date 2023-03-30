@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Loading from "../Loading";
 import axios from "axios";
-import { CreateHelloWorld, CreateImageSection, CreateNameSection, CreateReferences, CreateStudyTip } from "../../Components/Sections/CreateSection";
+import { CreateDownloadLibrary, CreateHelloWorld, CreateImageSection, CreateNameSection, CreateReferences } from "../../Components/Sections/CreateSection";
 import { SkillCategorySelectTag } from "../../Components/Inputs/Select";
 
 const EditSkill = () => {
@@ -13,13 +13,13 @@ const EditSkill = () => {
     
     const [ skill, setSkill ] = useState(null);
     const [ name, setName ] = useState('');
-    const [ studyTip, setStudyTip ] = useState('');
     const [ references, setReferences ] = useState([]);
 
     const [ image, setImage ] = useState(false);
     const [ isChanged, setIsChanged ] = useState(false);
     const [ category, setCategory ] = useState("컴퓨터 언어");
     const [ helloworld, setHelloworld ] = useState("");
+    const [ downloadLibrary, setDownloadLibrary ] = useState("");
 
     const id = useParams().id;
 
@@ -40,7 +40,6 @@ const EditSkill = () => {
         .then(async(res) => {
             const skill = await res.data.skill;
             setName(skill.name);
-            setStudyTip(skill.studyTip);
             setReferences(skill.references);
             setImage(skill.imageSecureUrl);
             setCategory(skill.category);
@@ -58,9 +57,6 @@ const EditSkill = () => {
         setName(e.target.value);
     }
 
-    const onChangeStudyTip = (e) => {
-        setStudyTip(e.target.value);
-    }
     
     const handleImage = async (e) => {
         await setImageUploading(true);
@@ -86,7 +82,7 @@ const EditSkill = () => {
         setEditing(true);
         try
         {
-            if(name === "" || studyTip === "" || references.length === 0 || image === null)
+            if(name === "" || references.length === 0 || image === null)
             {
                 setEditing(false);
             }
@@ -94,12 +90,12 @@ const EditSkill = () => {
             {
                 await axios.post(`http://localhost:9999/skill/edit/${id}`, {
                     name,
-                    studyTip,
                     references,
                     isChanged,
                     image,
                     category,
-                    helloworld
+                    helloworld,
+                    
                 })
                 .then((res) => {
                     const _id = res.data._id;
@@ -133,6 +129,11 @@ const EditSkill = () => {
     const onChangeHelloworld = (e) => {
         setHelloworld(e.target.value);
     }
+
+    const onChangeDownloadLibrary = (e) => {
+        setDownloadLibrary(e.target.value);
+    }
+
 
     if(isLoading)
     {
@@ -175,14 +176,13 @@ const EditSkill = () => {
                             onChangeHelloworld={onChangeHelloworld}
                         />
                     ) : (<></>)}
-                    <CreateStudyTip 
-                        title={"* 스킬 연마 방법"}
-                        description={"스킬을 연구하는 방법에 대해 알려주세요"}
-                        studyTip={studyTip}
-                        creating={editing}
-                        onChangeStudyTip={onChangeStudyTip}
-                    />
-
+                    {category === "라이브러리" ? (
+                        <CreateDownloadLibrary
+                            creating={editing}
+                            downloadLibrary={downloadLibrary}
+                            onChangeDownloadLibrary={onChangeDownloadLibrary}
+                        />
+                    ) : (<></>)}
                     <CreateReferences 
                         title={"* 스킬 연마 참고 자료"}
                         description={"스킬 연마에 도움이 되는 자료를 공유해 주세요"}
