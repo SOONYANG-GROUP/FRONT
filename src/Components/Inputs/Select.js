@@ -119,20 +119,27 @@ export const FieldSelectTag = ({
   const [ backendFieldLists, setBackendFieldLists ] = useState([]);
   const [ securityFieldLists, setSecurityFieldLists ] = useState([]);
 
+  let [ isDoneForFrontend, setIsDoneForFrontend ] = useState(false);
+  let [ isDoneForBackend, setIsDoneForBackend ] = useState(false);
+  let [ isDoneForSecurity, setIsDoneForSecurity ] = useState(false);
+
+
   useEffect(() => {
     GetFrontendFieldLists();
     GetBackendFieldLists();
     GetSecurityFieldLists();
-    if(frontendFieldLists.length === 0)
-      setDetailField("");
-    
-    setIsLoading(false);
-  }, []);
 
+    if(isDoneForBackend && isDoneForFrontend && isDoneForSecurity)
+    {
+      setIsLoading(false);
+    }
+    
+  }, [isDoneForBackend, isDoneForFrontend, isDoneForSecurity]);
+  
 
   const GetFrontendFieldLists = async () => {
     await axios.get("http://localhost:9999/field/detail/frontend")
-    .then((res) => {
+    .then(async (res) => {
       if(res.data.field.length === 0)
       {
         return [];
@@ -140,6 +147,12 @@ export const FieldSelectTag = ({
       else
       {
         setFrontendFieldLists(res.data.field[0].detailFields);
+        if(frontendFieldLists.length === 0)
+          setDetailField("");
+        else
+          setDetailField(res.data.field[0].detailFields[0])
+          
+        setIsDoneForFrontend(true);
         return res.data.field[0].detailFields;
       }
     })
@@ -159,6 +172,7 @@ export const FieldSelectTag = ({
       else
       {
         setBackendFieldLists(res.data.field[0].detailFields);
+        setIsDoneForBackend(true);
         return res.data.field[0].detailFields;
       }
     })
@@ -178,6 +192,7 @@ export const FieldSelectTag = ({
       else
       {
         setSecurityFieldLists(res.data.field[0].detailFields);
+        setIsDoneForSecurity(true);
         return res.data.field[0].detailFields;
       }
     })
@@ -236,6 +251,7 @@ export const FieldSelectTag = ({
     await setAddingField(false);
   };
 
+
   if(isLoading)
   {
     return(
@@ -276,7 +292,7 @@ export const FieldSelectTag = ({
           <button
             className="btn btn-primary"
             onClick={onAddField}
-            disabled={theNumberOfRemain <= 0 || detailField === ""}
+            disabled={theNumberOfRemain <= 0 || (detailField === "")}
           >
             <i className="fa-sharp fa-solid fa-plus"></i>
           </button>
