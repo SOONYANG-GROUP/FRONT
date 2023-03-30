@@ -65,10 +65,7 @@ function App() {
   axios.interceptors.response.use(
     async (response) => {
       console.log("interceptor.response.response");
-<<<<<<< HEAD
-=======
       console.log(response);
->>>>>>> d568db61c72154c0dbe6c4782165df241fd0489c
       return response;
     }, // 응답이 성공적인 경우 아무것도 하지 않음
     async (error) => {

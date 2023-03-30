@@ -123,9 +123,12 @@ export const FieldSelectTag = ({
     GetFrontendFieldLists();
     GetBackendFieldLists();
     GetSecurityFieldLists();
-    setDetailField(frontendFieldLists[0]);
+    if(frontendFieldLists.length === 0)
+      setDetailField("");
+    
     setIsLoading(false);
   }, []);
+
 
   const GetFrontendFieldLists = async () => {
     await axios.get("http://localhost:9999/field/detail/frontend")
@@ -186,6 +189,27 @@ export const FieldSelectTag = ({
 
 
   const onChangeField = (e) => {
+    if(e.target.value === "프론트 엔드")
+    {
+      if(frontendFieldLists.length === 0)
+        setDetailField("");
+      else
+        setDetailField(frontendFieldLists[0]);
+    }
+    else if(e.target.value === "백 엔드")
+    {
+      if(backendFieldLists.length === 0)
+        setDetailField("");
+      else
+        setDetailField(backendFieldLists[0]);
+    }
+    else
+    {
+      if(securityFieldLists.length === 0)
+        setDetailField("");
+      else
+        setDetailField(securityFieldLists[0]);
+    }
     setField(e.target.value);
   };
 
@@ -200,7 +224,6 @@ export const FieldSelectTag = ({
   const onAddField = async (e) => {
     e.preventDefault();
     await setAddingField(true);
-
     if (theNumberOfRemain - maxRecruit >= 0) {
       fields.push({
         field,
@@ -253,7 +276,7 @@ export const FieldSelectTag = ({
           <button
             className="btn btn-primary"
             onClick={onAddField}
-            disabled={theNumberOfRemain <= 0}
+            disabled={theNumberOfRemain <= 0 || detailField === ""}
           >
             <i className="fa-sharp fa-solid fa-plus"></i>
           </button>
