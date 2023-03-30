@@ -13,36 +13,6 @@ import ReferenceList from "../../Components/List/ReferenceList";
 import axios from "axios";
 import GPTPrint from "../../Components/GPT/GPTPrint";
 
-// let SearchPreprocessedField = (fields) => {
-//   let preprocessedFields = [];
-//   let fieldNames = [];
-//   let fieldDetailNames = [];
-//   let fieldNumbers = [];
-//   //Field 생성 하는 곳*************************************************************************************************************************
-//   for (let index = 0; index < fields.length; ++index) {
-//     const indexOfDetailFieldName = fieldDetailNames.findIndex(
-//       (element) => element === fields[index].detailField
-//     );
-//     if (indexOfDetailFieldName !== -1) {
-//       fieldNumbers[indexOfDetailFieldName] += 1;
-//     } else {
-//       fieldNames.push(fields[index].field);
-//       fieldDetailNames.push(fields[index].detailField);
-//       fieldNumbers.push(1);
-//     }
-//   }
-
-//   for (let index = 0; index < fieldDetailNames.length; ++index) {
-//     preprocessedFields.push({
-//       field: fieldNames[index],
-//       detailField: fieldDetailNames[index],
-//       maxRecruit: fieldNumbers[index],
-//     });
-//   }
-
-//   return preprocessedFields;
-// };
-
 const CreateProject = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [creating, setCreating] = useState(false);
@@ -203,9 +173,7 @@ const CreateProject = () => {
             <span className="text-muted">
               GPT에게 사이드 프로젝트 아이디어를 질문하세요
             </span>
-            <pre>
-              {words.length === 0 ? <></> : <GPTPrint words={words} />}
-            </pre>
+            <pre>{words.length === 0 ? <></> : <GPTPrint words={words} />}</pre>
           </div>
           {generatingIdea ? (
             <button className="btn btn-primary btn-sm" disabled>

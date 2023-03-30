@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import FieldList from "../../Components/List/FieldList";
 import { FieldSelectTag } from "../../Components/Inputs/Select";
+import { FieldLists } from "../../Components/Constants/Lists";
 import axios from "axios";
 
 function RegistrationPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [detailField, setDetailField] = useState("");
+
   const [shortIntroduction, setShortIntroduction] = useState("");
   const [selfIntroduction, setSelfIntroduction] = useState("");
+  const [selectedField, setSelectedField] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -18,7 +20,7 @@ function RegistrationPage() {
       name,
       email,
       password,
-      detailField,
+
       shortIntroduction,
       selfIntroduction
     );
@@ -29,14 +31,15 @@ function RegistrationPage() {
       password: password,
       email: email,
       name: name,
-      detailField: detailField,
+      detailField: selectedField,
       shortIntroduction: shortIntroduction,
       selfIntroduction: selfIntroduction,
     };
-    await axios
-      .post("http://localhost:8080/users/join", data)
-      .then((res) => console.log(res))
-      .catch();
+    console.log(data);
+    // await axios
+    //   .post("http://localhost:8080/users/join", data)
+    //   .then((res) => console.log(res))
+    //   .catch();
     // window.location.assign("/");
   };
 
@@ -89,16 +92,20 @@ function RegistrationPage() {
                   </div>
 
                   <div className="form-floating mb-3">
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="detaifield"
-                      placeholder="detailfield"
-                      value={detailField}
-                      onChange={(e) => setDetailField(e.target.value)}
-                      required
-                    />
-                    <label htmlFor="detailfield">detailfield</label>
+                    <div class="form-floating">
+                      <select
+                        class="form-select"
+                        id="floatingSelect"
+                        aria-label="Floating label select example"
+                        onChange={(e) => setSelectedField(e.target.value)}
+                      >
+                        <option selected>select your field</option>
+                        {FieldLists.map((f) => {
+                          return <option value={f}>{f}</option>;
+                        })}
+                      </select>
+                      <label for="floatingSelect">Works with selects</label>
+                    </div>
                   </div>
 
                   <div className="form-floating mb-3">

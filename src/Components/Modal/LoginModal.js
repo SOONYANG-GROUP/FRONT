@@ -37,21 +37,10 @@ export const LoginModalBtn = ({ isLoggedIn }) => {
 
 export const LoginModal = () => {
   const HandleGoogleButtonClick = async (e) => {
-    // fetch("http://localhost:8080/oauth2/authorization/google").then(
-    //   (response) => {
-    //     console.log(response.headers.get("content-type"));
-    //   }
-    // );
-
     window.location.href = "http://localhost:8080/oauth2/authorization/google";
-    // axios
-    //   .post("https://localhost:8080/login")
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+  };
+  const HandleNaverButtonClick = async (e) => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/naver";
   };
 
   return (
@@ -78,7 +67,10 @@ export const LoginModal = () => {
                 </button>
               </div>
               <div>
-                <button className="w-100 mb-3 btn btn-success">
+                <button
+                  className="w-100 mb-3 btn btn-success"
+                  onClick={HandleNaverButtonClick}
+                >
                   <span className="fs-5">
                     <i className="fa-solid fa-n"></i> 네이버 로그인하기
                   </span>
