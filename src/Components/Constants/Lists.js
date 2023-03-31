@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import axios from "axios";
+
 
 export const FieldLists = [
     "프론트 엔드",

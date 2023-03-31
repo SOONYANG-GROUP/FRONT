@@ -3,12 +3,17 @@ import Loading from "../Loading";
 import ProfileDummyData from "../../DummyData/Profile.json";
 import backgroundImg from "../../assets/images/BackGround.png";
 import axios from "axios";
-const Profile = () => {
+const Profile = ({ isLoggedIn }) => {
   const [userId, setUserid] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
+    console.log("요청을 보냅니다.");
+    if (!isLoggedIn) {
+      alert("로그인이 필요합니다.");
+      window.history.go(-1);
+    }
     const fetch = async () => {
       await axios
         .get("http://localhost:8080/users/profile")
@@ -26,7 +31,7 @@ const Profile = () => {
 
     const getProfile = () => {
       const profileData = ProfileDummyData.profiles;
-      // setProfile(profileData);
+      // setProfile(profileData);l
       // setIsLoading(false);
     };
     getProfile();
@@ -38,6 +43,7 @@ const Profile = () => {
     return;
   };
   if (isLoading) {
+    console.log("로딩중입니다.");
     return <Loading />;
   } else {
     console.log(profile);

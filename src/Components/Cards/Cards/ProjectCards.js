@@ -2,19 +2,30 @@ import React, { useEffect } from "react";
 import { useState, useMemo } from "react";
 const ProjectCard = React.memo(({ project }) => {
   //********************************************************프로젝트 시작시간, 남은 모집 시간 계산********************************************************
-  const currentDate = new Date(); // current date
-  const createdDateTime = new Date(
-    project.createdDateTime[0],
-    project.createdDateTime[1],
-    project.createdDateTime[2]
+
+  // Set the recruitment date
+  const recruitmentDate = new Date(
+    project.recruitmentDate[0],
+    project.recruitmentDate[1] - 1,
+    project.recruitmentDate[2],
+    project.recruitmentDate[3],
+    project.recruitmentDate[4],
+    project.recruitmentDate[5],
+    project.recruitmentDate[6]
   );
-  console.log(createdDateTime);
-  const deadlineDateTime = new Date();
-  deadlineDateTime.setDate(deadlineDateTime.getDate() + 14);
-  console.log(deadlineDateTime);
-  const timeDiff = deadlineDateTime.getTime() - currentDate.getTime(); // difference in milliseconds
-  const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-  console.log(daysDiff);
+
+  // Get the current date
+  const currentDate = new Date();
+
+  // Calculate the time difference in milliseconds
+  const timeDiff = recruitmentDate.getTime() - currentDate.getTime();
+
+  // Convert milliseconds to days
+  const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+  // Output the number of days left
+  // console.log(`There are ${daysLeft} days left until the recruitment date.`);
+
   // ****************************************************************************************************************************************************
   // ********************************************************총 모집 인원 및 현재 참가한 인원 *************************************************************
   const totalRecruit = useMemo(
@@ -43,7 +54,7 @@ const ProjectCard = React.memo(({ project }) => {
           <div className="small text-gray-800 fw-500 mt-3">
             {project.recruitUserDtos[0].detailField} 외 {totalRecruit}명 모집 중
           </div>
-          <div className="small text-gray-500">남은 시간 {daysDiff}일</div>
+          <div className="small text-gray-500">남은 시간 {daysLeft}일</div>
         </div>
         <div className="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
           <div className="small text-gray-500">

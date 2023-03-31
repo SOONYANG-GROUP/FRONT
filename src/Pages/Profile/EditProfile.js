@@ -2,53 +2,82 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const EditProfile = () => {
-  const [detailField, setDetailField] = useState();
+  const [detailField, setDetailField] = useState("");
+  const [selfIntroduction, setSelfIntroduction] = useState("");
+  const [shortIntroduction, setShortIntroduction] = useState("");
 
-  const [selfIntroduction, setSelfIntroduction] = useState();
-
-  const [shortIntroduction, setShortIntroduction] = useState();
-
-  const onChangeDetailField = (e) => {
-    setDetailField(e.target.value);
-  };
-  const onChangeSelfIntroduction = (e) => {
-    setSelfIntroduction(e.target.value);
-  };
-  const onChangeShortIntroduction = (e) => {
-    setShortIntroduction(e.target.value);
-  };
-
-  const onSubmitBtn = async () => {
-    let data = {
-      detailField: detailField,
-      selfIntroduction: selfIntroduction,
-      shortIntroduction: shortIntroduction,
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      detailField,
+      selfIntroduction,
+      shortIntroduction,
     };
-    await axios
-      .post("http://localhost:8080/users/edit", data)
-      .then((res) => {
-        return res;
-      })
-      .catch((e) => {
-        return e;
-      });
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/users/edit",
+        data
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
-    <>
-      <div>
-        <input placeholder="자기 분야" onChange={onChangeDetailField}></input>
-        <input
-          placeholder="자기소개"
-          onChange={onChangeSelfIntroduction}
-        ></input>
-        <input
-          placeholder="대표문구"
-          onChange={onChangeShortIntroduction}
-        ></input>
+    <div className="container-fluid py-5 bg-light">
+      <div className="container p-5 shadow-lg rounded-lg bg-white">
+        <h1 className="text-center mb-4">Edit Profile</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group mb-3">
+            <label htmlFor="detailField" className="form-label">
+              Detail Field
+            </label>
+            <input
+              type="text"
+              className="form-control border-0 border-bottom border-dark"
+              id="detailField"
+              placeholder="Enter your detail field"
+              value={detailField}
+              onChange={(event) => setDetailField(event.target.value)}
+            />
+          </div>
+          <div className="form-group mb-3">
+            <label htmlFor="selfIntroduction" className="form-label">
+              Self Introduction
+            </label>
+            <textarea
+              className="form-control border-0 border-bottom border-dark"
+              id="selfIntroduction"
+              rows="5"
+              placeholder="Enter your self introduction"
+              value={selfIntroduction}
+              onChange={(event) => setSelfIntroduction(event.target.value)}
+            ></textarea>
+          </div>
+
+          <div className="form-group mb-4">
+            <label htmlFor="shortIntroduction" className="form-label">
+              Short Introduction
+            </label>
+            <input
+              type="text"
+              className="form-control border-0 border-bottom border-dark"
+              id="shortIntroduction"
+              placeholder="Enter your short introduction"
+              value={shortIntroduction}
+              onChange={(event) => setShortIntroduction(event.target.value)}
+            />
+          </div>
+
+          <div className="d-flex justify-content-center">
+            <button type="submit" className="btn btn-primary px-5">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
-      <button onClick={onSubmitBtn}>제출</button>
-    </>
+    </div>
   );
 };
 

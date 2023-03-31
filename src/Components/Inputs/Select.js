@@ -1,77 +1,79 @@
 import { useEffect, useState } from "react";
-import {
-  FieldLists
-} from "../Constants/Lists";
+import { FieldLists } from "../Constants/Lists";
 
 import axios from "axios";
 import { SUB_BACK_URL } from "../Constants/URL";
 
-export const SkillCategorySelectTag = ({
-  category,
-  onClickSkillCategory
-}) => {
-  return(
+export const SkillCategorySelectTag = ({ category, onClickSkillCategory }) => {
+  return (
     <div className="text-uppercase-expanded small mb-2 pt-5">
       <h4>* 스킬 카테고리</h4>
       <span className="text-muted">어떤 스킬인가요?</span>
       <div>
         <div className="form-check">
-          {category === "컴퓨터 언어" ? (<>
-            <input 
-            className="form-check-input" 
-            type="radio" 
-            name="flexRadioDefault" 
-            id="computerLanguage" 
-            onClick={onClickSkillCategory}
-            defaultChecked
-          />
-          <label className="form-check-label" htmlFor="computerLanguage">
-            컴퓨터 언어
-          </label>
-          </>) : (<>            
-          <input 
-            className="form-check-input" 
-            type="radio" 
-            name="flexRadioDefault" 
-            id="computerLanguage" 
-            onClick={onClickSkillCategory}
-          />
-          <label className="form-check-label" htmlFor="computerLanguage">
-            컴퓨터 언어
-          </label>
-        </>)}
+          {category === "컴퓨터 언어" ? (
+            <>
+              <input
+                className="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="computerLanguage"
+                onClick={onClickSkillCategory}
+                defaultChecked
+              />
+              <label className="form-check-label" htmlFor="computerLanguage">
+                컴퓨터 언어
+              </label>
+            </>
+          ) : (
+            <>
+              <input
+                className="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="computerLanguage"
+                onClick={onClickSkillCategory}
+              />
+              <label className="form-check-label" htmlFor="computerLanguage">
+                컴퓨터 언어
+              </label>
+            </>
+          )}
         </div>
         <div className="form-check">
-          {category === "라이브러리" ? (<>
-            <input 
-            className="form-check-input" 
-            type="radio" 
-            name="flexRadioDefault" 
-            id="library" 
-            onClick={onClickSkillCategory}  
-            defaultChecked
-          />
-          <label className="form-check-label" htmlFor="library">
-            라이브러리
-          </label>
-          </>) : (<>
-            <input 
-            className="form-check-input" 
-            type="radio" 
-            name="flexRadioDefault" 
-            id="library" 
-            onClick={onClickSkillCategory}  
-          />
-          <label className="form-check-label" htmlFor="library">
-            라이브러리
-          </label>
-          </>)}
+          {category === "라이브러리" ? (
+            <>
+              <input
+                className="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="library"
+                onClick={onClickSkillCategory}
+                defaultChecked
+              />
+              <label className="form-check-label" htmlFor="library">
+                라이브러리
+              </label>
+            </>
+          ) : (
+            <>
+              <input
+                className="form-check-input"
+                type="radio"
+                name="flexRadioDefault"
+                id="library"
+                onClick={onClickSkillCategory}
+              />
+              <label className="form-check-label" htmlFor="library">
+                라이브러리
+              </label>
+            </>
+          )}
         </div>
       </div>
     </div>
-  )
-}
-
+  );
+};
 
 export const CreateRoadmapFieldSelectTag = ({
   selectedField,
@@ -79,89 +81,81 @@ export const CreateRoadmapFieldSelectTag = ({
   onChangeSelectedField,
   editMode = false,
 }) => {
-  return(
+  return (
     <div className="text-uppercase-expanded small mb-2 pt-5">
       <h4>로드맵 필드 설정</h4>
-      <span className="text-muted">로드맵과 어울리는 필드 값을 설정해 주세요</span>
+      <span className="text-muted">
+        로드맵과 어울리는 필드 값을 설정해 주세요
+      </span>
       <select
         className="form-select"
         disabled={creating}
         onClick={onChangeSelectedField}
       >
         {FieldLists.map((fieldEle, index) => {
-          return(
+          return (
             <option
               value={fieldEle}
               key={index}
-              selected={(fieldEle === selectedField) && editMode}
+              selected={fieldEle === selectedField && editMode}
             >
               {fieldEle}
             </option>
-          )
+          );
         })}
       </select>
     </div>
-  )
-}
-
+  );
+};
 
 export const FieldSelectTag = ({
   theNumberOfRemain,
   setAddingField,
   fields,
   setTheNumberOfRemain,
+  isRegistPage,
 }) => {
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [field, setField] = useState(FieldLists[0]);
   const [detailField, setDetailField] = useState("");
   const [maxRecruit, setMaxRecruit] = useState(1);
 
-  const [ frontendFieldLists, setFrontendFieldLists ] = useState([]);
-  const [ backendFieldLists, setBackendFieldLists ] = useState([]);
-  const [ securityFieldLists, setSecurityFieldLists ] = useState([]);
+  const [frontendFieldLists, setFrontendFieldLists] = useState([]);
+  const [backendFieldLists, setBackendFieldLists] = useState([]);
+  const [securityFieldLists, setSecurityFieldLists] = useState([]);
 
-  let [ isDoneForFrontend, setIsDoneForFrontend ] = useState(false);
-  let [ isDoneForBackend, setIsDoneForBackend ] = useState(false);
-  let [ isDoneForSecurity, setIsDoneForSecurity ] = useState(false);
-
+  let [isDoneForFrontend, setIsDoneForFrontend] = useState();
+  let [isDoneForBackend, setIsDoneForBackend] = useState();
+  let [isDoneForSecurity, setIsDoneForSecurity] = useState();
 
   useEffect(() => {
     GetFrontendFieldLists();
     GetBackendFieldLists();
     GetSecurityFieldLists();
 
-    if(isDoneForBackend && isDoneForFrontend && isDoneForSecurity)
-    {
-      setIsLoading(false);
-    }
-    
+    setIsLoading(false);
   }, [isDoneForBackend, isDoneForFrontend, isDoneForSecurity]);
-  
 
   const GetFrontendFieldLists = async () => {
-    await axios.get(`${SUB_BACK_URL}/field/detail/frontend`)
-    .then(async (res) => {
-      if(res.data.field.length === 0)
-      {
-        return [];
-      }
-      else
-      {
-        setFrontendFieldLists(res.data.field[0].detailFields);
-        if(frontendFieldLists.length === 0)
-          setDetailField("");
-        else
-          setDetailField(res.data.field[0].detailFields[0])
-          
-        setIsDoneForFrontend(true);
-        return res.data.field[0].detailFields;
-      }
-    })
-    .catch((err) => {
+    await axios
+      .get(`${SUB_BACK_URL}/field/detail/frontend`)
+      .then(async (res) => {
+        if (res.data.field.length === 0) {
+          return [];
+        } else {
+          setFrontendFieldLists(res.data.field[0].detailFields);
+          if (frontendFieldLists.length === 0) setDetailField("");
+          else setDetailField(res.data.field[0].detailFields[0]);
+
+          setIsDoneForFrontend(true);
+          return res.data.field[0].detailFields;
+        }
+      })
+      .catch((err) => {
         console.error(err);
         return [];
-    });
-  }
+      });
+  };
 
   const GetBackendFieldLists = async () => {
     await axios.get(`${SUB_BACK_URL}/field/detail/backend`)
@@ -205,26 +199,15 @@ export const FieldSelectTag = ({
 
 
   const onChangeField = (e) => {
-    if(e.target.value === "프론트 엔드")
-    {
-      if(frontendFieldLists.length === 0)
-        setDetailField("");
-      else
-        setDetailField(frontendFieldLists[0]);
-    }
-    else if(e.target.value === "백 엔드")
-    {
-      if(backendFieldLists.length === 0)
-        setDetailField("");
-      else
-        setDetailField(backendFieldLists[0]);
-    }
-    else
-    {
-      if(securityFieldLists.length === 0)
-        setDetailField("");
-      else
-        setDetailField(securityFieldLists[0]);
+    if (e.target.value === "프론트 엔드") {
+      if (frontendFieldLists.length === 0) setDetailField("");
+      else setDetailField(frontendFieldLists[0]);
+    } else if (e.target.value === "백 엔드") {
+      if (backendFieldLists.length === 0) setDetailField("");
+      else setDetailField(backendFieldLists[0]);
+    } else {
+      if (securityFieldLists.length === 0) setDetailField("");
+      else setDetailField(securityFieldLists[0]);
     }
     setField(e.target.value);
   };
@@ -252,17 +235,9 @@ export const FieldSelectTag = ({
     await setAddingField(false);
   };
 
-
-  if(isLoading)
-  {
-    return(
-      <div>
-        Loading...
-      </div>
-    )
-  }
-  else
-  {
+  if (isLoading) {
+    return <div>Loading...</div>;
+  } else {
     return (
       <div className="row">
         <div className="col-3">
@@ -281,19 +256,24 @@ export const FieldSelectTag = ({
             theNumberOfRemain={theNumberOfRemain}
           />
         </div>
-        <div className="col-2">
-          <DetailNumSelect
-            theNumberOfRemain={theNumberOfRemain}
-            onChangemaxRecruit={onChangemaxRecruit}
-            maxRecruit={maxRecruit}
-          />
-        </div>
-  
+        {isRegistPage ? (
+          <></>
+        ) : (
+          <>
+            <div className="col-2">
+              <DetailNumSelect
+                theNumberOfRemain={theNumberOfRemain}
+                onChangemaxRecruit={onChangemaxRecruit}
+                maxRecruit={maxRecruit}
+              />
+            </div>
+          </>
+        )}
         <div className="col">
           <button
             className="btn btn-primary"
             onClick={onAddField}
-            disabled={theNumberOfRemain <= 0 || (detailField === "")}
+            disabled={theNumberOfRemain <= 0 || detailField === ""}
           >
             <i className="fa-sharp fa-solid fa-plus"></i>
           </button>
@@ -301,10 +281,9 @@ export const FieldSelectTag = ({
       </div>
     );
   }
-
 };
 
-const FieldSelect = ({ onChangeField, theNumberOfRemain }) => {
+export const FieldSelect = ({ onChangeField, theNumberOfRemain }) => {
   return (
     <select
       className="form-select"
@@ -372,7 +351,7 @@ const DetailNumSelect = ({
   );
 };
 
-const DetailFieldSelect = ({
+export const DetailFieldSelect = ({
   field,
   frontendFieldLists,
   backendFieldLists,
@@ -380,7 +359,6 @@ const DetailFieldSelect = ({
   onChangeDetailField,
   theNumberOfRemain,
 }) => {
-  
   if (field === FieldLists[0]) {
     return (
       <select

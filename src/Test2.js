@@ -1,13 +1,17 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-
+import FieldList from "./Components/List/FieldList";
+import { FieldSelectTag } from "./Components/Inputs/Select";
 const Test = () => {
   const [age, setAge] = useState();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [name, setName] = useState("");
-
+  const [fields, setFields] = useState([]);
+  let [totalFieldsNumber, setTotalFieldsNumber] = useState(0);
+  let [theNumberOfRemain, setTheNumberOfRemain] = useState(5);
+  const [addingField, setAddingField] = useState(false);
   // input data 의 변화가 있을 때마다 value 값을 변경해서 useState 해준다
   const handleInputAge = (e) => {
     setAge(e.target.value);
@@ -98,6 +102,25 @@ const Test = () => {
           value={name}
           onChange={handleInputName}
         />
+      </div>
+      <div className="row">
+        <div>
+          <FieldList
+            fields={fields}
+            theNumberOfRemain={theNumberOfRemain}
+            setTheNumberOfRemain={setTheNumberOfRemain}
+          />
+        </div>
+        <div>
+          <FieldSelectTag
+            theNumberOfRemain={theNumberOfRemain}
+            setAddingField={setAddingField}
+            fields={fields}
+            totalFieldsNumber={totalFieldsNumber}
+            setTotalFieldsNumber={setTotalFieldsNumber}
+            setTheNumberOfRemain={setTheNumberOfRemain}
+          />
+        </div>
       </div>
       <div>
         <button type="button" onClick={onClickLogin}>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useSyncExternalStore } from "react";
 import Loading from "../Loading";
 
 import ProjectsDummyData from "../../DummyData/Projects.json";
@@ -11,39 +11,41 @@ import axios from "axios";
 
 const Projects = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [generating, setGenerating] = useState(false);
-  const [projects, setProjects] = useState([]);
+
   const [projects2, setProjects2] = useState();
+  const [recruitingProjects, setRecruitingProject] = useState([]);
+  const [runningProjects, setRunningProjects] = useState([]);
+
+  const categorizeProjects = () => {
+    setRecruitingProject(
+      projects2?.filter((item) => item.status === "READY") || []
+    );
+    setRunningProjects(
+      projects2?.filter((item) => item.status === "RUNNING") || []
+    );
+  };
 
   useEffect(() => {
-    const fetch = async () => {
-      await axios
-        .get("http://localhost:8080/projects")
-        .then((res) => {
-          console.log(res.data.homeCardDtos);
-          setProjects2(res.data.homeCardDtos);
-          setIsLoading(false);
-          return res;
-        })
-        .catch((e) => {
-          return e;
-        });
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("http://localhost:8080/projects");
+        setProjects2(res.data.homeCardDtos);
+        setIsLoading(false);
+        return res;
+      } catch (error) {
+        console.error(error);
+      }
     };
-    fetch();
-    setProjects(GetProjects());
-    setGenerating(false);
+    fetchData();
   }, [isLoggedIn]);
-  console.log(projects);
-  const GetProjects = () => {
-    // console.log(ProjectsDummyData.projects);
-    setGenerating(true);
-    return ProjectsDummyData.projects;
-  };
+
+  useEffect(() => {
+    categorizeProjects();
+  }, [projects2]);
 
   if (isLoading) {
     return <Loading />;
-  } else {
-    console.log(projects2);
+  } else if (projects2 && !isLoading) {
     return (
       <div>
         <div className="page-header-ui-content pt-5">
@@ -94,7 +96,38 @@ const Projects = ({ isLoggedIn }) => {
             </div>
           </div>
         </div>
-        <ProjectCards projects={projects2} />
+        <section className="bg-light py-10" id="explore">
+          <div className="container px-5">
+            <div className="row gx-5 justify-content-center">
+              <div className="col-lg-8">
+                <div className="text-center mb-10">
+                  <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+                    모집 중인 분야를 확인 후 지원해주세요.
+                  </div>
+                  <h2>현재 모집중인 프로젝트</h2>
+                  <p className="lead">프로젝트를 참여하고 완성 시키세요.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ProjectCards projects={recruitingProjects} />
+        </section>
+        <section className="bg-light py-10" id="explore">
+          <div className="container px-5">
+            <div className="row gx-5 justify-content-center">
+              <div className="col-lg-8">
+                <div className="text-center mb-10">
+                  <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+                    진행 중인 프로젝트 입니다.
+                  </div>
+                  <h2>현재 진행 중인 프로젝트</h2>
+                  <p className="lead">프로젝트가 진행중입니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ProjectCards projects={runningProjects} />
+        </section>
       </div>
     );
   }

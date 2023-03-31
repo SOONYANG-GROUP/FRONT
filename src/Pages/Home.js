@@ -10,22 +10,37 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [projects, setProjects] = useState();
   const [projects2, setProjects2] = useState();
+  const [userCounter, setUserCounter] = useState();
+  const [runningProject, setRunningProject] = useState();
+  const [recruitingProject, setRecruitingProject] = useState();
 
   useEffect(() => {
-    const fetch = async () => {
-      await axios
-        .get("http://localhost:8080/projects")
-        .then((res) => {
-          console.log(res.data.homeCardDtos);
-          setProjects2(res.data.homeCardDtos);
-          setIsLoading(false);
-          return res;
-        })
-        .catch((e) => {
-          return e;
-        });
+    const fetchCount = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/projects");
+        const countDto = response.data.countDto;
+        const counts = countDto.reduce(
+          (acc, c) => {
+            if (c.status === "READY") {
+              acc.recruiting += c.count;
+            } else if (c.status === "RUNNING") {
+              acc.running += c.count;
+            }
+            return acc;
+          },
+          { recruiting: 0, running: 0 }
+        );
+        setRecruitingProject(counts.recruiting);
+        setRunningProject(counts.running);
+        setUserCounter(response.data.countUser);
+        setProjects2(response.data.homeCardDtos);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+      }
     };
-    fetch();
+    fetchCount();
   }, []);
 
   useEffect(() => {
@@ -97,7 +112,11 @@ const Home = () => {
           <ProjectCards projects={projects2} />
         </section>
 
-        <CurrentSituation />
+        <CurrentSituation
+          recruitingProject={recruitingProject}
+          runningProject={runningProject}
+          userCounter={userCounter}
+        />
       </>
     );
   }

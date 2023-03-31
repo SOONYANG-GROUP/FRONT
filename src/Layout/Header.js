@@ -4,7 +4,7 @@ import { LoginModal } from "../Components/Modal/LoginModal";
 
 const Header = ({ isLoggedIn }) => {
   return (
-    <div className="container ">
+    <div>
       <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom  col-md-12">
         <a
           href="/"
@@ -37,7 +37,7 @@ const Header = ({ isLoggedIn }) => {
           </li>
           <li>
             {isLoggedIn ? (
-              <a href="/profile" className="nav-link px-2 link-dark">
+              <a href="/users/profile" className="nav-link px-2 link-dark">
                 Profile
               </a>
             ) : (
@@ -63,6 +63,7 @@ const Header = ({ isLoggedIn }) => {
         <span className="col-md-3 text-end">
           <LoginModalBtn isLoggedIn={isLoggedIn} />
         </span>
+        <span className="col-md-3 text-end"></span>
       </header>
     </div>
   );
