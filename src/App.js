@@ -35,16 +35,22 @@ import RegistrationPage from "./Pages/Regist/Registration";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     console.log("로그인이 되어 있는지 확인합니다.");
-    if (sessionStorage.getItem("refreshToken")) {
-      setIsLoggedIn(true);
-      console.log("로그인 되어 있습니다.");
-    } else {
-      setIsLoggedIn(false);
-      console.log("로그인이 필요합니다.");
-      sessionStorage.clear();
-    }
+    setIsLoading(true);
+    const fetch = () => {
+      if (sessionStorage.getItem("refreshToken")) {
+        setIsLoggedIn(true);
+        console.log("로그인 되어 있습니다.");
+      } else {
+        setIsLoggedIn(false);
+        console.log("로그인이 필요합니다.");
+        sessionStorage.clear();
+      }
+    };
+    fetch();
+    setIsLoading(false);
   }, []);
 
   axios.interceptors.request.use(
