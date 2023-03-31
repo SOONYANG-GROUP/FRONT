@@ -8,7 +8,7 @@ import CommentList from "../../Components/List/CommentList";
 import Comments from "../../DummyData/Comment.json";
 import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningModal";
 import axios from "axios";
-const Project = () => {
+const Project = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
   // const [creatingComment, setCreatingComment] = useState(false);
   const [creatingToDoListEle, setCreatingToDoListEle] = useState(false);
@@ -71,6 +71,11 @@ const Project = () => {
   };
 
   const onChangePageNumber = async (e) => {
+    if (e.target.id > 1) {
+      if (!isLoggedIn) {
+        return alert("로그인이 필요합니다.");
+      }
+    }
     await setChangingPage(true);
     setPageNumber(parseInt(e.target.id));
     await setChangingPage(false);
@@ -149,6 +154,7 @@ const Project = () => {
           </li>
         </ul>
         <DetailPage
+          isLoggedIn={isLoggedIn}
           changingPage={changingPage}
           project={project2}
           resultLink={resultLink}
@@ -173,6 +179,7 @@ const Project = () => {
 };
 
 const DetailPage = ({
+  isLoggedIn,
   isProjectActive,
   candidates,
   resultLink,
@@ -195,12 +202,13 @@ const DetailPage = ({
     return <div>Loading...</div>;
   } else {
     if (pageNumber === 0) {
-      return <DetailPageZero project={project} />;
+      return <DetailPageZero project={project} isLoggedIn={isLoggedIn} />;
     } else if (pageNumber === 1) {
       return (
         <DetailPageOne
           comment={comment}
           comments={comments}
+          isLoggedIn={isLoggedIn}
           // creatingComment={creatingComment}
           onChangeComment={onChangeComment}
           // onCreateComment={onCreateComment}
@@ -430,6 +438,7 @@ const DetailPageOne = ({
   comment,
   comments,
   onChangeComment,
+  isLoggedIn,
   // creatingComment,
   // onCreateComment,
 }) => {
@@ -509,10 +518,13 @@ const DetailPageOne = ({
   );
 };
 
-const DetailPageZero = ({ project }) => {
+const DetailPageZero = ({ project, isLoggedIn }) => {
   const id = useParams().id;
 
   const onSupportButton = async (field, detailField) => {
+    if (!isLoggedIn) {
+      return alert("로그인이 필요합니다.");
+    }
     console.log(detailField);
     let data = {
       field: field,
