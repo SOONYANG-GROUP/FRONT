@@ -39,7 +39,6 @@ const SkillList = ({
 }) => {
     const onDeleteSkill = async (e) => {
         e.preventDefault();
-        console.log(e.target.id)
         await setDeletingSkill(true);
         await skills.splice(parseInt(e.target.id), 1);
         await setDeletingSkill(false);

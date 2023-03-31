@@ -29,7 +29,6 @@ const RoadmapCard = ({ roadmap }) => {
 };
 
 const RoadmapCards = ({ roadmaps }) => {
-  console.log(roadmaps)
   return (
     <div className="album py-5">
       <div className="container">

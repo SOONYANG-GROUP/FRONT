@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { NameInput } from "../../Components/Inputs/Input";
-import SkillModalBtn from "../../Components/Modal/SkillModal";
-
 import Loading from "../Loading";
-import SkillList from "../../Components/List/SkillList";
 import axios from "axios";
 import { CreateImageSection, CreateNameSection, CreateReferences, CreateSkillTree } from "../../Components/Sections/CreateSection";
 import { CreateRoadmapFieldSelectTag } from "../../Components/Inputs/Select";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const EditRoadmap = () => {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -57,7 +54,7 @@ const EditRoadmap = () => {
         //return RoadmapDummyData.roadmaps[id - 1];
 
         // Server 용
-        const roadmapForLoading = await axios.get(`http://localhost:9999/roadmap/one/${id}`)
+        const roadmapForLoading = await axios.get(`${SUB_BACK_URL}/roadmap/one/${id}`)
         .then(async (res) => {
             const roadmap = await res.data.roadmap;
             setName(roadmap.name);
@@ -77,7 +74,7 @@ const EditRoadmap = () => {
     }
 
     const GetLoadedSkills = async () => {
-        const skillsForLoading = await axios.get("http://localhost:9999/skill/all")
+        const skillsForLoading = await axios.get(`${SUB_BACK_URL}/skill/all`)
         .then(async (res) => {
             const skills = await res.data.skills;
             setLoadedSkills(skills);
@@ -128,7 +125,7 @@ const EditRoadmap = () => {
         setEditing(true);
         try
         {
-            await axios.post(`http://localhost:9999/field/edit`, {
+            await axios.post(`${SUB_BACK_URL}/field/edit`, {
                 isFieldChanged: isFieldChanged,
                 exFieldName: exSelectedField,
                 currentFieldName: selectedField,
@@ -136,7 +133,7 @@ const EditRoadmap = () => {
             })
             .then(async (res) => {
                 const field = res.data.field;
-                await axios.post(`http://localhost:9999/roadmap/edit/${id}`, {
+                await axios.post(`${SUB_BACK_URL}/roadmap/edit/${id}`, {
                     name: name,
                     computerLanguage: computerLanguage,
                     framework: framework,

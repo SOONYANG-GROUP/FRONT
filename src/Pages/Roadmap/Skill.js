@@ -6,6 +6,7 @@ import HelloWorldSection from "../../Components/Sections/HelloWorldSection";
 
 import DownloadLibrarySection from "../../Components/Sections/DownloadLibrarySection";
 import GPTPrint from "../../Components/GPT/GPTPrint";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const Skill = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -44,7 +45,7 @@ const Skill = () => {
 
     // 서버용
     const skillForLoading = await axios
-      .get(`http://localhost:9999/skill/one/${id}`)
+      .get(`${SUB_BACK_URL}/skill/one/${id}`)
       .then(async (res) => {
         const skill = await res.data.skill;
         setReferences(skill.references);
@@ -64,7 +65,7 @@ const Skill = () => {
     try
     {
       await axios
-      .post("http://localhost:9999/gpt/skill/problem", {
+      .post(`${SUB_BACK_URL}/gpt/skill/problem`, {
         skillName: skill.name
       })
       .then(async(res) => {

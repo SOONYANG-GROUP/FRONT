@@ -4,6 +4,7 @@ import ProjectsDummyData from "../DummyData/Projects.json";
 import TeamProject from "../assets/images/TeamProject.svg";
 import axios from "axios";
 import CurrentSituation from "../Components/CurrentSituation/CurrentSituation";
+import Loading from "./Loading";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,7 +38,7 @@ const Home = () => {
   }, []);
 
   if (isLoading) {
-    return <>Loading...</>;
+    return <Loading />;
   } else if (!isLoading) {
     return (
       <>

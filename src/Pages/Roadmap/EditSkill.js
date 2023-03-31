@@ -4,6 +4,7 @@ import Loading from "../Loading";
 import axios from "axios";
 import { CreateDownloadLibrary, CreateHelloWorld, CreateImageSection, CreateNameSection, CreateReferences } from "../../Components/Sections/CreateSection";
 import { SkillCategorySelectTag } from "../../Components/Inputs/Select";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const EditSkill = () => {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -36,7 +37,7 @@ const EditSkill = () => {
 
     
     const GetSkill = async (id) => {
-        const skillForLoading = await axios.get(`http://localhost:9999/skill/one/${id}`)
+        const skillForLoading = await axios.get(`${SUB_BACK_URL}/skill/one/${id}`)
         .then(async(res) => {
             const skill = await res.data.skill;
             setName(skill.name);
@@ -88,7 +89,7 @@ const EditSkill = () => {
             }
             else
             {
-                await axios.post(`http://localhost:9999/skill/edit/${id}`, {
+                await axios.post(`${SUB_BACK_URL}/skill/edit/${id}`, {
                     name,
                     references,
                     isChanged,

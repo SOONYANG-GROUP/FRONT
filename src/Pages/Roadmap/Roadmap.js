@@ -4,6 +4,7 @@ import frontendDeveloper from "../../assets/images/frontendDeveloper.svg";
 
 import RoadmapDummyData from "../../DummyData/Roadmap.json";
 import axios from "axios";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const Roadmap = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,7 +37,7 @@ const Roadmap = () => {
     // return RoadmapDummyData.roadmaps[id - 1];
 
     // 서버용
-    const roadmapForLoading = await axios.get(`http://localhost:9999/roadmap/one/${id}`)
+    const roadmapForLoading = await axios.get(`${SUB_BACK_URL}/roadmap/one/${id}`)
     .then(async(res) => {
       const roadmap = await res.data.roadmap;
       return roadmap;

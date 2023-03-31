@@ -4,6 +4,7 @@ import {
 } from "../Constants/Lists";
 
 import axios from "axios";
+import { SUB_BACK_URL } from "../Constants/URL";
 
 export const SkillCategorySelectTag = ({
   category,
@@ -138,7 +139,7 @@ export const FieldSelectTag = ({
   
 
   const GetFrontendFieldLists = async () => {
-    await axios.get("http://localhost:9999/field/detail/frontend")
+    await axios.get(`${SUB_BACK_URL}/field/detail/frontend`)
     .then(async (res) => {
       if(res.data.field.length === 0)
       {
@@ -163,7 +164,7 @@ export const FieldSelectTag = ({
   }
 
   const GetBackendFieldLists = async () => {
-    await axios.get("http://localhost:9999/field/detail/backend")
+    await axios.get(`${SUB_BACK_URL}/field/detail/backend`)
     .then((res) => {
       if(res.data.field.length === 0)
       {
@@ -183,7 +184,7 @@ export const FieldSelectTag = ({
   }
 
   const GetSecurityFieldLists = async () => {
-    await axios.get("http://localhost:9999/field/detail/security")
+    await axios.get(`${SUB_BACK_URL}/field/detail/security`)
     .then((res) => {
       if(res.data.field.length === 0)
       {

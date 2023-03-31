@@ -12,6 +12,7 @@ import ReferenceList from "../../Components/List/ReferenceList";
 
 import axios from "axios";
 import GPTPrint from "../../Components/GPT/GPTPrint";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 // let SearchPreprocessedField = (fields) => {
 //   let preprocessedFields = [];
@@ -121,7 +122,7 @@ const CreateProject = () => {
     e.preventDefault();
     setGeneratingIdea(true);
     await axios
-      .post("http://localhost:9999/gpt/project/idea")
+      .post(`${SUB_BACK_URL}/gpt/project/idea`)
       .then(async (res) => {
         setWords([res.data.data.choices[0].message.content]);
       })

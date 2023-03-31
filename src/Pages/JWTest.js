@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-
-import { 
-    FrontendFieldLists,
-    BackendFieldLists,
-    SecurityFieldLists
-
-} from "../Components/Constants/Lists";
-
 import axios from "axios";
+import { SUB_BACK_URL } from "../Components/Constants/URL";
+import Loading from "./Loading";
 
 
 
@@ -25,12 +19,12 @@ const JWTest = () => {
     }
 
     useEffect(() => {
-        promiseHandler(GetFields(), setFields);
-        setIsLoading(false);
+        //promiseHandler(GetFields(), setFields);
+        //setIsLoading(false);
     }, []);
 
     const GetFields = async () => {
-        const result = await axios.get("http://localhost:9999/field/all")
+        const result = await axios.get(`${SUB_BACK_URL}/field/all`)
         .then((res) => {
             setFrontendFieldLists(res.data.fields.filter((field) => field.name === "프론트 엔드"));
             setBackendFieldLists(res.data.fields.filter((field) => field.name === "백 엔드"));
@@ -43,15 +37,11 @@ const JWTest = () => {
         return result;
     }
 
-    console.log(FrontendFieldLists());
-    console.log(BackendFieldLists());
-    console.log(SecurityFieldLists());
-
     if(isLoading)
     {
         return(
             <div>
-                Loading
+                <Loading />
             </div>
         )
     }

@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-
 import RoadmapCards from "../../Components/Cards/Cards/RoadmapCards";
-
-import RoadmapDummyData from "../../DummyData/Roadmap.json";
-import SkillsDummyData from "../../DummyData/Skills.json";
-
 import Loading from "../Loading";
 import windows from "../../assets/images/windows.svg";
 import SkillCards from "../../Components/Cards/Cards/SkillCards";
 
 import axios from "axios";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const Roadmaps = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +38,7 @@ const Roadmaps = () => {
     // return RoadmapDummyData.roadmaps;
 
     // 서버를 통해 받아오기
-    const roadmapsForLoading = await axios.get("http://localhost:9999/roadmap/all")
+    const roadmapsForLoading = await axios.get(`${SUB_BACK_URL}/roadmap/all`)
     .then(async(res) => {
       const roadmaps = await res.data.roadmaps;
       return roadmaps;
@@ -59,7 +55,7 @@ const Roadmaps = () => {
     // return SkillsDummyData.skills;
 
     // 서버를 통해 받아오기
-    const skillsForLoading = await axios.get("http://localhost:9999/skill/all")
+    const skillsForLoading = await axios.get(`${SUB_BACK_URL}/skill/all`)
     .then(async (res) => {
         const skills = await res.data.skills;
         return skills;

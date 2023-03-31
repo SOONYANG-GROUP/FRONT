@@ -5,6 +5,7 @@ import Loading from "../Loading";
 
 import axios from "axios";
 import { SkillCategorySelectTag } from "../../Components/Inputs/Select";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const CreateSkill = () => {
     const [ isLoading, setIsLoading ] = useState(true);
@@ -43,7 +44,7 @@ const CreateSkill = () => {
         {
             try
             {
-                await axios.post(`http://localhost:9999/skill/create`, {
+                await axios.post(`${SUB_BACK_URL}/skill/create`, {
                     name,
                     references,
                     image,

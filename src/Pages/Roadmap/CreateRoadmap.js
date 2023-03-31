@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 import axios from "axios";
 import Loading from "../Loading";
@@ -47,7 +48,7 @@ const CreateRoadmap = () => {
         //return SkillsDummyData.skills;
 
         // 서버를 통해 받아오기
-        const skillsForLoading = await axios.get("http://localhost:9999/skill/all")
+        const skillsForLoading = await axios.get(`${SUB_BACK_URL}/skill/all`)
         .then(async (res) => {
             const skills = await res.data.skills;
             return skills;
@@ -95,13 +96,13 @@ const CreateRoadmap = () => {
         e.preventDefault();
         setCreating(true);
 
-        await axios.post("http://localhost:9999/field/create", {
+        await axios.post(`${SUB_BACK_URL}/field/create`, {
             fieldName: selectedField,
             name: name
         })
         .then(async (res) => {
             const field = res.data.field;
-            await axios.post('http://localhost:9999/roadmap/create', {
+            await axios.post(`${SUB_BACK_URL}/roadmap/create`, {
                 name: name,
                 skills: skills,
                 framework: framework,
