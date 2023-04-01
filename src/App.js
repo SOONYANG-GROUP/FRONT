@@ -51,7 +51,7 @@ function App() {
     };
     fetch();
     setIsLoading(false);
-  }, []);
+  }, [isLoggedIn]);
 
   axios.interceptors.request.use(
     async (config) => {
@@ -122,6 +122,10 @@ function App() {
       return Promise.reject(error);
     }
   );
+
+  if (!isLoggedIn) {
+    return <></>;
+  }
 
   return (
     <Router>
