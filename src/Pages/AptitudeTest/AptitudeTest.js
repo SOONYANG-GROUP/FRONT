@@ -6,7 +6,6 @@ import gptiscomming from "../../assets/mp4/gptiscomming.mp4";
 //   { role: 'system', content: '1. 개발자는 컴퓨터를 잘 다루는 사람인가요?' }
 // "당신은 뻔뻔해야합니다. 질문이 의도와 다르더라도 계속해서 질문해야합니다. 당신은 나에게 재미로 개발자 직군 테스트를 시작합니다. 질문은 총 10번 이뤄줘야하며 코딩과는 관련 없는 단어로 이루어지며 최대한 대중적이고 재미있게 창의적으로 비전문 용어들로 20단어 이상으로 이루어진 질문입니다. 대상자는 코딩과 관련 없는 사람 입니다. 대답은 예 또는 아니요 로 할 수 있는 질문이여야 합니다. 질문 한가지 해주세요. 앞으로 결과를 알려달라고 하기 전까지 질문 이외의 다른 것은 언급 하지 않습니다. 항상 기억하세요"
 const AptitudeTest = () => {
-  const [text, setText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [testStart, setTestStart] = useState(false);
   const [answer, setAnswer] = useState();
@@ -30,6 +29,7 @@ const AptitudeTest = () => {
       await axios
         .get("http://localhost:8081")
         .then((res) => {
+          console.log(res);
           return res;
         })
         .catch((e) => {
@@ -41,19 +41,6 @@ const AptitudeTest = () => {
     fetch();
     setAnswer();
   }, [loadingGPT]);
-
-  useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      if (i < question.length) {
-        setText((prevText) => prevText + question.charAt(i));
-        i++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 100);
-    return () => clearInterval(interval);
-  }, [question]);
 
   const onClickBtn = async (e) => {
     e.preventDefault();
@@ -79,6 +66,10 @@ const AptitudeTest = () => {
       );
       setLoadingGPT(false);
       setQuestion(response.data[response.data.length - 1].content);
+      const sentences = question.split(". ");
+      const paragraph = sentences.join(".<br>");
+      setSentences(sentences);
+      setParagraph(paragraph);
     } catch (error) {
       console.error(error);
       setLoadingGPT(false);
