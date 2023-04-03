@@ -123,10 +123,6 @@ function App() {
     }
   );
 
-  if (!isLoggedIn) {
-    return <></>;
-  }
-
   return (
     <Router>
       <Header isLoggedIn={isLoggedIn} />
