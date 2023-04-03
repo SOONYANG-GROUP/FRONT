@@ -3,7 +3,6 @@ const CurrentSituation = ({
   runningProject,
   recruitingProject,
 }) => {
-  console.log({ userCounter, runningProject, recruitingProject });
   return (
     <>
       <section className="bg-white py-10 mt-5">
@@ -20,19 +19,19 @@ const CurrentSituation = ({
             </div>
           </div>
           <div className="row gx-5">
-            <div className="col-lg-4 text-center mb-5">
+            <div className="col-lg-4 text-center mb-5 animate__animated animate__fadeInUp">
               <div className="display-1 fw-700 text-gray-400">
                 {recruitingProject}+
               </div>
               <div className="h5">모집중인 프로젝트의 수</div>
             </div>
-            <div className="col-lg-4 text-center mb-5">
+            <div className="col-lg-4 text-center mb-5 animate__animated animate__fadeInUp">
               <div className="display-1 fw-700 text-gray-400">
                 {runningProject}+
               </div>
               <div className="h5">진행중인 사이드 프로젝트의 수</div>
             </div>
-            <div className="col-lg-4 text-center mb-5">
+            <div className="col-lg-4 text-center mb-5 animate__animated animate__fadeInUp">
               <div className="display-1 fw-700 text-gray-400">
                 {userCounter}+
               </div>

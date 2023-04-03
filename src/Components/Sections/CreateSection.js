@@ -17,18 +17,32 @@ export const CreateImageSection = ({
         <div className="text-uppercase-expanded small mb-2 pt-5">
             <h4>{title}</h4>
             <span className="text-muted">{description}</span>
-            <div>
-                {imageUploading ? (<></>) : (
-                    image && <img src={image} alt="_thumbnail" />
-                )}
-            </div>
-            <div>
-                <input 
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImage}
-                    disabled={creating}
-                />
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: 'center',
+                justifyContent: "center"
+            }}
+            >
+                <div className="mt-5">
+                    {imageUploading ? (<></>) : (
+                        image && <img 
+                            src={image} 
+                            alt="_thumbnail" 
+                            style={{ height: "400px" }}
+                            width={"285px"}
+                            className="image-fluid rounded-3 shadow-lg"
+                            />
+                    )}
+                </div>
+                <div>
+                    <input 
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImage}
+                        disabled={creating}
+                    />
+                </div>
             </div>
         </div>
     )
@@ -149,18 +163,56 @@ export const CreateSkillTree = ({
         <div className="text-uppercase-expanded small mb-2 pt-5">
             <h4>{title}</h4>
             <span className="text-muted">{description}</span>
-            <div>
+            <div className="mt-3">
                 <SkillModalBtn 
                     loadedSkills={loadedSkills}
                     addingSkill={addingSkill}
                     onAddSkill={onAddSkill}
                 />
             </div>
-            <div>
+            <div className="mt-3">
                 <SkillList
                     skills={skills}
                     deletingSkill={deletingSkill}
                     setDeletingSkill={setDeletingSkill}
+                />
+            </div>
+        </div>
+    )
+}
+
+export const CreateRepresentationInputs = ({
+    computerLanguage,
+    framework,
+    onChangeComputerLanguage,
+    onChangeFramework
+}) => {
+    return(
+        <div className="row">
+            <div className="col-md-6">
+                <div className="text-uppercase-expanded small mb-2 pt-5">
+                    <h4>* 대표 언어</h4>
+                    <span className="text-muted">해당 개발 분야를 대표하는 언어</span>
+                </div>
+                <input 
+                    type="text"
+                    name="computerLanguage"
+                    value={computerLanguage}
+                    onChange={onChangeComputerLanguage}
+                    className="form-control"
+                />
+            </div>
+            <div className="col-md-6">
+                <div className="text-uppercase-expanded small mb-2 pt-5">
+                    <h4>* 대표 프레임워크</h4>
+                    <span className="text-muted">해당 개발 분야를 대표하는 프레임워크</span>
+                </div>
+                <input 
+                    type="text"
+                    name="framework"
+                    value={framework}
+                    onChange={onChangeFramework}
+                    className="form-control"
                 />
             </div>
         </div>

@@ -112,47 +112,55 @@ const CreateSkill = () => {
     {
         return(
             <div className="container px-5">
-                <CreateImageSection 
-                    title={"* 스킬 사진"}
-                    description={"스킬과 어울리는 사진을 올려주세요"}
-                    imageUploading={imageUploading}
-                    image={image}
-                    handleImage={handleImage}
-                />
-                <CreateNameSection 
-                    title={"* 스킬 이름"}
-                    description={"연구해야 할 스킬 이름을 적어주세요"}
-                    name={name}
-                    onChangeName={onChangeName}
-                    creating={creating}
-                />
-                <SkillCategorySelectTag 
-                    category={category}
-                    onClickSkillCategory={onClickSkillCategory}
-                />
-                {category === "컴퓨터 언어" ? (
-                    <CreateHelloWorld 
-                        title={"Hello World 작성하기"}
-                        helloworld={helloworld}
+                <div className="row">
+                    <div className="col-md-6">
+                        <CreateImageSection 
+                            title={"* 스킬 사진"}
+                            description={"스킬과 어울리는 사진을 올려주세요"}
+                            imageUploading={imageUploading}
+                            image={image}
+                            handleImage={handleImage}
+                        />
+                    </div>
+                    <div className="col-md-6">
+                    <CreateNameSection 
+                        title={"* 스킬 이름"}
+                        description={"연구해야 할 스킬 이름을 적어주세요"}
+                        name={name}
+                        onChangeName={onChangeName}
                         creating={creating}
-                        onChangeHelloworld={onChangeHelloworld}
                     />
-                ) : (<></>)}
-                {category === "라이브러리" ? (
-                    <CreateDownloadLibrary 
+                    <SkillCategorySelectTag 
+                        category={category}
+                        onClickSkillCategory={onClickSkillCategory}
+                    />
+                    {category === "컴퓨터 언어" ? (
+                        <CreateHelloWorld 
+                            title={"Hello World 작성하기"}
+                            helloworld={helloworld}
+                            creating={creating}
+                            onChangeHelloworld={onChangeHelloworld}
+                        />
+                    ) : (<></>)}
+                    {category === "라이브러리" ? (
+                        <CreateDownloadLibrary 
+                            creating={creating}
+                            downloadLibrary={downloadLibrary}
+                            onChangeDownloadLibrary={onChangeDownloadLibrary}
+                        />
+                    ) : (<></>)}
+                    <CreateReferences 
+                        title={"* 스킬 연마 참고 자료"}
+                        description={"스킬 연마에 도움이 되는 자료를 공유해 주세요"}
+                        addingReference={addingReference}
+                        references={references}
                         creating={creating}
-                        downloadLibrary={downloadLibrary}
-                        onChangeDownloadLibrary={onChangeDownloadLibrary}
+                        setAddingReference={setAddingReference}
                     />
-                ) : (<></>)}
-                <CreateReferences 
-                    title={"* 스킬 연마 참고 자료"}
-                    description={"스킬 연마에 도움이 되는 자료를 공유해 주세요"}
-                    addingReference={addingReference}
-                    references={references}
-                    creating={creating}
-                    setAddingReference={setAddingReference}
-                />
+                    </div>
+                </div>
+
+
                 <div className="mb-2 pt-5" onClick={onCreateSkill}>
                     <button className="btn btn-primary w-100" disabled={creating}>
                         스킬 연구 추가하기

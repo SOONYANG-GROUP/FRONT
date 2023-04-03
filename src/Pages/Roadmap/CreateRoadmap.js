@@ -7,7 +7,7 @@ import Loading from "../Loading";
 import { 
     FieldLists
 } from "../../Components/Constants/Lists";
-import { CreateImageSection, CreateNameSection, CreateReferences, CreateSkillTree } from "../../Components/Sections/CreateSection";
+import { CreateImageSection, CreateNameSection, CreateReferences, CreateRepresentationInputs, CreateSkillTree } from "../../Components/Sections/CreateSection";
 import { CreateRoadmapFieldSelectTag } from "../../Components/Inputs/Select";
 
 const CreateRoadmap = () => {
@@ -172,77 +172,64 @@ const CreateRoadmap = () => {
             return(
                 <>
                     <div className="container px-5">
-                        <CreateImageSection 
-                            title={"* 로드맵 사진"}
-                            description={"개발 로드맵과 관련된 사진을 업로드 하세요."}
-                            imageUploading={imageUploading}
-                            creating={creating}
-                            handleImage={handleImage}
-                            image={image}
-                        />
-                        
-                        <CreateNameSection
-                            title={"* 로드맵 이름"}
-                            description={"개발 분야 이름을 적어주세요"}
-                            name={name}
-                            creating={creating}
-                            onChangeName={onChangeName}
-                        />
-                        <CreateRoadmapFieldSelectTag 
-                            editMode={false}
-                            selectedField={FieldLists[0]}
-                            creating={creating}
-                            onChangeSelectedField={onChangeSelectedField}
-                        />
                         <div className="row">
                             <div className="col-md-6">
-                                <div className="text-uppercase-expanded small mb-2 pt-5">
-                                    <h4>* 로드맵 대표 언어</h4>
-                                    <span className="text-muted">해당 개발 분야를 대표하는 언어</span>
-                                </div>
-                                <input 
-                                    type="text"
-                                    name="computerLanguage"
-                                    value={computerLanguage}
-                                    onChange={onChangeComputerLanguage}
-                                    className="form-control"
+                                <CreateImageSection 
+                                    title={"* 로드맵 사진"}
+                                    description={"개발 로드맵과 관련된 사진을 업로드 하세요."}
+                                    imageUploading={imageUploading}
+                                    creating={creating}
+                                    handleImage={handleImage}
+                                    image={image}
                                 />
                             </div>
                             <div className="col-md-6">
-                                <div className="text-uppercase-expanded small mb-2 pt-5">
-                                    <h4>* 로드맵 대표 프레임워크</h4>
-                                    <span className="text-muted">해당 개발 분야를 대표하는 프레임워크</span>
-                                </div>
-                                <input 
-                                    type="text"
-                                    name="framework"
-                                    value={framework}
-                                    onChange={onChangeFramework}
-                                    className="form-control"
+
+                                <CreateNameSection
+                                    title={"* 로드맵 이름"}
+                                    description={"개발 분야 이름을 적어주세요"}
+                                    name={name}
+                                    creating={creating}
+                                    onChangeName={onChangeName}
+                                />
+                                <CreateRoadmapFieldSelectTag 
+                                    editMode={false}
+                                    selectedField={FieldLists[0]}
+                                    creating={creating}
+                                    onChangeSelectedField={onChangeSelectedField}
+                                />
+                                <CreateRepresentationInputs 
+                                    computerLanguage={computerLanguage}
+                                    framework={framework}
+                                    onChangeFramework={onChangeFramework}
+                                    onChangeComputerLanguage={onChangeComputerLanguage}
+                                />
+                                <CreateReferences
+                                    title={"* 로드맵 참고 자료"}
+                                    description={"로드맵을 위해 참고 자료를 공유해 주세요"}
+                                    addingReference={addingReference}
+                                    creating={creating}
+                                    references={references}
+                                    setAddingReference={setAddingReference}
                                 />
                             </div>
                         </div>
-                        <CreateSkillTree
-                            title={"* 로드맵 스킬 트리"}
-                            description={"해당 직업을 얻기 위해 필요한 스킬을 추가하세요"}
-                            addingSkill={addingSkill}
-                            deletingSkill={deletingSkill}
-                            loadedSkills={loadedSkills}
-                            onAddSkill={onAddSkill}
-                            setDeletingSkill={setDeletingSkill}
-                            skills={skills}
-                        />
-                        <CreateReferences
-                            title={"* 로드맵 참고 자료"}
-                            description={"로드맵을 위해 참고 자료를 공유해 주세요"}
-                            addingReference={addingReference}
-                            creating={creating}
-                            references={references}
-                            setAddingReference={setAddingReference}
-                        />
+                        <div className="border-top mt-5">
+                            <CreateSkillTree
+                                title={"* 로드맵 스킬 트리"}
+                                description={"해당 직업을 얻기 위해 필요한 스킬을 추가하세요"}
+                                addingSkill={addingSkill}
+                                deletingSkill={deletingSkill}
+                                loadedSkills={loadedSkills}
+                                onAddSkill={onAddSkill}
+                                setDeletingSkill={setDeletingSkill}
+                                skills={skills}
+                            />
+                        </div>
+
                         <div className="mb-2 pt-5">
                             <button className="btn btn-primary w-100" onClick={onClickRoadmap} disabled={creating}>
-                                Create Roadmap
+                                로드맵 추가하기
                             </button>
                         </div>
                     </div>
