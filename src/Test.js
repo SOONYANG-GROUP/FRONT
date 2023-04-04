@@ -25,8 +25,9 @@ const Test = () => {
         const refreshToken = res.data.refreshToken;
         sessionStorage.setItem("accessToken", accessToken);
         sessionStorage.setItem("refreshToken", refreshToken);
-        window.location.replace("/");
       }
+      window.location.replace("/");
+      console.log(res);
       return res;
     } catch (err) {
       console.log(err);

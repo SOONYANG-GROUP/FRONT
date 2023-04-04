@@ -20,7 +20,7 @@ function RegistrationPage() {
       name,
       email,
       password,
-
+      selectedField,
       shortIntroduction,
       selfIntroduction
     );
@@ -36,11 +36,11 @@ function RegistrationPage() {
       selfIntroduction: selfIntroduction,
     };
     console.log(data);
-    // await axios
-    //   .post("http://localhost:8080/users/join", data)
-    //   .then((res) => console.log(res))
-    //   .catch();
-    // window.location.assign("/");
+    try {
+      const res = await axios.post("http://localhost:8080/users/join", data);
+      console.log(res);
+      window.location.assign("/");
+    } catch (e) {}
   };
 
   return (
@@ -92,19 +92,24 @@ function RegistrationPage() {
                   </div>
 
                   <div className="form-floating mb-3">
-                    <div class="form-floating">
+                    <div className="form-floating">
                       <select
-                        class="form-select"
+                        className="form-select"
                         id="floatingSelect"
                         aria-label="Floating label select example"
                         onChange={(e) => setSelectedField(e.target.value)}
+                        value={selectedField || ""}
                       >
                         <option selected>select your field</option>
-                        {FieldLists.map((f) => {
-                          return <option value={f}>{f}</option>;
+                        {FieldLists.map((f, index) => {
+                          return (
+                            <option value={f} key={index}>
+                              {f}
+                            </option>
+                          );
                         })}
                       </select>
-                      <label for="floatingSelect">Works with selects</label>
+                      <label htmlFor="floatingSelect">Works with selects</label>
                     </div>
                   </div>
 

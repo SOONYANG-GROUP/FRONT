@@ -123,6 +123,10 @@ function App() {
     }
   );
 
+  // if (!isLoggedIn) {
+  //   return <>로그인 확인 중 입니다.</>;
+  // }
+
   return (
     <Router>
       <Header isLoggedIn={isLoggedIn} />

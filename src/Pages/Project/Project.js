@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Loading from "../Loading";
 
+import ContentSubmitWarningModalBtn from "../../Components/Modal/ContentSubmitWarningModal";
+import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningModal";
 import ProjectDummyData from "../../DummyData/Project.json";
 import { CommentInput } from "../../Components/Inputs/Textarea";
 import CommentList from "../../Components/List/CommentList";
 import Comments from "../../DummyData/Comment.json";
-import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningModal";
 import axios from "axios";
 const Project = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +21,7 @@ const Project = ({ isLoggedIn }) => {
   const [todoList, setTodoList] = useState([]);
   const [candidates, setCandidates] = useState([]);
   const [resultLink, setResultLink] = useState("");
-
+  const [contents, setContents] = useState("");
   const [discordURL, setDiscordURL] = useState("");
   const [openKakaoURL, setOpenKakaoURL] = useState("");
 
@@ -29,37 +30,29 @@ const Project = ({ isLoggedIn }) => {
 
   const { id } = useParams();
 
-  const [project2, setProject2] = useState();
+  const [buttonTitle, setButtonTitle] = useState("");
 
   useEffect(() => {
-    const fetch = () => {
-      axios
-        .get(`http://localhost:8080/projects/${id}`)
-        .then((res) => {
-          setProject2(res.data);
-          setIsLoading(false);
-
-          return res.data;
-        })
-        .catch((e) => {
-          console.log(e);
-        });
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:8080/projects/${id}`);
+        const projectData = res.data;
+        setProject(projectData);
+        setIsLoading(false);
+        console.log(projectData);
+        if (projectData.projectStatus === "READY") {
+          setButtonTitle("시작하기");
+        } else if (projectData.projectStatus === "RUNNING") {
+          setButtonTitle("종료하기");
+        } else {
+          setButtonTitle("이미 종료된 프로젝트입니다.");
+        }
+      } catch (e) {
+        console.log(e);
+      }
     };
 
-    fetch();
-
-    const getProject = () => {
-      const projectData = ProjectDummyData.project;
-
-      setProject(projectData);
-      setComments(Comments.comment);
-      setTodoList(projectData.todoList);
-      setOpenKakaoURL(projectData.openKakaoURL);
-      setDiscordURL(projectData.discordURL);
-      setCandidates(projectData.candidates);
-      // setCreatingComment(false);
-    };
-    getProject();
+    fetchData();
   }, [id]);
 
   const onChangeComment = (e) => {
@@ -68,6 +61,10 @@ const Project = ({ isLoggedIn }) => {
 
   const onChangeResultLink = (e) => {
     setResultLink(e.target.value);
+  };
+
+  const onChangeContents = (e) => {
+    setContents(e.target.value);
   };
 
   const onChangePageNumber = async (e) => {
@@ -81,8 +78,37 @@ const Project = ({ isLoggedIn }) => {
     await setChangingPage(false);
   };
 
+  const settingBtn = async () => {
+    if (project.projectStatus === "READY") {
+      try {
+        const res = await axios.get(
+          `http://localhost:8081/projects/${id}/start`
+        );
+        console.log(res);
+      } catch (e) {
+        console.error(e);
+      }
+    } else if (project.projectStatus === "RUNNING") {
+      try {
+        const res = await axios.get(`http://localhost:8081/projects/${id}/end`);
+        console.log(res);
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      alert("이미 종료된 프로젝트입니다.");
+    }
+  };
+
   // ********************************************************************************결과물 제출********************************************************************
-  const onSubmitLink = async (e) => {};
+  const onSubmitLink = async (e) => {
+    try {
+      const res = await axios.get(`http://localhost:8081/projects/${id}/end`);
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
   // **************************************************************************************************************************************************************************
   // const onCreateComment = async () => {
   //   await axios
@@ -101,13 +127,20 @@ const Project = ({ isLoggedIn }) => {
   } else {
     return (
       <>
-        <div class="col-lg-8 mx-auto">
-          <div class="text-center mb-10">
-            <div class="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+        <div className="col-lg-8 mx-auto">
+          <div className="text-center mb-10">
+            <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
               사이드 프로젝트
+              {}
+              <button
+                className="btn btn-primary btn-lg ms-3"
+                onClick={settingBtn}
+              >
+                {buttonTitle}
+              </button>
             </div>
-            <h2>{project2.title}</h2>
-            {/* <p class="lead">{project.summaryDescription}</p> */}
+            <h2>{project.title}</h2>
+            {/* <p className="lead">{project.summaryDescription}</p> */}
           </div>
         </div>
 
@@ -154,9 +187,10 @@ const Project = ({ isLoggedIn }) => {
           </li>
         </ul>
         <DetailPage
+          contents={contents}
           isLoggedIn={isLoggedIn}
           changingPage={changingPage}
-          project={project2}
+          project={project}
           resultLink={resultLink}
           pageNumber={pageNumber}
           comment={comment}
@@ -172,6 +206,7 @@ const Project = ({ isLoggedIn }) => {
           onChangeComment={onChangeComment}
           onChangeResultLink={onChangeResultLink}
           // onCreateComment={onCreateComment}
+          onChangeContents={onChangeContents}
         />
       </>
     );
@@ -179,6 +214,7 @@ const Project = ({ isLoggedIn }) => {
 };
 
 const DetailPage = ({
+  contents,
   isLoggedIn,
   isProjectActive,
   candidates,
@@ -197,6 +233,7 @@ const DetailPage = ({
   onChangeResultLink,
   onSubmitLink,
   // onCreateComment,
+  onChangeContents,
 }) => {
   if (changingPage) {
     return <div>Loading...</div>;
@@ -224,6 +261,8 @@ const DetailPage = ({
           onChangeResultLink={onChangeResultLink}
           creatingToDoListEle={creatingToDoListEle}
           onSubmitLink={onSubmitLink}
+          contents={contents}
+          onChangeContents={onChangeContents}
         />
       );
     } else if (pageNumber === 3) {
@@ -249,6 +288,7 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
         .then((res) => {
           setParticipatedUsers(res.data.appliedUserDtos);
           setIsLoading(false);
+          console.log(res);
 
           return res;
         });
@@ -303,8 +343,8 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
           participatedUsers.map((p) => {
             return (
               <>
-                <div class="row gx-5 mb-3 mt-3 justify-contents-center align-items-center">
-                  <div class="col-lg-6">
+                <div className="row gx-5 mb-3 mt-3 justify-contents-center align-items-center">
+                  <div className="col-lg-6">
                     <br />
                     <div className="col-md-8 align-text-center">
                       <div
@@ -355,11 +395,16 @@ const DetailPageTwo = ({
   openKakaoURL,
   onChangeResultLink,
   onSubmitLink,
+  onChangeContents,
+  contents,
 }) => {
   const id = useParams().id;
 
   const [voiceChatUrl, setVoiceChatUrl] = useState();
   const [openChatUrl, setOpenChatUrl] = useState();
+  const [participatedUsers, setParticipatedUsers] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  const [memberId, setMemberId] = useState();
   useEffect(() => {
     const fetch = async () => {
       await axios
@@ -367,15 +412,18 @@ const DetailPageTwo = ({
         .then((res) => {
           setVoiceChatUrl(res.data.voiceChatUrl);
           setOpenChatUrl(res.data.openChatUrl);
+          setParticipatedUsers(res.data.participatedUserDtos);
+          setMemberId(res.data.memberId);
           console.log(res.data);
-          return res;
+          setIsLoading(false);
         });
     };
     fetch();
-
-    console.log(voiceChatUrl);
-    console.log(openChatUrl);
   }, []);
+
+  if (isLoading) {
+    return <></>;
+  }
 
   return (
     <div className="container px-5">
@@ -404,6 +452,54 @@ const DetailPageTwo = ({
           >
             <i className="fa-solid fa-comment"></i> KAKAO
           </a>
+        </div>
+      </div>
+      <div className="text-uppercase-expanded small mb-2 pt-5">
+        <h4>member log</h4>
+        <span className="text-muted">팀원들의 로그입니다.</span>
+        <div className="d-flex flex-column">
+          {participatedUsers.map((p, index) => {
+            if (memberId === p.id) {
+              return (
+                <div className="p-1" key={index}>
+                  <hr />
+                  팀장 : {p.name}
+                  <hr />
+                </div>
+              );
+            } else {
+              return (
+                <div className="p-1" key={index}>
+                  <hr />
+                  분야 : {p.detailField} 이름 : {p.name}
+                  <hr />
+                </div>
+              );
+            }
+          })}
+        </div>
+      </div>
+      <div></div>
+      <div className="text-uppercase-expanded small mb-2 pt-5">
+        <h4>기록하기</h4>
+        <span className="text-muted">로그에 기록할 내용을 적어주세요</span>
+        <hr className="mt-0 mb-3 mt-3" />
+        <div>
+          <div>
+            <input
+              type="text"
+              name="contents"
+              className="form-control"
+              value={contents}
+              onChange={onChangeContents}
+            />
+          </div>
+          <div className="mt-3 mb-3">
+            <ContentSubmitWarningModalBtn
+              resultLink={contents}
+              onSubmitLink={onSubmitLink}
+            />
+          </div>
         </div>
       </div>
       <div className="text-uppercase-expanded small mb-2 pt-5">
@@ -492,14 +588,14 @@ const DetailPageOne = ({
       <div className="text-uppercase-expanded small mb-2 pt-5">
         <h4>의견 & 질문하기</h4>
       </div>
-      <hr class="mt-0 mb-3 mt-3 " />
+      <hr className="mt-0 mb-3 mt-3 " />
       <div className="d-flex flex-row form-floating align-items-center">
         <div className="w-75 pe-2">
           <CommentInput comment={comment} onChangeComment={onChangeComment} />
         </div>
-        <div class="input-group-append">
+        <div className="input-group-append">
           <button
-            class="btn btn-outline-secondary"
+            className="btn btn-outline-secondary"
             type="button"
             onClick={onCreateComment}
           >
@@ -542,20 +638,23 @@ const DetailPageZero = ({ project, isLoggedIn }) => {
 
   return (
     <div>
-      <div class="container px-5">
-        <div class="text-uppercase-expanded small mb-2 pt-5">
+      <div className="container px-5">
+        <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>모집 현황</h4>
         </div>
-        <hr class="mt-0 mb-3 mt-3 " />
-        <div class="row gx-5 mb-3 mt-3">
-          <div class="col-lg-8">
-            <h4 class="mb-0">Support field</h4>
+        <hr className="mt-0 mb-3 mt-3 " />
+        <div className="row gx-5 mb-3 mt-3">
+          <div className="col-lg-8">
+            <h4 className="mb-0">Support field</h4>
             <br />
-            <div class="support-fields">
-              {project.recruitUserDtos.map((p) => {
+            <div className="support-fields">
+              {project.recruitUserDtos.map((p, index) => {
                 console.log(p.detailField);
                 return (
-                  <div className="row support-field mb-3 d-flex flex-row align-items-center">
+                  <div
+                    className="row support-field mb-3 d-flex flex-row align-items-center"
+                    key={index}
+                  >
                     <div className="col-md-3 support-field-label">
                       {p.detailField}
                     </div>
@@ -588,35 +687,35 @@ const DetailPageZero = ({ project, isLoggedIn }) => {
             </div>
           </div>
         </div>
-        <div class="text-uppercase-expanded small mb-2 pt-5">
+        <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>소개</h4>
         </div>
-        <hr class="mt-0 mb-3 mt-3 " />
-        <div class="row gx-5 mb-3 mt-3">
-          <div class="col-lg-8">
-            <h4 class="mb-0">1. 지원동기</h4>
+        <hr className="mt-0 mb-3 mt-3 " />
+        <div className="row gx-5 mb-3 mt-3">
+          <div className="col-lg-8">
+            <h4 className="mb-0">1. 지원동기</h4>
             <p>{project.description}</p>
           </div>
         </div>
-        <div class="text-uppercase-expanded small mb-2 pt-5">
+        <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>기술/언어</h4>
         </div>
-        <hr class="mt-0 mb-3 mt-3 " />
-        <div class="row gx-5 mb-3 mt-3">
-          <div class="col-lg-8">
-            <h4 class="mb-0">구현하는데 필요한 스택</h4>
+        <hr className="mt-0 mb-3 mt-3 " />
+        <div className="row gx-5 mb-3 mt-3">
+          <div className="col-lg-8">
+            <h4 className="mb-0">구현하는데 필요한 스택</h4>
             <br />
             {/* <p>{project.needs}</p> */}
           </div>
         </div>
-        <div class="text-uppercase-expanded small mb-2 pt-5">
+        <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>참고 링크</h4>
         </div>
-        <hr class="mt-0 mb-3 mt-3 " />
-        <div class="row gx-5">
-          <div class="col-lg-8">
-            {project.referenceDtos.map((p) => {
-              return <p>참조링크{p.URL}</p>;
+        <hr className="mt-0 mb-3 mt-3 " />
+        <div className="row gx-5">
+          <div className="col-lg-8">
+            {project.referenceDtos.map((p, index) => {
+              return <p key={index}>참조링크{p.URL}</p>;
             })}
           </div>
         </div>
