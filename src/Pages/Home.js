@@ -68,14 +68,14 @@ const Home = () => {
                 </p>
                 <div className="d-flex flex-column flex-sm-row">
                   <a
-                    className="btn btn-lg btn-soft fw-500 text-primary me-sm-3 mb-3 mb-sm-0"
+                    className="btn btn-lg btn-soft fw-500 text-primary me-sm-3 mb-3 mb-sm-0 animate__animated animate__fadeInUp"
                     href="/projects"
                   >
                     프로젝트 확인하러가기
                     <i className="ms-2" data-feather="arrow-right"></i>
                   </a>
                   <a
-                    className="btn btn-lg btn-primary-soft text-primary fw-500"
+                    className="btn btn-lg btn-primary-soft text-primary fw-500 animate__animated animate__fadeInUp"
                     href="/roadmaps"
                   >
                     로드맵 확인하러가기

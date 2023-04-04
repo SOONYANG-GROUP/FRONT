@@ -91,22 +91,11 @@ const Skill = () => {
           <div className="page-header-ui-content mb-n5">
             <div className="container px-5">
               <div className="row gx-5 justify-content-center align-items-center mt-5 mb-5">
-                <div
-                  className="col-lg-6 aos-init aos-animate"
-                  data-aos="fade-right"
-                >
-                  <h1 className="page-header-ui-title text-center">{skill.name}</h1>
-                  <div className="mb-5 mb-lg-0 text-center">
-                    <a className="me-3" style={{ textDecoration: "none"}} href={`/edit/skill/${skill._id}`}>
-                      <i className="fa-solid fa-pen-to-square"></i> 수정 하기
-                    </a>
-                  </div>
 
-                </div>
                 <div
-                  className="col-lg-6 z-1 aos-init aos-animate"
-                  data-aos="fade-left"
-                >
+                    className="col-lg-4 z-1 aos-init aos-animate"
+                    data-aos="fade-left"
+                  >
                   <div className="device-wrapper mx-auto mb-n15">
                     <div
                       className="device"
@@ -115,17 +104,37 @@ const Skill = () => {
                       data-color="black"
                     >
                       <div className="screen">
-                        <img
-                          className="img-fluid rounded-3"
-                          src={skill.imageSecureUrl}
-                          alt={skill.name}
-                          width="100%"
-                          style={{ height: '400px'}}
-                        />
+                        <div
+                          style={{
+                            background: `url(${skill.imageSecureUrl})`,
+                            height: "350px",
+                            backgroundSize: 'cover',
+                            border: '1px solid white'
+                          }}
+                         className="rounded-3 shadow-lg animate__animated animate__flipInX"></div>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <div
+                  className="col-lg-8 aos-init aos-animate mt-3 animate__animated animate__fadeInDown"
+                  data-aos="fade-right"
+                >
+                  <h1 className="page-header-ui-title text-center">{skill.name}</h1>
+                  <div className="mb-5 mb-lg-0 text-center">
+                    <a className="me-3" style={{ textDecoration: "none"}} href={`/edit/skill/${skill._id}`}>
+                      <i className="fa-solid fa-pen-to-square"></i> 수정 하기
+                    </a>
+                  </div>
+                </div>
+
+
+
+
+
+
+
               </div>
             </div>
           </div>

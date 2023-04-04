@@ -43,10 +43,8 @@ const Profile = ({ isLoggedIn }) => {
     return;
   };
   if (isLoading) {
-    console.log("로딩중입니다.");
     return <Loading />;
   } else {
-    console.log(profile);
     return (
       <>
         <div className="card col-md-6 mb-3 mx-auto position-relative">

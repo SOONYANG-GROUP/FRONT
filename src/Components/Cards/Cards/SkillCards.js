@@ -1,30 +1,21 @@
 import React from "react";
 
+
+
 const SkillCard = ({
     skill
 }) => {
     return(
-        <div className="col-md-4">
-            <a 
-                href={`/skill/${skill._id}`}
-                style={{ textDecoration: "none"}}
-                className="text-black shadow-sm"    
-            >
-                <div className="card mb-4 box-shadow h-100">
-                    <div className="card-body p-5">
-                        <div style={{
-                            width: "45%",
-                            margin: "0 auto"
-                        }}>
-                            <img 
-                                style={{width: "100%"}}
-                                src={skill.imageSecureUrl}
-                                alt={skill.name}
-                            />
-                        </div>
-                        <h3 className="card-text text-center mt-4">{skill.name}</h3>
-                    </div>
-                </div>
+        <div className="col-md-3 animate__animated animate__fadeIn">
+            <a href={`/skill/${skill._id}`}>
+                <div className="card shadow-lg mb-3"
+                    style={{
+                        background: `url(${skill.imageSecureUrl})`,
+                        height: '310px',
+                        backgroundSize: 'cover',
+                        border: '1px solid white'
+                    }}
+                ></div>
             </a>
         </div>
     )

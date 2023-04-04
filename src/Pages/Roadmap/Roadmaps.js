@@ -92,14 +92,14 @@ const Roadmaps = () => {
                 </p>
                 <div className="d-flex flex-column flex-sm-row">
                   <a
-                    className="btn btn-lg btn-primary fw-500 me-sm-3 mb-3 mb-sm-0"
+                    className="btn btn-lg btn-primary fw-500 me-sm-3 mb-3 mb-sm-0 animate__animated animate__fadeInDown"
                     href="/create/roadmap"
                   >
                     로드맵 추가하기
                     <i className="ms-2" data-feather="arrow-right"></i>
                   </a>
                   <a
-                    className="btn btn-lg btn-primary-soft text-primary fw-500"
+                    className="btn btn-lg btn-primary-soft text-primary fw-500 animate__animated animate__fadeInDown"
                     href="/create/skill"
                   >
                      스킬 추가하기

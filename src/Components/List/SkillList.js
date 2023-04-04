@@ -6,7 +6,7 @@ const SkillListElement = ({
     onDeleteSkill
 }) => {
     return(
-        <div className="col-md-4" id={index}>
+        <div className="col-md-3" id={index}>
             <div className="card card-body shadow-sm mb-3" id={index}>
                 <div style={{
                     margin: "0 auto",
