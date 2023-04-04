@@ -34,7 +34,7 @@ import EditProfile from "./Pages/Profile/EditProfile";
 import RegistrationPage from "./Pages/Regist/Registration";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState();
   const [userId, setUserId] = useState();
   const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
@@ -44,14 +44,15 @@ function App() {
       if (sessionStorage.getItem("refreshToken")) {
         setIsLoggedIn(true);
         console.log("로그인 되어 있습니다.");
+        setIsLoading(false);
       } else {
         setIsLoggedIn(false);
         console.log("로그인이 필요합니다.");
         sessionStorage.clear();
+        setIsLoading(false);
       }
     };
     fetch();
-    setIsLoading(false);
   }, [isLoggedIn]);
 
   axios.interceptors.request.use(
@@ -124,9 +125,9 @@ function App() {
     }
   );
 
-  // if (!isLoggedIn) {
-  //   return <>로그인 확인 중 입니다.</>;
-  // }
+  if (isLoggedIn === null) {
+    return <>로그인 확인중입니당</>;
+  }
 
   return (
     <Router>

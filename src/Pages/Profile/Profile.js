@@ -12,7 +12,7 @@ const Profile = ({ isLoggedIn }) => {
     console.log("요청을 보냅니다.");
     if (!isLoggedIn) {
       alert("로그인이 필요합니다.");
-      window.history.go(-1);
+      // window.history.go(-1);
     }
     const fetch = async () => {
       await axios

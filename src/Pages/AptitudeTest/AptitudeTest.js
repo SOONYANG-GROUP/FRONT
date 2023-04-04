@@ -18,13 +18,14 @@ const AptitudeTest = () => {
     {
       role: "user",
       content:
-        "당신은 뻔뻔해야합니다. 질문이 의도와 다르더라도 계속해서 질문해야합니다. 당신은 나에게 재미로 개발자 직군 테스트를 시작합니다. 최대한 대중적이고 재미있게 창의적으로 비전문 용어들로 20자 이상으로 이루어진 질문입니다. 대상자는 코딩과 관련 없는 사람 입니다. 대답은 예 또는 아니요 로 할 수 있는 질문이여야 합니다. 질문 한가지 해주세요. 앞으로 결과를 알려달라고 하기 전까지 질문 이외의 다른 것은 언급 하지 않습니다.이 대화를 항상 기억하세요 ",
+        "당신은 나에게 개발자 직군 테스트를 시작합니다. 개발자 직군에는 해커, 웹개발자, 앱개발자, 빅데이터엔지니어, 인공지능엔지니어 등등 있습니다. 최대한 대중적이고 재미있게 창의적으로 20자 이상으로 이루어진 질문입니다. 질문 한가지 해주세요. 앞으로 결과를 알려달라고 하기 전까지 질문 이외의 다른 것은 언급 하지 않습니다.이 대화를 항상 기억하세요.  질문에 대한 대답은 예 또는 아니요 로 할 수 있는 질문이여야 합니다.",
     },
   ]);
   const [question, setQuestion] = useState(
     "질문은 예 또는 아니요 로 대답해야합니다."
   );
-
+  const [count, setCount] = useState(0);
+  const [maxCount, setMaxCount] = useState(10);
   useEffect(() => {
     const fetch = async () => {
       await axios
@@ -53,7 +54,7 @@ const AptitudeTest = () => {
         {
           role: "user",
           content:
-            "나와 했던 대화 중 처음으로 한 대화를 제외한 대화를 토대로 추천하는 개발자 직군과 이유를 알려줘.어떻게든 연관 시켜서. 100자 이내로",
+            "나와 했던 대화 중 처음으로 한 대화를 제외한 대화를 토대로 웹 개발자를 제외한 추천하는 개발자 직군(해커, 앱개발자, 빅데이터엔지니어, 인공지능엔지니어 등등)을 알려줘. '제가 추천하는 개발자 직군은 000 입니다.' 의 양식에 맞춰서. 다른 말은 필요없어 ",
         },
       ];
 
@@ -83,6 +84,8 @@ const AptitudeTest = () => {
   };
 
   const submitButton = async (e) => {
+    setCount(count + 1);
+    console.log(count);
     const updatedMessage = [
       ...message,
       {
@@ -128,7 +131,9 @@ const AptitudeTest = () => {
   };
 
   const onChangeInput = async (e) => {
-    await setAnswer(`${e.target.value}, 다음 질문 해주세요.`);
+    await setAnswer(
+      ` ${e.target.value}. 좋은 질문이였어요. 다음 질문 해주세요. 질문에 대한 대답은 예 또는 아니요 로 할 수 있는 질문이여야 합니다. `
+    );
 
     console.log(message);
   };
@@ -169,6 +174,9 @@ const AptitudeTest = () => {
                 >
                   <div className="container  rounded-pill p-5">
                     <div className="col-md-10 mx-auto text-center">
+                      <div>
+                        {count}/{maxCount}
+                      </div>
                       <h2 className="mb-5">{question}</h2>
                       {endTest ? (
                         <></>
