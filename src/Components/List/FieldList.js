@@ -31,7 +31,7 @@ const FieldListElement = ({ index, field, onDeleteField }) => {
 
 const FieldList = ({ fields, theNumberOfRemain, setTheNumberOfRemain }) => {
   const [deleting, setDeleting] = useState(false);
-  console.log(fields);
+
   //const onDeleteField = async (e) => {
   //  e.preventDefault();
   //  await setDeleting(true);

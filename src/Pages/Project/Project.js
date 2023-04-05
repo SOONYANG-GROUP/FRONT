@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../Loading";
 
-import ContentSubmitWarningModalBtn from "../../Components/Modal/ContentSubmitWarningModal";
 import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningModal";
 import ProjectDummyData from "../../DummyData/Project.json";
 import { CommentInput } from "../../Components/Inputs/Textarea";
@@ -65,6 +64,7 @@ const Project = ({ isLoggedIn }) => {
 
   const onChangeContents = (e) => {
     setContents(e.target.value);
+    console.log(contents);
   };
 
   const onChangePageNumber = async (e) => {
@@ -103,12 +103,13 @@ const Project = ({ isLoggedIn }) => {
   // ********************************************************************************결과물 제출********************************************************************
   const onSubmitLink = async (e) => {
     try {
-      const res = await axios.get(`http://localhost:8081/projects/${id}/end`);
+      const res = await axios.get(`http://localhost:8080/projects/members/`);
       console.log(res);
     } catch (e) {
       console.error(e);
     }
   };
+
   // **************************************************************************************************************************************************************************
   // const onCreateComment = async () => {
   //   await axios
@@ -232,6 +233,7 @@ const DetailPage = ({
   creatingToDoListEle,
   onChangeResultLink,
   onSubmitLink,
+  onSubmitContent,
   // onCreateComment,
   onChangeContents,
 }) => {
@@ -261,6 +263,7 @@ const DetailPage = ({
           onChangeResultLink={onChangeResultLink}
           creatingToDoListEle={creatingToDoListEle}
           onSubmitLink={onSubmitLink}
+          onSubmitContent={onSubmitContent}
           contents={contents}
           onChangeContents={onChangeContents}
         />
@@ -298,24 +301,32 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
 
   const onClickPermitBtn = async (memberId) => {
     await axios
-      .post(`http://localhost:8080/projects/${id}/permit?memberId=${memberId}`)
+      .post(
+        `http://localhost:8080/projects/${id}/permit?memberId=${memberId}`,
+        null
+      )
       .then((res) => {
         return res;
       })
       .catch((e) => {
         return e;
       });
+    window.location.reload();
   };
 
   const onClickRejectBtn = async (memberId) => {
     await axios
-      .post(`http://localhost:8080/projects/${id}/reject?memberId=${memberId}`)
+      .post(
+        `http://localhost:8080/projects/${id}/reject?memberId=${memberId}`,
+        null
+      )
       .then((res) => {
         return res;
       })
       .catch((e) => {
         return e;
       });
+    window.location.reload();
   };
 
   if (isLoading) {
@@ -395,6 +406,7 @@ const DetailPageTwo = ({
   openKakaoURL,
   onChangeResultLink,
   onSubmitLink,
+  onSubmitContent,
   onChangeContents,
   contents,
 }) => {
@@ -405,6 +417,7 @@ const DetailPageTwo = ({
   const [participatedUsers, setParticipatedUsers] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [memberId, setMemberId] = useState();
+
   useEffect(() => {
     const fetch = async () => {
       await axios
@@ -413,6 +426,7 @@ const DetailPageTwo = ({
           setVoiceChatUrl(res.data.voiceChatUrl);
           setOpenChatUrl(res.data.openChatUrl);
           setParticipatedUsers(res.data.participatedUserDtos);
+          console.log(res.data.memberId);
           setMemberId(res.data.memberId);
           console.log(res.data);
           setIsLoading(false);
@@ -420,6 +434,10 @@ const DetailPageTwo = ({
     };
     fetch();
   }, []);
+
+  const moveProfile = (id) => {
+    window.location.assign(`http://localhost:3000/users/profile/${id}`);
+  };
 
   if (isLoading) {
     return <></>;
@@ -458,72 +476,84 @@ const DetailPageTwo = ({
         <h4>member log</h4>
         <span className="text-muted">팀원들의 로그입니다.</span>
         <div className="d-flex flex-column">
-          {participatedUsers.map((p, index) => {
-            if (memberId === p.id) {
-              return (
-                <div className="p-1" key={index}>
-                  <hr />
-                  팀장 : {p.name}
-                  <hr />
-                </div>
-              );
-            } else {
-              return (
-                <div className="p-1" key={index}>
-                  <hr />
-                  분야 : {p.detailField} 이름 : {p.name}
-                  <hr />
-                </div>
-              );
-            }
-          })}
+          {participatedUsers &&
+            participatedUsers.map((p, index) => {
+              if (p.status === "MANAGER") {
+                return (
+                  <div className="p-1" key={index}>
+                    <hr />
+                    팀장 : {p.name}
+                    <div>{p.url}</div>
+                    <hr />
+                  </div>
+                );
+              } else {
+                return (
+                  <div className="p-1" key={index}>
+                    <hr />
+
+                    <h4
+                      onClick={() => {
+                        moveProfile(p.id);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      분야 : {p.detailField} 이름 : {p.name}
+                    </h4>
+
+                    <div>
+                      링크 :
+                      <a
+                        href={p.url}
+                        style={{ textDecoration: "none", color: "black" }}
+                      >
+                        {p.url}
+                      </a>
+                    </div>
+                    <div>설명 : {p.description}</div>
+                    <hr />
+                  </div>
+                );
+              }
+            })}
         </div>
       </div>
       <div></div>
-      <div className="text-uppercase-expanded small mb-2 pt-5">
-        <h4>기록하기</h4>
-        <span className="text-muted">로그에 기록할 내용을 적어주세요</span>
-        <hr className="mt-0 mb-3 mt-3" />
-        <div>
-          <div>
-            <input
-              type="text"
-              name="contents"
-              className="form-control"
-              value={contents}
-              onChange={onChangeContents}
-            />
-          </div>
-          <div className="mt-3 mb-3">
-            <ContentSubmitWarningModalBtn
-              resultLink={contents}
-              onSubmitLink={onSubmitLink}
-            />
-          </div>
-        </div>
-      </div>
+
       <div className="text-uppercase-expanded small mb-2 pt-5">
         <h4>결과물 링크 제출</h4>
         <span className="text-muted">
           로그에 기록할 결과물 링크 제출해 주세요.
         </span>
         <hr className="mt-0 mb-3 mt-3" />
-        <div>
-          <div>
+        <div className="d-flex flex-column">
+          <div className="">
             <input
               type="text"
               name="resultLink"
-              className="form-control"
+              className="form-control p-2"
               value={resultLink}
               onChange={onChangeResultLink}
+              placeholder="Link를 입력하세요"
             />
           </div>
-          <div className="mt-3 mb-3">
-            <LinkSubmitWarningModalBtn
-              resultLink={resultLink}
-              onSubmitLink={onSubmitLink}
+          <div className="">
+            <input
+              type="text"
+              name="contents"
+              className="form-control p-3"
+              value={contents}
+              onChange={onChangeContents}
+              placeholder="설명을 추가하세요"
             />
           </div>
+        </div>
+        <div className="mt-3 mb-3">
+          <LinkSubmitWarningModalBtn
+            resultLink={resultLink}
+            onSubmitLink={onSubmitLink}
+            contents={contents}
+          />
         </div>
       </div>
     </div>
@@ -552,17 +582,14 @@ const DetailPageOne = ({
         setComment2(res.data.commentDtos);
         setIsLoading(false);
         setCreatingComment(false);
-        // res.data.commentDtos.map((res) => {
-        //   console.log(res.commentId);
-        //   setComment2(res.data.commentDtos);
-        //   return res.commentId;
-        // });
+
         return res;
       })
       .catch((e) => {
         return e;
       });
   };
+
   const onCreateComment = async () => {
     await axios
       .post(`http://localhost:8080/projects/${id}/comment`, { comment })
@@ -662,7 +689,7 @@ const DetailPageZero = ({ project, isLoggedIn }) => {
                       {p.currentRecruit}/{p.maxRecruit}
                     </div>
                     <div className="col-md-3">
-                      {p.currentRecruit === p.limit ? (
+                      {p.currentRecruit >= p.maxRecruit ? (
                         <button
                           type="button"
                           className="btn btn-secondary btn-sm"

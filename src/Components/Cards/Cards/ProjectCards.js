@@ -2,21 +2,21 @@ import React, { useEffect } from "react";
 import { useState, useMemo } from "react";
 const ProjectCard = React.memo(({ project }) => {
   //********************************************************프로젝트 시작시간, 남은 모집 시간 계산********************************************************
-
+  console.log(project.title);
   // Set the recruitment date
+  const testDate = new Date(2021, 11, 23);
+  console.log(testDate, "테스트 날짜입니다.");
+
   const recruitmentDate = new Date(
     project.recruitmentDate[0],
     project.recruitmentDate[1] - 1,
-    project.recruitmentDate[2],
-    project.recruitmentDate[3],
-    project.recruitmentDate[4],
-    project.recruitmentDate[5],
-    project.recruitmentDate[6]
+    project.recruitmentDate[2]
   );
-
+  console.log(recruitmentDate);
+  console.log(`${recruitmentDate} recruitmentDate Time`);
   // Get the current date
   const currentDate = new Date();
-
+  console.log(`${currentDate} currentTimeDate time`);
   // Calculate the time difference in milliseconds
   const timeDiff = recruitmentDate.getTime() - currentDate.getTime();
 

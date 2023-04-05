@@ -82,7 +82,7 @@ function App() {
       } = error;
 
       if (status === 401) {
-        console.log("401");
+        console.log(config);
         const originalRequest = config;
 
         const refreshToken = await sessionStorage.getItem("refreshToken");
@@ -165,7 +165,7 @@ function App() {
           element={<CreateSkill isLoggedIn={isLoggedIn} />}
         />
         <Route
-          path="/users/profile"
+          path="/users/profile/:id"
           element={<Profile isLoggedIn={isLoggedIn} />}
         />
         <Route

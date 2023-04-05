@@ -1,6 +1,7 @@
 import React from "react";
-
-const LinkSubmitWarningModalBtn = ({ resultLink, onSubmitLink }) => {
+import axios from "axios";
+import { useParams } from "react-router";
+const LinkSubmitWarningModalBtn = ({ resultLink, onSubmitLink, contents }) => {
   return (
     <>
       <button
@@ -15,12 +16,34 @@ const LinkSubmitWarningModalBtn = ({ resultLink, onSubmitLink }) => {
       <LinkSubmitWarningModal
         resultLink={resultLink}
         onSubmitLink={onSubmitLink}
+        contents={contents}
       />
     </>
   );
 };
 
-const LinkSubmitWarningModal = ({ resultLink, onSubmitLink }) => {
+const LinkSubmitWarningModal = ({ resultLink, onSubmitLink, contents }) => {
+  const id = useParams().id;
+
+  const onSubmitLink2 = async (e) => {
+    let data = {
+      url: resultLink,
+      description: contents,
+    };
+    console.log(data);
+
+    try {
+      const res = await axios.post(
+        `http://localhost:8080/projects/${id}/members/edit`,
+        data
+      );
+      console.log(res);
+    } catch (e) {
+      console.error(e);
+    }
+    window.location.reload();
+  };
+
   return (
     <div
       className="modal fade"
@@ -48,6 +71,7 @@ const LinkSubmitWarningModal = ({ resultLink, onSubmitLink }) => {
                 <i className="fa-solid fa-triangle-exclamation"></i>
               </h1>
             </div>
+
             <div className="text-center">
               <p>아래 링크를 제출하면 더 이상 수정이 불가능합니다.</p>
               <p className="text-muted">{resultLink}</p>
@@ -62,7 +86,11 @@ const LinkSubmitWarningModal = ({ resultLink, onSubmitLink }) => {
             >
               <i className="fa-solid fa-x"></i> 취소
             </button>
-            <button type="button" className="btn btn-primary w-100">
+            <button
+              type="button"
+              className="btn btn-primary w-100"
+              onClick={onSubmitLink2}
+            >
               <i className="fa-solid fa-check"></i> 제출
             </button>
           </div>

@@ -8,7 +8,7 @@ const JWTest = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/jwttest")
+      .get("http://localhost:8080/jwt-test")
       .then((res) => {
         console.log(res);
         return res;

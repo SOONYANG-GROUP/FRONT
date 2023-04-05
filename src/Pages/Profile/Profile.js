@@ -3,20 +3,21 @@ import Loading from "../Loading";
 import ProfileDummyData from "../../DummyData/Profile.json";
 import backgroundImg from "../../assets/images/BackGround.png";
 import axios from "axios";
+
+import { useParams } from "react-router-dom";
+
 const Profile = ({ isLoggedIn }) => {
   const [userId, setUserid] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState(null);
+  const { id } = useParams();
 
   useEffect(() => {
     console.log("요청을 보냅니다.");
-    if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
-      // window.history.go(-1);
-    }
+    console.log(id);
     const fetch = async () => {
       await axios
-        .get("http://localhost:8080/users/profile")
+        .get(`http://localhost:8080/users/profile/${id}`)
         .then((res) => {
           console.log(res);
           setProfile(res.data);

@@ -77,7 +77,7 @@ const Test = () => {
             <hr className="my-4" />
             <div className="text-center">
               <span className="text-muted">Don't have an account?</span>
-              <a href="/" className="ms-1">
+              <a href="/registration" className="ms-1">
                 Sign up
               </a>
             </div>
