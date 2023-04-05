@@ -1,6 +1,6 @@
 import React from "react";
 
-const LinkSubmitWarningModalBtn = ({ resultLink, onSubmitLink }) => {
+const ContentSubmitWarningModalBtn = ({ resultLink, onSubmitLink }) => {
   return (
     <>
       <button
@@ -10,9 +10,9 @@ const LinkSubmitWarningModalBtn = ({ resultLink, onSubmitLink }) => {
         data-bs-toggle="modal"
         data-bs-target="#exampleModal4"
       >
-        링크 제출하기
+        기록 제출하기
       </button>
-      <LinkSubmitWarningModal
+      <ContentSubmitWarningModal
         resultLink={resultLink}
         onSubmitLink={onSubmitLink}
       />
@@ -20,7 +20,7 @@ const LinkSubmitWarningModalBtn = ({ resultLink, onSubmitLink }) => {
   );
 };
 
-const LinkSubmitWarningModal = ({ resultLink, onSubmitLink }) => {
+const ContentSubmitWarningModal = ({ resultLink, onSubmitLink }) => {
   return (
     <div
       className="modal fade"
@@ -33,7 +33,7 @@ const LinkSubmitWarningModal = ({ resultLink, onSubmitLink }) => {
         <div className="modal-content">
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="exampleModalLabel">
-              결과물 링크 제출
+              기록 제출
             </h1>
             <button
               type="button"
@@ -49,7 +49,7 @@ const LinkSubmitWarningModal = ({ resultLink, onSubmitLink }) => {
               </h1>
             </div>
             <div className="text-center">
-              <p>아래 링크를 제출하면 더 이상 수정이 불가능합니다.</p>
+              <p>아래 내용를 제출하면 더 이상 수정이 불가능합니다.</p>
               <p className="text-muted">{resultLink}</p>
               <p>링크 제출 링크가 맞습니까?</p>
             </div>
@@ -72,4 +72,4 @@ const LinkSubmitWarningModal = ({ resultLink, onSubmitLink }) => {
   );
 };
 
-export default LinkSubmitWarningModalBtn;
+export default ContentSubmitWarningModalBtn;
