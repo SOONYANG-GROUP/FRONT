@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 
 //const backendURLForSocket = "http://localhost:5000";
-const testBackendURLForSocket = "https://puny-socks-occur-39-127-110-132.loca.lt/";
+const testBackendURLForSocket = "https://tall-geese-speak-39-127-110-132.loca.lt";
 
 let roomName = ""
 let myStream = {};
