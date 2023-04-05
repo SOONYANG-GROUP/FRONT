@@ -33,6 +33,8 @@ import JWTest from "./Pages/JWTest";
 import EditProfile from "./Pages/Profile/EditProfile";
 import RegistrationPage from "./Pages/Regist/Registration";
 
+import VideoTest from "./Pages/VideoTest";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [userId, setUserId] = useState();
@@ -188,6 +190,8 @@ function App() {
         <Route path="/jwtest" element={<JWTest />} />
         <Route path="/editProfile/" element={<EditProfile />} />
         <Route path="/registration/" element={<RegistrationPage />} />
+
+        <Route path="/video/test/:id" element={<VideoTest />} />
       </Routes>
     </Router>
   );
