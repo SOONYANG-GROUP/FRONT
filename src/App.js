@@ -183,6 +183,8 @@ function App() {
         <Route path="/jwtest" element={<JWTest />} />
         <Route path="/editProfile/" element={<EditProfile />} />
         <Route path="/registration/" element={<RegistrationPage />} />
+
+        <Route path="/video/test/:id" />
       </Routes>
     </Router>
   );
