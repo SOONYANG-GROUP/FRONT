@@ -3,12 +3,13 @@ import React, { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 
-const backendURLForSocket = "http://localhost:5000";
+//const backendURLForSocket = "http://localhost:5000";
+const testBackendURLForSocket = "https://thin-wings-draw-39-127-110-132.loca.lt";
 
 let roomName = ""
 let myStream = {};
 let myPeerConnection = {};
-const socket = io.connect(backendURLForSocket);
+const socket = io.connect(testBackendURLForSocket);
 
 
 const VideoTest = () => {
