@@ -1,7 +1,9 @@
+import io from "socket.io-client";
 import React, { useRef, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 
-const backendURLForSocket = ""
+const backendURLForSocket = "http://localhost:5000";
 
 let roomName = ""
 let myStream = {};
@@ -12,13 +14,13 @@ const socket = io.connect(backendURLForSocket);
 const VideoTest = () => {
     const [ roomNameTerm, setRoomNameTerm ] = useState("");
     const [ enterRoom, setEnterRoom ] = useState(false);
-    const [ uploadingCameraOptions, setUploadingCameraOptions ] = useState(true);
     const [ isMute, setIsMute ] = useState(false);
-    const [ cameraOptions, setCameraOptions ] = useState([]);
     const [ isCameraOn, setIsCameraOn ] = useState(true);
-    
+
     const peerVideoRef = useRef(null);
     const videoRef = useRef(null);
+
+    const id = useParams().id;
 
     useEffect(() => {
         // A
@@ -55,7 +57,6 @@ const VideoTest = () => {
     const GetMedia = async () => {
       try
       {
-        await GetCameras();
         myStream = await navigator.mediaDevices.getUserMedia({
           audio: true,
           video: true
@@ -73,24 +74,6 @@ const VideoTest = () => {
     }
 
 
-    const GetCameras = async () => {
-      try
-      {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const cameras = devices.filter(device => device.kind === "videoinput");
-        cameras.forEach((camera) => {
-          cameraOptions.push({
-            _id: camera.deviceId,
-            label: camera.label
-          })
-        });
-        setUploadingCameraOptions(false);
-      }
-      catch(e)
-      {
-        console.log(e);
-      }
-    }
 
     const onChangeIsMute = (e) => {
       videoRef.current.srcObject.getAudioTracks().forEach((track) => (
@@ -106,15 +89,11 @@ const VideoTest = () => {
       setIsCameraOn(!isCameraOn);
     }
 
-    const onChangeRoomNameTerm = (e) => {
-      setRoomNameTerm(e.target.value);
-    }
-
     const onSubmit = async (e) => {
       e.preventDefault();
       await initCall();
-      socket.emit("join_room", roomNameTerm);
-      roomName = roomNameTerm;
+      socket.emit("join_room", id);
+      roomName = id;
       setRoomNameTerm(""); 
     }
 
@@ -172,17 +151,6 @@ const VideoTest = () => {
           <button onClick={onChangeIsCameraOn}>
             {isCameraOn ? ("Camera OFF") : ("Camera On")}
           </button>
-          <select>
-            {uploadingCameraOptions ? (<></>) : (<>
-              {cameraOptions.map((cameraOption, index) => {
-              return(
-                <option key={index}> 
-                  {cameraOption.label}
-                </option>
-              )
-            })}
-            </>)}
-        </select>
       </div>
       )
     }
@@ -191,20 +159,9 @@ const VideoTest = () => {
       return(
           <div className="container">
             <form onSubmit={onSubmit}>
-              <div>
-                Welcome
-                <div>
-                  <input 
-                    name="roomNameTerm"
-                    value={roomNameTerm}
-                    onChange={onChangeRoomNameTerm}
-                    placeholder="room name"
-                  />
-                </div>
                 <button>
-                  Enter Room
+                  들어가기
                 </button>
-              </div>
             </form>
           </div>
       );
