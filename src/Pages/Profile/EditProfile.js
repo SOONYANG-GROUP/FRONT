@@ -22,6 +22,7 @@ const EditProfile = () => {
     } catch (error) {
       console.error(error);
     }
+    // window.history.go(-1);
   };
 
   return (

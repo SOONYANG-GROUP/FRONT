@@ -78,19 +78,21 @@ const Project = ({ isLoggedIn }) => {
     await setChangingPage(false);
   };
 
-  const settingBtn = async () => {
-    if (project.projectStatus === "READY") {
+  const settingBtn = async (e) => {
+    console.log(project.projectStatus);
+    console.log(project.projectStatus == "READY");
+    if (project.projectStatus == "READY") {
       try {
         const res = await axios.get(
-          `http://localhost:8081/projects/${id}/start`
+          `http://localhost:8080/projects/${id}/start`
         );
         console.log(res);
       } catch (e) {
         console.error(e);
       }
-    } else if (project.projectStatus === "RUNNING") {
+    } else if (project.projectStatus == "RUNNING") {
       try {
-        const res = await axios.get(`http://localhost:8081/projects/${id}/end`);
+        const res = await axios.get(`http://localhost:8080/projects/${id}/end`);
         console.log(res);
       } catch (e) {
         console.error(e);

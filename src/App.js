@@ -171,6 +171,10 @@ function App() {
           element={<Profile isLoggedIn={isLoggedIn} />}
         />
         <Route
+          path="/users/profile/"
+          element={<Profile isLoggedIn={isLoggedIn} />}
+        />
+        <Route
           path="/edit/skill/:id"
           element={<EditSkill isLoggedIn={isLoggedIn} />}
         />

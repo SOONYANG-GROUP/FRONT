@@ -16,18 +16,33 @@ const Profile = ({ isLoggedIn }) => {
     console.log("요청을 보냅니다.");
     console.log(id);
     const fetch = async () => {
-      await axios
-        .get(`http://localhost:8080/users/profile/${id}`)
-        .then((res) => {
-          console.log(res);
-          setProfile(res.data);
-          setUserid(res.data.id);
-          setIsLoading(false);
-          return res;
-        })
-        .catch((e) => {
-          return e;
-        });
+      if (id) {
+        await axios
+          .get(`http://localhost:8080/users/profile/${id}`)
+          .then((res) => {
+            console.log(res);
+            setProfile(res.data);
+            setUserid(res.data.id);
+            setIsLoading(false);
+            return res;
+          })
+          .catch((e) => {
+            return e;
+          });
+      } else {
+        await axios
+          .get(`http://localhost:8080/users/profile`)
+          .then((res) => {
+            console.log(res);
+            setProfile(res.data);
+            setUserid(res.data.id);
+            setIsLoading(false);
+            return res;
+          })
+          .catch((e) => {
+            return e;
+          });
+      }
     };
 
     const getProfile = () => {
