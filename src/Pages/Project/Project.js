@@ -493,7 +493,10 @@ const DetailPageTwo = ({
                   </div>
                 );
               } else {
-                let descriptions = p.description.split("`");
+                let descriptions = null;
+                if (p.description !== null) {
+                  let descriptions = p.description.split("`");
+                }
                 return (
                   <div className="p-1" key={index}>
                     <hr />
@@ -522,9 +525,13 @@ const DetailPageTwo = ({
                     <div>
                       <h6>설명</h6>
                       <h6>
-                        {descriptions.map((d, index) => {
-                          return <div key={index}>{d}</div>;
-                        })}
+                        {descriptions ? (
+                          descriptions.map((d, index) => {
+                            return <div key={index}>{d}</div>;
+                          })
+                        ) : (
+                          <></>
+                        )}
                       </h6>
                     </div>
                     <hr />

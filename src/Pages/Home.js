@@ -13,48 +13,58 @@ const Home = () => {
   const [userCounter, setUserCounter] = useState();
   const [runningProject, setRunningProject] = useState();
   const [recruitingProject, setRecruitingProject] = useState();
-
+  const [recruitProject, setRecruitProject] = useState();
   useEffect(() => {
-    const fetchCount = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/projects");
-        const countDto = response.data.countDto;
-        const counts = countDto.reduce(
-          (acc, c) => {
-            if (c.status === "READY") {
-              acc.recruiting += c.count;
-            } else if (c.status === "RUNNING") {
-              acc.running += c.count;
+        const { data } = await axios.get("http://localhost:8080/projects");
+        const { countDto, countUser, homeCardDtos } = data;
+
+        const projectCounts = countDto.reduce(
+          (acc, { status, count }) => {
+            if (status === "READY") {
+              acc.recruiting += count;
+            } else if (status === "RUNNING") {
+              acc.running += count;
             }
             return acc;
           },
           { recruiting: 0, running: 0 }
         );
-        setRecruitingProject(counts.recruiting);
-        setRunningProject(counts.running);
-        setUserCounter(response.data.countUser);
-        setProjects2(response.data.homeCardDtos);
+
+        setRecruitingProject(projectCounts.recruiting);
+        setRunningProject(projectCounts.running);
+        setUserCounter(countUser);
+        setProjects2(homeCardDtos);
+        setRecruitProject(
+          projects2?.filter((item) => item.status === "READY") || []
+        );
         setIsLoading(false);
       } catch (error) {
-        console.log(error);
+        console.error(error);
         setIsLoading(false);
       }
     };
-    fetchCount();
+    fetchData();
   }, []);
-
+  const categorizeProjects = () => {
+    setRecruitProject(
+      projects2?.filter((item) => item.status === "READY") || []
+    );
+  };
   useEffect(() => {
     setIsLoading(true);
     const fetch = async () => {
       await setProjects(ProjectsDummyData.projects);
       await setIsLoading(false);
     };
+    categorizeProjects();
     fetch();
-  }, []);
+  }, [projects2]);
 
   if (isLoading) {
     return <Loading />;
-  } else if (!isLoading) {
+  } else if (!isLoading && recruitProject) {
     return (
       <>
         <div className="page-header-ui-content pt-5">
@@ -109,7 +119,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <ProjectCards projects={projects2} />
+          <ProjectCards projects={recruitProject} />
         </section>
 
         <CurrentSituation
