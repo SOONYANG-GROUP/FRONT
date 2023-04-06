@@ -15,7 +15,7 @@ const Projects = ({ isLoggedIn }) => {
   const [projects2, setProjects2] = useState();
   const [recruitingProjects, setRecruitingProject] = useState([]);
   const [runningProjects, setRunningProjects] = useState([]);
-
+  const [endProjects, setEndProjects] = useState([]);
   const categorizeProjects = () => {
     setRecruitingProject(
       projects2?.filter((item) => item.status === "READY") || []
@@ -23,6 +23,7 @@ const Projects = ({ isLoggedIn }) => {
     setRunningProjects(
       projects2?.filter((item) => item.status === "RUNNING") || []
     );
+    setEndProjects(projects2?.filter((item) => item.status === "END") || []);
   };
 
   useEffect(() => {
@@ -127,6 +128,22 @@ const Projects = ({ isLoggedIn }) => {
             </div>
           </div>
           <ProjectCards projects={runningProjects} />
+        </section>
+        <section className="bg-light py-10" id="explore">
+          <div className="container px-5">
+            <div className="row gx-5 justify-content-center">
+              <div className="col-lg-8">
+                <div className="text-center mb-10">
+                  <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+                    종료된 프로젝트입니다.
+                  </div>
+                  <h2>완료된 프로젝트</h2>
+                  <p className="lead">프로젝트가 완료되었습니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ProjectCards projects={endProjects} />
         </section>
       </div>
     );
