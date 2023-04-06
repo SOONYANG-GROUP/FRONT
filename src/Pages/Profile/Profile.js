@@ -82,7 +82,7 @@ const Profile = ({ isLoggedIn }) => {
           />
           <div className="card-body">
             <h3 className="card-title text-center fw-bold">{profile.name}</h3>
-            <p className="card-text text-center text-muted">설명란</p>
+            <p className="card-text text-center text-muted"></p>
           </div>
         </div>
 

@@ -419,6 +419,7 @@ const DetailPageTwo = ({
   const [participatedUsers, setParticipatedUsers] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [memberId, setMemberId] = useState();
+  const [projectStatus, setProjectStatus] = useState();
 
   useEffect(() => {
     const fetch = async () => {
@@ -431,6 +432,7 @@ const DetailPageTwo = ({
           console.log(res.data.memberId);
           setMemberId(res.data.memberId);
           console.log(res.data);
+          setProjectStatus(res.data.projectStatus);
           setIsLoading(false);
         });
     };
@@ -552,6 +554,7 @@ const DetailPageTwo = ({
         </div>
         <div className="mt-3 mb-3">
           <LinkSubmitWarningModalBtn
+            projectStatus={projectStatus}
             resultLink={resultLink}
             onSubmitLink={onSubmitLink}
             contents={contents}
