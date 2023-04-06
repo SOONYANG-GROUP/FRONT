@@ -10,7 +10,6 @@ const LinkSubmitWarningModalBtn = ({
   return (
     <>
       <button
-        disabled={resultLink === "" ? true : false}
         type="button"
         className="btn btn-primary w-100"
         data-bs-toggle="modal"

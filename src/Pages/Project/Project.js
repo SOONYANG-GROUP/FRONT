@@ -135,7 +135,6 @@ const Project = ({ isLoggedIn }) => {
           <div className="text-center mb-10">
             <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
               사이드 프로젝트
-              {}
               <button
                 className="btn btn-primary btn-lg ms-3"
                 onClick={settingBtn}
@@ -421,6 +420,7 @@ const DetailPageTwo = ({
   const [isLoading, setIsLoading] = useState(true);
   const [memberId, setMemberId] = useState();
   const [projectStatus, setProjectStatus] = useState();
+  const [descriptions, setdescriptions] = useState("");
 
   useEffect(() => {
     const fetch = async () => {
@@ -493,6 +493,7 @@ const DetailPageTwo = ({
                   </div>
                 );
               } else {
+                let descriptions = p.description.split("`");
                 return (
                   <div className="p-1" key={index}>
                     <hr />
@@ -507,15 +508,25 @@ const DetailPageTwo = ({
                     </h4>
 
                     <div>
-                      링크 :
+                      <div className="mb-1">
+                        <h6>링크</h6>
+                      </div>
                       <a
                         href={p.url}
+                        target="!_blank"
                         style={{ textDecoration: "none", color: "black" }}
                       >
-                        {p.url}
+                        <h5>{p.url}</h5>
                       </a>
                     </div>
-                    <div>설명 : {p.description}</div>
+                    <div>
+                      <h6>설명</h6>
+                      <h6>
+                        {descriptions.map((d, index) => {
+                          return <div key={index}>{d}</div>;
+                        })}
+                      </h6>
+                    </div>
                     <hr />
                   </div>
                 );

@@ -14,7 +14,6 @@ const Profile = ({ isLoggedIn }) => {
 
   useEffect(() => {
     console.log("요청을 보냅니다.");
-    console.log(id);
     const fetch = async () => {
       if (id) {
         await axios
@@ -71,7 +70,7 @@ const Profile = ({ isLoggedIn }) => {
             style={{ height: "12rem" }}
           />
           <img
-            src="https://fs.jtbc.co.kr/prog/drama/rebornrich/Img/site/ProgInfo/202211100323537197.jpg"
+            src="https://cdn-icons-png.flaticon.com/512/25/25657.png"
             className="rounded-circle position-absolute top-50 start-50 translate-middle"
             style={{
               width: "120px",
@@ -108,7 +107,8 @@ const Profile = ({ isLoggedIn }) => {
               </h4>
             </div>
             <hr className="mt-0 mb-3 mt-3 " />
-            {/* {profile[0].logs.map((log, index) => {
+
+            {profile.projectGroupDtos.map((log, index) => {
               return (
                 <div className="card card-body mb-3">
                   <span>
@@ -117,7 +117,7 @@ const Profile = ({ isLoggedIn }) => {
                   </span>
                 </div>
               );
-            })} */}
+            })}
           </div>
         </div>
       </>
