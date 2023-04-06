@@ -1,27 +1,42 @@
 import React, { useEffect } from "react";
 import { useState, useMemo } from "react";
+
 const ProjectCard = React.memo(({ project }) => {
   //********************************************************프로젝트 시작시간, 남은 모집 시간 계산********************************************************
-  console.log(project.title);
+  // console.log(project.title);
   // Set the recruitment date
-  const testDate = new Date(2021, 11, 23);
-  console.log(testDate, "테스트 날짜입니다.");
-
+  // const testDate = new Date(2021, 11, 23);
+  // console.log(testDate, "테스트 날짜입니다.");
   const recruitmentDate = new Date(
     project.recruitmentDate[0],
     project.recruitmentDate[1] - 1,
     project.recruitmentDate[2]
   );
-  console.log(recruitmentDate);
-  console.log(`${recruitmentDate} recruitmentDate Time`);
+  // console.log(recruitmentDate);
+  // console.log(`${recruitmentDate} recruitmentDate Time`);
   // Get the current date
   const currentDate = new Date();
-  console.log(`${currentDate} currentTimeDate time`);
+  // console.log(`${currentDate} currentTimeDate time`);
   // Calculate the time difference in milliseconds
-  const timeDiff = recruitmentDate.getTime() - currentDate.getTime();
+  const starttimeDiff = recruitmentDate.getTime() - currentDate.getTime();
 
   // Convert milliseconds to days
-  const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+  const startdaysLeft = Math.ceil(starttimeDiff / (1000 * 60 * 60 * 24));
+
+  const calEndDate = () => {
+    const endDate = new Date(
+      project.endDate[0],
+      project.endDate[1] - 1,
+      project.endDate[2]
+    );
+    console.log(endDate);
+    const timeDiff = endDate.getTime() - currentDate.getTime();
+
+    // Convert milliseconds to days
+    const enddaysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+    return enddaysLeft;
+  };
 
   // Output the number of days left
   // console.log(`There are ${daysLeft} days left until the recruitment date.`);
@@ -54,7 +69,25 @@ const ProjectCard = React.memo(({ project }) => {
           <div className="small text-gray-800 fw-500 mt-3">
             {project.recruitUserDtos[0].detailField} 외 {totalRecruit}명 모집 중
           </div>
-          <div className="small text-gray-500">남은 시간 {daysLeft}일</div>
+          {project.status == "END" ? (
+            <></>
+          ) : (
+            <>
+              {project.endDate ? (
+                <>
+                  <div className="small text-gray-500">
+                    남은 시간 {calEndDate()}일
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="small text-gray-500">
+                    남은 시간 {startdaysLeft}일
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </div>
         <div className="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
           <div className="small text-gray-500">
@@ -89,7 +122,7 @@ const ProjectCards = ({ projects, flag }) => {
   if (isLoading) {
     return <div>Loading...</div>;
   }
-  console.log(projects);
+  // console.log(projects);
   if (projects.length === 0) {
     return (
       <>

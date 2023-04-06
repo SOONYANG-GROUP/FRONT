@@ -34,6 +34,7 @@ import EditProfile from "./Pages/Profile/EditProfile";
 import RegistrationPage from "./Pages/Regist/Registration";
 
 import VideoTest from "./Pages/VideoTest";
+import UpdateProjectsStatus from "./Pages/UpdateProjectsStatus";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -192,8 +193,12 @@ function App() {
           element={<AptitudeTest isLoggedIn={isLoggedIn} />}
         />
         <Route path="/jwtest" element={<JWTest />} />
-        <Route path="/editProfile/" element={<EditProfile />} />
-        <Route path="/registration/" element={<RegistrationPage />} />
+        <Route path="/editProfile" element={<EditProfile />} />
+        <Route path="/registration" element={<RegistrationPage />} />
+        <Route
+          path="/updateprojectsstatus"
+          element={<UpdateProjectsStatus />}
+        />
 
         <Route path="/video/test/:id" element={<VideoTest />} />
       </Routes>

@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useSyncExternalStore } from "react";
+import React, { useEffect, useState } from "react";
+import useSyncExternalStore from "react";
 import Loading from "../Loading";
 
 import ProjectsDummyData from "../../DummyData/Projects.json";
@@ -30,6 +31,7 @@ const Projects = ({ isLoggedIn }) => {
     const fetchData = async () => {
       try {
         const res = await axios.get("http://localhost:8080/projects");
+        console.log(res.data);
         setProjects2(res.data.homeCardDtos);
         setIsLoading(false);
         return res;
