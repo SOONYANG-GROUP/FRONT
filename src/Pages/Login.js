@@ -12,13 +12,6 @@ const Login = () => {
     window.location.replace("/");
   }
 
-  if (sessionStorage.getItem("accessToken")) {
-    let token = sessionStorage.getItem("accessToken").split(" ")[1];
-    console.log(token);
-    let decoded = jwt_decode(token);
-    console.log(decoded);
-  }
-
   return <>loading...</>;
 };
 

@@ -134,13 +134,17 @@ const Project = ({ isLoggedIn }) => {
         <div className="col-lg-8 mx-auto">
           <div className="text-center mb-10">
             <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
-              사이드 프로젝트
-              <button
-                className="btn btn-primary btn-lg ms-3"
-                onClick={settingBtn}
-              >
-                {buttonTitle}
-              </button>
+              {project.projectStatus == "END" ? (
+                <>
+                  <button className="btn btn-lg ms-3">{buttonTitle}</button>
+                </>
+              ) : (
+                <>
+                  <button className="btn btn-lg ms-3" onClick={settingBtn}>
+                    {buttonTitle}
+                  </button>
+                </>
+              )}
             </div>
             <h2>{project.title}</h2>
             {/* <p className="lead">{project.summaryDescription}</p> */}

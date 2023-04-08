@@ -3,6 +3,7 @@ import Loading from "../Loading";
 import ProfileDummyData from "../../DummyData/Profile.json";
 import backgroundImg from "../../assets/images/BackGround.png";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 import { useParams } from "react-router-dom";
 
@@ -11,8 +12,21 @@ const Profile = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [profile, setProfile] = useState(null);
   const { id } = useParams();
-
+  const [alarmStatus, setAlarmStatus] = useState();
+  const [recruitingProjects, setRecruitingProject] = useState([]);
+  const [runningProjects, setRunningProjects] = useState([]);
+  const [endProjects, setEndProjects] = useState([]);
+  const [projects, setPorjcts] = useState([]);
+  const [ProfileEmail, setProfileEmail] = useState();
+  const [jwtEmail, setjwtEmail] = useState();
   useEffect(() => {
+    if (sessionStorage.getItem("accessToken")) {
+      let token = sessionStorage.getItem("accessToken").split(" ")[1];
+      // console.log(token);
+      let decoded = jwt_decode(token);
+      console.log(decoded.email);
+      setjwtEmail(decoded.email);
+    }
     console.log("요청을 보냅니다.");
     const fetch = async () => {
       if (id) {
@@ -23,6 +37,8 @@ const Profile = ({ isLoggedIn }) => {
             setProfile(res.data);
             setUserid(res.data.id);
             setIsLoading(false);
+            setPorjcts(res.data.projectGroupDtos);
+            setProfileEmail(res.data.email);
             return res;
           })
           .catch((e) => {
@@ -36,6 +52,7 @@ const Profile = ({ isLoggedIn }) => {
             setProfile(res.data);
             setUserid(res.data.id);
             setIsLoading(false);
+            setPorjcts(res.data.projectGroupDtos);
             return res;
           })
           .catch((e) => {
@@ -50,16 +67,45 @@ const Profile = ({ isLoggedIn }) => {
       // setIsLoading(false);
     };
     getProfile();
-
     fetch();
   }, []);
+  const categorizeProjects = () => {
+    setRecruitingProject(
+      projects?.filter((item) => item.status === "READY") || []
+    );
+    setRunningProjects(
+      projects?.filter((item) => item.status === "RUNNING") || []
+    );
+    setEndProjects(projects?.filter((item) => item.status === "END") || []);
+  };
+
+  useEffect(() => {
+    categorizeProjects();
+  }, [projects]);
+
   const editProfile = () => {
     window.location.assign("/editProfile");
     return;
   };
+  const setAlarm = async () => {
+    try {
+      axios.get("http://localhost:8080/users/alarm/setting").then((res) => {
+        setAlarmStatus(res.data);
+        console.log(res.data);
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const cancelApplication = (id) => {
+    console.log(id);
+    axios.get(`http://localhost:8080/projects/${id}/cancel`);
+  };
+
   if (isLoading) {
     return <Loading />;
   } else {
+    console.log(jwtEmail == ProfileEmail);
     return (
       <>
         <div className="card col-md-6 mb-3 mx-auto position-relative">
@@ -89,6 +135,9 @@ const Profile = ({ isLoggedIn }) => {
           <button className="btn" onClick={editProfile}>
             편집하기
           </button>
+          <button className="btn" onClick={setAlarm}>
+            {alarmStatus ? <>알림 취소하기</> : <>알림 받기</>}
+          </button>
           <div className="container px-5">
             <div className="text-uppercase-expanded small mb-2 pt-5">
               <h4>
@@ -107,12 +156,76 @@ const Profile = ({ isLoggedIn }) => {
               </h4>
             </div>
             <hr className="mt-0 mb-3 mt-3 " />
-
-            {profile.projectGroupDtos.map((log, index) => {
+            {jwtEmail == ProfileEmail ? (
+              <>
+                참가 신청한 프로젝트
+                {recruitingProjects.map((log, index) => {
+                  return (
+                    <div className="card card-body mb-3" key={index}>
+                      <span className="d-flex justify-content-between">
+                        <div
+                          onClick={() => {
+                            window.location.assign(`/project/${log.id}`);
+                          }}
+                          style={{ cursor: "pointer" }}
+                        >
+                          <i className="fa-solid fa-terminal"></i> {log.title} |
+                          {log.field} | {log.description}
+                        </div>
+                        <button
+                          onClick={() => {
+                            cancelApplication(log.id);
+                          }}
+                        >
+                          신청 취소
+                        </button>
+                      </span>
+                    </div>
+                  );
+                })}
+                <hr className="mt-0 mb-3 mt-3 " />
+              </>
+            ) : (
+              <></>
+            )}
+            {runningProjects.length > 0 ? (
+              <>
+                진행중인프로젝트
+                {runningProjects.map((log, index) => {
+                  return (
+                    <div
+                      className="card card-body mb-3"
+                      key={index}
+                      onClick={() => {
+                        window.location.assign(`/project/${log.id}`);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <span>
+                        <i className="fa-solid fa-terminal"></i> {log.title} |
+                        {log.field} | {log.description}
+                      </span>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <></>
+            )}
+            <hr className="mt-0 mb-3 mt-3 " />
+            완료된 프로젝트
+            {endProjects.map((log, index) => {
               return (
-                <div className="card card-body mb-3">
+                <div
+                  className="card card-body mb-3"
+                  key={index}
+                  onClick={() => {
+                    window.location.assign(`/project/${log.id}`);
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
                   <span>
-                    <i className="fa-solid fa-terminal"></i> {log.title} |{" "}
+                    <i className="fa-solid fa-terminal"></i> {log.title} |
                     {log.field} | {log.description}
                   </span>
                 </div>

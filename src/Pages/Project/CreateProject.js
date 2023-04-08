@@ -129,7 +129,17 @@ const CreateProject = () => {
 
     e.preventDefault();
     await setCreating(true);
-    console.log(fields);
+    console.log({
+      title: title,
+      description: description,
+      recruitmentDate: recruitmentDeadLine2,
+      // startDate: "",
+      // endDate: "",
+      recruitUserDto: fields,
+      references: references,
+      openChatUrl: kakao,
+      voiceChatUrl: discord,
+    });
     // console.log(SearchPreprocessedField(fields));
     try {
       await axios
@@ -139,8 +149,6 @@ const CreateProject = () => {
             title: title,
             description: description,
             recruitmentDate: recruitmentDeadLine2,
-            // startDate: "",
-            // endDate: "",
             recruitUserDto: fields,
             references: references,
             openChatUrl: kakao,

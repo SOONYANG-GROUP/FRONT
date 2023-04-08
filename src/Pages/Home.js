@@ -59,7 +59,7 @@ const Home = () => {
       await setIsLoading(false);
     };
     categorizeProjects();
-    fetch();
+    fetch();  
   }, [projects2]);
 
   if (isLoading) {

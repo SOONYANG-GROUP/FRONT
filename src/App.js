@@ -40,6 +40,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [userId, setUserId] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [alarmCount, setAlarmCount] = useState(0);
   useEffect(() => {
     console.log("로그인이 되어 있는지 확인합니다.");
     setIsLoading(true);
@@ -56,7 +57,22 @@ function App() {
       }
     };
     fetch();
+    requestAlarm();
   }, [isLoggedIn]);
+
+  const requestAlarm = () => {
+    if (isLoggedIn) {
+      try {
+        axios.get("http://localhost:8080/users/alarm/count").then((res) => {
+          setAlarmCount(res.data);
+          console.log(res);
+        });
+      } catch (e) {
+        console.log(e);
+        return e;
+      }
+    }
+  };
 
   axios.interceptors.request.use(
     async (config) => {
@@ -134,7 +150,7 @@ function App() {
 
   return (
     <Router>
-      <Header isLoggedIn={isLoggedIn} />
+      <Header isLoggedIn={isLoggedIn} alarmCount={alarmCount} />
       <Routes>
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
         <Route
