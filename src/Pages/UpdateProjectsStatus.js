@@ -1,9 +1,10 @@
 import axios from "axios";
+import { BACK_URL } from "../Components/Constants/URL";
 
 const UpdateProjectsStatus = () => {
   const updateBtn = async () => {
     try {
-      const res = await axios.get("http://localhost:8080/projects/set");
+      const res = await axios.get(`${BACK_URL}/projects/set`);
       console.log(res);
     } catch (e) {
       console.log(e);

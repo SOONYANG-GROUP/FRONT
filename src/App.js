@@ -35,6 +35,7 @@ import RegistrationPage from "./Pages/Regist/Registration";
 
 import VideoTest from "./Pages/VideoTest";
 import UpdateProjectsStatus from "./Pages/UpdateProjectsStatus";
+import { BACK_URL } from "./Components/Constants/URL";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -63,7 +64,7 @@ function App() {
   const requestAlarm = () => {
     if (isLoggedIn) {
       try {
-        axios.get("http://localhost:8080/users/alarm/count").then((res) => {
+        axios.get(`${BACK_URL}/users/alarm/count`).then((res) => {
           setAlarmCount(res.data);
           console.log(res);
         });
@@ -107,7 +108,7 @@ function App() {
         const refreshToken = await sessionStorage.getItem("refreshToken");
         const { data } = await axios
           .post(
-            "http://localhost:8080/jwt-test",
+            `${BACK_URL}/jwt-test`,
             {},
             {
               headers: {

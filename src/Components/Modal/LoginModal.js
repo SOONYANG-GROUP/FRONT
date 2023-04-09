@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { BACK_URL } from "../Constants/URL";
 
 export const LoginModalBtn = ({ isLoggedIn }) => {
   const onLogOut = async (e) => {
     sessionStorage.clear();
     window.location.href = "/";
-    await axios.get("http://localhost:8080/logout").then((res) => {
+    await axios.get(`${BACK_URL}/logout`).then((res) => {
       return res;
     });
   };
@@ -37,10 +38,10 @@ export const LoginModalBtn = ({ isLoggedIn }) => {
 
 export const LoginModal = () => {
   const HandleGoogleButtonClick = async (e) => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+    window.location.href = `${BACK_URL}/oauth2/authorization/google`;
   };
   const HandleNaverButtonClick = async (e) => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/naver";
+    window.location.href = `${BACK_URL}/oauth2/authorization/naver`;
   };
 
   return (

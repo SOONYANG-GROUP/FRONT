@@ -8,6 +8,7 @@ import { CommentInput } from "../../Components/Inputs/Textarea";
 import CommentList from "../../Components/List/CommentList";
 import Comments from "../../DummyData/Comment.json";
 import axios from "axios";
+import { BACK_URL } from "../../Components/Constants/URL";
 const Project = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
   // const [creatingComment, setCreatingComment] = useState(false);
@@ -34,7 +35,7 @@ const Project = ({ isLoggedIn }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:8080/projects/${id}`);
+        const res = await axios.get(`${BACK_URL}/projects/${id}`);
         const projectData = res.data;
         setProject(projectData);
         setIsLoading(false);
@@ -83,16 +84,14 @@ const Project = ({ isLoggedIn }) => {
     console.log(project.projectStatus == "READY");
     if (project.projectStatus == "READY") {
       try {
-        const res = await axios.get(
-          `http://localhost:8080/projects/${id}/start`
-        );
+        const res = await axios.get(`${BACK_URL}/projects/${id}/start`);
         console.log(res);
       } catch (e) {
         console.error(e);
       }
     } else if (project.projectStatus == "RUNNING") {
       try {
-        const res = await axios.get(`http://localhost:8080/projects/${id}/end`);
+        const res = await axios.get(`${BACK_URL}/projects/${id}/end`);
         console.log(res);
       } catch (e) {
         console.error(e);
@@ -106,7 +105,7 @@ const Project = ({ isLoggedIn }) => {
   // ********************************************************************************결과물 제출********************************************************************
   const onSubmitLink = async (e) => {
     try {
-      const res = await axios.get(`http://localhost:8080/projects/members/`);
+      const res = await axios.get(`${BACK_URL}/projects/members/`);
       console.log(res);
     } catch (e) {
       console.error(e);
@@ -116,7 +115,7 @@ const Project = ({ isLoggedIn }) => {
   // **************************************************************************************************************************************************************************
   // const onCreateComment = async () => {
   //   await axios
-  //     .post(`http://localhost:8080/projects/${id}/comment`, { comment })
+  //     .post(`${BACK_URL}/projects/${id}/comment`, { comment })
   //     .then(function (response) {
   //       console.log(response);
   //     })
@@ -292,25 +291,20 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
 
   useEffect(() => {
     const fetch = async () => {
-      await axios
-        .get(`http://localhost:8080/projects/${id}/manager`)
-        .then((res) => {
-          setParticipatedUsers(res.data.appliedUserDtos);
-          setIsLoading(false);
-          console.log(res);
+      await axios.get(`${BACK_URL}/projects/${id}/manager`).then((res) => {
+        setParticipatedUsers(res.data.appliedUserDtos);
+        setIsLoading(false);
+        console.log(res);
 
-          return res;
-        });
+        return res;
+      });
     };
     fetch();
   }, []);
 
   const onClickPermitBtn = async (memberId) => {
     await axios
-      .post(
-        `http://localhost:8080/projects/${id}/permit?memberId=${memberId}`,
-        null
-      )
+      .post(`${BACK_URL}/projects/${id}/permit?memberId=${memberId}`, null)
       .then((res) => {
         return res;
       })
@@ -322,10 +316,7 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
 
   const onClickRejectBtn = async (memberId) => {
     await axios
-      .post(
-        `http://localhost:8080/projects/${id}/reject?memberId=${memberId}`,
-        null
-      )
+      .post(`${BACK_URL}/projects/${id}/reject?memberId=${memberId}`, null)
       .then((res) => {
         return res;
       })
@@ -428,18 +419,16 @@ const DetailPageTwo = ({
 
   useEffect(() => {
     const fetch = async () => {
-      await axios
-        .get(`http://localhost:8080/projects/${id}/member`)
-        .then((res) => {
-          setVoiceChatUrl(res.data.voiceChatUrl);
-          setOpenChatUrl(res.data.openChatUrl);
-          setParticipatedUsers(res.data.participatedUserDtos);
-          console.log(res.data.memberId);
-          setMemberId(res.data.memberId);
-          console.log(res.data);
-          setProjectStatus(res.data.projectStatus);
-          setIsLoading(false);
-        });
+      await axios.get(`${BACK_URL}/projects/${id}/member`).then((res) => {
+        setVoiceChatUrl(res.data.voiceChatUrl);
+        setOpenChatUrl(res.data.openChatUrl);
+        setParticipatedUsers(res.data.participatedUserDtos);
+        console.log(res.data.memberId);
+        setMemberId(res.data.memberId);
+        console.log(res.data);
+        setProjectStatus(res.data.projectStatus);
+        setIsLoading(false);
+      });
     };
     fetch();
   }, []);
@@ -605,7 +594,7 @@ const DetailPageOne = ({
 
   const fetch = async () => {
     await axios
-      .get(`http://localhost:8080/projects/${id}/comment`)
+      .get(`${BACK_URL}/projects/${id}/comment`)
       .then((res) => {
         setComment2(res.data.commentDtos);
         setIsLoading(false);
@@ -620,7 +609,7 @@ const DetailPageOne = ({
 
   const onCreateComment = async () => {
     await axios
-      .post(`http://localhost:8080/projects/${id}/comment`, { comment })
+      .post(`${BACK_URL}/projects/${id}/comment`, { comment })
       .then(function (response) {
         console.log(response);
         setCreatingComment(true);
@@ -682,7 +671,7 @@ const DetailPageZero = ({ project, isLoggedIn }) => {
       detailField: detailField,
     };
     await axios
-      .post(`http://localhost:8080/projects/${id}/join`, data)
+      .post(`${BACK_URL}/projects/${id}/join`, data)
       .then(function (response) {
         return alert("신청이 완료되었습니다.");
       })

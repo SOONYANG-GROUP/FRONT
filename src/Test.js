@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { BACK_URL } from "./Components/Constants/URL";
 
 const Test = () => {
   const [inputId, setInputId] = useState("");
@@ -19,7 +20,7 @@ const Test = () => {
       email: inputId,
     };
     try {
-      const res = await axios.post("http://localhost:8080/login", data);
+      const res = await axios.post(`${BACK_URL}/login`, data);
       if (!sessionStorage.getItem("accessToken")) {
         const accessToken = res.data.accessToken;
         const refreshToken = res.data.refreshToken;

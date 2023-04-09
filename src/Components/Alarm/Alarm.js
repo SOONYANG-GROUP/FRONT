@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { BACK_URL } from "../Constants/URL";
 
 const Alarm = ({ alarmCount }) => {
   const [alarmList, setAlarmList] = useState([]);
@@ -44,7 +45,7 @@ const Alarm = ({ alarmCount }) => {
     );
   };
   const viewAlarm = async () => {
-    await axios.get("http://localhost:8080/users/alarm/list").then((res) => {
+    await axios.get(`${BACK_URL}/users/alarm/list`).then((res) => {
       setAlarmList(res.data);
       setAlarmId(res.data.alarmId);
       console.log(res);
@@ -54,7 +55,7 @@ const Alarm = ({ alarmCount }) => {
   const confirmAlarm = (projectId, alarmId) => {
     const fetch = async () => {
       await axios
-        .get(`http://localhost:8080/users/alarm/confirm/${alarmId}`)
+        .get(`${BACK_URL}/users/alarm/confirm/${alarmId}`)
         .then((res) => {
           console.log(res);
           return res;

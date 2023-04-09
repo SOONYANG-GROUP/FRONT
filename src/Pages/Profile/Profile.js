@@ -6,6 +6,7 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 import { useParams } from "react-router-dom";
+import { BACK_URL } from "../../Components/Constants/URL";
 
 const Profile = ({ isLoggedIn }) => {
   const [userId, setUserid] = useState();
@@ -31,7 +32,7 @@ const Profile = ({ isLoggedIn }) => {
     const fetch = async () => {
       if (id) {
         await axios
-          .get(`http://localhost:8080/users/profile/${id}`)
+          .get(`${BACK_URL}/users/profile/${id}`)
           .then((res) => {
             console.log(res);
             setProfile(res.data);
@@ -46,7 +47,7 @@ const Profile = ({ isLoggedIn }) => {
           });
       } else {
         await axios
-          .get(`http://localhost:8080/users/profile`)
+          .get(`${BACK_URL}/users/profile`)
           .then((res) => {
             console.log(res);
             setProfile(res.data);
@@ -89,7 +90,7 @@ const Profile = ({ isLoggedIn }) => {
   };
   const setAlarm = async () => {
     try {
-      axios.get("http://localhost:8080/users/alarm/setting").then((res) => {
+      axios.get(`${BACK_URL}/users/alarm/setting`).then((res) => {
         setAlarmStatus(res.data);
         console.log(res.data);
       });
@@ -99,7 +100,7 @@ const Profile = ({ isLoggedIn }) => {
   };
   const cancelApplication = (id) => {
     console.log(id);
-    axios.get(`http://localhost:8080/projects/${id}/cancel`);
+    axios.get(`${BACK_URL}/projects/${id}/cancel`);
   };
 
   if (isLoading) {

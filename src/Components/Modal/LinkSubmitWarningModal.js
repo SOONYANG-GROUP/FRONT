@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useParams } from "react-router";
+import { BACK_URL } from "../Constants/URL";
 const LinkSubmitWarningModalBtn = ({
   resultLink,
   onSubmitLink,
@@ -44,7 +45,7 @@ const LinkSubmitWarningModal = ({
 
     try {
       const res = await axios.post(
-        `http://localhost:8080/projects/${id}/members/edit`,
+        `${BACK_URL}/projects/${id}/members/edit`,
         data
       );
       console.log(res);

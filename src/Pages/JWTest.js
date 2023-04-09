@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { SUB_BACK_URL } from "../Components/Constants/URL";
+import { BACK_URL, SUB_BACK_URL } from "../Components/Constants/URL";
 import Loading from "./Loading";
 
 const JWTest = () => {
@@ -8,7 +8,7 @@ const JWTest = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/jwt-test")
+      .get(`${BACK_URL}/jwt-test`)
       .then((res) => {
         console.log(res);
         return res;

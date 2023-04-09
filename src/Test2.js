@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import FieldList from "./Components/List/FieldList";
 import { FieldSelectTag } from "./Components/Inputs/Select";
+import { BACK_URL } from "./Components/Constants/URL";
 const Test = () => {
   const [age, setAge] = useState();
   const [password, setPassword] = useState("");
@@ -43,7 +44,7 @@ const Test = () => {
       name: name,
     };
     axios
-      .post("http://localhost:8080/join", data)
+      .post(`${BACK_URL}/join`, data)
       .then((res) => console.log(res))
       .catch();
   };

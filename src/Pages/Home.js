@@ -5,6 +5,7 @@ import TeamProject from "../assets/images/TeamProject.svg";
 import axios from "axios";
 import CurrentSituation from "../Components/CurrentSituation/CurrentSituation";
 import Loading from "./Loading";
+import { BACK_URL } from "../Components/Constants/URL";
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +18,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("http://localhost:8080/projects");
+        const { data } = await axios.get(`${BACK_URL}/projects`);
         const { countDto, countUser, homeCardDtos } = data;
 
         const projectCounts = countDto.reduce(
@@ -59,7 +60,7 @@ const Home = () => {
       await setIsLoading(false);
     };
     categorizeProjects();
-    fetch();  
+    fetch();
   }, [projects2]);
 
   if (isLoading) {

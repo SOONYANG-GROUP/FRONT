@@ -12,7 +12,7 @@ import ReferenceList from "../../Components/List/ReferenceList";
 
 import axios from "axios";
 import GPTPrint from "../../Components/GPT/GPTPrint";
-import { SUB_BACK_URL } from "../../Components/Constants/URL";
+import { BACK_URL, SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const CreateProject = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -144,7 +144,7 @@ const CreateProject = () => {
     try {
       await axios
         .post(
-          `http://localhost:8080/projects/add`,
+          `${BACK_URL}/projects/add`,
           {
             title: title,
             description: description,

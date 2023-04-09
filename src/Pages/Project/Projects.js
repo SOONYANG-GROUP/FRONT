@@ -9,6 +9,7 @@ import BuildTeam from "../../assets/images/BuildTeam.svg";
 import { LoginModal } from "../../Components/Modal/LoginModal";
 
 import axios from "axios";
+import { BACK_URL } from "../../Components/Constants/URL";
 
 const Projects = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +31,7 @@ const Projects = ({ isLoggedIn }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/projects");
+        const res = await axios.get(`${BACK_URL}/projects`);
         console.log(res.data);
         setProjects2(res.data.homeCardDtos);
         setIsLoading(false);

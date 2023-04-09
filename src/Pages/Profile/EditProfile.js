@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { BACK_URL } from "../../Components/Constants/URL";
 
 const EditProfile = () => {
   const [detailField, setDetailField] = useState("");
@@ -14,10 +15,7 @@ const EditProfile = () => {
       shortIntroduction,
     };
     try {
-      const response = await axios.post(
-        "http://localhost:8080/users/edit",
-        data
-      );
+      const response = await axios.post(`${BACK_URL}/users/edit`, data);
       console.log(response);
     } catch (error) {
       console.error(error);

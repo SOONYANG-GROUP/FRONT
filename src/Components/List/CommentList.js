@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router";
+import { BACK_URL } from "../Constants/URL";
 const SubCommentElement = ({ subComment }) => {
   const year = subComment.createDate[0];
   const month = subComment.createDate[1];
@@ -47,7 +48,7 @@ const CommentListEle = ({ comment }) => {
   const fetch = async () => {
     await axios
       .get(
-        `http://localhost:8080/projects/${id}/comment/subcomment?commentId=${comment.commentId}`
+        `${BACK_URL}/projects/${id}/comment/subcomment?commentId=${comment.commentId}`
       )
       .then((res) => {
         setSubComments(res.data);
@@ -63,7 +64,7 @@ const CommentListEle = ({ comment }) => {
     console.log(comment.commentId);
     await axios
       .get(
-        `http://localhost:8080/projects/${id}/comment/subcomment?commentId=${comment.commentId}`
+        `${BACK_URL}/projects/${id}/comment/subcomment?commentId=${comment.commentId}`
       )
       .then((res) => {
         console.log(res);
@@ -80,7 +81,7 @@ const CommentListEle = ({ comment }) => {
   const id = useParams().id;
   const onSubmitSubcomment = async () => {
     await axios.post(
-      `http://localhost:8080/projects/${id}/subcomment?commentId=${comment.commentId}`,
+      `${BACK_URL}/projects/${id}/subcomment?commentId=${comment.commentId}`,
       { subComment }
     );
     fetch();

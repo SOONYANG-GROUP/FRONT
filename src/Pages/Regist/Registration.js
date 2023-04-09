@@ -3,6 +3,7 @@ import FieldList from "../../Components/List/FieldList";
 import { FieldSelectTag } from "../../Components/Inputs/Select";
 import { FieldLists } from "../../Components/Constants/Lists";
 import axios from "axios";
+import { BACK_URL } from "../../Components/Constants/URL";
 
 function RegistrationPage() {
   const [name, setName] = useState("");
@@ -37,7 +38,7 @@ function RegistrationPage() {
     };
     console.log(data);
     try {
-      const res = await axios.post("http://localhost:8080/users/join", data);
+      const res = await axios.post(`${BACK_URL}/users/join`, data);
       console.log(res);
       window.location.assign("/");
     } catch (e) {}
