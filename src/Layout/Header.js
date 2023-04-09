@@ -1,69 +1,64 @@
 import Alarm from "../Components/Alarm/Alarm";
 import { LoginModalBtn } from "../Components/Modal/LoginModal";
-
 import { LoginModal } from "../Components/Modal/LoginModal";
 
 const Header = ({ isLoggedIn, alarmCount }) => {
   return (
-    <>
-      <div>
-        <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom  col-md-12">
-          <a
-            href="/"
-            className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none"
-          ></a>
-          <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li>
-              <a href="/" className="nav-link px-2 link-secondary">
-                Home
+    <header className="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
+      <a
+        href="/"
+        className="d-flex align-items-center mb-2 mb-md-0 text-dark text-decoration-none"
+      >
+        <h1 className="my-0 mx-3">CampusCrew</h1>
+      </a>
+      <nav className="d-flex align-items-center">
+        <ul className="nav">
+          <li className="nav-item">
+            <a href="/" className="nav-link px-2 link-secondary">
+              Home
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/roadmaps" className="nav-link px-2 link-dark">
+              Roadmap
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/projects" className="nav-link px-2 link-dark">
+              Projects
+            </a>
+          </li>
+          <li className="nav-item">
+            <a href="/aptitudeTest" className="nav-link px-2 link-dark">
+              AptitudeTest
+            </a>
+          </li>
+          <li className="nav-item">
+            {isLoggedIn ? (
+              <a href="/users/profile" className="nav-link px-2 link-dark">
+                Profile
               </a>
-            </li>
-            <li>
-              <a href="/roadmaps" className="nav-link px-2 link-dark">
-                Roadmap
-              </a>
-            </li>
-            <li>
-              <a href="/projects" className="nav-link px-2 link-dark">
-                Projects
-              </a>
-            </li>
-            <li>
-              {isLoggedIn ? (
-                <a href="/users/profile" className="nav-link px-2 link-dark">
+            ) : (
+              <>
+                <a
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  className="nav-link px-2 link-dark"
+                  style={{ cursor: "pointer" }}
+                >
                   Profile
                 </a>
-              ) : (
-                <>
-                  <a
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal"
-                    className="nav-link px-2 link-dark"
-                    style={{ cursor: "pointer" }}
-                  >
-                    Profile
-                  </a>
-                  <LoginModal />
-                </>
-              )}
-            </li>
-            <li>
-              <a href="/aptitudeTest" className="nav-link px-2 link-dark">
-                AptitudeTest
-              </a>
-            </li>
-          </ul>
-
-          <span
-            className="d-flex col-md-5 text-end"
-            style={{ listStyle: "none" }}
-          >
-            <Alarm alarmCount={alarmCount} />
-            <LoginModalBtn isLoggedIn={isLoggedIn} />
-          </span>
-        </header>
-      </div>
-    </>
+                <LoginModal />
+              </>
+            )}
+          </li>
+        </ul>
+        <span className="ms-auto d-flex align-items-center">
+          <Alarm alarmCount={alarmCount} />
+          <LoginModalBtn isLoggedIn={isLoggedIn} />
+        </span>
+      </nav>
+    </header>
   );
 };
 

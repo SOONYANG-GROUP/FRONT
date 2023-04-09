@@ -9,19 +9,18 @@ const Alarm = ({ alarmCount }) => {
   const NavItem = (props) => {
     console.log(open);
     return (
-      <li>
+      <li style={{ listStyle: "none" }}>
         <div
           href="#"
           onClick={() => {
             setOpen(!open);
             viewAlarm();
           }}
-          style={{ position: "relative", cursor: "pointer" }}
+          style={{ position: "relative", cursor: "pointer", listStyle: "none" }}
         >
           <i className="fa-sharp fa-solid fa-bell fa-2xl p-4 ">
             {alarmList.length > 0 ? (
               <>
-                {" "}
                 <span
                   className="badge"
                   style={{
@@ -77,23 +76,21 @@ const Alarm = ({ alarmCount }) => {
       <NavItem>
         <ul
           className="border bg-secondary bg-opacity-50"
-          style={{ position: "absolute" }}
+          style={{ position: "absolute", listStyle: "none", padding: 0 }}
         >
           {alarmList.map((a, index) => {
             return (
-              <>
-                <li
-                  className="mb-2 mt-1 text-start"
-                  style={{ listStyle: "none", cursor: "pointer" }}
-                  onClick={() => {
-                    confirmAlarm(a.projectId, a.alarmId);
-                  }}
-                  key={index}
-                >
-                  {a.title}
-                  {a.field}
-                </li>
-              </>
+              <li
+                className="mb-2 mt-1 text-start"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  confirmAlarm(a.projectId, a.alarmId);
+                }}
+                key={index}
+              >
+                {a.title}
+                {a.field}
+              </li>
             );
           })}
         </ul>
