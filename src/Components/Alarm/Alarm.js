@@ -19,25 +19,32 @@ const Alarm = ({ alarmCount }) => {
           style={{ position: "relative", cursor: "pointer" }}
         >
           <i className="fa-sharp fa-solid fa-bell fa-2xl p-4 ">
-            <span
-              className="badge"
-              style={{
-                position: "absolute",
-                top: "1px",
-                width: "10px",
-                height: "10px",
-                fontWeight: "400",
-                borderRadius: "30px",
-                backgroundColor: "tomato",
-                color: "white",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "8px",
-              }}
-            >
-              {alarmCount}
-            </span>
+            {alarmList.length > 0 ? (
+              <>
+                {" "}
+                <span
+                  className="badge"
+                  style={{
+                    position: "absolute",
+                    top: "1px",
+                    width: "10px",
+                    height: "10px",
+                    fontWeight: "400",
+                    borderRadius: "30px",
+                    backgroundColor: "tomato",
+                    color: "white",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "8px",
+                  }}
+                >
+                  {alarmCount}
+                </span>
+              </>
+            ) : (
+              <></>
+            )}
           </i>
         </div>
         {open && props.children}
