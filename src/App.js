@@ -37,6 +37,8 @@ import VideoTest from "./Pages/VideoTest";
 import UpdateProjectsStatus from "./Pages/UpdateProjectsStatus";
 import { BACK_URL } from "./Components/Constants/URL";
 
+import Example from "./TestResizable";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [userId, setUserId] = useState();
@@ -218,6 +220,7 @@ function App() {
         />
 
         <Route path="/video/test/:id" element={<VideoTest />} />
+        <Route path="/Example" element={<Example />} />
       </Routes>
     </Router>
   );
