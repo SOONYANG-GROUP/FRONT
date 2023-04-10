@@ -100,54 +100,74 @@ const Projects = ({ isLoggedIn }) => {
             </div>
           </div>
         </div>
-        <section className="bg-light py-10" id="explore">
-          <div className="container px-5">
-            <div className="row gx-5 justify-content-center">
-              <div className="col-lg-8">
-                <div className="text-center mb-10">
-                  <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
-                    모집 중인 분야를 확인 후 지원해주세요.
+        {recruitingProjects.length > 0 ? (
+          <>
+            <section className="bg-light py-10" id="explore">
+              <div className="container px-5">
+                <div className="row gx-5 justify-content-center">
+                  <div className="col-lg-8">
+                    <div className="text-center mb-10">
+                      <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+                        모집 중인 분야를 확인 후 지원해주세요.
+                      </div>
+                      <h2>현재 모집중인 프로젝트</h2>
+                      <p className="lead">프로젝트를 참여하고 완성 시키세요.</p>
+                    </div>
                   </div>
-                  <h2>현재 모집중인 프로젝트</h2>
-                  <p className="lead">프로젝트를 참여하고 완성 시키세요.</p>
                 </div>
               </div>
-            </div>
-          </div>
-          <ProjectCards projects={recruitingProjects} />
-        </section>
-        <section className="bg-light py-10" id="explore">
-          <div className="container px-5">
-            <div className="row gx-5 justify-content-center">
-              <div className="col-lg-8">
-                <div className="text-center mb-10">
-                  <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
-                    진행 중인 프로젝트 입니다.
+              <ProjectCards projects={recruitingProjects} />
+            </section>
+          </>
+        ) : (
+          <></>
+        )}
+
+        {runningProjects.length > 0 ? (
+          <>
+            <section className="bg-light py-10" id="explore">
+              <div className="container px-5">
+                <div className="row gx-5 justify-content-center">
+                  <div className="col-lg-8">
+                    <div className="text-center mb-10">
+                      <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+                        진행 중인 프로젝트 입니다.
+                      </div>
+                      <h2>현재 진행 중인 프로젝트</h2>
+                      <p className="lead">프로젝트가 진행중입니다.</p>
+                    </div>
                   </div>
-                  <h2>현재 진행 중인 프로젝트</h2>
-                  <p className="lead">프로젝트가 진행중입니다.</p>
                 </div>
               </div>
-            </div>
-          </div>
-          <ProjectCards projects={runningProjects} />
-        </section>
-        <section className="bg-light py-10" id="explore">
-          <div className="container px-5">
-            <div className="row gx-5 justify-content-center">
-              <div className="col-lg-8">
-                <div className="text-center mb-10">
-                  <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
-                    종료된 프로젝트입니다.
+              <ProjectCards projects={runningProjects} />
+            </section>
+          </>
+        ) : (
+          <></>
+        )}
+
+        {endProjects.length > 0 ? (
+          <>
+            <section className="bg-light py-10" id="explore">
+              <div className="container px-5">
+                <div className="row gx-5 justify-content-center">
+                  <div className="col-lg-8">
+                    <div className="text-center mb-10">
+                      <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+                        종료된 프로젝트입니다.
+                      </div>
+                      <h2>완료된 프로젝트</h2>
+                      <p className="lead">프로젝트가 완료되었습니다.</p>
+                    </div>
                   </div>
-                  <h2>완료된 프로젝트</h2>
-                  <p className="lead">프로젝트가 완료되었습니다.</p>
                 </div>
               </div>
-            </div>
-          </div>
-          <ProjectCards projects={endProjects} />
-        </section>
+              <ProjectCards projects={endProjects} />
+            </section>
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     );
   }

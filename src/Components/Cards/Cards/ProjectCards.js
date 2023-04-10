@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState, useMemo } from "react";
 
 const ProjectCard = React.memo(({ project }) => {
+  console.log(project.status);
   //********************************************************프로젝트 시작시간, 남은 모집 시간 계산********************************************************
   // console.log(project.title);
   // Set the recruitment date
@@ -91,7 +92,15 @@ const ProjectCard = React.memo(({ project }) => {
         </div>
         <div className="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
           <div className="small text-gray-500">
-            모집 중 {currentRecruit} / {totalRecruit}
+            {project.status == "END" ? (
+              <>
+                모집 완료 {currentRecruit} / {totalRecruit}
+              </>
+            ) : (
+              <>
+                모집 중 {currentRecruit} / {totalRecruit}
+              </>
+            )}
           </div>
           <div className="small text-gray-500">
             <svg

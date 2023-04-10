@@ -51,7 +51,7 @@ const Test = () => {
                 value={inputId}
                 onChange={handleInputId}
               />
-              <label htmlFor="input_id">Username or Email :</label>
+              <label htmlFor="input_id">Email :</label>
             </div>
             <div className="form-floating mb-3">
               <input

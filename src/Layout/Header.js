@@ -15,28 +15,28 @@ const Header = ({ isLoggedIn, alarmCount }) => {
         <ul className="nav">
           <li className="nav-item">
             <a href="/" className="nav-link px-2 link-secondary">
-              Home
+              <h4>Home</h4>
             </a>
           </li>
           <li className="nav-item">
             <a href="/roadmaps" className="nav-link px-2 link-dark">
-              Roadmap
+              <h4>Roadmap</h4>
             </a>
           </li>
           <li className="nav-item">
             <a href="/projects" className="nav-link px-2 link-dark">
-              Projects
+              <h4>Projects</h4>
             </a>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <a href="/aptitudeTest" className="nav-link px-2 link-dark">
               AptitudeTest
             </a>
-          </li>
+          </li> */}
           <li className="nav-item">
             {isLoggedIn ? (
               <a href="/users/profile" className="nav-link px-2 link-dark">
-                Profile
+                <h4>Profile</h4>
               </a>
             ) : (
               <>
@@ -46,7 +46,7 @@ const Header = ({ isLoggedIn, alarmCount }) => {
                   className="nav-link px-2 link-dark"
                   style={{ cursor: "pointer" }}
                 >
-                  Profile
+                  <h4>Profile</h4>
                 </a>
                 <LoginModal />
               </>

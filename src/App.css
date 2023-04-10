@@ -1,0 +1,7 @@
+* {
+  font-family: "OpenSans";
+}
+@font-face {
+  font-family: "OpenSans";
+  src: url(./assets/fonts/Open_Sans/OFL.txt);
+}

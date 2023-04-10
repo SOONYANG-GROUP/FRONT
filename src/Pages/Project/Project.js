@@ -84,6 +84,7 @@ const Project = ({ isLoggedIn }) => {
     console.log(project.projectStatus == "READY");
     if (project.projectStatus == "READY") {
       try {
+        alert("프로젝트가 시작되었습니다.");
         const res = await axios.get(`${BACK_URL}/projects/${id}/start`);
         console.log(res);
       } catch (e) {
@@ -91,6 +92,7 @@ const Project = ({ isLoggedIn }) => {
       }
     } else if (project.projectStatus == "RUNNING") {
       try {
+        alert("프로젝트가 완료되었습니다.");
         const res = await axios.get(`${BACK_URL}/projects/${id}/end`);
         console.log(res);
       } catch (e) {
@@ -139,7 +141,10 @@ const Project = ({ isLoggedIn }) => {
                 </>
               ) : (
                 <>
-                  <button className="btn btn-lg ms-3" onClick={settingBtn}>
+                  <button
+                    className="btn btn-primary btn-lg ms-3"
+                    onClick={settingBtn}
+                  >
                     {buttonTitle}
                   </button>
                 </>
@@ -632,9 +637,9 @@ const DetailPageOne = ({
       <div className="text-uppercase-expanded small mb-2 pt-5">
         <h4>의견 & 질문하기</h4>
       </div>
-      <hr className="mt-0 mb-3 mt-3 " />
+      <hr className="mt-0 mb-3 mt-3" />
       <div className="d-flex flex-row form-floating align-items-center">
-        <div className="w-75 pe-2">
+        <div className="w-75 pe-2 ">
           <CommentInput comment={comment} onChangeComment={onChangeComment} />
         </div>
         <div className="input-group-append">
@@ -706,7 +711,9 @@ const DetailPageZero = ({ project, isLoggedIn }) => {
                       {p.currentRecruit}/{p.maxRecruit}
                     </div>
                     <div className="col-md-3">
-                      {p.currentRecruit >= p.maxRecruit ? (
+                      {p.currentRecruit >= p.maxRecruit ||
+                      project.projectStatus == "END" ||
+                      project.projectStatus == "RUNNING" ? (
                         <button
                           type="button"
                           className="btn btn-secondary btn-sm"
