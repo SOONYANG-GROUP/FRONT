@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { BACK_URL } from "../Constants/URL";
 
 const Alarm = ({ alarmCount }) => {
@@ -21,25 +21,27 @@ const Alarm = ({ alarmCount }) => {
           <i className="fa-sharp fa-solid fa-bell fa-2xl p-4 ">
             {alarmList.length > 0 ? (
               <>
-                <span
+                <div
                   className="badge"
                   style={{
                     position: "absolute",
-                    top: "1px",
-                    width: "10px",
-                    height: "10px",
+                    top: "-3px",
+                    right: "15px",
+                    width: "20px",
+                    height: "20px",
                     fontWeight: "400",
-                    borderRadius: "30px",
+                    borderRadius: "50%",
                     backgroundColor: "tomato",
                     color: "white",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
                     marginTop: "8px",
+                    fontSize: "12px",
                   }}
                 >
                   {alarmCount}
-                </span>
+                </div>
               </>
             ) : (
               <></>
@@ -50,26 +52,22 @@ const Alarm = ({ alarmCount }) => {
       </li>
     );
   };
-  const viewAlarm = async () => {
-    await axios.get(`${BACK_URL}/users/alarm/list`).then((res) => {
-      setAlarmList(res.data);
-      setAlarmId(res.data.alarmId);
+
+  const viewAlarm = useCallback(async () => {
+    const res = await axios.get(`${BACK_URL}/users/alarm/list`);
+    setAlarmList(res.data);
+  }, []);
+
+  const confirmAlarm = useCallback((projectId, alarmId) => {
+    axios.get(`${BACK_URL}/users/alarm/confirm/${alarmId}`).then((res) => {
       console.log(res);
     });
-  };
-
-  const confirmAlarm = (projectId, alarmId) => {
-    const fetch = async () => {
-      await axios
-        .get(`${BACK_URL}/users/alarm/confirm/${alarmId}`)
-        .then((res) => {
-          console.log(res);
-          return res;
-        });
-    };
     window.location.assign(`/project/${projectId}`);
-    fetch();
-  };
+  }, []);
+
+  useEffect(() => {
+    viewAlarm();
+  }, [viewAlarm]);
 
   return (
     <>
