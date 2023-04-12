@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../Loading";
-
+import { BiWebcam } from "react-icons/bi";
 import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningModal";
 import ProjectDummyData from "../../DummyData/Project.json";
 import { CommentInput } from "../../Components/Inputs/Textarea";
@@ -456,7 +456,7 @@ const DetailPageTwo = ({
       </div>
       <hr className="mt-0 mb-3 mt-3" />
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-4">
           <a
             href={voiceChatUrl}
             className="btn text-light w-100 m-1"
@@ -465,13 +465,23 @@ const DetailPageTwo = ({
             <i className="fa-brands fa-discord"></i> DISCORD
           </a>
         </div>
-        <div className="col-md-6">
+        <div className="col-md-4">
           <a
             href={openChatUrl}
             className="btn btn-warning text-light w-100 m-1"
             target="_blank"
           >
             <i className="fa-solid fa-comment"></i> KAKAO
+          </a>
+        </div>
+        <div className="col-md-4">
+          <a
+            href="/webcamhome"
+            className="btn text-light w-100 m-1"
+            style={{ backgroundColor: "#131313" }}
+          >
+            <BiWebcam size={24} />
+            미니 웹 엑스{" "}
           </a>
         </div>
       </div>

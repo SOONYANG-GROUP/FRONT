@@ -2,13 +2,17 @@ import Alarm from "../Components/Alarm/Alarm";
 import { LoginModalBtn } from "../Components/Modal/LoginModal";
 import { LoginModal } from "../Components/Modal/LoginModal";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const Header = ({ isLoggedIn, alarmCount }) => {
   const location = useLocation().pathname;
 
-  if (location.includes("/room")) {
-    return null;
-  }
+  useEffect(() => {
+    if (location.includes("/room")) {
+      return null;
+    }
+  });
+
   return (
     <header className="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
       <a
@@ -60,7 +64,14 @@ const Header = ({ isLoggedIn, alarmCount }) => {
           </li>
         </ul>
         <span className="ms-auto d-flex align-items-center">
-          <Alarm alarmCount={alarmCount} />
+          {isLoggedIn ? (
+            <>
+              <Alarm alarmCount={alarmCount} />
+            </>
+          ) : (
+            <></>
+          )}
+
           <LoginModalBtn isLoggedIn={isLoggedIn} />
         </span>
       </nav>

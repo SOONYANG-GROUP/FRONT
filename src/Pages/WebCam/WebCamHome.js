@@ -13,7 +13,7 @@ const WebCamHome = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    window.location.href = `/room/${roomName}`;
+    window.open(`/room/${roomName}`, "_blank");
   };
 
   return (
