@@ -37,7 +37,8 @@ import VideoTest from "./Pages/VideoTest";
 import UpdateProjectsStatus from "./Pages/UpdateProjectsStatus";
 import { BACK_URL } from "./Components/Constants/URL";
 
-import Example from "./TestResizable";
+import WebCamHome from "./Pages/WebCam/WebCamHome";
+import Room from "./Pages/WebCam/Room";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -218,9 +219,9 @@ function App() {
           path="/updateprojectsstatus"
           element={<UpdateProjectsStatus />}
         />
-
         <Route path="/video/test/:id" element={<VideoTest />} />
-        <Route path="/Example" element={<Example />} />
+        <Route path="/webcamhome" element={<WebCamHome />} />
+        <Route path="/room/:id" element={<Room />} />
       </Routes>
     </Router>
   );
