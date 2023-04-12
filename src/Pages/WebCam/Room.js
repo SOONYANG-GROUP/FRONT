@@ -292,7 +292,7 @@ const Room = () => {
       return pc;
     } catch (e) {
       console.error(e);
-      return undefined;
+      return;
     }
   }, []);
 

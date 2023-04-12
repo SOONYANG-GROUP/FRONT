@@ -135,10 +135,8 @@ const ProjectCards = ({ projects, flag }) => {
   if (projects.length === 0) {
     return (
       <>
-        <div>
-          <h3 className="test-center mx-auto">
-            현재 진행중인 프로젝트가 없습니다.
-          </h3>
+        <div className="d-flex justify-content-center test-center mx-auto mb-5 p-5">
+          <h3 style={{ opacity: 0.5 }}>현재 진행중인 프로젝트가 없습니다...</h3>
         </div>
       </>
     );

@@ -109,10 +109,13 @@ const Home = () => {
             <div className="row gx-5 justify-content-center">
               <div className="col-lg-8">
                 <div className="text-center mb-10">
-                  <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+                  <div
+                    className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3"
+                    style={{ fontSize: "1.2rem" }}
+                  >
                     완성된 프로젝트들을 눈으로 직접 확인하세요
                   </div>
-                  <h2>최근 모집중인 프로젝트</h2>
+                  <h2 className="mb-2">최근 모집중인 프로젝트</h2>
                   <p className="lead">
                     해당 프로젝트들을 참여해 새로운 스킬를 얻으세요!
                   </p>

@@ -1,7 +1,12 @@
-* {
-  font-family: "OpenSans";
+.title {
+  font-family: "BlackHanSansMaster";
 }
 @font-face {
   font-family: "OpenSans";
   src: url(./assets/fonts/Open_Sans/OFL.txt);
+}
+
+@font-face {
+  font-family: "BlackHanSansMaster";
+  src: url(./assets/fonts/Black-Han-Sans-master/검은고딕.otf);
 }
