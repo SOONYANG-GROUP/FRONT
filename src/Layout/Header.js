@@ -2,17 +2,22 @@ import Alarm from "../Components/Alarm/Alarm";
 import { LoginModalBtn } from "../Components/Modal/LoginModal";
 import { LoginModal } from "../Components/Modal/LoginModal";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LogoDesign from "../assets/images/LogoDesign.png";
 // import teamwork from "../assets/images/teamwork.png";
 const Header = ({ isLoggedIn, alarmCount }) => {
-  // const location = useLocation().pathname;
+  const [isRoom, setIsRoom] = useState();
+  const location = useLocation().pathname;
 
-  // useEffect(() => {
-  //   if (location.includes("/room")) {
+  useEffect(() => {
+    if (location.includes("/room")) {
+      setIsRoom(true);
+    }
+  }, []);
 
-  //   }
-  // });
+  if (isRoom) {
+    return <></>;
+  }
 
   return (
     <header className="d-flex flex-wrap align-items-center justify-content-between py-3 mb-4 border-bottom">
