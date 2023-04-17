@@ -11,21 +11,20 @@ import {
 } from "react-icons/fa";
 
 const pc_config = {
-  //iceServers: [
-  //  {
-  //    urls: [
-  //      "stun:stun.l.google.com:19302",
-  //      "stun:stun1.l.google.com:19302",
-  //      "stun:stun2.l.google.com:19302",
-  //      "stun:stun3.l.google.com:19302",
-  //      "stun:stun4.l.google.com:19302",
-  //    ],
-  //  },
-  //],
+  iceServers: [
+    {
+      urls: [
+        "stun:stun.l.google.com:19302",
+        "stun:stun1.l.google.com:19302",
+        "stun:stun2.l.google.com:19302",
+        "stun:stun3.l.google.com:19302",
+        "stun:stun4.l.google.com:19302",
+      ],
+    },
+  ],
 };
-//const roomName = "1234";
-const SOCKET_SERVER_URL = "http://localhost:5000";
-//const SOCKET_SERVER_URL = "https://webcam-backend-13oo.onrender.com";
+// const SOCKET_SERVER_URL = "http://localhost:5000";
+const SOCKET_SERVER_URL = "https://webcam-backend-13oo.onrender.com";
 
 const RoomHeader = ({ myMemo, onChangeMyMemo }) => {
   return <header></header>;
@@ -182,6 +181,8 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
+const username = "재광님&형일님"
+
 const Room = () => {
   const location = useLocation();
   const roomName = location.pathname.split("/")[2];
@@ -192,6 +193,10 @@ const Room = () => {
   const [users, setUsers] = useState([]);
   const [isCameraOn, setIsCameraOn] = useState(false); // eslint-disable-line no-unused-vars
   const [isMuted, setIsMuted] = useState(true);
+
+  const [ messages, setMessages ] = useState([]);
+  const [ message, setMessage ] = useState("");
+
 
   // Menu
   const [isMenuOn, setIsMenuOn] = useState(false);
@@ -217,6 +222,7 @@ const Room = () => {
     } catch (e) {
       console.log(`getUserMedia error: ${e}`);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const MuteBtn = () => {
@@ -428,10 +434,53 @@ const Room = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    socketRef.current.on("received_message", (data) => {
+      setMessages([...messages, `${data.username}: ${data.message}`]);
+    })
+  }, [ socketRef, messages ]);
+
+  const onChangeMessage = (e) => {
+    setMessage(e.target.value);
+  }
+
+  const onSubmitMessage = (e) => {
+    e.preventDefault();
+    socketRef.current.emit("send_message", {
+      message: message,
+      username: username,
+      room: roomName
+    });
+
+    setMessages([...messages, `${username}: ${message}`]);
+    setMessage("");
+  }
+
   return (
     <>
       <RoomHeader />
       <RoomVideosSection users={users} localVideoRef={localVideoRef} />
+
+      <div>
+        {messages.map((msg, index) => {
+          return(
+            <div key={index}>
+              {msg}
+            </div>
+          )
+        })}
+      </div>
+      <div>
+        <form onSubmit={onSubmitMessage}>
+          <input 
+            type="text"
+            name="message"
+            value={message}
+            onChange={onChangeMessage}
+            placeholder="재광님과 형일님을 위한 메시지"
+          />
+        </form>
+      </div>
 
       <RoomFooter
         MuteBtn={MuteBtn}

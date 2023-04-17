@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 
 import Profile from "./Pages/Profile/Profile";
-import AptitudeTest from "./Pages/AptitudeTest/AptitudeTest";
 import CreateProject from "./Pages/Project/CreateProject";
 import Projects from "./Pages/Project/Projects";
 import Project from "./Pages/Project/Project";
@@ -29,11 +28,9 @@ import axios from "axios";
 
 import { useEffect, useState } from "react";
 
-import JWTest from "./Pages/JWTest";
 import EditProfile from "./Pages/Profile/EditProfile";
 import RegistrationPage from "./Pages/Regist/Registration";
 
-import VideoTest from "./Pages/VideoTest";
 import UpdateProjectsStatus from "./Pages/UpdateProjectsStatus";
 import { BACK_URL } from "./Components/Constants/URL";
 
@@ -208,18 +205,15 @@ function App() {
         <Route path="/test2" element={<Test2 isLoggedIn={isLoggedIn} />} />
         <Route path="/test1" element={<Test1 isLoggedIn={isLoggedIn} />} />
         <Route path="/login" element={<Login isLoggedIn={isLoggedIn} />} />
-        <Route
-          path="/aptitudeTest"
-          element={<AptitudeTest isLoggedIn={isLoggedIn} />}
-        />
-        <Route path="/jwtest" element={<JWTest />} />
+
+        
         <Route path="/editProfile" element={<EditProfile />} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route
           path="/updateprojectsstatus"
           element={<UpdateProjectsStatus />}
         />
-        <Route path="/video/test/:id" element={<VideoTest />} />
+        
         <Route path="/webcamhome" element={<WebCamHome />} />
         <Route path="/room/:id" element={<Room />} />
       </Routes>
