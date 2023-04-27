@@ -8,7 +8,11 @@ import {
   FaMicrophoneSlash,
   FaVideo,
   FaVideoSlash,
+  FaPhoneSlash,
+  FaComments,
 } from "react-icons/fa";
+
+import "./ChatBox.css";
 
 const pc_config = {
   iceServers: [
@@ -37,7 +41,13 @@ const RoomVideosSection = ({
   localVideoRef,
   MuteBtn,
   VideoBtn,
+  onchat,
+  message,
+  messages,
+  onChangeMessage,
+  onSubmitMessage,
 }) => {
+  console.log(onchat);
   return (
     <>
       <section
@@ -68,8 +78,8 @@ const RoomVideosSection = ({
           <Rnd
             key={index}
             default={{
-              x: Math.random() * (window.innerWidth - 320),
-              y: Math.random() * (window.innerHeight - 320),
+              x: Math.random() * (window.innerWidth - 240),
+              y: Math.random() * (window.innerHeight - 240),
               width:
                 Math.floor(
                   Math.random() *
@@ -91,12 +101,55 @@ const RoomVideosSection = ({
             />
           </Rnd>
         ))}
+        {onchat ? (
+          <>
+            <Rnd
+              default={{
+                x: 0,
+                y: window.innerHeight - 500,
+                width: "400px",
+                lockAspectRatio: false,
+              }}
+              minWidth="200px"
+              maxWidth="400px"
+              lockAspectRatio={false}
+              style={{ zIndex: 999 }}
+              bounds="section"
+            >
+              <ChatBox
+                message={message}
+                messages={messages}
+                onChangeMessage={onChangeMessage}
+                onSubmitMessage={onSubmitMessage}
+                style={{ position: "relative" }}
+              />
+            </Rnd>
+            {/* <div
+              style={{
+                position: "absolute",
+                zIndex: 999,
+                top: 0,
+                left: 0,
+                width: "400px",
+              }}
+            >
+              <ChatBox
+                message={message}
+                messages={messages}
+                onChangeMessage={onChangeMessage}
+                onSubmitMessage={onSubmitMessage}
+              />
+            </div> */}
+          </>
+        ) : (
+          <></>
+        )}
       </section>
     </>
   );
 };
 
-const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn }) => {
+const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn }) => {
   const EndCallBtn = () => {
     window.open("", "_self");
     window.close();
@@ -118,12 +171,12 @@ const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn }) => {
           >
             {isMuted ? (
               <div>
-                <FaMicrophoneSlash size={21} />
+                <FaMicrophoneSlash size={24} />
                 <div>Mute On</div>
               </div>
             ) : (
               <div>
-                <FaMicrophone size={18} />
+                <FaMicrophone size={24} />
                 <div>Mute Off</div>
               </div>
             )}
@@ -135,20 +188,88 @@ const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn }) => {
           >
             {isCameraOn ? (
               <div>
-                <FaVideo size={18} />
+                <FaVideo size={24} />
                 <div>Cam On</div>
               </div>
             ) : (
               <div>
-                <FaVideoSlash size={18} />
+                <FaVideoSlash size={24} />
                 <div>Cam Off</div>
               </div>
             )}
           </button>
-          {/* <button onClick={EndCallBtn}>종료하기</button> */}
+          <button
+            className="btn mx-2 rounded-3"
+            style={{ border: "1px solid #999999", color: "white" }}
+            onClick={ChatBtn}
+          >
+            <FaComments size={24} />
+            <div>live chat</div>
+          </button>
+          <button
+            className="btn mx-2 rounded-3"
+            style={{ border: "1px solid #999999", color: "white" }}
+            onClick={EndCallBtn}
+          >
+            <FaPhoneSlash size={24} />
+            <div>disconnect</div>
+          </button>
         </div>
       </div>
     </footer>
+  );
+};
+
+const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
+  return (
+    <div class="card">
+      <h1 style={{ backgroundColor: "#007bff", color: "#fff" }}>Live Chat</h1>
+      <div class="card-body d-flex flex-column justify-content-end">
+        <div
+          style={{
+            overflow: "scroll",
+            display: "flex",
+            flexDirection: "column-reverse",
+          }}
+        >
+          {messages.map((msg, index) => {
+            return (
+              <div
+                key={index}
+                style={{
+                  alignSelf: msg.sender === "Me" ? "flex-end" : "flex-start",
+                  backgroundColor: msg.sender === "Me" ? "#007bff" : "#f5f5f5",
+                  color: msg.sender === "Me" ? "#fff" : "#333",
+                  borderRadius: "20px",
+                  padding: "10px 15px",
+                  margin: "5px 0",
+                  maxWidth: "70%",
+                }}
+              >
+                {msg}
+              </div>
+            );
+          })}
+        </div>
+        <form onSubmit={onSubmitMessage}>
+          <div class="input-group mt-3">
+            <input
+              type="text"
+              name="message"
+              value={message}
+              onChange={onChangeMessage}
+              class="form-control"
+              placeholder="Message for Jaegwang and Hyungil"
+              aria-label="Message input"
+              aria-describedby="message-button"
+            />
+            <button class="btn btn-primary" id="message-button" type="submit">
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 
@@ -181,7 +302,7 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
-const username = "재광님&형일님"
+const username = "재광님&형일님";
 
 const Room = () => {
   const location = useLocation();
@@ -194,9 +315,9 @@ const Room = () => {
   const [isCameraOn, setIsCameraOn] = useState(false); // eslint-disable-line no-unused-vars
   const [isMuted, setIsMuted] = useState(true);
 
-  const [ messages, setMessages ] = useState([]);
-  const [ message, setMessage ] = useState("");
-
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
+  const [onchat, setOnChat] = useState(false);
 
   // Menu
   const [isMenuOn, setIsMenuOn] = useState(false);
@@ -224,6 +345,15 @@ const Room = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const ChatBtn = () => {
+    setOnChat(!onchat);
+    if (onchat) {
+      console.log("메시지 창이 켜졌습니다");
+    } else {
+      console.log("메시지 창이 꺼졌습니다.");
+    }
+  };
 
   const MuteBtn = () => {
     setIsMuted(!isMuted);
@@ -437,56 +567,44 @@ const Room = () => {
   useEffect(() => {
     socketRef.current.on("received_message", (data) => {
       setMessages([...messages, `${data.username}: ${data.message}`]);
-    })
-  }, [ socketRef, messages ]);
+    });
+  }, [socketRef, messages, onchat]);
 
   const onChangeMessage = (e) => {
     setMessage(e.target.value);
-  }
+  };
 
   const onSubmitMessage = (e) => {
     e.preventDefault();
     socketRef.current.emit("send_message", {
       message: message,
       username: username,
-      room: roomName
+      room: roomName,
     });
 
     setMessages([...messages, `${username}: ${message}`]);
     setMessage("");
-  }
+  };
 
   return (
     <>
       <RoomHeader />
-      <RoomVideosSection users={users} localVideoRef={localVideoRef} />
-
-      <div>
-        {messages.map((msg, index) => {
-          return(
-            <div key={index}>
-              {msg}
-            </div>
-          )
-        })}
-      </div>
-      <div>
-        <form onSubmit={onSubmitMessage}>
-          <input 
-            type="text"
-            name="message"
-            value={message}
-            onChange={onChangeMessage}
-            placeholder="재광님과 형일님을 위한 메시지"
-          />
-        </form>
-      </div>
+      <RoomVideosSection
+        users={users}
+        localVideoRef={localVideoRef}
+        onchat={onchat}
+        message={message}
+        messages={messages}
+        onChangeMessage={onChangeMessage}
+        onSubmitMessage={onSubmitMessage}
+      />
 
       <RoomFooter
         MuteBtn={MuteBtn}
         VideoBtn={VideoBtn}
         isMuted={isMuted}
         isCameraOn={isCameraOn}
+        ChatBtn={ChatBtn}
       />
     </>
   );
