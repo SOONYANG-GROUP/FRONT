@@ -12,8 +12,6 @@ import {
   FaComments,
 } from "react-icons/fa";
 
-import "./ChatBox.css";
-
 const pc_config = {
   iceServers: [
     {
@@ -222,14 +220,44 @@ const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn }) => {
 
 const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
   return (
-    <div class="card">
-      <h1 style={{ backgroundColor: "#007bff", color: "#fff" }}>Live Chat</h1>
-      <div class="card-body d-flex flex-column justify-content-end">
+    <div
+      style={{
+        height: "60vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        style={{
+          background: "#fff",
+          borderRadius: "10px",
+          boxShadow: "0px 3px 10px rgba(0, 0, 0, 0.2)",
+          height: "100%",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <h1
+          style={{
+            backgroundColor: "#007bff",
+            color: "#fff",
+            borderRadius: "10px 10px 0 0",
+            padding: "10px",
+            margin: "0",
+          }}
+        >
+          Live Chat
+        </h1>
         <div
           style={{
             overflow: "scroll",
             display: "flex",
             flexDirection: "column-reverse",
+            flexGrow: "1",
+            padding: "10px",
           }}
         >
           {messages.map((msg, index) => {
@@ -251,19 +279,34 @@ const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
             );
           })}
         </div>
-        <form onSubmit={onSubmitMessage}>
-          <div class="input-group mt-3">
+        <form onSubmit={onSubmitMessage} style={{ padding: "10px" }}>
+          <div style={{ display: "flex" }}>
             <input
               type="text"
               name="message"
               value={message}
               onChange={onChangeMessage}
-              class="form-control"
+              style={{
+                flexGrow: "1",
+                padding: "10px",
+                borderRadius: "5px 0 0 5px",
+                border: "none",
+              }}
               placeholder="Message for Jaegwang and Hyungil"
               aria-label="Message input"
               aria-describedby="message-button"
             />
-            <button class="btn btn-primary" id="message-button" type="submit">
+            <button
+              style={{
+                padding: "10px",
+                background: "#007bff",
+                color: "#fff",
+                border: "none",
+                borderRadius: "0 5px 5px 0",
+              }}
+              id="message-button"
+              type="submit"
+            >
               Send
             </button>
           </div>
