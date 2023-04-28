@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../Loading";
 import { BiWebcam } from "react-icons/bi";
@@ -12,6 +12,7 @@ import { BACK_URL } from "../../Components/Constants/URL";
 import AddTimeLine from "./AddTimeLine";
 
 import dummyData from "./dummyData.json";
+import AccordianTimeLine from "./AccordianTimeLine";
 
 const Project = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -399,10 +400,9 @@ const DetailPageTwo = ({
   const [isLoading, setIsLoading] = useState(true);
   const [memberId, setMemberId] = useState();
   const [projectStatus, setProjectStatus] = useState();
-  const [descriptions, setdescriptions] = useState("");
-  const [timeLineDtos, setTimeLineDtos] = useState();
+  const [timeLineDtos, setTimeLineDtos] = useState("");
   // const [memberPageDtos, setMemberPageDtos] = useState();
-  const [timeLineURL, setTimeLineURL] = useState();
+
   useEffect(() => {
     const fetchMemberData = async () => {
       await axios.get(`${BACK_URL}/projects/${id}/member`).then((res) => {
@@ -428,10 +428,6 @@ const DetailPageTwo = ({
 
   if (isLoading) {
     return <></>;
-  }
-
-  if (timeLineDtos) {
-    console.log(timeLineDtos);
   }
 
   return (
@@ -501,66 +497,12 @@ const DetailPageTwo = ({
                     >
                       분야 : {p.detailField} 이름 : {p.name}
                     </h4>
-                    {timeLineDtos.map((t) => {
-                      return (
-                        <div>
-                          {t.participatedUsersId === p.memberId ? (
-                            <>
-                              <div>
-                                {t.timeLineListTitleDtos.map((p) => {
-                                  const showDetail = () => {
-                                    axios
-                                      .get(
-                                        `${BACK_URL}/projects/${id}/members/timelines/${p.timeLineId}`
-                                      )
-                                      .then((res) => {
-                                        console.log(res.data);
-                                      })
-                                      .catch((e) => {
-                                        console.log(e);
-                                      });
-                                  };
-                                  return (
-                                    <>
-                                      <div>{p.title}</div>
-                                      <button
-                                        onClick={showDetail}
-                                        class="btn btn-primary"
-                                      >
-                                        detail button
-                                      </button>
-                                    </>
-                                  );
-                                })}
-                              </div>
-                            </>
-                          ) : (
-                            <></>
-                          )}
-                        </div>
-                      );
-                    })}
-
-                    {/* <div className="accordion">
-                      {p.timeLine.map((t) => {
-                        <div className="card">
-                          <div className="card-header" id={`heading${index}`}>
-                            <h2 className="mb-0">
-                              <button
-                                class="btn btn-link"
-                                type="button"
-                                data-toggle="collapse"
-                                data-target="#collapse${index}"
-                                aria-expanded="true"
-                                aria-controls="collapse${index}"
-                              >
-                                ${t.title}
-                              </button>
-                            </h2>
-                          </div>
-                        </div>;
-                      })}
-                    </div> */}
+                    <AccordianTimeLine
+                      p={p}
+                      index={index}
+                      timeLineDtos={timeLineDtos}
+                      id={id}
+                    />
                     <hr />
                   </div>
                 );

@@ -16,7 +16,7 @@
       "id": 4,
       "status": "MEMBER",
       "memberId": 6,
-      "timeLine": [
+      "log": [
         {
           "function": "더미데이터 입니다.",
           "url": "더미 URL 1",

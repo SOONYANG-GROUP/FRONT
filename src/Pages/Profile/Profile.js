@@ -20,15 +20,14 @@ const Profile = ({ isLoggedIn }) => {
   const [projects, setPorjcts] = useState([]);
   const [ProfileEmail, setProfileEmail] = useState();
   const [jwtEmail, setjwtEmail] = useState();
+  const [participatedUserId, setParticipatedUserId] = useState("");
   useEffect(() => {
     if (sessionStorage.getItem("accessToken")) {
       let token = sessionStorage.getItem("accessToken").split(" ")[1];
       // console.log(token);
       let decoded = jwt_decode(token);
-      console.log(decoded.email);
       setjwtEmail(decoded.email);
     }
-    console.log("요청을 보냅니다.");
     const fetch = async () => {
       if (id) {
         await axios
@@ -49,7 +48,7 @@ const Profile = ({ isLoggedIn }) => {
         await axios
           .get(`${BACK_URL}/users/profile`)
           .then((res) => {
-            console.log(res);
+            console.log(res.data);
             setProfile(res.data);
             setUserid(res.data.id);
             setIsLoading(false);
@@ -106,7 +105,7 @@ const Profile = ({ isLoggedIn }) => {
   if (isLoading) {
     return <Loading />;
   } else {
-    console.log(jwtEmail == ProfileEmail);
+    // console.log(jwtEmail == ProfileEmail);
     return (
       <>
         <div className="card col-md-6 mb-3 mx-auto position-relative">
@@ -193,18 +192,26 @@ const Profile = ({ isLoggedIn }) => {
               <>
                 진행중인프로젝트
                 {runningProjects.map((log, index) => {
+                  const showTimeLines = async () => {
+                    console.log(log.participateUsersId);
+
+                    await axios
+                      .get(
+                        `${BACK_URL}/users/profile/${log.id}/${log.participateUsersId}`
+                      )
+                      .then((res) => {
+                        console.log(res.data);
+                      });
+                  };
                   return (
                     <div
                       className="card card-body mb-3"
                       key={index}
-                      onClick={() => {
-                        window.location.assign(`/project/${log.id}`);
-                      }}
+                      onClick={showTimeLines}
                       style={{ cursor: "pointer" }}
                     >
                       <span>
-                        <i className="fa-solid fa-terminal"></i> {log.title} |
-                        {log.field} | {log.description}
+                        <i className="fa-solid fa-terminal"></i> {log.title}
                       </span>
                     </div>
                   );
@@ -226,8 +233,7 @@ const Profile = ({ isLoggedIn }) => {
                   style={{ cursor: "pointer" }}
                 >
                   <span>
-                    <i className="fa-solid fa-terminal"></i> {log.title} |
-                    {log.field} | {log.description}
+                    <i className="fa-solid fa-terminal"></i> {log.title}
                   </span>
                 </div>
               );
