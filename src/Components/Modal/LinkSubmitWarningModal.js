@@ -7,6 +7,7 @@ const LinkSubmitWarningModalBtn = ({
   onSubmitLink,
   contents,
   projectStatus,
+  addFunction,
 }) => {
   return (
     <>
@@ -23,6 +24,7 @@ const LinkSubmitWarningModalBtn = ({
         onSubmitLink={onSubmitLink}
         contents={contents}
         projectStatus={projectStatus}
+        addFunction={addFunction}
       />
     </>
   );
@@ -33,19 +35,20 @@ const LinkSubmitWarningModal = ({
   onSubmitLink,
   contents,
   projectStatus,
+  addFunction,
 }) => {
   const id = useParams().id;
 
   const onSubmitLink2 = async (e) => {
     let data = {
+      title: addFunction,
       url: resultLink,
       description: contents,
     };
     console.log(data);
-
     try {
       const res = await axios.post(
-        `${BACK_URL}/projects/${id}/members/edit`,
+        `${BACK_URL}/projects/${id}/members/timelines/add`,
         data
       );
       console.log(res);
@@ -163,7 +166,7 @@ const LinkSubmitWarningModal = ({
         <div className="modal-content">
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="exampleModalLabel">
-              결과물 링크 제출
+              타임라인 추가
             </h1>
             <button
               type="button"
@@ -180,9 +183,9 @@ const LinkSubmitWarningModal = ({
             </div>
 
             <div className="text-center">
-              <p>아래 링크를 제출하면 더 이상 수정이 불가능합니다.</p>
-              <p className="text-muted">{resultLink}</p>
-              <p>링크 제출 링크가 맞습니까?</p>
+              <p>아래 로그를 제출하면 타임라인에 추가됩니다.</p>
+              <p className="text-muted">{addFunction}</p>
+              <p>제출하시겠습니까?</p>
             </div>
           </div>
           <div className="modal-footer">

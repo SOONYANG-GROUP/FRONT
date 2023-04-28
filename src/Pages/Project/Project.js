@@ -9,6 +9,10 @@ import CommentList from "../../Components/List/CommentList";
 import Comments from "../../DummyData/Comment.json";
 import axios from "axios";
 import { BACK_URL } from "../../Components/Constants/URL";
+import AddTimeLine from "./AddTimeLine";
+
+import dummyData from "./dummyData.json";
+
 const Project = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
   // const [creatingComment, setCreatingComment] = useState(false);
@@ -20,8 +24,7 @@ const Project = ({ isLoggedIn }) => {
   const [comments, setComments] = useState([]);
   const [todoList, setTodoList] = useState([]);
   const [candidates, setCandidates] = useState([]);
-  const [resultLink, setResultLink] = useState("");
-  const [contents, setContents] = useState("");
+
   const [discordURL, setDiscordURL] = useState("");
   const [openKakaoURL, setOpenKakaoURL] = useState("");
 
@@ -37,6 +40,7 @@ const Project = ({ isLoggedIn }) => {
       try {
         const res = await axios.get(`${BACK_URL}/projects/${id}`);
         const projectData = res.data;
+
         setProject(projectData);
         setIsLoading(false);
         console.log(projectData);
@@ -45,7 +49,7 @@ const Project = ({ isLoggedIn }) => {
         } else if (projectData.projectStatus === "RUNNING") {
           setButtonTitle("종료하기");
         } else {
-          setButtonTitle("이미 종료된 프로젝트입니다.");
+          setButtonTitle("이미 종료된 프로s젝트입니다.");
         }
       } catch (e) {
         console.log(e);
@@ -57,15 +61,6 @@ const Project = ({ isLoggedIn }) => {
 
   const onChangeComment = (e) => {
     setComment(e.target.value);
-  };
-
-  const onChangeResultLink = (e) => {
-    setResultLink(e.target.value);
-  };
-
-  const onChangeContents = (e) => {
-    setContents(e.target.value);
-    console.log(contents);
   };
 
   const onChangePageNumber = async (e) => {
@@ -102,16 +97,6 @@ const Project = ({ isLoggedIn }) => {
       alert("이미 종료된 프로젝트입니다.");
     }
     window.location.reload();
-  };
-
-  // ********************************************************************************결과물 제출********************************************************************
-  const onSubmitLink = async (e) => {
-    try {
-      const res = await axios.get(`${BACK_URL}/projects/members/`);
-      console.log(res);
-    } catch (e) {
-      console.error(e);
-    }
   };
 
   // **************************************************************************************************************************************************************************
@@ -198,26 +183,19 @@ const Project = ({ isLoggedIn }) => {
           </li>
         </ul>
         <DetailPage
-          contents={contents}
           isLoggedIn={isLoggedIn}
           changingPage={changingPage}
           project={project}
-          resultLink={resultLink}
           pageNumber={pageNumber}
           comment={comment}
           comments={comments}
           todoList={todoList}
           discordURL={discordURL}
           openKakaoURL={openKakaoURL}
-          // creatingComment={creatingComment}
           candidates={candidates}
           creatingToDoListEle={creatingToDoListEle}
           isProjectActive={isProjectActive}
-          onSubmitLink={onSubmitLink}
           onChangeComment={onChangeComment}
-          onChangeResultLink={onChangeResultLink}
-          // onCreateComment={onCreateComment}
-          onChangeContents={onChangeContents}
         />
       </>
     );
@@ -378,7 +356,7 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
                         onClickPermitBtn(p.userId);
                       }}
                     >
-                      참가 ㅇㅋ
+                      참가 허락
                     </button>
                   </div>
                   <div className="col">
@@ -388,7 +366,7 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
                         onClickRejectBtn(p.userId);
                       }}
                     >
-                      참가 ㄴㄴ
+                      참가 거부ㄴ
                     </button>
                   </div>
                 </div>
@@ -401,6 +379,7 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
 };
 
 const DetailPageTwo = ({
+  addFunction,
   resultLink,
   discordURL,
   todoList,
@@ -421,21 +400,26 @@ const DetailPageTwo = ({
   const [memberId, setMemberId] = useState();
   const [projectStatus, setProjectStatus] = useState();
   const [descriptions, setdescriptions] = useState("");
-
+  const [timeLineDtos, setTimeLineDtos] = useState();
+  // const [memberPageDtos, setMemberPageDtos] = useState();
+  const [timeLineURL, setTimeLineURL] = useState();
   useEffect(() => {
-    const fetch = async () => {
+    const fetchMemberData = async () => {
       await axios.get(`${BACK_URL}/projects/${id}/member`).then((res) => {
-        setVoiceChatUrl(res.data.voiceChatUrl);
-        setOpenChatUrl(res.data.openChatUrl);
-        setParticipatedUsers(res.data.participatedUserDtos);
-        console.log(res.data.memberId);
-        setMemberId(res.data.memberId);
-        console.log(res.data);
-        setProjectStatus(res.data.projectStatus);
-        setIsLoading(false);
+        const { memberPageDtos, timeLineListDtos } = res.data;
+        if (memberPageDtos[0]) {
+          console.log(memberPageDtos[0]);
+          setVoiceChatUrl(memberPageDtos[0].voiceChatUrl);
+          setOpenChatUrl(memberPageDtos[0].openChatUrl);
+          setParticipatedUsers(memberPageDtos[0].participatedUserDtos);
+          setMemberId(memberPageDtos[0].memberId);
+          setProjectStatus(memberPageDtos[0].projectStatus);
+          setIsLoading(false);
+        }
+        setTimeLineDtos(timeLineListDtos);
       });
     };
-    fetch();
+    fetchMemberData();
   }, []);
 
   const moveProfile = (id) => {
@@ -444,6 +428,10 @@ const DetailPageTwo = ({
 
   if (isLoading) {
     return <></>;
+  }
+
+  if (timeLineDtos) {
+    console.log(timeLineDtos);
   }
 
   return (
@@ -497,18 +485,14 @@ const DetailPageTwo = ({
                     <hr />
                     팀장 : {p.name}
                     <div>{p.url}</div>
+                    <div>{p.memberId}</div>
                     <hr />
                   </div>
                 );
               } else {
-                let descriptions = null;
-                if (p.description !== null) {
-                  let descriptions = p.description.split("`");
-                }
                 return (
                   <div className="p-1" key={index}>
                     <hr />
-
                     <h4
                       onClick={() => {
                         moveProfile(p.id);
@@ -517,77 +501,75 @@ const DetailPageTwo = ({
                     >
                       분야 : {p.detailField} 이름 : {p.name}
                     </h4>
+                    {timeLineDtos.map((t) => {
+                      return (
+                        <div>
+                          {t.participatedUsersId === p.memberId ? (
+                            <>
+                              <div>
+                                {t.timeLineListTitleDtos.map((p) => {
+                                  const showDetail = () => {
+                                    axios
+                                      .get(
+                                        `${BACK_URL}/projects/${id}/members/timelines/${p.timeLineId}`
+                                      )
+                                      .then((res) => {
+                                        console.log(res.data);
+                                      })
+                                      .catch((e) => {
+                                        console.log(e);
+                                      });
+                                  };
+                                  return (
+                                    <>
+                                      <div>{p.title}</div>
+                                      <button
+                                        onClick={showDetail}
+                                        class="btn btn-primary"
+                                      >
+                                        detail button
+                                      </button>
+                                    </>
+                                  );
+                                })}
+                              </div>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      );
+                    })}
 
-                    <div>
-                      <div className="mb-1">
-                        <h6>링크</h6>
-                      </div>
-                      <a
-                        href={p.url}
-                        target="!_blank"
-                        style={{ textDecoration: "none", color: "black" }}
-                      >
-                        <h5>{p.url}</h5>
-                      </a>
-                    </div>
-                    <div>
-                      <h6>설명</h6>
-                      <h6>
-                        {descriptions ? (
-                          descriptions.map((d, index) => {
-                            return <div key={index}>{d}</div>;
-                          })
-                        ) : (
-                          <></>
-                        )}
-                      </h6>
-                    </div>
+                    {/* <div className="accordion">
+                      {p.timeLine.map((t) => {
+                        <div className="card">
+                          <div className="card-header" id={`heading${index}`}>
+                            <h2 className="mb-0">
+                              <button
+                                class="btn btn-link"
+                                type="button"
+                                data-toggle="collapse"
+                                data-target="#collapse${index}"
+                                aria-expanded="true"
+                                aria-controls="collapse${index}"
+                              >
+                                ${t.title}
+                              </button>
+                            </h2>
+                          </div>
+                        </div>;
+                      })}
+                    </div> */}
                     <hr />
                   </div>
                 );
               }
             })}
+          <AddTimeLine projectStatus={projectStatus} />
         </div>
       </div>
       <div></div>
-
-      <div className="text-uppercase-expanded small mb-2 pt-5">
-        <h4>결과물 링크 제출</h4>
-        <span className="text-muted">
-          로그에 기록할 결과물 링크 제출해 주세요.
-        </span>
-        <hr className="mt-0 mb-3 mt-3" />
-        <div className="d-flex flex-column">
-          <div className="">
-            <input
-              type="text"
-              name="resultLink"
-              className="form-control p-2"
-              value={resultLink}
-              onChange={onChangeResultLink}
-              placeholder="Link를 입력하세요"
-            />
-          </div>
-          <div className="">
-            <input
-              type="text"
-              name="contents"
-              className="form-control p-3"
-              value={contents}
-              onChange={onChangeContents}
-              placeholder="설명을 추가하세요"
-            />
-          </div>
-        </div>
-        <div className="mt-3 mb-3">
-          <LinkSubmitWarningModalBtn
-            projectStatus={projectStatus}
-            resultLink={resultLink}
-            onSubmitLink={onSubmitLink}
-            contents={contents}
-          />
-        </div>
-      </div>
     </div>
   );
 };
