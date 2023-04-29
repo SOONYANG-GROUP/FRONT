@@ -12,7 +12,8 @@ import { BACK_URL } from "../../Components/Constants/URL";
 import AddTimeLine from "./AddTimeLine";
 
 import dummyData from "./dummyData.json";
-import AccordianTimeLine from "./AccordianTimeLine";
+import AccordianTimeLine from "../../Components/Accordion/TimeLineAccordion/AccordianTimeLine";
+import Timeline from "./TimeLine";
 
 const Project = ({ isLoggedIn }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +51,7 @@ const Project = ({ isLoggedIn }) => {
         } else if (projectData.projectStatus === "RUNNING") {
           setButtonTitle("종료하기");
         } else {
-          setButtonTitle("이미 종료된 프로s젝트입니다.");
+          setButtonTitle("이미 종료된 프로젝트입니다.");
         }
       } catch (e) {
         console.log(e);
@@ -272,7 +273,8 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
   const id = useParams().id;
   const [participatedUsers, setParticipatedUsers] = useState();
   const [isLoading, setIsLoading] = useState(true);
-
+  const [subtopic, setSubtopic] = useState("");
+  const [shortDescription, setShortDescription] = useState();
   useEffect(() => {
     const fetch = async () => {
       await axios.get(`${BACK_URL}/projects/${id}/manager`).then((res) => {
@@ -285,6 +287,26 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
     };
     fetch();
   }, []);
+
+  const onChangeSubtopic = (e) => {
+    setSubtopic(e.target.value);
+  };
+
+  const onChangeShortDescription = (e) => {
+    setShortDescription(e.target.value);
+  };
+
+  const onCreateSubtopic = () => {
+    console.log(subtopic);
+    console.log(shortDescription);
+    let data = {
+      jobTitle: subtopic,
+      jobDescription: shortDescription,
+    };
+    console.log(data);
+    axios.post(`${BACK_URL}/projects/${id}/members/jobs/add`, data);
+    // window.location.reload();
+  };
 
   const onClickPermitBtn = async (memberId) => {
     await axios
@@ -333,6 +355,7 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
 
         {participatedUsers &&
           participatedUsers.map((p) => {
+            console.log(p.userId);
             return (
               <>
                 <div className="row gx-5 mb-3 mt-3 justify-contents-center align-items-center">
@@ -342,7 +365,7 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
                       <div
                         className="btn btn-second"
                         onClick={() => {
-                          window.location.assign(`/profile/${id}`);
+                          window.location.assign(`/profile/${p.userId}`);
                         }}
                       >
                         지원 분야 : {p.detailField} 이름:
@@ -367,13 +390,33 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
                         onClickRejectBtn(p.userId);
                       }}
                     >
-                      참가 거부ㄴ
+                      참가 거부
                     </button>
                   </div>
                 </div>
               </>
             );
           })}
+        <div className="text-uppercase-expanded small mb-2 pt-5">
+          <h4>subtopic 생성하기</h4>
+        </div>
+        <hr className="mt-0 mb-3 mt-3" />
+        <div>
+          <input
+            name="subtopic"
+            placeholder="추가할 기능을 적어넣으세요"
+            onChange={onChangeSubtopic}
+            value={subtopic}
+          />
+          <input
+            name="shortDescription"
+            placeholder="기능의 설명을 간략히 적어주세요."
+            onChange={onChangeShortDescription}
+            value={shortDescription}
+          />
+          <button onClick={onCreateSubtopic}>추가하기</button>
+        </div>
+        <Timeline dummyData={dummyData} projectId={id} />
       </div>
     );
   }
@@ -497,18 +540,19 @@ const DetailPageTwo = ({
                     >
                       분야 : {p.detailField} 이름 : {p.name}
                     </h4>
-                    <AccordianTimeLine
+                    {/* <AccordianTimeLine
                       p={p}
                       index={index}
                       timeLineDtos={timeLineDtos}
                       id={id}
-                    />
+                    /> */}
                     <hr />
                   </div>
                 );
               }
             })}
-          <AddTimeLine projectStatus={projectStatus} />
+          <Timeline projectId={id} />
+          <AddTimeLine projectStatus={projectStatus} projectId={id} />
         </div>
       </div>
       <div></div>

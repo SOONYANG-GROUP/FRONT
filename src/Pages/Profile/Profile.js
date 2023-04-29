@@ -7,6 +7,7 @@ import jwt_decode from "jwt-decode";
 
 import { useParams } from "react-router-dom";
 import { BACK_URL } from "../../Components/Constants/URL";
+import TimeLineBlock from "./TimeLineBlock";
 
 const Profile = ({ isLoggedIn }) => {
   const [userId, setUserid] = useState();
@@ -118,6 +119,7 @@ const Profile = ({ isLoggedIn }) => {
           <img
             src="https://cdn-icons-png.flaticon.com/512/25/25657.png"
             className="rounded-circle position-absolute top-50 start-50 translate-middle"
+            alt=""
             style={{
               width: "120px",
               height: "120px",
@@ -192,28 +194,12 @@ const Profile = ({ isLoggedIn }) => {
               <>
                 진행중인프로젝트
                 {runningProjects.map((log, index) => {
-                  const showTimeLines = async () => {
-                    console.log(log.participateUsersId);
-
-                    await axios
-                      .get(
-                        `${BACK_URL}/users/profile/${log.id}/${log.participateUsersId}`
-                      )
-                      .then((res) => {
-                        console.log(res.data);
-                      });
-                  };
                   return (
-                    <div
-                      className="card card-body mb-3"
-                      key={index}
-                      onClick={showTimeLines}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <span>
-                        <i className="fa-solid fa-terminal"></i> {log.title}
-                      </span>
-                    </div>
+                    <TimeLineBlock
+                      log={log}
+                      index={index}
+                      projectId={log.projectId}
+                    />
                   );
                 })}
               </>

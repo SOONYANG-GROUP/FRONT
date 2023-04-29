@@ -1,12 +1,27 @@
 import LinkSubmitWarningModalBtn from "../../Components/Modal/LinkSubmitWarningModal";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BACK_URL } from "../../Components/Constants/URL";
 
-const AddTimeLine = ({ projectStatus }) => {
+const AddTimeLine = ({ projectStatus, projectId }) => {
   const [resultLink, setResultLink] = useState("");
   const [contents, setContents] = useState("");
   const [addFunction, setAddFuction] = useState("");
+  const [jobDTO, setJobDTO] = useState();
+  const [jobId, setJobId] = useState();
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    axios.get(`${BACK_URL}/projects/${projectId}/members/jobs`).then((res) => {
+      console.log(res.data);
+      setJobDTO(res.data);
+      setIsLoading(false);
+    });
+  }, []);
+
+  if (isLoading) {
+    return null;
+  }
+
   const onSubmitLink = async (e) => {
     try {
       const res = await axios.get(`${BACK_URL}/projects/members/`);
@@ -30,6 +45,9 @@ const AddTimeLine = ({ projectStatus }) => {
     console.log(contents);
   };
 
+  const onChangeJobId = (e) => {
+    setJobId(e.target.value);
+  };
   if (!projectStatus) {
     return <></>;
   }
@@ -41,6 +59,22 @@ const AddTimeLine = ({ projectStatus }) => {
         로그에 기록할 기능 및 설명을 제출해 주세요.
       </span>
       <hr className="mt-0 mb-3 mt-3" />
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        onChange={onChangeJobId}
+      >
+        <option selected value="-1">
+          subtopic을 고르세요
+        </option>
+        {jobDTO &&
+          jobDTO.length > 0 &&
+          jobDTO.map((j, index) => (
+            <option value={j.jobId} key={index}>
+              {j.jobTitle}
+            </option>
+          ))}
+      </select>
       <div className="d-flex flex-column">
         <div className="">
           <input
@@ -80,6 +114,7 @@ const AddTimeLine = ({ projectStatus }) => {
           onSubmitLink={onSubmitLink}
           contents={contents}
           addFunction={addFunction}
+          jobId={jobId}
         />
       </div>
     </div>

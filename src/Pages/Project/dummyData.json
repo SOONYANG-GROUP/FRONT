@@ -1,46 +1,14 @@
-{
-  "projectStatus": "RUNNING",
-  "openChatUrl": "",
-  "voiceChatUrl": "",
-  "participatedUserDtos": [
-    {
-      "id": 2,
-      "status": "MANAGER",
-      "memberId": 3,
-      "url": null,
-      "description": null,
-      "detailField": null,
-      "name": "test1"
+[
+  {
+    "text": "Wrote my first blog post ever on Medium",
+    "date": "March 03 2017",
+    "category": {
+      "tag": "medium",
+      "color": "#018f69"
     },
-    {
-      "id": 4,
-      "status": "MEMBER",
-      "memberId": 6,
-      "log": [
-        {
-          "function": "더미데이터 입니다.",
-          "url": "더미 URL 1",
-          "description": "null`테스트 기능`테스트 기능"
-        },
-        {
-          "function": "더미데이터 입니다.2",
-          "url": "더미 URL 2",
-          "description": "null`테스트 기능`테스트 기능2"
-        },
-        {
-          "function": "더미데이터 입니다.3",
-          "url": "더미 URL 3",
-          "description": "null`테스트 기능`테스트 기능3"
-        },
-        {
-          "function": "더미데이터 입니다.4",
-          "url": "더미 URL 4",
-          "description": "null`테스트 기능`테스트 기능4"
-        }
-      ],
-
-      "detailField": "해커",
-      "name": "test3"
+    "link": {
+      "url": "https://medium.com/@popflorin1705/javascript-coding-challenge-1-6d9c712963d2",
+      "text": "Read more"
     }
-  ]
-}
+  }
+]
