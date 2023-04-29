@@ -45,7 +45,6 @@ const Project = ({ isLoggedIn }) => {
 
         setProject(projectData);
         setIsLoading(false);
-        console.log(projectData);
         if (projectData.projectStatus === "READY") {
           setButtonTitle("시작하기");
         } else if (projectData.projectStatus === "RUNNING") {
@@ -451,7 +450,6 @@ const DetailPageTwo = ({
       await axios.get(`${BACK_URL}/projects/${id}/member`).then((res) => {
         const { memberPageDtos, timeLineListDtos } = res.data;
         if (memberPageDtos[0]) {
-          console.log(memberPageDtos[0]);
           setVoiceChatUrl(memberPageDtos[0].voiceChatUrl);
           setOpenChatUrl(memberPageDtos[0].openChatUrl);
           setParticipatedUsers(memberPageDtos[0].participatedUserDtos);

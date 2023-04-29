@@ -12,7 +12,6 @@ const AddTimeLine = ({ projectStatus, projectId }) => {
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     axios.get(`${BACK_URL}/projects/${projectId}/members/jobs`).then((res) => {
-      console.log(res.data);
       setJobDTO(res.data);
       setIsLoading(false);
     });
