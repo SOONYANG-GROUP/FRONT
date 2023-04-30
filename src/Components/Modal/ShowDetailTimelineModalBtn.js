@@ -3,10 +3,21 @@ import axios from "axios";
 
 import { BACK_URL } from "../Constants/URL";
 import ShowDetailTimelineModal from "./ShowDetailTimelineModal";
-const ShowDetailTimelineModalBtn = ({ jobId, projectId, jobTitle }) => {
+import AccordianTimeLine from "../Accordion/TimeLineAccordion/AccordianTimeLine";
+import DetailTimeLineList from "../List/DetailTimelineList";
+const ShowDetailTimelineModalBtn = ({
+  jobId,
+  projectId,
+  jobTitle,
+  flag,
+  userName,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [detailJobs, setDetailJobs] = useState();
   const [title, setTitle] = useState();
+
+  const [isClicked, setIsClicked] = useState(false); // Add state to track if button has been clicked
+
   useEffect(() => {
     const fetch = async () => {
       await axios
@@ -29,8 +40,20 @@ const ShowDetailTimelineModalBtn = ({ jobId, projectId, jobTitle }) => {
   }
 
   const show = () => {
-    // console.log(jobTitle);
+    setIsClicked(true); // Set isClicked to true when button is clicked
   };
+
+  if (flag === 1) {
+    return (
+      <DetailTimeLineList
+        jobId={jobId}
+        projectId={projectId}
+        title={jobTitle}
+        detailJobs={detailJobs}
+        userName={userName}
+      />
+    );
+  }
 
   return (
     <>

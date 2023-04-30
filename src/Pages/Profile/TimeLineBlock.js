@@ -2,7 +2,8 @@ import axios from "axios";
 import { BACK_URL } from "../../Components/Constants/URL";
 import { useEffect, useState } from "react";
 import AccordianTimeLine from "../../Components/Accordion/TimeLineAccordion/AccordianTimeLine";
-const TimeLineBlock = ({ log, index, projectId }) => {
+import Timeline from "../Project/TimeLine";
+const TimeLineBlock = ({ log, index, projectId, flag, userName }) => {
   const [modalId, setModalId] = useState(`exampleModal-${index}`);
   const [timelines, setTimeLines] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -39,13 +40,22 @@ const TimeLineBlock = ({ log, index, projectId }) => {
         modalId={modalId}
         projectId={projectId}
         timelines={timelines}
+        flag={flag}
+        userName={userName}
       />
     </>
   );
 };
 export default TimeLineBlock;
 
-const TimeLineModal = ({ title, modalId, timelines, projectId }) => {
+const TimeLineModal = ({
+  title,
+  modalId,
+  timelines,
+  projectId,
+  flag,
+  userName,
+}) => {
   const [timeLineURL, setTimeLineURL] = useState();
   const [descriptions, setDescriptions] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -73,7 +83,7 @@ const TimeLineModal = ({ title, modalId, timelines, projectId }) => {
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog" style={{ width: "600px" }}>
+      <div className="modal-dialog modal-xl">
         <div className="modal-content">
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="exampleModalLabel">
@@ -90,11 +100,12 @@ const TimeLineModal = ({ title, modalId, timelines, projectId }) => {
             className="modal-body"
             style={{ maxHeight: "600px", overflowY: "auto" }}
           >
-            <AccordianTimeLine
+            <Timeline projectId={projectId} flag={flag} userName={userName} />
+            {/* <AccordianTimeLine
               timeLineDtos={timelines}
               flag={"profile"}
               id={projectId}
-            />
+            /> */}
           </div>
           <div className="modal-footer">
             <button

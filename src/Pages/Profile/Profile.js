@@ -22,6 +22,7 @@ const Profile = ({ isLoggedIn }) => {
   const [ProfileEmail, setProfileEmail] = useState();
   const [jwtEmail, setjwtEmail] = useState();
   const [participatedUserId, setParticipatedUserId] = useState("");
+  const [userName, setUserName] = useState("");
   useEffect(() => {
     if (sessionStorage.getItem("accessToken")) {
       let token = sessionStorage.getItem("accessToken").split(" ")[1];
@@ -34,12 +35,13 @@ const Profile = ({ isLoggedIn }) => {
         await axios
           .get(`${BACK_URL}/users/profile/${id}`)
           .then((res) => {
-            console.log(res);
+            console.log(res.data);
             setProfile(res.data);
             setUserid(res.data.id);
             setIsLoading(false);
             setPorjcts(res.data.projectGroupDtos);
             setProfileEmail(res.data.email);
+            setUserName(res.data.name);
             return res;
           })
           .catch((e) => {
@@ -54,6 +56,7 @@ const Profile = ({ isLoggedIn }) => {
             setUserid(res.data.id);
             setIsLoading(false);
             setPorjcts(res.data.projectGroupDtos);
+            setUserName(res.data.name);
             return res;
           })
           .catch((e) => {
@@ -199,6 +202,8 @@ const Profile = ({ isLoggedIn }) => {
                       log={log}
                       index={index}
                       projectId={log.projectId}
+                      flag={1}
+                      userName={userName}
                     />
                   );
                 })}

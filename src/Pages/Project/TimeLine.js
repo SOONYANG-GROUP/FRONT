@@ -3,24 +3,27 @@ import "./TimeLine.css";
 import axios from "axios";
 import { BACK_URL } from "../../Components/Constants/URL";
 import ShowDetailTimelineModalBtn from "../../Components/Modal/ShowDetailTimelineModalBtn";
-const Timeline = ({ projectId }) => {
+const Timeline = ({ projectId, flag, userName }) => {
   const [jobDTO, setJobDTO] = useState();
 
   useEffect(() => {
     axios.get(`${BACK_URL}/projects/${projectId}/members/jobs`).then((res) => {
+      console.log(res.data);
       setJobDTO(res.data);
     });
   }, []);
 
   if (jobDTO) {
     return (
-      <div className="timeline-container">
+      <div className="timeline-container" style={{ border: "1px solid" }}>
         {jobDTO.map((data, idx) => (
           <TimelineItem
             data={data}
             key={idx}
             projectId={projectId}
             jobDTO={jobDTO}
+            flag={flag}
+            userName={userName}
           />
         ))}
       </div>
@@ -30,7 +33,7 @@ const Timeline = ({ projectId }) => {
 
 export default Timeline;
 
-const TimelineItem = ({ data, projectId, jobDTO }) => {
+const TimelineItem = ({ data, projectId, jobDTO, flag, userName }) => {
   const [jobId, setJobId] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [jobTitle, setJobTitle] = useState();
@@ -65,6 +68,8 @@ const TimelineItem = ({ data, projectId, jobDTO }) => {
             jobId={jobId}
             jobTitle={jobTitle}
             jobDTO={jobDTO}
+            flag={flag}
+            userName={userName}
           />
         </p>
         <span className="circle" />
