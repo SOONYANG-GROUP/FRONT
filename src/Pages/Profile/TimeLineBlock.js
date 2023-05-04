@@ -11,7 +11,6 @@ const TimeLineBlock = ({ log, index, projectId, flag, userName }) => {
     axios
       .get(`${BACK_URL}/users/profile/${log.id}/${log.participateUsersId}`)
       .then((res) => {
-        console.log(res.data);
         setTimeLines(res.data);
         setIsLoading(false);
       });
@@ -72,9 +71,7 @@ const TimeLineModal = ({
   //         console.log(e);
   //       });
   //   }, [modalId, title, projectId, timeLineId]);
-  if (timelines) {
-    console.log(projectId);
-  }
+
   return (
     <div
       className="modal fade"

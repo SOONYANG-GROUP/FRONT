@@ -520,9 +520,20 @@ const DetailPageTwo = ({
                 return (
                   <div className="p-1" key={index}>
                     <hr />
-                    팀장 : {p.name}
-                    <div>{p.url}</div>
-                    <div>{p.memberId}</div>
+                    <h4
+                      onClick={() => {
+                        moveProfile(p.id);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      팀장 : {p.name}
+                    </h4>
+                    {/* <AccordianTimeLine
+                    p={p}
+                    index={index}
+                    timeLineDtos={timeLineDtos}
+                    id={id}
+                  /> */}
                     <hr />
                   </div>
                 );

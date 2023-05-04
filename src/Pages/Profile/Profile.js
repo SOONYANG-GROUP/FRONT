@@ -35,7 +35,7 @@ const Profile = ({ isLoggedIn }) => {
         await axios
           .get(`${BACK_URL}/users/profile/${id}`)
           .then((res) => {
-            console.log(res.data);
+            console.log(jwtEmail);
             setProfile(res.data);
             setUserid(res.data.id);
             setIsLoading(false);
@@ -51,7 +51,6 @@ const Profile = ({ isLoggedIn }) => {
         await axios
           .get(`${BACK_URL}/users/profile`)
           .then((res) => {
-            console.log(res.data);
             setProfile(res.data);
             setUserid(res.data.id);
             setIsLoading(false);
@@ -101,9 +100,11 @@ const Profile = ({ isLoggedIn }) => {
       console.log(e);
     }
   };
-  const cancelApplication = (id) => {
-    console.log(id);
-    axios.get(`${BACK_URL}/projects/${id}/cancel`);
+  const cancelApplication = (projectId) => {
+    console.log(projectId);
+    axios.get(`${BACK_URL}/projects/${projectId}/cancel`);
+
+    // window.location.reload();
   };
 
   if (isLoading) {
@@ -135,14 +136,20 @@ const Profile = ({ isLoggedIn }) => {
             <p className="card-text text-center text-muted"></p>
           </div>
         </div>
-
         <div className="col-md-6 mb-3 mx-auto">
-          <button className="btn" onClick={editProfile}>
-            편집하기
-          </button>
-          <button className="btn" onClick={setAlarm}>
-            {alarmStatus ? <>알림 취소하기</> : <>알림 받기</>}
-          </button>
+          {jwtEmail === profile.email ? (
+            <>
+              <button className="btn" onClick={editProfile}>
+                편집하기
+              </button>
+              <button className="btn" onClick={setAlarm}>
+                {alarmStatus ? <>알림 취소하기</> : <>알림 받기</>}
+              </button>
+            </>
+          ) : (
+            <></>
+          )}
+
           <div className="container px-5">
             <div className="text-uppercase-expanded small mb-2 pt-5">
               <h4>
@@ -161,7 +168,7 @@ const Profile = ({ isLoggedIn }) => {
               </h4>
             </div>
             <hr className="mt-0 mb-3 mt-3 " />
-            {jwtEmail == ProfileEmail ? (
+            {jwtEmail == profile.email ? (
               <>
                 참가 신청한 프로젝트
                 {recruitingProjects.map((log, index) => {
@@ -177,13 +184,14 @@ const Profile = ({ isLoggedIn }) => {
                           <i className="fa-solid fa-terminal"></i> {log.title} |
                           {log.field} | {log.description}
                         </div>
-                        <button
+                        <div
+                          className="btn btn-secondary"
                           onClick={() => {
-                            cancelApplication(log.id);
+                            cancelApplication(log.projectId);
                           }}
                         >
                           신청 취소
-                        </button>
+                        </div>
                       </span>
                     </div>
                   );
@@ -213,22 +221,31 @@ const Profile = ({ isLoggedIn }) => {
             )}
             <hr className="mt-0 mb-3 mt-3 " />
             완료된 프로젝트
-            {endProjects.map((log, index) => {
-              return (
-                <div
-                  className="card card-body mb-3"
-                  key={index}
-                  onClick={() => {
-                    window.location.assign(`/project/${log.id}`);
-                  }}
-                  style={{ cursor: "pointer" }}
-                >
-                  <span>
-                    <i className="fa-solid fa-terminal"></i> {log.title}
-                  </span>
-                </div>
-              );
-            })}
+            {endProjects > 0 ? (
+              <>
+                {endProjects.map((log, index) => {
+                  return (
+                    <div
+                      className="card card-body mb-3"
+                      key={index}
+                      onClick={() => {
+                        window.location.assign(`/project/${log.id}`);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <span>
+                        <i className="fa-solid fa-terminal"></i>
+                        {log.title}
+                      </span>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <>
+                <p>현재 완료된 프로젝트가 없습니다.</p>
+              </>
+            )}
           </div>
         </div>
       </>
