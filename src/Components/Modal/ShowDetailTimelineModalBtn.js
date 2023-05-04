@@ -35,8 +35,6 @@ const ShowDetailTimelineModalBtn = ({
 
   if (isLoading) {
     return null;
-  } else {
-    console.log(detailJobs);
   }
 
   const show = () => {

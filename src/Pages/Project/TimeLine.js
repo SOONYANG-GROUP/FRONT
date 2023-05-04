@@ -8,14 +8,13 @@ const Timeline = ({ projectId, flag, userName }) => {
 
   useEffect(() => {
     axios.get(`${BACK_URL}/projects/${projectId}/members/jobs`).then((res) => {
-      console.log(res.data);
       setJobDTO(res.data);
     });
   }, []);
 
   if (jobDTO) {
     return (
-      <div className="timeline-container" style={{ border: "1px solid" }}>
+      <div className="timeline-container">
         {jobDTO.map((data, idx) => (
           <TimelineItem
             data={data}
