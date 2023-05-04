@@ -344,7 +344,7 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
-const username = "재광님&형일님";
+const username = "잘생긴 재광님& 잘생긴 형일님";
 
 const Room = () => {
   const location = useLocation();
