@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 import { useCallback, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Rnd } from "react-rnd";
 import {
@@ -13,22 +13,23 @@ import {
 } from "react-icons/fa";
 import axios from "axios";
 import { BACK_URL } from "../../Components/Constants/URL";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const pc_config = {
-  iceServers: [
-    {
-      urls: [
-        "stun:stun.l.google.com:19302",
-        "stun:stun1.l.google.com:19302",
-        "stun:stun2.l.google.com:19302",
-        "stun:stun3.l.google.com:19302",
-        "stun:stun4.l.google.com:19302",
-      ],
-    },
-  ],
+  //iceServers: [
+  //  {
+  //    urls: [
+  //      "stun:stun.l.google.com:19302",
+  //      "stun:stun1.l.google.com:19302",
+  //      "stun:stun2.l.google.com:19302",
+  //      "stun:stun3.l.google.com:19302",
+  //      "stun:stun4.l.google.com:19302",
+  //    ],
+  //  },
+  //],
 };
-//const SOCKET_SERVER_URL = "http://localhost:5000";
-const SOCKET_SERVER_URL = "https://webcam-backend-13oo.onrender.com";
+const SOCKET_SERVER_URL = "http://localhost:5000";
+//const SOCKET_SERVER_URL = "https://webcam-backend-13oo.onrender.com";
 
 const RoomHeader = ({ myMemo, onChangeMyMemo }) => {
   return <header></header>;
@@ -228,6 +229,27 @@ const ChatBox = ({
   onSubmitMessage,
   userName,
 }) => {
+  const [isSending, setIsSending] = useState(false);
+
+  const onSendMessage = async () => {
+    setIsSending(true);
+    try {
+      await axios
+        .post(`${SUB_BACK_URL}/gpt/time-line`, {
+          messages: messages,
+        })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+    setIsSending(false);
+  };
+
   return (
     <div
       style={{
@@ -260,34 +282,41 @@ const ChatBox = ({
         >
           Live Chat
         </h1>
-        <div
-          style={{
-            overflow: "scroll",
-            display: "flex",
-            flexDirection: "column-reverse",
-            flexGrow: "1",
-            padding: "10px",
-          }}
-        >
-          {messages.map((msg, index) => {
-            return (
-              <div
-                key={index}
-                style={{
-                  alignSelf: msg.sender === "Me" ? "flex-end" : "flex-start",
-                  backgroundColor: msg.sender === "Me" ? "#007bff" : "#f5f5f5",
-                  color: msg.sender === "Me" ? "#fff" : "#333",
-                  borderRadius: "20px",
-                  padding: "10px 15px",
-                  margin: "5px 0",
-                  maxWidth: "70%",
-                }}
-              >
-                {msg}
-              </div>
-            );
-          })}
-        </div>
+
+        {isSending ? (
+          <div>Sending...</div>
+        ) : (
+          <div
+            style={{
+              overflow: "scroll",
+              display: "flex",
+              flexDirection: "column-reverse",
+              flexGrow: "1",
+              padding: "10px",
+            }}
+          >
+            {messages.map((msg, index) => {
+              return (
+                <div
+                  key={index}
+                  style={{
+                    alignSelf: msg.sender === "Me" ? "flex-end" : "flex-start",
+                    backgroundColor:
+                      msg.sender === "Me" ? "#007bff" : "#f5f5f5",
+                    color: msg.sender === "Me" ? "#fff" : "#333",
+                    borderRadius: "20px",
+                    padding: "10px 15px",
+                    margin: "5px 0",
+                    maxWidth: "70%",
+                  }}
+                >
+                  {msg}
+                </div>
+              );
+            })}
+          </div>
+        )}
+
         <form
           onSubmit={(e) => {
             onSubmitMessage(e, userName);
@@ -323,6 +352,7 @@ const ChatBox = ({
             >
               Send
             </button>
+            <button onClick={onSendMessage}>Summary</button>
           </div>
         </form>
       </div>
@@ -487,6 +517,8 @@ const Room = () => {
     }
   }, []);
 
+  // full room
+
   useEffect(() => {
     axios.get(`${BACK_URL}/users/info`).then((res) => {
       console.log(res.data);
@@ -501,6 +533,12 @@ const Room = () => {
       VideoBtn();
       MuteBtn();
     }
+
+    // full room
+    socketRef.current.on("room_full", () => {
+      console.log("hi");
+    });
+
     //'similar to welcome'
     socketRef.current.on("all_users", (allUsers) => {
       // 모든 user들에 대해 다음과 같은 작업을 수행
