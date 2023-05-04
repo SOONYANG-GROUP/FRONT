@@ -25,7 +25,7 @@ const pc_config = {
     },
   ],
 };
-// const SOCKET_SERVER_URL = "http://localhost:5000";
+//const SOCKET_SERVER_URL = "http://localhost:5000";
 const SOCKET_SERVER_URL = "https://webcam-backend-13oo.onrender.com";
 
 const RoomHeader = ({ myMemo, onChangeMyMemo }) => {
@@ -45,7 +45,6 @@ const RoomVideosSection = ({
   onChangeMessage,
   onSubmitMessage,
 }) => {
-  console.log(onchat);
   return (
     <>
       <section
@@ -345,7 +344,7 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
-const username = "재광님&형일님";
+const username = "잘생긴 재광님& 잘생긴 형일님";
 
 const Room = () => {
   const location = useLocation();
@@ -609,7 +608,7 @@ const Room = () => {
 
   useEffect(() => {
     socketRef.current.on("received_message", (data) => {
-      setMessages([...messages, `${data.username}: ${data.message}`]);
+      setMessages([`${data.username}: ${data.message}`, ...messages]);
     });
   }, [socketRef, messages, onchat]);
 
@@ -625,7 +624,7 @@ const Room = () => {
       room: roomName,
     });
 
-    setMessages([...messages, `${username}: ${message}`]);
+    setMessages([`${username}: ${message}`, ...messages]);
     setMessage("");
   };
 
