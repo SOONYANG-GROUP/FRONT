@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 import { useCallback, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Rnd } from "react-rnd";
 import {
@@ -11,22 +11,24 @@ import {
   FaPhoneSlash,
   FaComments,
 } from "react-icons/fa";
+import axios from "axios";
+import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const pc_config = {
-  iceServers: [
-    {
-      urls: [
-        "stun:stun.l.google.com:19302",
-        "stun:stun1.l.google.com:19302",
-        "stun:stun2.l.google.com:19302",
-        "stun:stun3.l.google.com:19302",
-        "stun:stun4.l.google.com:19302",
-      ],
-    },
-  ],
+  //iceServers: [
+  //  {
+  //    urls: [
+  //      "stun:stun.l.google.com:19302",
+  //      "stun:stun1.l.google.com:19302",
+  //      "stun:stun2.l.google.com:19302",
+  //      "stun:stun3.l.google.com:19302",
+  //      "stun:stun4.l.google.com:19302",
+  //    ],
+  //  },
+  //],
 };
-//const SOCKET_SERVER_URL = "http://localhost:5000";
-const SOCKET_SERVER_URL = "https://webcam-backend-13oo.onrender.com";
+const SOCKET_SERVER_URL = "http://localhost:5000";
+//const SOCKET_SERVER_URL = "https://webcam-backend-13oo.onrender.com";
 
 const RoomHeader = ({ myMemo, onChangeMyMemo }) => {
   return <header></header>;
@@ -45,6 +47,7 @@ const RoomVideosSection = ({
   onChangeMessage,
   onSubmitMessage,
 }) => {
+
   return (
     <>
       <section
@@ -218,6 +221,29 @@ const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn }) => {
 };
 
 const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
+  const [ isSending, setIsSending ] = useState(false);
+  
+  const onSendMessage = async () => {
+    setIsSending(true);
+    try
+    {
+      await axios.post(`${SUB_BACK_URL}/gpt/time-line`, {
+        messages: messages
+      })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+    catch(error)
+    {
+      console.log(error)
+    }
+    setIsSending(false);
+  }
+
   return (
     <div
       style={{
@@ -250,6 +276,10 @@ const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
         >
           Live Chat
         </h1>
+
+        {isSending ? (<div>
+          Sending...
+        </div>) : (
         <div
           style={{
             overflow: "scroll",
@@ -277,7 +307,9 @@ const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
               </div>
             );
           })}
-        </div>
+        </div>)}
+
+
         <form onSubmit={onSubmitMessage} style={{ padding: "10px" }}>
           <div style={{ display: "flex" }}>
             <input
@@ -307,6 +339,11 @@ const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
               type="submit"
             >
               Send
+            </button>
+            <button
+              onClick={onSendMessage}
+            >
+              Summary
             </button>
           </div>
         </form>
@@ -474,6 +511,8 @@ const Room = () => {
     }
   }, []);
 
+  // full room
+
   useEffect(() => {
     socketRef.current = io.connect(SOCKET_SERVER_URL);
     GetLocalStream();
@@ -481,6 +520,12 @@ const Room = () => {
       VideoBtn();
       MuteBtn();
     }
+
+    // full room
+    socketRef.current.on("room_full", () => {
+      console.log('hi')
+    })
+
     //'similar to welcome'
     socketRef.current.on("all_users", (allUsers) => {
       // 모든 user들에 대해 다음과 같은 작업을 수행
