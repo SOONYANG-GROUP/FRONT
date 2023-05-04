@@ -230,7 +230,7 @@ const ChatBox = ({
   userName,
 }) => {
   const [isSending, setIsSending] = useState(false);
-
+  const [chatSummary, setChatSummary] = useState("");
   const onSendMessage = async () => {
     setIsSending(true);
     try {
@@ -238,8 +238,14 @@ const ChatBox = ({
         .post(`${SUB_BACK_URL}/gpt/time-line`, {
           messages: messages,
         })
-        .then((res) => {
-          console.log(res.data);
+        .then(async (res) => {
+          setChatSummary(res.data.data.choices[0].message.content).then(
+            async () => {
+              await axios.post(`${SUB_BACK_URL}/gpt/time-line`, {
+                messages: messages,
+              });
+            }
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -521,10 +527,9 @@ const Room = () => {
 
   useEffect(() => {
     axios.get(`${BACK_URL}/users/info`).then((res) => {
-      console.log(res.data);
       setUserName(res.data.name);
     });
-  });
+  }, []);
 
   useEffect(() => {
     socketRef.current = io.connect(SOCKET_SERVER_URL);

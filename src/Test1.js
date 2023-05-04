@@ -6,7 +6,7 @@ const Test1 = () => {
   const onClickTest = async (e) => {
     e.preventDefault();
     await axios
-      .get("http://54.235.56.169/projects")
+      .get("http://52.91.214.195/projects")
       .then((res) => {
         console.log(res);
       })
@@ -20,7 +20,6 @@ const Test1 = () => {
       <div>
         <button onClick={onClickTest}>Click Test</button>
       </div>
-      
     </>
   );
 };
