@@ -11,6 +11,8 @@ import {
   FaPhoneSlash,
   FaComments,
 } from "react-icons/fa";
+import axios from "axios";
+import { BACK_URL } from "../../Components/Constants/URL";
 
 const pc_config = {
   iceServers: [
@@ -44,6 +46,7 @@ const RoomVideosSection = ({
   messages,
   onChangeMessage,
   onSubmitMessage,
+  userName,
 }) => {
   return (
     <>
@@ -119,6 +122,7 @@ const RoomVideosSection = ({
                 onChangeMessage={onChangeMessage}
                 onSubmitMessage={onSubmitMessage}
                 style={{ position: "relative" }}
+                userName={userName}
               />
             </Rnd>
             {/* <div
@@ -217,7 +221,13 @@ const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn }) => {
   );
 };
 
-const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
+const ChatBox = ({
+  message,
+  messages,
+  onChangeMessage,
+  onSubmitMessage,
+  userName,
+}) => {
   return (
     <div
       style={{
@@ -278,7 +288,12 @@ const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
             );
           })}
         </div>
-        <form onSubmit={onSubmitMessage} style={{ padding: "10px" }}>
+        <form
+          onSubmit={(e) => {
+            onSubmitMessage(e, userName);
+          }}
+          style={{ padding: "10px" }}
+        >
           <div style={{ display: "flex" }}>
             <input
               type="text"
@@ -344,8 +359,6 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
-const username = "잘생긴 재광님& 잘생긴 형일님";
-
 const Room = () => {
   const location = useLocation();
   const roomName = location.pathname.split("/")[2];
@@ -360,7 +373,7 @@ const Room = () => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const [onchat, setOnChat] = useState(false);
-
+  const [userName, setUserName] = useState("");
   // Menu
   const [isMenuOn, setIsMenuOn] = useState(false);
   const [myMemo, setMyMemo] = useState("");
@@ -473,6 +486,13 @@ const Room = () => {
       return;
     }
   }, []);
+
+  useEffect(() => {
+    axios.get(`${BACK_URL}/users/info`).then((res) => {
+      console.log(res.data);
+      setUserName(res.data.name);
+    });
+  });
 
   useEffect(() => {
     socketRef.current = io.connect(SOCKET_SERVER_URL);
@@ -616,14 +636,25 @@ const Room = () => {
     setMessage(e.target.value);
   };
 
-  const onSubmitMessage = (e) => {
+  function addMessage(message) {
+    // 로컬 스토리지에서 메시지 배열을 가져옵니다.
+    const messages = JSON.parse(localStorage.getItem("messages")) || [];
+
+    // 새로운 메시지를 배열에 추가합니다.
+    messages.push(message);
+
+    // 로컬 스토리지에 메시지 배열을 저장합니다.
+    localStorage.setItem("messages", JSON.stringify(messages));
+  }
+
+  const onSubmitMessage = (e, username) => {
+    console.log(username);
     e.preventDefault();
     socketRef.current.emit("send_message", {
       message: message,
       username: username,
       room: roomName,
     });
-
     setMessages([`${username}: ${message}`, ...messages]);
     setMessage("");
   };
@@ -639,6 +670,7 @@ const Room = () => {
         messages={messages}
         onChangeMessage={onChangeMessage}
         onSubmitMessage={onSubmitMessage}
+        userName={userName}
       />
 
       <RoomFooter
