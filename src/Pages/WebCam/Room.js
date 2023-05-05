@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 import { useCallback, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { Rnd } from "react-rnd";
 import {
@@ -11,7 +11,7 @@ import {
   FaPhoneSlash,
   FaComments,
   FaTeamspeak,
-  FaPenSquare
+  FaPenSquare,
 } from "react-icons/fa";
 import axios from "axios";
 import { BACK_URL } from "../../Components/Constants/URL";
@@ -156,13 +156,23 @@ const RoomVideosSection = ({
   );
 };
 
-const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn, onStartTranscript, onEndTranscript, speechStatus, onSubmitSpeech, messages, summaryStatus }) => {
-
+const RoomFooter = ({
+  MuteBtn,
+  VideoBtn,
+  isMuted,
+  isCameraOn,
+  ChatBtn,
+  onStartTranscript,
+  onEndTranscript,
+  speechStatus,
+  onSubmitSpeech,
+  messages,
+  summaryStatus,
+}) => {
   const EndCallBtn = () => {
     window.open("", "_self");
     window.close();
   };
-  console.log(messages)
   return (
     <footer>
       <div
@@ -224,22 +234,37 @@ const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn, onStartTr
             <div>disconnect</div>
           </button>
           {speechStatus ? (
-            <button className="btn mx-2 rounded-3" style={{ border: "1px solid #999999", color: "white" }} onClick={onEndTranscript}>
+            <button
+              className="btn mx-2 rounded-3"
+              style={{ border: "1px solid #999999", color: "white" }}
+              onClick={onEndTranscript}
+            >
               <FaTeamspeak size={24} />
               <div>End Speech</div>
             </button>
           ) : (
-            <button className="btn mx-2 rounded-3" style={{ border: "1px solid #999999", color: "white" }} onClick={onStartTranscript}>
+            <button
+              className="btn mx-2 rounded-3"
+              style={{ border: "1px solid #999999", color: "white" }}
+              onClick={onStartTranscript}
+            >
               <FaTeamspeak size={24} />
               <div>Start Speech</div>
             </button>
           )}
-          {messages.length === 0 ? (<></>) : (
-            <button className="btn mx-2 rounded-3" style={{ border: "1px solid #999999", color: "white" }} onClick={onSubmitSpeech} disabled={speechStatus || summaryStatus}>
+          {messages.length === 0 ? (
+            <></>
+          ) : (
+            <button
+              className="btn mx-2 rounded-3"
+              style={{ border: "1px solid #999999", color: "white" }}
+              onClick={onSubmitSpeech}
+              disabled={speechStatus || summaryStatus}
+            >
               <FaPenSquare size={24} />
               <div>{messages.length} Msgs Summary</div>
-            </button>)
-          }
+            </button>
+          )}
         </div>
       </div>
     </footer>
@@ -252,10 +277,11 @@ const ChatBox = ({
   onChangeMessage,
   onSubmitMessage,
   userName,
-  projectId,
 }) => {
   const [isSending, setIsSending] = useState(false);
   const [chatSummary, setChatSummary] = useState("");
+  const projectId = useParams().id;
+
   const onSendMessage = async (e) => {
     e.preventDefault();
     setIsSending(true);
@@ -263,11 +289,12 @@ const ChatBox = ({
       const res = await axios.post(`${SUB_BACK_URL}/gpt/time-line`, {
         messages: messages,
       });
+      console.log(res.data.data.choices[0].message.content);
       setChatSummary(res.data.data.choices[0].message.content);
       await axios.post(
-        `${BACK_URL}/project/${projectId}/members/jobs/add`,
+        `${BACK_URL}/projects/${projectId}/members/simplejobs/add`,
         {
-          messages: messages,
+          chatSummary,
         }
       );
     } catch (error) {
@@ -414,11 +441,12 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
-const Room = ({ projectId }) => {
+const Room = () => {
   const location = useLocation();
+
   const roomName = location.pathname.split("/")[2];
   const socketRef = useRef();
-  
+
   const speechRef = useRef();
 
   const pcsRef = useRef({});
@@ -432,10 +460,10 @@ const Room = ({ projectId }) => {
   const [message, setMessage] = useState("");
   const [onchat, setOnChat] = useState(false);
 
-  const [ summaryStatus, setSummaryStatus ] = useState(false);
-  const [ isAddingSpeech, setIsAddingSpeech ] = useState(false);
-  const [ speechStatus, setSpeechStatus ] = useState(false);
-  const [ userName, setUserName ] = useState("");
+  const [summaryStatus, setSummaryStatus] = useState(false);
+  const [isAddingSpeech, setIsAddingSpeech] = useState(false);
+  const [speechStatus, setSpeechStatus] = useState(false);
+  const [userName, setUserName] = useState("");
   // Menu
   const [isMenuOn, setIsMenuOn] = useState(false);
   const [myMemo, setMyMemo] = useState("");
@@ -443,41 +471,38 @@ const Room = ({ projectId }) => {
     setMyMemo(e.target.value);
   };
 
-  
   const onStartTranscript = (event) => {
     speechRef.current.start();
-  }
+  };
 
   const onEndTranscript = (event) => {
-      speechRef.current.stop();
-  }
-  
+    speechRef.current.stop();
+  };
+
   const GetSpeechRef = useCallback(async () => {
-    try
-    {
+    try {
       const recognition = new window.webkitSpeechRecognition();
-      recognition.lang = "ko-KR"
+      recognition.lang = "ko-KR";
       recognition.continuous = true;
       recognition.maxSpeedTime = 120;
       recognition.maxAge = 360;
-      
+
       speechRef.current = recognition;
       speechRef.current.addEventListener("start", (event) => {
         setSpeechStatus(true);
-      })
+      });
       speechRef.current.addEventListener("result", (event) => {
-        const transcript = event.results[event.results.length - 1][0].transcript
+        const transcript =
+          event.results[event.results.length - 1][0].transcript;
         messages.push(transcript);
       });
       speechRef.current.addEventListener("end", (event) => {
         setSpeechStatus(false);
-      })
-    }
-    catch(error)
-    {
+      });
+    } catch (error) {
       console.error(error);
     }
-  })
+  });
 
   const GetLocalStream = useCallback(async () => {
     try {
@@ -587,9 +612,9 @@ const Room = ({ projectId }) => {
   // full room
 
   useEffect(() => {
-    //axios.get(`${BACK_URL}/users/info`).then((res) => {
-    //  setUserName(res.data.name);
-    //});
+    axios.get(`${BACK_URL}/users/info`).then((res) => {
+      setUserName(res.data.name);
+    });
   }, []);
 
   useEffect(() => {
@@ -767,23 +792,21 @@ const Room = ({ projectId }) => {
   const onSubmitSpeech = async (e) => {
     e.preventDefault();
     setSummaryStatus(true);
-    try
-    {
-      await axios.post(`${SUB_BACK_URL}/gpt/transcript`, {messages: messages})
-      .then((res) => {
-        const content = res.data.data.choices[0].message.content;
-        console.log(content);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-    }
-    catch(error)
-    {
-      console.error(error)
+    try {
+      await axios
+        .post(`${SUB_BACK_URL}/gpt/transcript`, { messages: messages })
+        .then((res) => {
+          const content = res.data.data.choices[0].message.content;
+          console.log(content);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (error) {
+      console.error(error);
     }
     setSummaryStatus(false);
-  }
+  };
 
   return (
     <>

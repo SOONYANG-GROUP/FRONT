@@ -503,6 +503,7 @@ const DetailPageTwo = ({
           <Link
             to={`/webcamhome`}
             className="btn text-light w-100 m-1"
+            state={{ projectId: id }}
             style={{ backgroundColor: "#131313" }}
           >
             <BiWebcam size={24} />

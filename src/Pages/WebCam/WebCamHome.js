@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import HomeThumbnail from "./HomeThumbnail.png";
 
@@ -6,6 +7,8 @@ import HomeThumbnail from "./HomeThumbnail.png";
 // https://bootstrapmade.com/herobiz-bootstrap-business-template/download/
 
 const WebCamHome = () => {
+  const location = useLocation();
+  const projectId = location.state.projectId;
   const [roomName, setRoomName] = useState("");
   const onChangeRoomName = (e) => {
     setRoomName(e.target.value);
@@ -13,7 +16,7 @@ const WebCamHome = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    window.open(`/room/${roomName}`, "_blank");
+    window.open(`/room/${projectId}`, "_blank");
   };
 
   return (
@@ -51,13 +54,6 @@ const WebCamHome = () => {
         }}
       >
         <form onSubmit={onSubmit}>
-          <input
-            className="form-control w-100"
-            placeholder="방 번호 입력"
-            name="roomName"
-            value={roomName}
-            onChange={onChangeRoomName}
-          />
           <div className="mt-2">
             <button className="btn btn-primary w-100">들어가기</button>
           </div>
