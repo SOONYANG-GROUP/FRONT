@@ -37,6 +37,8 @@ import { BACK_URL } from "./Components/Constants/URL";
 import WebCamHome from "./Pages/WebCam/WebCamHome";
 import Room from "./Pages/WebCam/Room";
 
+import Speech from "./Speech";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState();
   const [userId, setUserId] = useState();
@@ -216,6 +218,8 @@ function App() {
         
         <Route path="/webcamhome" element={<WebCamHome />} />
         <Route path="/room/:id" element={<Room />} />
+
+        <Route path="/speech" element={<Speech/>} />
       </Routes>
     </Router>
   );

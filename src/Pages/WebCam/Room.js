@@ -10,6 +10,8 @@ import {
   FaVideoSlash,
   FaPhoneSlash,
   FaComments,
+  FaTeamspeak,
+  FaPenSquare
 } from "react-icons/fa";
 import axios from "axios";
 import { SUB_BACK_URL } from "../../Components/Constants/URL";
@@ -149,11 +151,13 @@ const RoomVideosSection = ({
   );
 };
 
-const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn }) => {
+const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn, onStartTranscript, onEndTranscript, speechStatus, onSubmitSpeech, messages }) => {
+
   const EndCallBtn = () => {
     window.open("", "_self");
     window.close();
   };
+  console.log(messages)
   return (
     <footer>
       <div
@@ -214,6 +218,23 @@ const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn }) => {
             <FaPhoneSlash size={24} />
             <div>disconnect</div>
           </button>
+          {speechStatus ? (
+            <button className="btn mx-2 rounded-3" style={{ border: "1px solid #999999", color: "white" }} onClick={onEndTranscript}>
+              <FaTeamspeak size={24} />
+              <div>End Speech</div>
+            </button>
+          ) : (
+            <button className="btn mx-2 rounded-3" style={{ border: "1px solid #999999", color: "white" }} onClick={onStartTranscript}>
+              <FaTeamspeak size={24} />
+              <div>Start Speech</div>
+            </button>
+          )}
+          {messages.length === 0 ? (<></>) : (
+            <button className="btn mx-2 rounded-3" style={{ border: "1px solid #999999", color: "white" }} onClick={onSubmitSpeech} disabled={speechStatus}>
+              <FaPenSquare size={24} />
+              <div>{messages.length} Msgs Summary</div>
+            </button>)
+          }
         </div>
       </div>
     </footer>
@@ -387,6 +408,9 @@ const Room = () => {
   const location = useLocation();
   const roomName = location.pathname.split("/")[2];
   const socketRef = useRef();
+  
+  const speechRef = useRef();
+
   const pcsRef = useRef({});
   const localVideoRef = useRef(null);
   const localStreamRef = useRef();
@@ -398,6 +422,9 @@ const Room = () => {
   const [message, setMessage] = useState("");
   const [onchat, setOnChat] = useState(false);
 
+  const [ isAddingSpeech, setIsAddingSpeech ] = useState(false);
+  const [ speechStatus, setSpeechStatus ] = useState(false);
+
   // Menu
   const [isMenuOn, setIsMenuOn] = useState(false);
   const [myMemo, setMyMemo] = useState("");
@@ -405,6 +432,42 @@ const Room = () => {
   const onChangeMyMemo = (e) => {
     setMyMemo(e.target.value);
   };
+
+  
+  const onStartTranscript = (event) => {
+    speechRef.current.start();
+  }
+
+  const onEndTranscript = (event) => {
+      speechRef.current.stop();
+  }
+  
+  const GetSpeechRef = useCallback(async () => {
+    try
+    {
+      const recognition = new window.webkitSpeechRecognition();
+      recognition.lang = "ko-KR"
+      recognition.continuous = true;
+      recognition.maxSpeedTime = 120;
+      recognition.maxAge = 360;
+      
+      speechRef.current = recognition;
+      speechRef.current.addEventListener("start", (event) => {
+        setSpeechStatus(true);
+      })
+      speechRef.current.addEventListener("result", (event) => {
+        const transcript = event.results[event.results.length - 1][0].transcript
+        messages.push(transcript);
+      });
+      speechRef.current.addEventListener("end", (event) => {
+        setSpeechStatus(false);
+      })
+    }
+    catch(error)
+    {
+      console.error(error);
+    }
+  })
 
   const GetLocalStream = useCallback(async () => {
     try {
@@ -516,6 +579,7 @@ const Room = () => {
   useEffect(() => {
     socketRef.current = io.connect(SOCKET_SERVER_URL);
     GetLocalStream();
+    GetSpeechRef();
     if (localStreamRef.current) {
       VideoBtn();
       MuteBtn();
@@ -673,6 +737,25 @@ const Room = () => {
     setMessage("");
   };
 
+  const onSubmitSpeech = async (e) => {
+    e.preventDefault();
+    try
+    {
+      await axios.post(`${SUB_BACK_URL}/gpt/transcript`, {messages: messages})
+      .then((res) => {
+        const content = res.data.data.choices[0].message.content;
+        console.log(content);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+    }
+    catch(error)
+    {
+      console.error(error)
+    }
+  }
+
   return (
     <>
       <RoomHeader />
@@ -692,6 +775,11 @@ const Room = () => {
         isMuted={isMuted}
         isCameraOn={isCameraOn}
         ChatBtn={ChatBtn}
+        speechStatus={speechStatus}
+        messages={messages}
+        onStartTranscript={onStartTranscript}
+        onEndTranscript={onEndTranscript}
+        onSubmitSpeech={onSubmitSpeech}
       />
     </>
   );
