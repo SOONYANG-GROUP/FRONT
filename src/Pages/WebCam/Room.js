@@ -30,6 +30,7 @@ const pc_config = {
   //  },
   //],
 };
+
 const SOCKET_SERVER_URL = "http://localhost:5000";
 //const SOCKET_SERVER_URL = "https://webcam-backend-13oo.onrender.com";
 
@@ -155,7 +156,7 @@ const RoomVideosSection = ({
   );
 };
 
-const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn, onStartTranscript, onEndTranscript, speechStatus, onSubmitSpeech, messages }) => {
+const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn, onStartTranscript, onEndTranscript, speechStatus, onSubmitSpeech, messages, summaryStatus }) => {
 
   const EndCallBtn = () => {
     window.open("", "_self");
@@ -234,7 +235,7 @@ const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn, onStartTr
             </button>
           )}
           {messages.length === 0 ? (<></>) : (
-            <button className="btn mx-2 rounded-3" style={{ border: "1px solid #999999", color: "white" }} onClick={onSubmitSpeech} disabled={speechStatus}>
+            <button className="btn mx-2 rounded-3" style={{ border: "1px solid #999999", color: "white" }} onClick={onSubmitSpeech} disabled={speechStatus || summaryStatus}>
               <FaPenSquare size={24} />
               <div>{messages.length} Msgs Summary</div>
             </button>)
@@ -263,13 +264,12 @@ const ChatBox = ({
         messages: messages,
       });
       setChatSummary(res.data.data.choices[0].message.content);
-      console.log(res.data.data.choices[0].message.content);
-      // await axios.post(
-      //   `${BACK_URL}/project/${projectId}/members/jobs/add`,
-      //   {
-      //     messages: messages,
-      //   }
-      // );
+      await axios.post(
+        `${BACK_URL}/project/${projectId}/members/jobs/add`,
+        {
+          messages: messages,
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -432,9 +432,10 @@ const Room = ({ projectId }) => {
   const [message, setMessage] = useState("");
   const [onchat, setOnChat] = useState(false);
 
+  const [ summaryStatus, setSummaryStatus ] = useState(false);
   const [ isAddingSpeech, setIsAddingSpeech ] = useState(false);
   const [ speechStatus, setSpeechStatus ] = useState(false);
-
+  const [ userName, setUserName ] = useState("");
   // Menu
   const [isMenuOn, setIsMenuOn] = useState(false);
   const [myMemo, setMyMemo] = useState("");
@@ -586,9 +587,9 @@ const Room = ({ projectId }) => {
   // full room
 
   useEffect(() => {
-    axios.get(`${BACK_URL}/users/info`).then((res) => {
-      setUserName(res.data.name);
-    });
+    //axios.get(`${BACK_URL}/users/info`).then((res) => {
+    //  setUserName(res.data.name);
+    //});
   }, []);
 
   useEffect(() => {
@@ -765,6 +766,7 @@ const Room = ({ projectId }) => {
 
   const onSubmitSpeech = async (e) => {
     e.preventDefault();
+    setSummaryStatus(true);
     try
     {
       await axios.post(`${SUB_BACK_URL}/gpt/transcript`, {messages: messages})
@@ -780,6 +782,7 @@ const Room = ({ projectId }) => {
     {
       console.error(error)
     }
+    setSummaryStatus(false);
   }
 
   return (
@@ -804,6 +807,7 @@ const Room = ({ projectId }) => {
         ChatBtn={ChatBtn}
         speechStatus={speechStatus}
         messages={messages}
+        summaryStatus={summaryStatus}
         onStartTranscript={onStartTranscript}
         onEndTranscript={onEndTranscript}
         onSubmitSpeech={onSubmitSpeech}
