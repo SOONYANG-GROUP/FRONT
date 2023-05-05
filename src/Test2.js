@@ -47,6 +47,7 @@ const Test = () => {
       .post(`${BACK_URL}/join`, data)
       .then((res) => console.log(res))
       .catch();
+    window.location.href("/");
   };
 
   // 페이지 렌더링 후 가장 처음 호출되는 함수

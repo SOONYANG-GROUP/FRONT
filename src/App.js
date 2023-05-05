@@ -208,14 +208,13 @@ function App() {
         <Route path="/test1" element={<Test1 isLoggedIn={isLoggedIn} />} />
         <Route path="/login" element={<Login isLoggedIn={isLoggedIn} />} />
 
-        
         <Route path="/editProfile" element={<EditProfile />} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route
           path="/updateprojectsstatus"
           element={<UpdateProjectsStatus />}
         />
-        
+
         <Route path="/webcamhome" element={<WebCamHome />} />
         <Route path="/room/:id" element={<Room />} />
 

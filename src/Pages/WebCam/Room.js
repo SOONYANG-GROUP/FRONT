@@ -14,6 +14,7 @@ import {
   FaPenSquare
 } from "react-icons/fa";
 import axios from "axios";
+import { BACK_URL } from "../../Components/Constants/URL";
 import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const pc_config = {
@@ -48,8 +49,9 @@ const RoomVideosSection = ({
   messages,
   onChangeMessage,
   onSubmitMessage,
+  userName,
+  projectId,
 }) => {
-
   return (
     <>
       <section
@@ -124,6 +126,8 @@ const RoomVideosSection = ({
                 onChangeMessage={onChangeMessage}
                 onSubmitMessage={onSubmitMessage}
                 style={{ position: "relative" }}
+                userName={userName}
+                projectId={projectId}
               />
             </Rnd>
             {/* <div
@@ -241,29 +245,36 @@ const RoomFooter = ({ MuteBtn, VideoBtn, isMuted, isCameraOn, ChatBtn, onStartTr
   );
 };
 
-const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
-  const [ isSending, setIsSending ] = useState(false);
-  
-  const onSendMessage = async () => {
+const ChatBox = ({
+  message,
+  messages,
+  onChangeMessage,
+  onSubmitMessage,
+  userName,
+  projectId,
+}) => {
+  const [isSending, setIsSending] = useState(false);
+  const [chatSummary, setChatSummary] = useState("");
+  const onSendMessage = async (e) => {
+    e.preventDefault();
     setIsSending(true);
-    try
-    {
-      await axios.post(`${SUB_BACK_URL}/gpt/time-line`, {
-        messages: messages
-      })
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    }
-    catch(error)
-    {
-      console.log(error)
+    try {
+      const res = await axios.post(`${SUB_BACK_URL}/gpt/time-line`, {
+        messages: messages,
+      });
+      setChatSummary(res.data.data.choices[0].message.content);
+      console.log(res.data.data.choices[0].message.content);
+      // await axios.post(
+      //   `${BACK_URL}/project/${projectId}/members/jobs/add`,
+      //   {
+      //     messages: messages,
+      //   }
+      // );
+    } catch (error) {
+      console.log(error);
     }
     setIsSending(false);
-  }
+  };
 
   return (
     <div
@@ -298,40 +309,41 @@ const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
           Live Chat
         </h1>
 
-        {isSending ? (<div>
-          Sending...
-        </div>) : (
-        <div
-          style={{
-            overflow: "scroll",
-            display: "flex",
-            flexDirection: "column-reverse",
-            flexGrow: "1",
-            padding: "10px",
-          }}
-        >
-          {messages.map((msg, index) => {
-            return (
-              <div
-                key={index}
-                style={{
-                  alignSelf: msg.sender === "Me" ? "flex-end" : "flex-start",
-                  backgroundColor: msg.sender === "Me" ? "#007bff" : "#f5f5f5",
-                  color: msg.sender === "Me" ? "#fff" : "#333",
-                  borderRadius: "20px",
-                  padding: "10px 15px",
-                  margin: "5px 0",
-                  maxWidth: "70%",
-                }}
-              >
-                {msg}
-              </div>
-            );
-          })}
-        </div>)}
+        {isSending ? (
+          <div>Sending...</div>
+        ) : (
+          <div
+            style={{
+              overflow: "scroll",
+              display: "flex",
+              flexDirection: "column-reverse",
+              flexGrow: "1",
+              padding: "10px",
+            }}
+          >
+            {messages.map((msg, index) => {
+              return (
+                <div
+                  key={index}
+                  style={{
+                    alignSelf: msg.sender === "Me" ? "flex-end" : "flex-start",
+                    backgroundColor:
+                      msg.sender === "Me" ? "#007bff" : "#f5f5f5",
+                    color: msg.sender === "Me" ? "#fff" : "#333",
+                    borderRadius: "20px",
+                    padding: "10px 15px",
+                    margin: "5px 0",
+                    maxWidth: "70%",
+                  }}
+                >
+                  {msg}
+                </div>
+              );
+            })}
+          </div>
+        )}
 
-
-        <form onSubmit={onSubmitMessage} style={{ padding: "10px" }}>
+        <form style={{ padding: "10px" }}>
           <div style={{ display: "flex" }}>
             <input
               type="text"
@@ -357,15 +369,15 @@ const ChatBox = ({ message, messages, onChangeMessage, onSubmitMessage }) => {
                 borderRadius: "0 5px 5px 0",
               }}
               id="message-button"
-              type="submit"
+              onClick={(e) => {
+                onSubmitMessage(e, userName);
+              }}
             >
-              Send
+              보내기
             </button>
-            <button
-              onClick={onSendMessage}
-            >
-              Summary
-            </button>
+            <div className="btn btn-primary" onClick={onSendMessage}>
+              요약하기
+            </div>
           </div>
         </form>
       </div>
@@ -402,9 +414,7 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
-const username = "잘생긴 재광님& 잘생긴 형일님";
-
-const Room = () => {
+const Room = ({ projectId }) => {
   const location = useLocation();
   const roomName = location.pathname.split("/")[2];
   const socketRef = useRef();
@@ -428,7 +438,6 @@ const Room = () => {
   // Menu
   const [isMenuOn, setIsMenuOn] = useState(false);
   const [myMemo, setMyMemo] = useState("");
-
   const onChangeMyMemo = (e) => {
     setMyMemo(e.target.value);
   };
@@ -577,6 +586,12 @@ const Room = () => {
   // full room
 
   useEffect(() => {
+    axios.get(`${BACK_URL}/users/info`).then((res) => {
+      setUserName(res.data.name);
+    });
+  }, []);
+
+  useEffect(() => {
     socketRef.current = io.connect(SOCKET_SERVER_URL);
     GetLocalStream();
     GetSpeechRef();
@@ -587,8 +602,8 @@ const Room = () => {
 
     // full room
     socketRef.current.on("room_full", () => {
-      console.log('hi')
-    })
+      console.log("hi");
+    });
 
     //'similar to welcome'
     socketRef.current.on("all_users", (allUsers) => {
@@ -725,14 +740,25 @@ const Room = () => {
     setMessage(e.target.value);
   };
 
-  const onSubmitMessage = (e) => {
+  function addMessage(message) {
+    // 로컬 스토리지에서 메시지 배열을 가져옵니다.
+    const messages = JSON.parse(localStorage.getItem("messages")) || [];
+
+    // 새로운 메시지를 배열에 추가합니다.
+    messages.push(message);
+
+    // 로컬 스토리지에 메시지 배열을 저장합니다.
+    localStorage.setItem("messages", JSON.stringify(messages));
+  }
+
+  const onSubmitMessage = (e, username) => {
+    console.log(username);
     e.preventDefault();
     socketRef.current.emit("send_message", {
       message: message,
       username: username,
       room: roomName,
     });
-
     setMessages([`${username}: ${message}`, ...messages]);
     setMessage("");
   };
@@ -767,6 +793,7 @@ const Room = () => {
         messages={messages}
         onChangeMessage={onChangeMessage}
         onSubmitMessage={onSubmitMessage}
+        userName={userName}
       />
 
       <RoomFooter

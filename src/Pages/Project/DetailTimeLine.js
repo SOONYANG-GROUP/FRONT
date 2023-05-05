@@ -37,7 +37,7 @@ const DetailTimelineItem = ({ data, projectId, jobDTO }) => {
         </time>
         <div>{jobTitle}</div>
         <div>{data.description}</div>
-        <div>{data.url}</div>
+        <a href={data.url}>{data.url}</a>
         <div>{data.memberName}</div>
       </div>
       <hr />
