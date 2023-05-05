@@ -165,14 +165,40 @@ const RoomFooter = ({
   onStartTranscript,
   onEndTranscript,
   speechStatus,
-  onSubmitSpeech,
   messages,
-  summaryStatus,
 }) => {
+  const [isDoneSummary, setIsDoneSummary] = useState(false);
+  const [summaryStatus, setSummaryStatus] = useState(false);
+
   const EndCallBtn = () => {
     window.open("", "_self");
     window.close();
   };
+
+  const onSubmitSpeech = async (e) => {
+    e.preventDefault();
+
+    try {
+      setSummaryStatus(true);
+      await axios
+        .post(`${SUB_BACK_URL}/gpt/transcript`, { messages: messages })
+        .then((res) => {
+          const content = res.data.data.choices[0].message.content;
+          console.log(content);
+          setIsDoneSummary(true);
+
+          // 여기서 부터 작성하기
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setSummaryStatus(false);
+    }
+  };
+
   return (
     <footer>
       <div
@@ -233,27 +259,31 @@ const RoomFooter = ({
             <FaPhoneSlash size={24} />
             <div>disconnect</div>
           </button>
-          {speechStatus ? (
-            <button
-              className="btn mx-2 rounded-3"
-              style={{ border: "1px solid #999999", color: "white" }}
-              onClick={onEndTranscript}
-            >
-              <FaTeamspeak size={24} />
-              <div>End Speech</div>
-            </button>
-          ) : (
-            <button
-              className="btn mx-2 rounded-3"
-              style={{ border: "1px solid #999999", color: "white" }}
-              onClick={onStartTranscript}
-            >
-              <FaTeamspeak size={24} />
-              <div>Start Speech</div>
-            </button>
-          )}
-          {messages.length === 0 ? (
+
+          {isDoneSummary ? (
             <></>
+          ) : messages.length === 0 ? (
+            speechStatus ? (
+              <button
+                className="btn mx-2 rounded-3"
+                style={{ border: "1px solid #999999", color: "white" }}
+                onClick={onEndTranscript}
+                disabled={summaryStatus}
+              >
+                <FaTeamspeak size={24} onClick={onEndTranscript} />
+                <div onClick={onEndTranscript}>End Speech</div>
+              </button>
+            ) : (
+              <button
+                className="btn mx-2 rounded-3"
+                style={{ border: "1px solid #999999", color: "white" }}
+                onClick={onStartTranscript}
+                disabled={summaryStatus}
+              >
+                <FaTeamspeak onClick={onStartTranscript} size={24} />
+                <div onClick={onStartTranscript}>Start Speech</div>
+              </button>
+            )
           ) : (
             <button
               className="btn mx-2 rounded-3"
@@ -261,8 +291,8 @@ const RoomFooter = ({
               onClick={onSubmitSpeech}
               disabled={speechStatus || summaryStatus}
             >
-              <FaPenSquare size={24} />
-              <div>{messages.length} Msgs Summary</div>
+              <FaPenSquare size={24} onClick={onSubmitSpeech} />
+              <div onClick={onSubmitSpeech}>{messages.length} Msgs Summary</div>
             </button>
           )}
         </div>
@@ -460,8 +490,6 @@ const Room = () => {
   const [message, setMessage] = useState("");
   const [onchat, setOnChat] = useState(false);
 
-  const [summaryStatus, setSummaryStatus] = useState(false);
-  const [isAddingSpeech, setIsAddingSpeech] = useState(false);
   const [speechStatus, setSpeechStatus] = useState(false);
   const [userName, setUserName] = useState("");
   // Menu
@@ -472,11 +500,19 @@ const Room = () => {
   };
 
   const onStartTranscript = (event) => {
-    speechRef.current.start();
+    try {
+      speechRef.current.start();
+    } catch (error) {
+      console.log("please try again");
+    }
   };
 
   const onEndTranscript = (event) => {
-    speechRef.current.stop();
+    try {
+      speechRef.current.stop();
+    } catch (error) {
+      console.log("please try again");
+    }
   };
 
   const GetSpeechRef = useCallback(async () => {
@@ -488,16 +524,21 @@ const Room = () => {
       recognition.maxAge = 360;
 
       speechRef.current = recognition;
-      speechRef.current.addEventListener("start", (event) => {
+
+      speechRef.current.onstart = () => {
+        console.log("speech start");
         setSpeechStatus(true);
-      });
+      };
+
+      speechRef.current.onend = () => {
+        console.log("speech end");
+        setSpeechStatus(false);
+      };
+
       speechRef.current.addEventListener("result", (event) => {
         const transcript =
           event.results[event.results.length - 1][0].transcript;
         messages.push(transcript);
-      });
-      speechRef.current.addEventListener("end", (event) => {
-        setSpeechStatus(false);
       });
     } catch (error) {
       console.error(error);
@@ -789,25 +830,6 @@ const Room = () => {
     setMessage("");
   };
 
-  const onSubmitSpeech = async (e) => {
-    e.preventDefault();
-    setSummaryStatus(true);
-    try {
-      await axios
-        .post(`${SUB_BACK_URL}/gpt/transcript`, { messages: messages })
-        .then((res) => {
-          const content = res.data.data.choices[0].message.content;
-          console.log(content);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } catch (error) {
-      console.error(error);
-    }
-    setSummaryStatus(false);
-  };
-
   return (
     <>
       <RoomHeader />
@@ -830,10 +852,8 @@ const Room = () => {
         ChatBtn={ChatBtn}
         speechStatus={speechStatus}
         messages={messages}
-        summaryStatus={summaryStatus}
         onStartTranscript={onStartTranscript}
         onEndTranscript={onEndTranscript}
-        onSubmitSpeech={onSubmitSpeech}
       />
     </>
   );
