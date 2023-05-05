@@ -48,6 +48,7 @@ const RoomVideosSection = ({
   onChangeMessage,
   onSubmitMessage,
   userName,
+  projectId,
 }) => {
   return (
     <>
@@ -124,6 +125,7 @@ const RoomVideosSection = ({
                 onSubmitMessage={onSubmitMessage}
                 style={{ position: "relative" }}
                 userName={userName}
+                projectId={projectId}
               />
             </Rnd>
             {/* <div
@@ -228,28 +230,25 @@ const ChatBox = ({
   onChangeMessage,
   onSubmitMessage,
   userName,
+  projectId,
 }) => {
   const [isSending, setIsSending] = useState(false);
   const [chatSummary, setChatSummary] = useState("");
-  const onSendMessage = async () => {
+  const onSendMessage = async (e) => {
+    e.preventDefault();
     setIsSending(true);
     try {
-      await axios
-        .post(`${SUB_BACK_URL}/gpt/time-line`, {
-          messages: messages,
-        })
-        .then(async (res) => {
-          setChatSummary(res.data.data.choices[0].message.content).then(
-            async () => {
-              await axios.post(`${SUB_BACK_URL}/gpt/time-line`, {
-                messages: messages,
-              });
-            }
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const res = await axios.post(`${SUB_BACK_URL}/gpt/time-line`, {
+        messages: messages,
+      });
+      setChatSummary(res.data.data.choices[0].message.content);
+      console.log(res.data.data.choices[0].message.content);
+      // await axios.post(
+      //   `${BACK_URL}/project/${projectId}/members/jobs/add`,
+      //   {
+      //     messages: messages,
+      //   }
+      // );
     } catch (error) {
       console.log(error);
     }
@@ -323,12 +322,7 @@ const ChatBox = ({
           </div>
         )}
 
-        <form
-          onSubmit={(e) => {
-            onSubmitMessage(e, userName);
-          }}
-          style={{ padding: "10px" }}
-        >
+        <form style={{ padding: "10px" }}>
           <div style={{ display: "flex" }}>
             <input
               type="text"
@@ -354,11 +348,15 @@ const ChatBox = ({
                 borderRadius: "0 5px 5px 0",
               }}
               id="message-button"
-              type="submit"
+              onClick={(e) => {
+                onSubmitMessage(e, userName);
+              }}
             >
-              Send
+              보내기
             </button>
-            <button onClick={onSendMessage}>Summary</button>
+            <div className="btn btn-primary" onClick={onSendMessage}>
+              요약하기
+            </div>
           </div>
         </form>
       </div>
@@ -395,7 +393,7 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
-const Room = () => {
+const Room = ({ projectId }) => {
   const location = useLocation();
   const roomName = location.pathname.split("/")[2];
   const socketRef = useRef();
@@ -413,10 +411,13 @@ const Room = () => {
   // Menu
   const [isMenuOn, setIsMenuOn] = useState(false);
   const [myMemo, setMyMemo] = useState("");
-
   const onChangeMyMemo = (e) => {
     setMyMemo(e.target.value);
   };
+
+  if (projectId) {
+    console.log(projectId);
+  }
 
   const GetLocalStream = useCallback(async () => {
     try {

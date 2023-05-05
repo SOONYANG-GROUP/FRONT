@@ -5,12 +5,16 @@ import { BACK_URL } from "../../Components/Constants/URL";
 import ShowDetailTimelineModalBtn from "../../Components/Modal/ShowDetailTimelineModalBtn";
 const Timeline = ({ projectId, flag, userName }) => {
   const [jobDTO, setJobDTO] = useState();
-
+  //flag 2 = 매니저 페이지
   useEffect(() => {
     axios.get(`${BACK_URL}/projects/${projectId}/members/jobs`).then((res) => {
       setJobDTO(res.data);
     });
   }, []);
+
+  if (flag) {
+    console.log(flag);
+  }
 
   if (jobDTO) {
     return (
@@ -37,6 +41,19 @@ const TimelineItem = ({ data, projectId, jobDTO, flag, userName }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [jobTitle, setJobTitle] = useState();
 
+  const deleteJob = () => {
+    try {
+      axios
+        .delete(`${BACK_URL}/projects/${projectId}/members/jobs/${jobId}`)
+        .then((res) => {
+          console.log(res);
+        });
+    } catch (e) {
+      console.log(e);
+    }
+    window.location.reload();
+  };
+
   useEffect(() => {
     setJobId(data.jobId);
     setJobTitle(data.jobTitle);
@@ -45,6 +62,8 @@ const TimelineItem = ({ data, projectId, jobDTO, flag, userName }) => {
 
   if (isLoading) {
     return null;
+  } else {
+    console.log(flag);
   }
   return (
     <div className="timeline-item">
@@ -71,6 +90,7 @@ const TimelineItem = ({ data, projectId, jobDTO, flag, userName }) => {
             userName={userName}
           />
         </p>
+        {flag === 2 ? <button onClick={deleteJob}>삭제</button> : <></>}
         <span className="circle" />
       </div>
     </div>

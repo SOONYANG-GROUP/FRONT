@@ -415,7 +415,7 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
           />
           <button onClick={onCreateSubtopic}>추가하기</button>
         </div>
-        <Timeline dummyData={dummyData} projectId={id} />
+        <Timeline dummyData={dummyData} projectId={id} flag={2} />
       </div>
     );
   }
@@ -500,14 +500,14 @@ const DetailPageTwo = ({
           </a>
         </div>
         <div className="col-md-4">
-          <a
-            href="/webcamhome"
+          <Link
+            to={`/webcamhome`}
             className="btn text-light w-100 m-1"
             style={{ backgroundColor: "#131313" }}
           >
             <BiWebcam size={24} />
             미니 웹 엑스{" "}
-          </a>
+          </Link>
         </div>
       </div>
       <div className="text-uppercase-expanded small mb-2 pt-5">
