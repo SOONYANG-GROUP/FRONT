@@ -9,11 +9,13 @@ const Timeline = ({ projectId, flag, userName }) => {
   useEffect(() => {
     axios.get(`${BACK_URL}/projects/${projectId}/members/jobs`).then((res) => {
       setJobDTO(res.data);
+      console.log(res.data);
     });
   }, []);
 
   if (flag) {
     console.log(flag);
+    console.log(userName);
   }
 
   if (jobDTO) {
@@ -40,6 +42,7 @@ const TimelineItem = ({ data, projectId, jobDTO, flag, userName }) => {
   const [jobId, setJobId] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [jobTitle, setJobTitle] = useState();
+  const [highlightedText, setHighlightedText] = useState();
 
   const deleteJob = () => {
     try {
@@ -53,18 +56,53 @@ const TimelineItem = ({ data, projectId, jobDTO, flag, userName }) => {
     }
     window.location.reload();
   };
-
   useEffect(() => {
     setJobId(data.jobId);
     setJobTitle(data.jobTitle);
     setIsLoading(false);
-  }, [data]);
 
-  if (isLoading) {
-    return null;
-  } else {
-    console.log(flag);
+    const description = data.jobDescription;
+    const index = description.indexOf(userName);
+    if (index > -1) {
+      const firstPart = description.slice(0, index);
+      const secondPart = description.slice(index + userName.length);
+      setHighlightedText(
+        <>
+          {firstPart}
+          <span style={{ color: "red", backgroundColor: "yellow" }}>
+            {userName}
+          </span>
+          {secondPart}
+        </>
+      );
+    } else {
+      setHighlightedText(<>{description}</>);
+    }
+  }, [data, userName]);
+
+  if (data.state === "OPINION") {
+    return (
+      <div className="timeline-item">
+        <div className="timeline-item-content">
+          <span className="tag" style={{ background: "green" }}>
+            {/* {data.category.tag} */}
+          </span>
+          <time>
+            {data.startJobDate[0]}/{data.startJobDate[1]}/{data.startJobDate[2]}
+          </time>
+          <p>회의 안건 : {jobTitle}</p>
+          <p>회의 내용 : {highlightedText}</p>
+          <time>
+            최근 업데이트 : {data.updateJobDate[0]}/{data.updateJobDate[1]}/
+            {data.updateJobDate[2]}
+          </time>
+          {flag === 2 ? <button onClick={deleteJob}>삭제</button> : <></>}
+          <span className="circle" />
+        </div>
+      </div>
+    );
   }
+
   return (
     <div className="timeline-item">
       <div className="timeline-item-content">
@@ -75,7 +113,7 @@ const TimelineItem = ({ data, projectId, jobDTO, flag, userName }) => {
           {data.startJobDate[0]}/{data.startJobDate[1]}/{data.startJobDate[2]}
         </time>
         <p>{jobTitle}</p>
-        <p>{data.jobDescription}</p>
+        <p>{highlightedText}</p>
         <time>
           최근 업데이트 {data.updateJobDate[0]}/{data.updateJobDate[1]}/
           {data.updateJobDate[2]}

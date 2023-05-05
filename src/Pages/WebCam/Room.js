@@ -319,16 +319,20 @@ const ChatBox = ({
       const res = await axios.post(`${SUB_BACK_URL}/gpt/time-line`, {
         messages: messages,
       });
+      // setChatSummary(JSON.parse(res.data.data.choices[0].message.content));
       console.log(res.data.data.choices[0].message.content);
-      setChatSummary(res.data.data.choices[0].message.content);
-      await axios.post(
-        `${BACK_URL}/projects/${projectId}/members/simplejobs/add`,
-        {
-          chatSummary,
-        }
-      );
+
+      await axios
+        .post(
+          `${BACK_URL}/projects/${projectId}/members/simplejobs/add`,
+          // chatSummary
+          JSON.parse(res.data.data.choices[0].message.content)
+        )
+        .then((res) => {
+          console.log(res);
+        });
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     setIsSending(false);
   };

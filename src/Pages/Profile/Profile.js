@@ -177,7 +177,7 @@ const Profile = ({ isLoggedIn }) => {
                       <span className="d-flex justify-content-between">
                         <div
                           onClick={() => {
-                            window.location.assign(`/project/${log.id}`);
+                            window.location.assign(`/project/${log.projectId}`);
                           }}
                           style={{ cursor: "pointer" }}
                         >
@@ -225,19 +225,13 @@ const Profile = ({ isLoggedIn }) => {
               <>
                 {endProjects.map((log, index) => {
                   return (
-                    <div
-                      className="card card-body mb-3"
-                      key={index}
-                      onClick={() => {
-                        window.location.assign(`/project/${log.id}`);
-                      }}
-                      style={{ cursor: "pointer" }}
-                    >
-                      <span>
-                        <i className="fa-solid fa-terminal"></i>
-                        {log.title}
-                      </span>
-                    </div>
+                    <TimeLineBlock
+                      log={log}
+                      index={index}
+                      projectId={log.projectId}
+                      flag={1}
+                      userName={userName}
+                    />
                   );
                 })}
               </>
