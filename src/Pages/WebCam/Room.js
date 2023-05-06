@@ -195,7 +195,6 @@ const RoomFooter = ({
       setSummaryStatus(false);
     }
   };
-
   return (
     <footer>
       <div

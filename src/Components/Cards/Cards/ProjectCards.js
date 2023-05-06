@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState, useMemo } from "react";
+import { FRONT_URL } from "../../Constants/URL";
 
 const ProjectCard = React.memo(({ project }) => {
   //********************************************************프로젝트 시작시간, 남은 모집 시간 계산********************************************************
@@ -60,7 +61,7 @@ const ProjectCard = React.memo(({ project }) => {
     <div className="col-lg-4 mb-5 mt-3">
       <a
         className="card lift h-100 text-secondary shadow-sm p-3 bg-body-tertiary rounded"
-        href={`http://localhost:3000/project/${project.id}`}
+        href={`${FRONT_URL}/project/${project.id}`}
         style={{ textDecoration: "none" }}
       >
         <div className="card-body">
