@@ -14,7 +14,7 @@ import {
   FaPenSquare,
 } from "react-icons/fa";
 import axios from "axios";
-import { BACK_URL } from "../../Components/Constants/URL";
+import { BACK_URL, SOCKET_SERVER_URL } from "../../Components/Constants/URL";
 import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
 const pc_config = {
@@ -30,9 +30,6 @@ const pc_config = {
   //  },
   //],
 };
-
-const SOCKET_SERVER_URL = "http://localhost:5000";
-//const SOCKET_SERVER_URL = "https://webcam-backend-13oo.onrender.com";
 
 const RoomHeader = ({ myMemo, onChangeMyMemo }) => {
   return <header></header>;

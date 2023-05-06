@@ -32,6 +32,7 @@ const Projects = ({ isLoggedIn }) => {
     const fetchData = async () => {
       try {
         const res = await axios.get(`${BACK_URL}/projects`);
+
         setProjects2(res.data.homeCardDtos);
         setIsLoading(false);
         return res;

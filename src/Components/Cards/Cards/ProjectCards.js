@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useState, useMemo } from "react";
 
 const ProjectCard = React.memo(({ project }) => {
-  console.log(project.status);
   //********************************************************프로젝트 시작시간, 남은 모집 시간 계산********************************************************
   // console.log(project.title);
   // Set the recruitment date
@@ -30,7 +29,6 @@ const ProjectCard = React.memo(({ project }) => {
       project.endDate[1] - 1,
       project.endDate[2]
     );
-    console.log(endDate);
     const timeDiff = endDate.getTime() - currentDate.getTime();
 
     // Convert milliseconds to days

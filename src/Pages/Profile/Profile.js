@@ -174,25 +174,29 @@ const Profile = ({ isLoggedIn }) => {
                 {recruitingProjects.map((log, index) => {
                   return (
                     <div className="card card-body mb-3" key={index}>
-                      <span className="d-flex justify-content-between">
-                        <div
-                          onClick={() => {
-                            window.location.assign(`/project/${log.projectId}`);
-                          }}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <i className="fa-solid fa-terminal"></i> {log.title} |
-                          {log.field} | {log.description}
-                        </div>
+                      <div
+                        onClick={() => {
+                          window.location.assign(`/project/${log.projectId}`);
+                        }}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <i className="fa-solid fa-terminal"></i> {log.title} |{" "}
+                        {log.field}
+                      </div>
+                      <div>{log.description}</div>
+                      <div
+                        style={{ display: "flex", justifyContent: "flex-end" }}
+                      >
                         <div
                           className="btn btn-secondary"
                           onClick={() => {
                             cancelApplication(log.projectId);
                           }}
+                          style={{ width: "100px" }}
                         >
-                          신청 취소
+                          신청취소
                         </div>
-                      </span>
+                      </div>
                     </div>
                   );
                 })}

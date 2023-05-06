@@ -8,7 +8,7 @@ import { CommentInput } from "../../Components/Inputs/Textarea";
 import CommentList from "../../Components/List/CommentList";
 import Comments from "../../DummyData/Comment.json";
 import axios from "axios";
-import { BACK_URL } from "../../Components/Constants/URL";
+import { BACK_URL, FRONT_URL } from "../../Components/Constants/URL";
 import AddTimeLine from "./AddTimeLine";
 
 import dummyData from "./dummyData.json";
@@ -464,7 +464,7 @@ const DetailPageTwo = ({
   }, []);
 
   const moveProfile = (id) => {
-    window.location.assign(`http://localhost:3000/users/profile/${id}`);
+    window.location.assign(`${FRONT_URL}/users/profile/${id}`);
   };
 
   if (isLoading) {

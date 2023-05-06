@@ -218,7 +218,7 @@ function App() {
         <Route path="/webcamhome" element={<WebCamHome />} />
         <Route path="/room/:id" element={<Room />} />
 
-        <Route path="/speech" element={<Speech/>} />
+        <Route path="/speech" element={<Speech />} />
       </Routes>
     </Router>
   );
