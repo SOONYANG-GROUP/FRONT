@@ -51,6 +51,7 @@ const RoomVideosSection = ({
   onSubmitMessage,
   userName,
   projectId,
+  ChatBtn,
 }) => {
   return (
     <>
@@ -107,29 +108,16 @@ const RoomVideosSection = ({
         ))}
         {onchat ? (
           <>
-            <Rnd
-              default={{
-                x: 0,
-                y: window.innerHeight - 500,
-                width: "400px",
-                lockAspectRatio: false,
-              }}
-              minWidth="200px"
-              maxWidth="400px"
-              lockAspectRatio={false}
-              style={{ zIndex: 999 }}
-              bounds="section"
-            >
-              <ChatBox
-                message={message}
-                messages={messages}
-                onChangeMessage={onChangeMessage}
-                onSubmitMessage={onSubmitMessage}
-                style={{ position: "relative" }}
-                userName={userName}
-                projectId={projectId}
-              />
-            </Rnd>
+            <ChatBox
+              ChatBtn={ChatBtn}
+              message={message}
+              messages={messages}
+              onChangeMessage={onChangeMessage}
+              onSubmitMessage={onSubmitMessage}
+              style={{ position: "relative" }}
+              userName={userName}
+              projectId={projectId}
+            />
             {/* <div
               style={{
                 position: "absolute",
@@ -160,11 +148,11 @@ const RoomFooter = ({
   VideoBtn,
   isMuted,
   isCameraOn,
-  ChatBtn,
   onStartTranscript,
   onEndTranscript,
   speechStatus,
   messages,
+  ChatBtn,
 }) => {
   const [isDoneSummary, setIsDoneSummary] = useState(false);
   const [summaryStatus, setSummaryStatus] = useState(false);
@@ -197,6 +185,7 @@ const RoomFooter = ({
       setSummaryStatus(false);
     }
   };
+
   return (
     <footer>
       <div
@@ -305,6 +294,7 @@ const ChatBox = ({
   onChangeMessage,
   onSubmitMessage,
   userName,
+  ChatBtn,
 }) => {
   const [isSending, setIsSending] = useState(false);
   const [chatSummary, setChatSummary] = useState("");
@@ -339,11 +329,13 @@ const ChatBox = ({
     <div
       className="chat-box"
       style={{
+        position: "absolute",
         height: "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
+        zIndex: "999",
       }}
     >
       <div
@@ -357,17 +349,33 @@ const ChatBox = ({
           flexDirection: "column",
         }}
       >
-        <h1
+        <div
           style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
             backgroundColor: "#007bff",
             color: "#fff",
             borderRadius: "10px 10px 0 0",
             padding: "10px",
-            margin: "0",
           }}
         >
-          Live Chat
-        </h1>
+          <h1 style={{ margin: "0" }}>Live Chat</h1>
+          <button
+            style={{
+              background: "#fff",
+              color: "#007bff",
+              border: "none",
+              padding: "10px",
+              borderRadius: "50%",
+              cursor: "pointer",
+              fontSize: "1.2rem",
+            }}
+            onClick={ChatBtn}
+          >
+            X
+          </button>
+        </div>
 
         {isSending ? (
           <div>Sending...</div>
@@ -435,9 +443,6 @@ const ChatBox = ({
             >
               보내기
             </button>
-            {/* <div className="btn btn-primary" onClick={onSendMessage}>
-              요약하기
-            </div> */}
           </div>
         </form>
       </div>
@@ -845,6 +850,7 @@ const RoomDemo = () => {
         onChangeMessage={onChangeMessage}
         onSubmitMessage={onSubmitMessage}
         userName={userName}
+        ChatBtn={ChatBtn}
       />
 
       <RoomFooter
