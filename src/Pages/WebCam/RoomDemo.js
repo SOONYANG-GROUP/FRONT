@@ -158,7 +158,6 @@ const RoomFooter = ({
   const [summaryStatus, setSummaryStatus] = useState(false);
 
   const EndCallBtn = (e) => {
-    window.open("", "_self");
     window.close();
   };
 
@@ -195,7 +194,7 @@ const RoomFooter = ({
         <div className="mb-3" tyle={{ color: "white" }}>
           비디오의 크기 및 위치를 마우스로 조절 가능합니다.
         </div>
-        <div>
+        <div className="btn-text">
           <button
             onClick={MuteBtn}
             className="btn mx-2 rounded-3"
@@ -237,14 +236,6 @@ const RoomFooter = ({
           >
             <FaComments size={24} />
             <div>live chat</div>
-          </button>
-          <button
-            className="btn mx-2 rounded-3"
-            style={{ border: "1px solid #999999", color: "white" }}
-            onClick={EndCallBtn}
-          >
-            <FaPhoneSlash size={24} />
-            <div>disconnect</div>
           </button>
 
           {/* {isDoneSummary ? (
