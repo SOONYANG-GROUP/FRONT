@@ -38,6 +38,8 @@ import WebCamHome from "./Pages/WebCam/WebCamHome";
 import Room from "./Pages/WebCam/Room";
 
 import Speech from "./Speech";
+import WebCamHomeDemo from "./Pages/WebCam/WebCamHomeDemo";
+import RoomDemo from "./Pages/WebCam/RoomDemo";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState();
@@ -216,7 +218,9 @@ function App() {
         />
 
         <Route path="/webcamhome" element={<WebCamHome />} />
+        <Route path="/webcamhomeDemo" element={<WebCamHomeDemo />} />
         <Route path="/room/:id" element={<Room />} />
+        <Route path="/roomDemo/:id" element={<RoomDemo />} />
 
         <Route path="/speech" element={<Speech />} />
       </Routes>

@@ -8,11 +8,11 @@ import {
   FaMicrophoneSlash,
   FaVideo,
   FaVideoSlash,
-  FaComments,
   FaPhoneSlash,
-  FaEllipsisH,
+  FaComments,
+  FaTeamspeak,
+  FaPenSquare,
 } from "react-icons/fa";
-
 import axios from "axios";
 import { BACK_URL, SOCKET_SERVER_URL } from "../../Components/Constants/URL";
 import { SUB_BACK_URL } from "../../Components/Constants/URL";
@@ -110,7 +110,8 @@ const RoomVideosSection = ({
             <Rnd
               default={{
                 x: 0,
-                width: "30vw",
+                y: window.innerHeight - 500,
+                width: "400px",
                 lockAspectRatio: false,
               }}
               minWidth="200px"
@@ -129,6 +130,22 @@ const RoomVideosSection = ({
                 projectId={projectId}
               />
             </Rnd>
+            {/* <div
+              style={{
+                position: "absolute",
+                zIndex: 999,
+                top: 0,
+                left: 0,
+                width: "400px",
+              }}
+            >
+              <ChatBox
+                message={message}
+                messages={messages}
+                onChangeMessage={onChangeMessage}
+                onSubmitMessage={onSubmitMessage}
+              />
+            </div> */}
           </>
         ) : (
           <></>
@@ -152,7 +169,7 @@ const RoomFooter = ({
   const [isDoneSummary, setIsDoneSummary] = useState(false);
   const [summaryStatus, setSummaryStatus] = useState(false);
 
-  const EndCallBtn = () => {
+  const EndCallBtn = (e) => {
     window.open("", "_self");
     window.close();
   };
@@ -240,13 +257,8 @@ const RoomFooter = ({
             <FaPhoneSlash size={24} />
             <div>disconnect</div>
           </button>
-        </div>
-      </div>
-    </footer>
-  );
-};
 
-/* {isDoneSummary ? (
+          {/* {isDoneSummary ? (
             <></>
           ) : messages.length === 0 ? (
             speechStatus ? (
@@ -280,7 +292,12 @@ const RoomFooter = ({
               <FaPenSquare size={24} onClick={onSubmitSpeech} />
               <div onClick={onSubmitSpeech}>{messages.length} Msgs Summary</div>
             </button>
-          )} */
+          )} */}
+        </div>
+      </div>
+    </footer>
+  );
+};
 
 const ChatBox = ({
   message,
@@ -320,6 +337,7 @@ const ChatBox = ({
 
   return (
     <div
+      className="chat-box"
       style={{
         height: "100vh",
         display: "flex",
@@ -417,9 +435,9 @@ const ChatBox = ({
             >
               보내기
             </button>
-            <div className="btn btn-primary" onClick={onSendMessage}>
+            {/* <div className="btn btn-primary" onClick={onSendMessage}>
               요약하기
-            </div>
+            </div> */}
           </div>
         </form>
       </div>
@@ -456,7 +474,7 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
-const Room = () => {
+const RoomDemo = () => {
   const location = useLocation();
 
   const roomName = location.pathname.split("/")[2];
@@ -844,4 +862,4 @@ const Room = () => {
   );
 };
 
-export default Room;
+export default RoomDemo;
