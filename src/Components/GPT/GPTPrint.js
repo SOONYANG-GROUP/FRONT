@@ -10,16 +10,19 @@ const GPTPrint = ({
 
     // typeWriter
     useEffect(() => {
-        if (index === words.length - 1 && subIndex === words[index].length) {
-        return;
+        if(words != undefined)
+        {
+            if (index === words.length - 1 && subIndex === words[index].length) {
+                return;
+                }
+        
+                const timeout = setTimeout(() => {
+                setSubIndex((prev) => prev + (reverse ? -1 : 1));
+                }, Math.max(reverse ? 75 : subIndex === words[index].length ? 1000 :
+                            150, parseInt(Math.random() * 350)));
+        
+                return () => clearTimeout(timeout);
         }
-
-        const timeout = setTimeout(() => {
-        setSubIndex((prev) => prev + (reverse ? -1 : 1));
-        }, Math.max(reverse ? 75 : subIndex === words[index].length ? 1000 :
-                    150, parseInt(Math.random() * 350)));
-
-        return () => clearTimeout(timeout);
     }, [subIndex, index, reverse]);
 
     // blinker
