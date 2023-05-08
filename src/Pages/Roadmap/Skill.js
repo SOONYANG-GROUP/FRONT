@@ -163,7 +163,8 @@ const Skill = () => {
                 <h4 className="fw-bold">🤖 {skill.name}관련 문제 풀기</h4>
                 <div>
                   <pre className="fs-4">
-                    {problem.length === 0 ? <></> : <GPTPrint words={problem} />}
+                    
+                    {problem.length === 0 || typeof problem === "undefined" ? <></> : <GPTPrint words={problem} />}
                   </pre>
                   {generatingProblem ? (
                   <button className="btn btn-sm btn-primary" disabled={generatingProblem}>
