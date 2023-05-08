@@ -141,7 +141,7 @@ const Skill = () => {
           <div className="svg-border-waves text-white">이미지</div>
         </header>
         <section></section>
-        
+        {console.log(typeof skill.helloworld[0] === "undefined")}
         <div className="container px-5">
             <div>
               {typeof skill.helloworld[0] === "undefined" ? (<></>) : (<>{category === "컴퓨터 언어" ? (              
