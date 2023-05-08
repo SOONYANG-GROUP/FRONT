@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const GPTPrint = ({
-    words
+    words = ""
 }) => {
     const [index, setIndex] = useState(0);
     const [subIndex, setSubIndex] = useState(0);
