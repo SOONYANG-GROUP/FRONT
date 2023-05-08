@@ -144,7 +144,7 @@ const Skill = () => {
         
         <div className="container px-5">
             <div>
-              {category === "컴퓨터 언어" ? (              
+              {skill.helloworld === undefined ? (<></>) : (<>{category === "컴퓨터 언어" ? (              
                 <HelloWorldSection 
                   name={skill.name}
                   helloworld={skill.helloworld}
@@ -155,7 +155,8 @@ const Skill = () => {
                   name={skill.name}
                   downloadLibrary={skill.downloadLibrary}
                 />
-              ) : (<></>)}
+              ) : (<></>)}</>)}
+
             </div>
             <div>
               <div className="text-uppercase-expanded small mb-2 pt-5">
