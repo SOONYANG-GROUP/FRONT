@@ -144,7 +144,7 @@ const Skill = () => {
         
         <div className="container px-5">
             <div>
-              {typeof skill.helloworld === "undefined" ? (<></>) : (<>{category === "컴퓨터 언어" ? (              
+              {typeof skill.helloworld[0] === "undefined" ? (<></>) : (<>{category === "컴퓨터 언어" ? (              
                 <HelloWorldSection 
                   name={skill.name}
                   helloworld={skill.helloworld}
