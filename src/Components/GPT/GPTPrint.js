@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const GPTPrint = ({
     words = ""
 }) => {
+    console.log(words)
     const [index, setIndex] = useState(0);
     const [subIndex, setSubIndex] = useState(0);
     const [blink, setBlink] = useState(true);
