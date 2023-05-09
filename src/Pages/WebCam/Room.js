@@ -118,16 +118,29 @@ const RoomVideosSection = ({
           </Rnd>
         ))}
 
-        {onchat ? (
-          <ChatBox
-            message={message}
-            messages={messages}
-            onChangeMessage={onChangeMessage}
-            onSubmitMessage={onSubmitMessage}
-            style={{ position: "relative" }}
-            userName={userName}
-            projectId={projectId}
-          />
+        {!isMobile & onchat ? (
+          <>
+            <Rnd
+              default={{
+                x: 0,
+                width: "10vw",
+                lockAspectRatio: false,
+              }}
+              minWidth="400px"
+              lockAspectRatio={false}
+              style={{ zIndex: 999 }}
+              bounds="section"
+            >
+              <ChatBox
+                message={message}
+                messages={messages}
+                onChangeMessage={onChangeMessage}
+                onSubmitMessage={onSubmitMessage}
+                style={{ position: "absolute" }}
+                userName={userName}
+              />
+            </Rnd>
+          </>
         ) : (
           <></>
         )}
@@ -182,7 +195,7 @@ const RoomFooter = ({
     <footer>
       <div
         className="fixed-bottom p-3 d-flex flex-column justify-content-center align-items-center bg-opacity-50"
-        style={{ color: "white" }}
+        style={{ zIndex: 3, color: "white" }}
       >
         <div
           className="mb-3"
@@ -858,8 +871,48 @@ const Room = () => {
     setMessages([`${username}: ${message}`, ...messages]);
     setMessage("");
   };
+  const isMobile = window.innerWidth <= 768; // 모바일 여부를 판단할 수 있는 기준값으로 768px을 사용합니다.
 
-  return (
+  return isMobile ? (
+    <>
+      {onchat ? (
+        <>
+          <ChatBox
+            message={message}
+            messages={messages}
+            onChangeMessage={onChangeMessage}
+            onSubmitMessage={onSubmitMessage}
+            style={{ position: "absolute" }}
+            userName={userName}
+          />
+        </>
+      ) : (
+        <>
+          <RoomVideosSection
+            users={users}
+            localVideoRef={localVideoRef}
+            onchat={onchat}
+            message={message}
+            messages={messages}
+            onChangeMessage={onChangeMessage}
+            onSubmitMessage={onSubmitMessage}
+            userName={userName}
+          />
+          <RoomFooter
+            MuteBtn={MuteBtn}
+            VideoBtn={VideoBtn}
+            isMuted={isMuted}
+            isCameraOn={isCameraOn}
+            ChatBtn={ChatBtn}
+            speechStatus={speechStatus}
+            messages={messages}
+            onStartTranscript={onStartTranscript}
+            onEndTranscript={onEndTranscript}
+          />
+        </>
+      )}
+    </>
+  ) : (
     <>
       <RoomVideosSection
         users={users}
