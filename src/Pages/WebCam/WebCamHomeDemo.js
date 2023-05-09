@@ -16,7 +16,7 @@ const WebCamHomeDemo = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    window.open(`/roomDemo/${roomName}`, "_blank");
+    window.open(`/room/${roomName}`, "_blank");
   };
 
   return (

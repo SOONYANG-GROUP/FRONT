@@ -4,12 +4,6 @@
   }
 }
 
-@media screen and (max-width: 767px) {
-  .chat-box {
-    width: 100%;
-  }
-}
-
 @media (max-width: 767px) {
   .end-call-button {
     display: none;

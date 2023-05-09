@@ -119,30 +119,15 @@ const RoomVideosSection = ({
         ))}
 
         {onchat ? (
-          <>
-            <Rnd
-              default={{
-                x: 0,
-                width: "30vw",
-                lockAspectRatio: false,
-              }}
-              minWidth="200px"
-              maxWidth="400px"
-              lockAspectRatio={false}
-              style={{ zIndex: 999 }}
-              bounds="section"
-            >
-              <ChatBox
-                message={message}
-                messages={messages}
-                onChangeMessage={onChangeMessage}
-                onSubmitMessage={onSubmitMessage}
-                style={{ position: "relative" }}
-                userName={userName}
-                projectId={projectId}
-              />
-            </Rnd>
-          </>
+          <ChatBox
+            message={message}
+            messages={messages}
+            onChangeMessage={onChangeMessage}
+            onSubmitMessage={onSubmitMessage}
+            style={{ position: "relative" }}
+            userName={userName}
+            projectId={projectId}
+          />
         ) : (
           <></>
         )}
@@ -197,7 +182,7 @@ const RoomFooter = ({
     <footer>
       <div
         className="fixed-bottom p-3 d-flex flex-column justify-content-center align-items-center bg-opacity-50"
-        style={{ zIndex: 3, color: "white" }}
+        style={{ color: "white" }}
       >
         <div
           className="mb-3"
@@ -379,6 +364,7 @@ const ChatBox = ({
     <div
       style={{
         height: "100vh",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -433,6 +419,7 @@ const ChatBox = ({
                     padding: "10px 15px",
                     margin: "5px 0",
                     maxWidth: "70%",
+                    wordBreak: "break-all", // 수정된 부분
                   }}
                 >
                   {msg}
