@@ -33,10 +33,6 @@ const pc_config = {
   ],
 };
 
-const RoomHeader = ({ myMemo, onChangeMyMemo }) => {
-  return <header></header>;
-};
-
 const RoomVideosSection = ({
   users,
   isMuted,
@@ -52,17 +48,28 @@ const RoomVideosSection = ({
   userName,
   projectId,
 }) => {
+  const isMobile = window.innerWidth <= 768; // 모바일 여부를 판단할 수 있는 기준값으로 768px을 사용합니다.
+
   return (
     <>
       <section
-        style={{ height: "100vh", width: "100vw", backgroundColor: "#191919" }}
+        style={{
+          height: "100vh",
+          width: "100vw",
+          backgroundColor: "#191919",
+          overflow: isMobile ? "hidden" : "auto",
+        }}
       >
         <Rnd
           default={{
-            x: window.innerWidth / 2 - window.innerWidth / 8,
+            x: isMobile
+              ? document.documentElement.clientWidth / 2 -
+                (document.documentElement.clientWidth * 0.6) / 2
+              : window.innerWidth / 2 - window.innerWidth / 8,
             y: window.innerHeight / 2 - window.innerHeight / 4,
-            width: window.innerWidth / 4,
+            width: isMobile ? "60%" : window.innerWidth / 4,
             height: "auto",
+            minWidth: 300,
             lockAspectRatio: true,
           }}
           style={{ zIndex: 2 }}
@@ -74,7 +81,11 @@ const RoomVideosSection = ({
             muted={true}
             ref={localVideoRef}
             autoPlay
-            style={{ width: "100%", height: "100%", borderRadius: "50px" }}
+            style={{
+              width: "100%",
+
+              borderRadius: "50px",
+            }} // 모바일 기기일 경우 자동 조정된 높이를 사용하고, 그 외에는 부모 요소에 맞게 100% 높이를 사용합니다.
           />
         </Rnd>
 
@@ -84,14 +95,15 @@ const RoomVideosSection = ({
             default={{
               x: Math.random() * (window.innerWidth - 240),
               y: Math.random() * (window.innerHeight - 240),
-              width:
-                Math.floor(
-                  Math.random() *
-                    (window.innerWidth / 6 - window.innerWidth / 10 + 1)
-                ) +
-                window.innerWidth / 9,
-              height: "auto",
+              width: isMobile
+                ? "60%" // 모바일 기기일 경우 디바이스의 가로 크기에서 20px을 뺀 값을 사용합니다.
+                : Math.floor(
+                    Math.random() *
+                      (window.innerWidth / 6 - window.innerWidth / 10 + 1)
+                  ) +
+                  window.innerWidth / 9,
               lockAspectRatio: true,
+              minWidth: 200,
             }}
             lockAspectRatio="true"
             style={{ zIndex: 2 }}
@@ -105,6 +117,7 @@ const RoomVideosSection = ({
             />
           </Rnd>
         ))}
+
         {onchat ? (
           <>
             <Rnd
@@ -183,63 +196,107 @@ const RoomFooter = ({
   return (
     <footer>
       <div
-        className="fixed-bottom mb-3 d-flex flex-column align-items-center justify-content-center bg-opacity-50"
+        className="fixed-bottom p-3 d-flex flex-column justify-content-center align-items-center bg-opacity-50"
         style={{ zIndex: 3, color: "white" }}
       >
-        <div className="mb-3" tyle={{ color: "white" }}>
-          비디오의 크기 및 위치를 마우스로 조절 가능합니다.
+        <div
+          className="mb-3"
+          style={{ color: "white", fontSize: "16px", textAlign: "center" }}
+        >
+          비디오의 크기 및 위치를 조절할 수 있습니다.
         </div>
-        <div>
-          <button
-            onClick={MuteBtn}
-            className="btn mx-2 rounded-3"
-            style={{ border: "1px solid #999999", color: "white" }}
-          >
-            {isMuted ? (
-              <div>
-                <FaMicrophoneSlash size={24} />
-                <div>Mute On</div>
-              </div>
-            ) : (
-              <div>
-                <FaMicrophone size={24} />
-                <div>Mute Off</div>
-              </div>
-            )}
-          </button>
-          <button
-            onClick={VideoBtn}
-            className="btn mx-2 rounded-3"
-            style={{ border: "1px solid #999999", color: "white" }}
-          >
-            {isCameraOn ? (
-              <div>
-                <FaVideo size={24} />
-                <div>Cam On</div>
-              </div>
-            ) : (
-              <div>
-                <FaVideoSlash size={24} />
-                <div>Cam Off</div>
-              </div>
-            )}
-          </button>
-          <button
-            className="btn mx-2 rounded-3"
-            style={{ border: "1px solid #999999", color: "white" }}
-            onClick={ChatBtn}
-          >
-            <FaComments size={24} />
-            <div>live chat</div>
-          </button>
-          <button
-            className="btn mx-2 rounded-3"
-            style={{ border: "1px solid #999999", color: "white" }}
-            onClick={EndCallBtn}
-          >
-            <FaPhoneSlash size={24} />
-            <div>disconnect</div>
-          </button>
+        <div className="d-flex flex-row justify-content-center align-items-center">
+          <div className="d-flex flex-column align-items-center justify-content-center">
+            <button
+              onClick={MuteBtn}
+              className="btn mx-2 rounded-circle"
+              style={{
+                border: "1px solid #999999",
+                color: "white",
+                width: "60px",
+                height: "60px",
+                fontSize: "16px",
+              }}
+            >
+              {isMuted ? (
+                <div>
+                  <FaMicrophoneSlash size={24} />
+                </div>
+              ) : (
+                <div>
+                  <FaMicrophone size={24} />
+                </div>
+              )}
+            </button>
+            <div style={{ color: "white", fontSize: "16px", marginTop: "5px" }}>
+              {isMuted ? "Mute On" : "Mute Off"}
+            </div>
+          </div>
+          <div className="d-flex flex-column align-items-center justify-content-center">
+            <button
+              onClick={VideoBtn}
+              className="btn mx-2 rounded-circle"
+              style={{
+                border: "1px solid #999999",
+                color: "white",
+                width: "60px",
+                height: "60px",
+                fontSize: "16px",
+              }}
+            >
+              {isCameraOn ? (
+                <div>
+                  <FaVideo size={24} />
+                </div>
+              ) : (
+                <div>
+                  <FaVideoSlash size={24} />
+                </div>
+              )}
+            </button>
+            <div style={{ color: "white", fontSize: "16px", marginTop: "5px" }}>
+              {isCameraOn ? "Cam On" : "Cam Off"}
+            </div>
+          </div>
+          <div className="d-flex flex-column align-items-center justify-content-center">
+            <button
+              className="btn mx-2 rounded-circle"
+              style={{
+                border: "1px solid #999999",
+                color: "white",
+                width: "60px",
+                height: "60px",
+                fontSize: "16px",
+              }}
+              onClick={ChatBtn}
+            >
+              <FaComments size={24} />
+            </button>
+            <div style={{ color: "white", fontSize: "16px", marginTop: "5px" }}>
+              live chat
+            </div>
+          </div>
+          <div className="d-flex flex-column align-items-center justify-content-center">
+            <button
+              className="btn mx-2 rounded-circle end-call-button"
+              style={{
+                border: "1px solid #999999",
+                color: "white",
+                width: "60px",
+                height: "60px",
+                fontSize: "16px",
+              }}
+              onClick={EndCallBtn}
+            >
+              <FaPhoneSlash size={24} />
+            </button>
+            <div
+              className="end-call-button"
+              style={{ color: "white", fontSize: "16px", marginTop: "5px" }}
+            >
+              disconnect
+            </div>
+          </div>
         </div>
       </div>
     </footer>
@@ -817,7 +874,6 @@ const Room = () => {
 
   return (
     <>
-      <RoomHeader />
       <RoomVideosSection
         users={users}
         localVideoRef={localVideoRef}
@@ -828,7 +884,6 @@ const Room = () => {
         onSubmitMessage={onSubmitMessage}
         userName={userName}
       />
-
       <RoomFooter
         MuteBtn={MuteBtn}
         VideoBtn={VideoBtn}

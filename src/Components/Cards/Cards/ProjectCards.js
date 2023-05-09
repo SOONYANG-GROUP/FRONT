@@ -126,6 +126,23 @@ const ProjectCard = React.memo(({ project }) => {
 
 const ProjectCards = ({ projects, flag }) => {
   const isLoading = useMemo(() => !projects, [projects]);
+  const [page, setPage] = useState(1); // 현재 페이지 번호를 저장하는 state 변수
+  const pageSize = 6; // 한 페이지에 보여줄 프로젝트 수
+
+  const totalPages = Math.ceil(projects.length / pageSize); // 전체 페이지 수
+
+  const start = (page - 1) * pageSize; // 현재 페이지에 해당하는 첫 번째 프로젝트 인덱스
+  const end = start + pageSize; // 현재 페이지에 해당하는 마지막 프로젝트 인덱스
+
+  const currentProjects = projects.slice(start, end); // 현재 페이지에 해당하는 프로젝트들
+
+  const handleClickPrev = () => {
+    setPage((prev) => prev - 1);
+  };
+
+  const handleClickNext = () => {
+    setPage((prev) => prev + 1);
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -146,19 +163,45 @@ const ProjectCards = ({ projects, flag }) => {
       <div className="container px-5">
         <div className="d-flex align-items-center justify-content-between mb-4">
           <div>
-            {flag === 1 ? (
-              <h2 className="mb-0">팀원 모집중인 프로젝트</h2>
-            ) : (
-              <></>
-            )}
+            <h2 className="mb-0">팀원 모집중인 프로젝트</h2>
           </div>
         </div>
         <div className="row gx-5">
-          {projects.map((project, index) => {
+          {currentProjects.map((project, index) => {
             return <ProjectCard project={project} key={index} />;
           })}
         </div>
       </div>
+      <nav
+        aria-label="Page navigation example"
+        className="d-flex justify-content-center"
+      >
+        <ul className="pagination">
+          <li className={`page-item${page === 1 ? " disabled" : ""}`}>
+            <button className="page-link" onClick={handleClickPrev}>
+              Previous
+            </button>
+          </li>
+          {Array.from({ length: totalPages }).map((_, index) => {
+            const pageNum = index + 1;
+            return (
+              <li
+                className={`page-item${page === pageNum ? " active" : ""}`}
+                key={index}
+              >
+                <button className="page-link" onClick={() => setPage(pageNum)}>
+                  {pageNum}
+                </button>
+              </li>
+            );
+          })}
+          <li className={`page-item${page === totalPages ? " disabled" : ""}`}>
+            <button className="page-link" onClick={handleClickNext}>
+              Next
+            </button>
+          </li>
+        </ul>
+      </nav>
     </section>
   );
 };

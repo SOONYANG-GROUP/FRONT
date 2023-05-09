@@ -8,26 +8,26 @@ import {
   FaMicrophoneSlash,
   FaVideo,
   FaVideoSlash,
-  FaPhoneSlash,
   FaComments,
-  FaTeamspeak,
-  FaPenSquare,
+  FaPhoneSlash,
+  FaEllipsisH,
 } from "react-icons/fa";
+
 import axios from "axios";
 import { BACK_URL, SOCKET_SERVER_URL } from "../../Components/Constants/URL";
 import { SUB_BACK_URL } from "../../Components/Constants/URL";
 
-import "./Room.css";
+import "./RoomDemo.css";
 
 const pc_config = {
   iceServers: [
     {
       urls: [
-        "stun:stun.l.google.com:19302",
-        "stun:stun1.l.google.com:19302",
-        "stun:stun2.l.google.com:19302",
-        "stun:stun3.l.google.com:19302",
-        "stun:stun4.l.google.com:19302",
+        // "stun:stun.l.google.com:19302",
+        // "stun:stun1.l.google.com:19302",
+        // "stun:stun2.l.google.com:19302",
+        // "stun:stun3.l.google.com:19302",
+        // "stun:stun4.l.google.com:19302",
       ],
     },
   ],
@@ -51,7 +51,6 @@ const RoomVideosSection = ({
   onSubmitMessage,
   userName,
   projectId,
-  ChatBtn,
 }) => {
   return (
     <>
@@ -108,32 +107,28 @@ const RoomVideosSection = ({
         ))}
         {onchat ? (
           <>
-            <ChatBox
-              ChatBtn={ChatBtn}
-              message={message}
-              messages={messages}
-              onChangeMessage={onChangeMessage}
-              onSubmitMessage={onSubmitMessage}
-              style={{ position: "relative" }}
-              userName={userName}
-              projectId={projectId}
-            />
-            {/* <div
-              style={{
-                position: "absolute",
-                zIndex: 999,
-                top: 0,
-                left: 0,
-                width: "400px",
+            <Rnd
+              default={{
+                x: 0,
+                width: "30vw",
+                lockAspectRatio: false,
               }}
+              minWidth="200px"
+              maxWidth="400px"
+              lockAspectRatio={false}
+              style={{ zIndex: 999 }}
+              bounds="section"
             >
               <ChatBox
                 message={message}
                 messages={messages}
                 onChangeMessage={onChangeMessage}
                 onSubmitMessage={onSubmitMessage}
+                style={{ position: "relative" }}
+                userName={userName}
+                projectId={projectId}
               />
-            </div> */}
+            </Rnd>
           </>
         ) : (
           <></>
@@ -148,16 +143,17 @@ const RoomFooter = ({
   VideoBtn,
   isMuted,
   isCameraOn,
+  ChatBtn,
   onStartTranscript,
   onEndTranscript,
   speechStatus,
   messages,
-  ChatBtn,
 }) => {
   const [isDoneSummary, setIsDoneSummary] = useState(false);
   const [summaryStatus, setSummaryStatus] = useState(false);
 
-  const EndCallBtn = (e) => {
+  const EndCallBtn = () => {
+    window.open("", "_self");
     window.close();
   };
 
@@ -184,7 +180,6 @@ const RoomFooter = ({
       setSummaryStatus(false);
     }
   };
-
   return (
     <footer>
       <div
@@ -194,7 +189,7 @@ const RoomFooter = ({
         <div className="mb-3" tyle={{ color: "white" }}>
           비디오의 크기 및 위치를 마우스로 조절 가능합니다.
         </div>
-        <div className="btn-text">
+        <div>
           <button
             onClick={MuteBtn}
             className="btn mx-2 rounded-3"
@@ -203,12 +198,10 @@ const RoomFooter = ({
             {isMuted ? (
               <div>
                 <FaMicrophoneSlash size={24} />
-                <div>Mute On</div>
               </div>
             ) : (
               <div>
                 <FaMicrophone size={24} />
-                <div>Mute Off</div>
               </div>
             )}
           </button>
@@ -220,12 +213,10 @@ const RoomFooter = ({
             {isCameraOn ? (
               <div>
                 <FaVideo size={24} />
-                <div>Cam On</div>
               </div>
             ) : (
               <div>
                 <FaVideoSlash size={24} />
-                <div>Cam Off</div>
               </div>
             )}
           </button>
@@ -235,10 +226,21 @@ const RoomFooter = ({
             onClick={ChatBtn}
           >
             <FaComments size={24} />
-            <div>live chat</div>
           </button>
+          <button
+            className="btn mx-2 rounded-3"
+            style={{ border: "1px solid #999999", color: "white" }}
+            onClick={EndCallBtn}
+          >
+            <FaPhoneSlash size={24} />
+          </button>
+        </div>
+      </div>
+    </footer>
+  );
+};
 
-          {/* {isDoneSummary ? (
+/* {isDoneSummary ? (
             <></>
           ) : messages.length === 0 ? (
             speechStatus ? (
@@ -272,12 +274,7 @@ const RoomFooter = ({
               <FaPenSquare size={24} onClick={onSubmitSpeech} />
               <div onClick={onSubmitSpeech}>{messages.length} Msgs Summary</div>
             </button>
-          )} */}
-        </div>
-      </div>
-    </footer>
-  );
-};
+          )} */
 
 const ChatBox = ({
   message,
@@ -285,7 +282,6 @@ const ChatBox = ({
   onChangeMessage,
   onSubmitMessage,
   userName,
-  ChatBtn,
 }) => {
   const [isSending, setIsSending] = useState(false);
   const [chatSummary, setChatSummary] = useState("");
@@ -318,15 +314,12 @@ const ChatBox = ({
 
   return (
     <div
-      className="chat-box"
       style={{
-        position: "absolute",
         height: "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        zIndex: "999",
       }}
     >
       <div
@@ -340,33 +333,17 @@ const ChatBox = ({
           flexDirection: "column",
         }}
       >
-        <div
+        <h1
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
             backgroundColor: "#007bff",
             color: "#fff",
             borderRadius: "10px 10px 0 0",
             padding: "10px",
+            margin: "0",
           }}
         >
-          <h1 style={{ margin: "0" }}>Live Chat</h1>
-          <button
-            style={{
-              background: "#fff",
-              color: "#007bff",
-              border: "none",
-              padding: "10px",
-              borderRadius: "50%",
-              cursor: "pointer",
-              fontSize: "1.2rem",
-            }}
-            onClick={ChatBtn}
-          >
-            X
-          </button>
-        </div>
+          Live Chat
+        </h1>
 
         {isSending ? (
           <div>Sending...</div>
@@ -434,6 +411,9 @@ const ChatBox = ({
             >
               보내기
             </button>
+            <div className="btn btn-primary" onClick={onSendMessage}>
+              요약하기
+            </div>
           </div>
         </form>
       </div>
@@ -470,7 +450,7 @@ const Video = ({ stream, muted, xPosition, yPosition }) => {
   );
 };
 
-const RoomDemo = () => {
+const Room = () => {
   const location = useLocation();
 
   const roomName = location.pathname.split("/")[2];
@@ -841,7 +821,6 @@ const RoomDemo = () => {
         onChangeMessage={onChangeMessage}
         onSubmitMessage={onSubmitMessage}
         userName={userName}
-        ChatBtn={ChatBtn}
       />
 
       <RoomFooter
@@ -859,4 +838,4 @@ const RoomDemo = () => {
   );
 };
 
-export default RoomDemo;
+export default Room;

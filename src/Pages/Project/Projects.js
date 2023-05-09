@@ -50,6 +50,7 @@ const Projects = ({ isLoggedIn }) => {
   if (isLoading) {
     return <Loading />;
   } else if (projects2 && !isLoading) {
+    console.log(runningProjects.length);
     return (
       <div>
         <div className="page-header-ui-content pt-5">

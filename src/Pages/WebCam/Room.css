@@ -9,3 +9,9 @@
     width: 100%;
   }
 }
+
+@media (max-width: 767px) {
+  .end-call-button {
+    display: none;
+  }
+}
