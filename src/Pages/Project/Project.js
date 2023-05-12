@@ -120,7 +120,7 @@ const Project = ({ isLoggedIn }) => {
       <>
         <div className="col-lg-8 mx-auto">
           <div className="text-center mb-10">
-            <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+            {/* <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
               {project.projectStatus == "END" ? (
                 <>
                   <button className="btn btn-lg ms-3">{buttonTitle}</button>
@@ -135,7 +135,7 @@ const Project = ({ isLoggedIn }) => {
                   </button>
                 </>
               )}
-            </div>
+            </div> */}
             <h2>{project.title}</h2>
             {/* <p className="lead">{project.summaryDescription}</p> */}
           </div>
@@ -197,6 +197,8 @@ const Project = ({ isLoggedIn }) => {
           creatingToDoListEle={creatingToDoListEle}
           isProjectActive={isProjectActive}
           onChangeComment={onChangeComment}
+          settingBtn={settingBtn}
+          buttonTitle={buttonTitle}
         />
       </>
     );
@@ -225,6 +227,8 @@ const DetailPage = ({
   onSubmitContent,
   // onCreateComment,
   onChangeContents,
+  settingBtn,
+  buttonTitle,
 }) => {
   if (changingPage) {
     return <div>Loading...</div>;
@@ -262,13 +266,22 @@ const DetailPage = ({
         <DetailPageThree
           isProjectActive={isProjectActive}
           candidates={candidates}
+          settingBtn={settingBtn}
+          buttonTitle={buttonTitle}
+          project={project}
         />
       );
     }
   }
 };
 
-const DetailPageThree = ({ isProjectActive, candidates }) => {
+const DetailPageThree = ({
+  isProjectActive,
+  candidates,
+  settingBtn,
+  buttonTitle,
+  project,
+}) => {
   const id = useParams().id;
   const [participatedUsers, setParticipatedUsers] = useState();
   const [isLoading, setIsLoading] = useState(true);
@@ -396,6 +409,22 @@ const DetailPageThree = ({ isProjectActive, candidates }) => {
               </>
             );
           })}
+        <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+          {project.projectStatus == "END" ? (
+            <>
+              <button className="btn btn-lg ms-3">{buttonTitle}</button>
+            </>
+          ) : (
+            <>
+              <button
+                className="btn btn-primary btn-lg ms-3"
+                onClick={settingBtn}
+              >
+                {buttonTitle}
+              </button>
+            </>
+          )}
+        </div>
         <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>subtopic 생성하기</h4>
         </div>
@@ -736,7 +765,6 @@ const DetailPageZero = ({ project, isLoggedIn }) => {
             <p>{project.description}</p>
           </div>
         </div>
-    
 
         <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>참고 링크</h4>
