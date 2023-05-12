@@ -183,7 +183,6 @@ const Profile = ({ isLoggedIn }) => {
                         <i className="fa-solid fa-terminal"></i> {log.title} |{" "}
                         {log.field}
                       </div>
-                      <div>{log.description}</div>
                       <div
                         style={{ display: "flex", justifyContent: "flex-end" }}
                       >
