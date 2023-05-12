@@ -4,12 +4,14 @@ const RoadmapCard = ({ roadmap }) => {
   return (
     <div className="col-md-3 animate__animated animate__fadeIn">
       <a href={`/roadmap/${roadmap._id}`}>
-        <div className="card shadow-lg mb-3" 
+        <div
+          className="card shadow-lg mb-3"
           style={{
             background: `url(${roadmap.imageSecureUrl})`,
             height: "310px",
             backgroundSize: "cover",
-            border: '1px solid white'
+            backgroundPosition: "center",
+            border: "1px solid white",
           }}
         ></div>
       </a>

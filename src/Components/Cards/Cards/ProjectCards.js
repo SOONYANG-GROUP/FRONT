@@ -161,11 +161,7 @@ const ProjectCards = ({ projects, flag }) => {
   return (
     <section className="bg-white py-10">
       <div className="container px-5">
-        <div className="d-flex align-items-center justify-content-between mb-4">
-          <div>
-            <h2 className="mb-0">팀원 모집중인 프로젝트</h2>
-          </div>
-        </div>
+        <div className="d-flex align-items-center justify-content-between mb-4"></div>
         <div className="row gx-5">
           {currentProjects.map((project, index) => {
             return <ProjectCard project={project} key={index} />;

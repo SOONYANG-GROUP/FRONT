@@ -29,7 +29,7 @@ const Header = ({ isLoggedIn, alarmCount }) => {
         {/* <img src={teamwork} alt="icon" style={{ width: "100px" }} /> */}
         <img src={LogoDesign} alt="icon" style={{ width: "400px" }} />
       </a>
-      <nav className="d-flex align-items-center">
+      <nav className="d-flex align-items-center mx-5">
         <ul className="nav">
           <li className="nav-item">
             <a href="/" className="nav-link px-2 link-secondary">

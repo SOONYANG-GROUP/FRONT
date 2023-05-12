@@ -47,6 +47,7 @@ const RoomVideosSection = ({
   onSubmitMessage,
   userName,
   projectId,
+  ChatBtn,
 }) => {
   const isMobile = window.innerWidth <= 768; // 모바일 여부를 판단할 수 있는 기준값으로 768px을 사용합니다.
 
@@ -138,6 +139,7 @@ const RoomVideosSection = ({
                 onSubmitMessage={onSubmitMessage}
                 style={{ position: "absolute" }}
                 userName={userName}
+                ChatBtn={ChatBtn}
               />
             </Rnd>
           </>
@@ -343,6 +345,7 @@ const ChatBox = ({
   onChangeMessage,
   onSubmitMessage,
   userName,
+  ChatBtn,
 }) => {
   const [isSending, setIsSending] = useState(false);
   const [chatSummary, setChatSummary] = useState("");
@@ -395,17 +398,36 @@ const ChatBox = ({
           flexDirection: "column",
         }}
       >
-        <h1
-          style={{
-            backgroundColor: "#007bff",
-            color: "#fff",
-            borderRadius: "10px 10px 0 0",
-            padding: "10px",
-            margin: "0",
-          }}
+        <div
+          className="d-flex justify-content-between "
+          style={{ width: "100%" }}
         >
-          Live Chat
-        </h1>
+          <h4
+            className="flex-fill"
+            style={{
+              backgroundColor: "#007bff",
+              color: "#fff",
+              borderRadius: "10px 10px 0 0",
+              padding: "10px",
+              margin: "0",
+            }}
+          >
+            Live Chat
+          </h4>
+          <button
+            style={{
+              backgroundColor: "#dc3545",
+              color: "#fff",
+              border: "none",
+              borderRadius: "5px",
+              padding: "5px 10px",
+              cursor: "pointer",
+            }}
+            onClick={ChatBtn}
+          >
+            나가기
+          </button>
+        </div>
 
         {isSending ? (
           <div>Sending...</div>
@@ -884,6 +906,7 @@ const Room = () => {
             onSubmitMessage={onSubmitMessage}
             style={{ position: "absolute" }}
             userName={userName}
+            ChatBtn={ChatBtn}
           />
         </>
       ) : (
@@ -896,6 +919,7 @@ const Room = () => {
             messages={messages}
             onChangeMessage={onChangeMessage}
             onSubmitMessage={onSubmitMessage}
+            ChatBtn={ChatBtn}
             userName={userName}
           />
           <RoomFooter

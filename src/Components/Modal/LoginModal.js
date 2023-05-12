@@ -67,7 +67,7 @@ export const LoginModal = () => {
                   </span>
                 </button>
               </div>
-              <div>
+              {/* <div>
                 <button
                   className="w-100 mb-3 btn btn-success"
                   onClick={HandleNaverButtonClick}
@@ -90,7 +90,7 @@ export const LoginModal = () => {
                     <i className="fa-solid fa-comment"></i> 카카오 로그인하기
                   </span>
                 </button>
-              </div>
+              </div> */}
               <div>
                 <a href="/test">
                   <button className="w-100  mb-3 btn btn btn-secondary">

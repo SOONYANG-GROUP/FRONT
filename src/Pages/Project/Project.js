@@ -732,21 +732,12 @@ const DetailPageZero = ({ project, isLoggedIn }) => {
         <hr className="mt-0 mb-3 mt-3 " />
         <div className="row gx-5 mb-3 mt-3">
           <div className="col-lg-8">
-            <h4 className="mb-0">1. 지원동기</h4>
+            <h4 className="mb-0">1. 프로젝트 설명</h4>
             <p>{project.description}</p>
           </div>
         </div>
-        <div className="text-uppercase-expanded small mb-2 pt-5">
-          <h4>기술/언어</h4>
-        </div>
-        <hr className="mt-0 mb-3 mt-3 " />
-        <div className="row gx-5 mb-3 mt-3">
-          <div className="col-lg-8">
-            <h4 className="mb-0">구현하는데 필요한 스택</h4>
-            <br />
-            {/* <p>{project.needs}</p> */}
-          </div>
-        </div>
+    
+
         <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>참고 링크</h4>
         </div>
