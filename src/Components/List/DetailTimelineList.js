@@ -48,7 +48,9 @@ const DetailTimeLineList = ({
                       <AiFillCaretRight />
                       제목 : {p.title}
                     </div>
-                    <div className="mb-2">링크 : {p.url}</div>
+                    <div className="mb-2">
+                      링크 : <a href={p.url}>{p.url}</a>
+                    </div>
                     <div className="mb-2">설명 : {p.description}</div>
                     <div className="mb-2">
                       업데이트 날짜 : {p.createTimeLineDateTime[0]} /{" "}
