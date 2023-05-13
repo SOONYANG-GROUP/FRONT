@@ -118,7 +118,23 @@ const RoomVideosSection = ({
             />
           </Rnd>
         ))}
-
+        {isMobile & onchat ? (
+          <>
+            <div style={{ position: "absolute", zIndex: 9999 }}>
+              <ChatBox
+                message={message}
+                messages={messages}
+                onChangeMessage={onChangeMessage}
+                onSubmitMessage={onSubmitMessage}
+                style={{ position: "absolute" }}
+                userName={userName}
+                ChatBtn={ChatBtn}
+              />
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
         {!isMobile & onchat ? (
           <>
             <Rnd
@@ -895,48 +911,7 @@ const Room = () => {
   };
   const isMobile = window.innerWidth <= 768; // 모바일 여부를 판단할 수 있는 기준값으로 768px을 사용합니다.
 
-  return isMobile ? (
-    <>
-      {onchat ? (
-        <>
-          <ChatBox
-            message={message}
-            messages={messages}
-            onChangeMessage={onChangeMessage}
-            onSubmitMessage={onSubmitMessage}
-            style={{ position: "absolute" }}
-            userName={userName}
-            ChatBtn={ChatBtn}
-          />
-        </>
-      ) : (
-        <>
-          <RoomVideosSection
-            users={users}
-            localVideoRef={localVideoRef}
-            onchat={onchat}
-            message={message}
-            messages={messages}
-            onChangeMessage={onChangeMessage}
-            onSubmitMessage={onSubmitMessage}
-            ChatBtn={ChatBtn}
-            userName={userName}
-          />
-          <RoomFooter
-            MuteBtn={MuteBtn}
-            VideoBtn={VideoBtn}
-            isMuted={isMuted}
-            isCameraOn={isCameraOn}
-            ChatBtn={ChatBtn}
-            speechStatus={speechStatus}
-            messages={messages}
-            onStartTranscript={onStartTranscript}
-            onEndTranscript={onEndTranscript}
-          />
-        </>
-      )}
-    </>
-  ) : (
+  return (
     <>
       <RoomVideosSection
         users={users}
@@ -947,6 +922,7 @@ const Room = () => {
         onChangeMessage={onChangeMessage}
         onSubmitMessage={onSubmitMessage}
         userName={userName}
+        ChatBtn={ChatBtn}
       />
       <RoomFooter
         MuteBtn={MuteBtn}
