@@ -34,6 +34,11 @@ const Test = () => {
       console.log(err);
     }
   };
+  const handleOnKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onClickLogin(); // Enter 입력이 되면 클릭 이벤트 실행
+    }
+  };
 
   return (
     <div className="container-fluid d-flex justify-content-center align-items-center">
@@ -71,6 +76,7 @@ const Test = () => {
                 type="button"
                 className="btn btn-primary rounded-pill px-4 py-2"
                 onClick={onClickLogin}
+                onKeyPress={handleOnKeyPress}
               >
                 Login
               </button>
