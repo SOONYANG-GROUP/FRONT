@@ -370,6 +370,22 @@ const DetailPageThree = ({
             console.log(p.userId);
             return (
               <>
+                <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
+                  {project.projectStatus == "END" ? (
+                    <>
+                      <button className="btn btn-lg ms-3">{buttonTitle}</button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        className="btn btn-primary btn-lg ms-3"
+                        onClick={settingBtn}
+                      >
+                        {buttonTitle}
+                      </button>
+                    </>
+                  )}
+                </div>
                 <div className="row gx-5 mb-3 mt-3 justify-contents-center align-items-center">
                   <div className="col-lg-6">
                     <br />
@@ -409,22 +425,7 @@ const DetailPageThree = ({
               </>
             );
           })}
-        <div className="badge rounded-pill bg-primary-soft text-primary badge-marketing mb-3">
-          {project.projectStatus == "END" ? (
-            <>
-              <button className="btn btn-lg ms-3">{buttonTitle}</button>
-            </>
-          ) : (
-            <>
-              <button
-                className="btn btn-primary btn-lg ms-3"
-                onClick={settingBtn}
-              >
-                {buttonTitle}
-              </button>
-            </>
-          )}
-        </div>
+
         <div className="text-uppercase-expanded small mb-2 pt-5">
           <h4>subtopic 생성하기</h4>
         </div>
