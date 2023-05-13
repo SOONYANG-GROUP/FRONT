@@ -366,6 +366,7 @@ const ChatBox = ({
   const [isSending, setIsSending] = useState(false);
   const [chatSummary, setChatSummary] = useState("");
   const projectId = useParams().id;
+  const isMobile = window.innerWidth <= 768; // 모바일 여부를 판단할 수 있는 기준값으로 768px을 사용합니다.
 
   const onSendMessage = async (e) => {
     e.preventDefault();
@@ -392,11 +393,16 @@ const ChatBox = ({
     setIsSending(false);
   };
 
+  let mobileWidth = "100%";
+  if (isMobile) {
+    mobileWidth = "100vw";
+  }
+
   return (
     <div
       style={{
         height: "100vh",
-        width: "100%",
+        width: mobileWidth,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -512,9 +518,15 @@ const ChatBox = ({
             >
               보내기
             </button>
-            <div className="btn btn-primary" onClick={onSendMessage}>
-              요약하기
-            </div>
+            {isMobile ? (
+              <></>
+            ) : (
+              <>
+                <div className="btn btn-primary" onClick={onSendMessage}>
+                  요약하기
+                </div>
+              </>
+            )}
           </div>
         </form>
       </div>
