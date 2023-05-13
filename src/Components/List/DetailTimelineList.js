@@ -29,7 +29,7 @@ const DetailTimeLineList = ({
           detailJobs.map((p, i) => {
             const liClassName =
               p.memberName === userName
-                ? "list-group-item bg-yellow"
+                ? "list-group-item bg-light"
                 : "list-group-item bg-white";
 
             return (
