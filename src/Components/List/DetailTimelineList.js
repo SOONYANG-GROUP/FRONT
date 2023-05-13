@@ -21,10 +21,7 @@ const DetailTimeLineList = ({
 
   return (
     <>
-      <ul
-        className="list-group border"
-        style={{ maxWidth: "400px", width: "80vw" }}
-      >
+      <ul className="list-group border w-20" style={{ maxWidth: "400px" }}>
         <div className="btn btn-lg bg-light" onClick={onHandleIsExtended}>
           {isExtended ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
         </div>
