@@ -67,6 +67,7 @@ const Test = () => {
                 placeholder=" "
                 value={inputPw}
                 onChange={handleInputPw}
+                onKeyPress={handleOnKeyPress}
               />
               <label htmlFor="input_pw">Password :</label>
             </div>
@@ -76,7 +77,6 @@ const Test = () => {
                 type="button"
                 className="btn btn-primary rounded-pill px-4 py-2"
                 onClick={onClickLogin}
-                onKeyPress={handleOnKeyPress}
               >
                 Login
               </button>
