@@ -46,7 +46,10 @@ const DetailTimeLineList = ({
                       제목 : {p.title}
                     </div>
                     <div className="mb-2">
-                      링크 : <a href={p.url}>{p.url}</a>
+                      링크 :{" "}
+                      <a href={p.url} target="_blank" rel="noopener noreferrer">
+                        {p.url}
+                      </a>
                     </div>
                     <div className="mb-2">설명 : {p.description}</div>
                     <div className="mb-2">
